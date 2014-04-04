@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="btDCEncryptedVhost">
+		<field name="bID" type="I"><key /><unsigned /></field>
+
+		<field name="field_1_textbox_text" type="X"></field>
+
+		<field name="field_2_textbox_text" type="X"></field>
+
+		<field name="field_3_textbox_text" type="X"></field>
+
+		<field name="field_4_textbox_text" type="X"></field>
+
+		<field name="field_5_textbox_text" type="X"></field>
+
+		<field name="field_6_textbox_text" type="X"></field>
+
+		<field name="field_7_textbox_text" type="X"></field>
+
+		<field name="field_8_textbox_text" type="X"></field>
+
+		<field name="field_9_textarea_text" type="X"></field>
+
+
+	</table>
+</schema>

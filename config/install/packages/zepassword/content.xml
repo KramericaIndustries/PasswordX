@@ -1,28 +1,242 @@
 <?xml version="1.0"?>
 <concrete5-cif version="1.0">
+	
+	<!-- Preinstall block types-->
+	<blocktypes>
+		<blocktype handle="encrypted_generic_pass" package=""/>
+		<blocktype handle="encrypted_vhost" package=""/>
+	</blocktypes>
+	
+	<!-- Set main Theme -->
     <themes>
         <theme handle="password_theme" package="" activated="1"/>
     </themes>
-    <pagetypes>
-        <pagetype handle="landing" name="Landing page" internal="0" icon="template1.png" package="">
-        </pagetype>
-        <pagetype handle="passpack" name="PassPack" internal="0" icon="main.png" package="">
-        </pagetype>
-        <pagetype handle="container" name="Container" internal="0" icon="main.png" package="">
-        </pagetype>
-        <pagetype handle="mailtemplate" name="Mail Template" internal="0" icon="template1.png" package="">
-        </pagetype>
-    </pagetypes>
+    
+    <!-- Page types-->
+	<pagetypes>
+		<pagetype handle="container" name="Container" internal="0" icon="main.png" package="">
+			<page name="" path="" filename="" pagetype="container" description="" package=""/>
+		</pagetype>
+		<pagetype handle="landing" name="Landing Page" internal="0" icon="main.png" package="">
+			<page name="" path="" filename="" pagetype="landing" description="" package=""/>
+		</pagetype>
+		<pagetype handle="mailtemplate" name="Mail Template" internal="0" icon="main.png" package="">
+			<page name="" path="" filename="" pagetype="mailtemplate" description="" package=""/>
+		</pagetype>
+		<pagetype handle="passpack" name="PassPack" internal="0" icon="main.png" package="">
+			<page name="" path="" filename="" pagetype="passpack" description="" package="">
+				<area name="Secrets"/>
+				<area name="Secrets"/>
+			</page>
+		</pagetype>
+	</pagetypes>
+	
+	<!-- Global Areas -->
+	<stacks>
+		<stack name="Add tutorial" type="global_area">
+			<area name="Main">
+				<block type="content" name="">
+					<data table="btContentLocal">
+						<record>
+							<content><![CDATA[<p><span class="label label-info">Info</span> Add new information by putting the page in Edit mode and adding one of the blocks available.</p>]]></content>
+						</record>
+					</data>
+				</block>
+			</area>
+		</stack>
+		<stack name="howto" type="global_area">
+			<area name="Main">
+				<block type="content" name="">
+					<data table="btContentLocal">
+						<record>
+							<content><![CDATA[<p><span class="label label-primary">HowTo</span>Hover over the hashed area to reveal the password.</p>
+						<p><span class="label label-info">Tip</span> Use Ctrl+C to copy it to clipboard. :)</p>]]></content>
+						</record>
+					</data>
+				</block>
+			</area>
+		</stack>
+		<stack name="Password Navigator" type="global_area">
+			<area name="Main">
+				<block type="autonav" name="">
+					<data table="btNavigation">
+						<record>
+							<orderBy><![CDATA[display_asc]]></orderBy>
+							<displayPages><![CDATA[top]]></displayPages>
+							<displayPagesCID/>
+							<displayPagesIncludeSelf><![CDATA[0]]></displayPagesIncludeSelf>
+							<displaySubPages><![CDATA[all]]></displaySubPages>
+							<displaySubPageLevels><![CDATA[all]]></displaySubPageLevels>
+							<displaySubPageLevelsNum><![CDATA[0]]></displaySubPageLevelsNum>
+							<displayUnavailablePages><![CDATA[1]]></displayUnavailablePages>
+						</record>
+					</data>
+				</block>
+			</area>
+		</stack>
+		<stack name="Search Bar" type="global_area">
+			<area name="Main">
+				<block type="search" name="">
+					<data table="btSearch">
+						<record>
+							<title><![CDATA[Search]]></title>
+							<buttonText><![CDATA[Search]]></buttonText>
+							<baseSearchPath><![CDATA[]]></baseSearchPath>
+							<postTo_cID>{ccm:export:page:/searchpass}</postTo_cID>
+							<resultsURL><![CDATA[]]></resultsURL>
+						</record>
+					</data>
+				</block>
+			</area>
+		</stack>
+		<stack name="Subpage list" type="global_area">
+			<area name="Main">
+				<block type="page_list" name="">
+					<data table="btPageList">
+						<record>
+							<num><![CDATA[0]]></num>
+							<orderBy><![CDATA[display_asc]]></orderBy>
+							<cParentID>{ccm:export:page:}</cParentID>
+							<cThis><![CDATA[1]]></cThis>
+							<includeAllDescendents><![CDATA[0]]></includeAllDescendents>
+							<paginate><![CDATA[0]]></paginate>
+							<displayAliases><![CDATA[1]]></displayAliases>
+							<ctID/>
+							<rss><![CDATA[0]]></rss>
+							<rssTitle><![CDATA[]]></rssTitle>
+							<rssDescription><![CDATA[]]></rssDescription>
+							<truncateSummaries><![CDATA[0]]></truncateSummaries>
+							<displayFeaturedOnly><![CDATA[0]]></displayFeaturedOnly>
+							<truncateChars><![CDATA[0]]></truncateChars>
+						</record>
+					</data>
+				</block>
+			</area>
+		</stack>
+	</stacks>
+    
+    <!-- Single Pages -->
+    <singlepages>
+		<page name="Jobworker" path="/jobworker" filename="/jobworker.php" pagetype="" description="" package="">
+			<attributes>
+				<attributekey handle="exclude_nav">
+					<value><![CDATA[1]]></value>
+				</attributekey>
+				<attributekey handle="exclude_page_list">
+					<value><![CDATA[1]]></value>
+				</attributekey>
+				<attributekey handle="exclude_search_index">
+					<value><![CDATA[1]]></value>
+				</attributekey>
+				<attributekey handle="exclude_sitemapxml">
+					<value><![CDATA[1]]></value>
+				</attributekey>
+			</attributes>
+			<area name="Header Nav"/>
+			<area name="Header"/>
+			<area name="Sidebar"/>
+			<area name="Main"/>
+		</page>
+		<page name="Searchpass" path="/searchpass" filename="/searchpass.php" pagetype="" description="" package="">
+			<attributes>
+				<attributekey handle="exclude_nav">
+					<value><![CDATA[1]]></value>
+				</attributekey>
+				<attributekey handle="exclude_page_list">
+					<value><![CDATA[1]]></value>
+				</attributekey>
+				<attributekey handle="exclude_search_index">
+					<value><![CDATA[1]]></value>
+				</attributekey>
+				<attributekey handle="exclude_sitemapxml">
+					<value><![CDATA[1]]></value>
+				</attributekey>
+			</attributes>
+		</page>
+    </singlepages>
+    	
+    <!-- -->
     <pages>
+    	
+    		<!-- Main Page-->
             <page name="Home" path="" filename="" pagetype="landing" description="" package="">
             </page>
+            
+            <!--Demo Container -->
+            <page name="Root" path="/root" filename="" pagetype="container" description="" package="">
+            </page>
+            
+            <!-- System Pages below-->
 			<page name="Sys" path="/sys" filename="" pagetype="container" description="" package="">
+				<attributes>
+                    <attributekey handle="exclude_nav">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+                    <attributekey handle="exclude_page_list">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+                    <attributekey handle="exclude_search_index">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+            	</attributes>
 			</page>
 			<page name="Email Templates" path="/sys/email-templates" filename="" pagetype="container" description="" package="">
+				<attributes>
+                    <attributekey handle="exclude_nav">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+                    <attributekey handle="exclude_page_list">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+                    <attributekey handle="exclude_search_index">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+            	</attributes>
 			</page>
 			<page name="New User Share" path="/sys/email-templates/new-user-share" filename="" pagetype="mailtemplate" description="Access to Hammertime Password System" package="">
+				<attributes>
+                    <attributekey handle="exclude_nav">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+                    <attributekey handle="exclude_page_list">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+                    <attributekey handle="exclude_search_index">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+            	</attributes>
 			</page>
 			<page name="Existing User Share" path="/sys/email-templates/existing-user-share" filename="" pagetype="mailtemplate" description="Access to Hammertime Password System" package="">
+				<attributes>
+                    <attributekey handle="exclude_nav">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+                    <attributekey handle="exclude_page_list">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+                    <attributekey handle="exclude_search_index">
+                        <value><![CDATA[1]]></value>
+                    </attributekey>
+            	</attributes>
 			</page>
     </pages>
+    
+    <!-- Basic configuration-->
+    <config>
+    	<SITE_DEBUG_LEVEL>1</SITE_DEBUG_LEVEL>
+	    <ENABLE_LOG_EMAILS>1</ENABLE_LOG_EMAILS>
+	    <ENABLE_LOG_ERRORS>1</ENABLE_LOG_ERRORS>
+	    <FULL_PAGE_CACHE_GLOBAL>0</FULL_PAGE_CACHE_GLOBAL>
+	    <ENABLE_MARKETPLACE_SUPPORT>1</ENABLE_MARKETPLACE_SUPPORT>
+	    <ANTISPAM_LOG_SPAM>1</ANTISPAM_LOG_SPAM>
+	    <ENABLE_BLOCK_CACHE>0</ENABLE_BLOCK_CACHE>
+	    <ENABLE_OVERRIDE_CACHE>0</ENABLE_OVERRIDE_CACHE>
+	    <FULL_PAGE_CACHE_LIFETIME>default</FULL_PAGE_CACHE_LIFETIME>
+	    <FULL_PAGE_CACHE_LIFETIME_CUSTOM/>
+	    <URL_REWRITING>1</URL_REWRITING>
+	    <STATISTICS_TRACK_PAGE_VIEWS>0</STATISTICS_TRACK_PAGE_VIEWS>
+	    <DO_PAGE_REINDEX_CHECK>0</DO_PAGE_REINDEX_CHECK>
+	    <SITE_MAINTENANCE_MODE>0</SITE_MAINTENANCE_MODE>
+    </config>
+    
 </concrete5-cif>
