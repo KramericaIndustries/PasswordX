@@ -1,0 +1,10 @@
+Here I am going to details changes made to the core of the C5.
+
+1. version
+/concrete/config/version.php is modified to display the version of the Password, instead of the Concrete5
+
+2. themes
+/concrete/themes/ 
+removed bloat themes
+
+3.

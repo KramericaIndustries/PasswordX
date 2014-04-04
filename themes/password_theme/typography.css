@@ -1,0 +1,20 @@
+/* 
+ * Typography CSS
+ */
+/* Email specific*/
+#headline p { color: #444444; font-family: HelveticaNeue, sans-serif; font-size: 36px; text-align: left; margin-top:0px; margin-bottom:30px; }
+#headline p a { color: #444444; text-decoration: none; }
+#headline p img { display: inline; }
+
+.article-title { font-size: 18px; line-height:24px; color: #b0b0b0; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: HelveticaNeue, sans-serif; }
+.article-title a { color: #b0b0b0; text-decoration: none; }
+.article-title.with-meta {margin-bottom: 0;}
+.article-meta { font-size: 13px; line-height: 20px; color: #ccc; font-weight: bold; margin-top: 0;}
+.article-content { font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: HelveticaNeue, sans-serif; }
+.article-content a { color: #2f82de; font-weight:bold; text-decoration:none; }
+.article-content img { max-width: 100% }
+.article-content ol, .article-content ul { margin-top:0px; margin-bottom:18px; margin-left:19px; padding:0; }
+.article-content li { font-size: 13px; line-height: 18px; color: #444444; }
+.article-content li a { color: #2f82de; text-decoration:underline; }
+.article-content p {margin-bottom: 15px;}
+

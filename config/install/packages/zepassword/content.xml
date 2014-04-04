@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<concrete5-cif version="1.0">
+    <themes>
+        <theme handle="password_theme" package="" activated="1"/>
+    </themes>
+    <pagetypes>
+        <pagetype handle="landing" name="Landing page" internal="0" icon="template1.png" package="">
+        </pagetype>
+        <pagetype handle="passpack" name="PassPack" internal="0" icon="main.png" package="">
+        </pagetype>
+        <pagetype handle="container" name="Container" internal="0" icon="main.png" package="">
+        </pagetype>
+        <pagetype handle="mailtemplate" name="Mail Template" internal="0" icon="template1.png" package="">
+        </pagetype>
+    </pagetypes>
+    <pages>
+            <page name="Home" path="" filename="" pagetype="landing" description="" package="">
+            </page>
+			<page name="Sys" path="/sys" filename="" pagetype="container" description="" package="">
+			</page>
+			<page name="Email Templates" path="/sys/email-templates" filename="" pagetype="container" description="" package="">
+			</page>
+			<page name="New User Share" path="/sys/email-templates/new-user-share" filename="" pagetype="mailtemplate" description="Access to Hammertime Password System" package="">
+			</page>
+			<page name="Existing User Share" path="/sys/email-templates/existing-user-share" filename="" pagetype="mailtemplate" description="Access to Hammertime Password System" package="">
+			</page>
+    </pages>
+</concrete5-cif>
