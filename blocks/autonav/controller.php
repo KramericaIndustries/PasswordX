@@ -60,6 +60,7 @@
 					$exclude_page = false;
 				}
 
+				//FIXME later
 				//Exclude passpages from the list if they cannot be read
 				
 				/*

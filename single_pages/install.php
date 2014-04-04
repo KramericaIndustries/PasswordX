@@ -228,6 +228,18 @@ $(function() {
 
 <?php
 //Additional configs
+
+//FIXME: we need a better way to handle encryption
+function RandomString()
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randstring = '';
+    for ($i = 0; $i < 60; $i++) {
+        $randstring .= $characters[rand(0, strlen($characters))];
+    }
+    return $randstring;
+}
+
 //To be added automatically to site.php
 $configs = array(
 	"ENABLE_MARKETPLACE_SUPPORT"	=>	"false",
@@ -242,12 +254,12 @@ $configs = array(
 	"DATE_APP_GENERIC_MDY_FULL"	=> "j. F Y",	
 	"DATE_APP_DATE_ATTRIBUTE_TYPE_T"	=>	"G:i:s",
 	"DATE_APP_GENERIC_T"	=>	"G:i:s",
-	"DATE_APP_GENERIC_TS"	=>	"G:i:s"
+	"DATE_APP_GENERIC_TS"	=>	"G:i:s",
+	"ENCRYPTION_KEY"		=>	RandomString()
 	
 );
 foreach( $configs as $k=>$v ) { ?>
-	<input type="hidden" name=" 
-	 value="<?php echo $v ?>" />	
+	<input type="hidden" name="SITE_CONFIG[<?php echo $k ?>]" value="<?php echo $v ?>" />	
 <?php } ?>
 
 <!--
