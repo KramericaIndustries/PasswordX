@@ -128,34 +128,5 @@ class InstallController extends Concrete5_Controller_Install {
 		}
 	}
 
-	/**
-	 * Handles stuff in here :)
-	 */
-	/*protected function testAndRunInstall() {
-		if (file_exists(DIR_CONFIG_SITE . '/site_install_user.php')) {
-			require(DIR_CONFIG_SITE . '/site_install.php');
-			@include(DIR_CONFIG_SITE . '/site_install_user.php');
-			if (defined('ACTIVE_LOCALE') && Localization::activeLocale() !== ACTIVE_LOCALE) {
-				Localization::changeLocale(ACTIVE_LOCALE);
-			}
-			$e = Loader::helper('validation/error');
-			$e = $this->validateDatabase($e);
-			if ($e->has()) {
-				$this->set('error', $e);
-			} else {
-				$this->addHeaderItem(Loader::helper('html')->css('jquery.ui.css'));
-				$this->addHeaderItem(Loader::helper('html')->javascript('jquery.ui.js'));
-				if (defined('INSTALL_STARTING_POINT') && INSTALL_STARTING_POINT) { 
-					$spl = Loader::startingPointPackage(INSTALL_STARTING_POINT);
-				} else {
-					$spl = Loader::startingPointPackage('standard');
-				}
-				$this->set('installPackage', $spl->getPackageHandle());
-				$this->set('installRoutines', $spl->getInstallRoutines());
-				$this->set('successMessage', t('Congratulations. concrete5 has been installed. You have been logged in as <b>%s</b> with the password you chose. If you wish to change this password, you may do so from the users area of the dashboard.', USER_SUPER, $uPassword));
-			}
-		}
-	}*/	
-
 }
 
