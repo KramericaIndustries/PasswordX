@@ -12,7 +12,7 @@ $(function() {
 
 <?php 
 
-$introMsg = t('To install concrete5, please fill out the form below.');
+$introMsg = t('To install PasswordX, please fill out the form below.');
 
 if (isset($successMessage)) { ?>
 
@@ -63,7 +63,7 @@ $(function() {
 <div class="row">
 <div class="span10 offset1">
 <div class="page-header">
-<h1><?php echo t('Install concrete5')?></h1>
+<h1><?php echo t('Install PasswordX')?></h1>
 <p><?php echo t('Version %s', APP_VERSION)?></p>
 </div>
 </div>

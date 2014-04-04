@@ -96,7 +96,7 @@
 						<record>
 							<num><![CDATA[0]]></num>
 							<orderBy><![CDATA[display_asc]]></orderBy>
-							<cParentID>{ccm:export:page:}</cParentID>
+							<cParentID><![CDATA[1]]></cParentID>
 							<cThis><![CDATA[1]]></cThis>
 							<includeAllDescendents><![CDATA[0]]></includeAllDescendents>
 							<paginate><![CDATA[0]]></paginate>

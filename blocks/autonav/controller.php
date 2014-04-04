@@ -67,7 +67,7 @@
 				 */
 				 
 				//If it is a password page, hide it if the user cant see it 
-				if( $_c->getCollectionTypeHandle() == "passpack" ) {
+				/*if( $_c->getCollectionTypeHandle() == "passpack" ) {
 					$cp = new Permissions($_c);
 					if( !$cp->canRead() ) {
 						$exclude_page = true;
@@ -93,7 +93,7 @@
 						$exclude_page = true;
 					}
 					
-				}
+				}*/
 				
 				/*
 				 * and ends here
