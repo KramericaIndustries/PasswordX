@@ -27,15 +27,31 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 	 * Override the parent contructor in order to add additional steps to the install process
 	 */
 	public function __construct() {
+
+		Loader::library('content/importer');
 		
-		//firstm let the parent do its stuff
-		parent::__construct();
-		
-		//Inject a new routine in the queue
-		$routine_count = sizeof($this->routines);
-		$this->routines[ $routine_count ] = $this->routines[ $routine_count - 1 ];
-		$this->routines[ $routine_count - 1 ] = new StartingPointInstallRoutine('admin_setup', 90, t('Setting up admin configurations.'));
-		
+		//set up rutines
+		$this->routines = array(
+				new StartingPointInstallRoutine('make_directories', 5, t('Starting installation and creating directories.')),
+				new StartingPointInstallRoutine('install_database', 10, t('Creating database tables.')),
+				new StartingPointInstallRoutine('add_users', 15, t('Adding admin user.')),
+				new StartingPointInstallRoutine('install_permissions', 20, t('Installing permissions & workflow.')),
+				new StartingPointInstallRoutine('add_home_page', 23, t('Creating home page.')),
+				new StartingPointInstallRoutine('install_attributes', 25, t('Installing attributes.')),
+				new StartingPointInstallRoutine('install_blocktypes', 30, t('Adding block types.')),
+				new StartingPointInstallRoutine('install_themes', 35, t('Adding themes.')),
+				new StartingPointInstallRoutine('install_jobs', 38, t('Installing automated jobs.')),
+				new StartingPointInstallRoutine('install_dashboard', 40, t('Installing dashboard.')),
+				new StartingPointInstallRoutine('install_required_single_pages', 50, t('Installing login and registration pages.')),
+				new StartingPointInstallRoutine('install_config', 55, t('Configuring site.')),
+				new StartingPointInstallRoutine('import_files', 58, t('Importing files.')),
+				new StartingPointInstallRoutine('install_content', 65, t('Adding pages and content.')),
+				new StartingPointInstallRoutine('set_site_permissions', 80, t('Setting up site permissions.')),
+				new StartingPointInstallRoutine('precache', 85, t('Prefetching information.')),
+				new StartingPointInstallRoutine('admin_setup', 90, t('Setting up admin configurations.')),
+				new StartingPointInstallRoutine('configure_permissions', 92, t('Setting up admin configurations.')),
+				new StartingPointInstallRoutine('finish', 95, t('Finishing.'))
+		);
 	}
 	
 	/**
@@ -107,6 +123,13 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		Loader::library("event_handler");
 		$event_lib = new EventHandler();
 		$event_lib->user_updated($ui);
+		
+	}
+	
+	/**
+	 * Here is the place where we set up defaukt permissions for the site tree
+	 */
+	public function configure_permissions() {
 		
 	}
 	
