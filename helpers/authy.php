@@ -24,9 +24,11 @@ class AuthyHelper {
     /**
      * Create a new object. Set the API key and the server
      */
-    public function __construct() {
-
-        $this->loadConfig();
+    public function __construct( $load_config = true ) {
+		
+    	if( $load_config ) {
+        	$this->loadConfig();
+    	}
 
     }
 
@@ -35,20 +37,12 @@ class AuthyHelper {
      */
     private function loadConfig() {
 
-        //get pachage and configuration
-        /*$pkg = Package::getByHandle("c5authy");
-        Loader::library('authy', $pkg);
+    	//set the values 
+    	$this->api_key = Config::get('AUTHY_API_KEY');
+    	$this->server = self::LIVE_SERVER;
+    	$this->auth_type = Config::get('AUTHY_TYPE');
+    	$this->sms_token = Config::get('AUTHY_SMS_TOKENS');
 
-        $co = new Config();
-        $co->setPackageObject($pkg);
-
-        $production = ( $co->get('authy_server_production') == "1" ? true : false );
-
-        //set the values
-        $this->api_key = $co->get('authy_api_key');
-        $this->server = $production ? self::LIVE_SERVER : self::SANDBOX_SERVER;
-        $this->auth_type = $co->get('authy_type');
-        $this->sms_token = $co->get('authy_sms_tokens'); */
     }
     
     /**

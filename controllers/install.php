@@ -39,7 +39,7 @@ class InstallController extends Concrete5_Controller_Install {
 				}
 				$this->set('installPackage', $spl->getPackageHandle());
 				$this->set('installRoutines', $spl->getInstallRoutines());
-				$this->set('successMessage', t('Congratulations. concrete5 has been installed. You have been logged in as <b>%s</b> with the password you chose. If you wish to change this password, you may do so from the users area of the dashboard.', USER_SUPER, $uPassword));
+				$this->set('successMessage', t('Congratulations! PasswordX has been installed. You have been logged in as <b>%s</b> with the password you chose. It seems that everything went better than expected.', USER_SUPER));
 			}
 		}
 	}
@@ -70,7 +70,10 @@ class InstallController extends Concrete5_Controller_Install {
 			$e->add( t('Function curl_version() not found. Your system does not appear to have cURL available within PHP.') );
 		} else {
 			
-			$authy = Loader::helper("authy");
+			//Loader::helper does not accept params for constructor.
+			//load the file manually
+			require( DIR_BASE . "/helpers/authy.php" );
+			$authy = new AuthyHelper(false); //do not read config
 			
 			$api_key = defined('AUTHY_API_KEY') ? AUTHY_API_KEY : $_POST['AUTHY_API_KEY'];
 			

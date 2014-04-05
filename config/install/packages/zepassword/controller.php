@@ -67,14 +67,22 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 	 */
 	public function admin_setup() {
 		
+		//grab admin user
 		$u = new User();
 		$ui = UserInfo::getByID( $u->getUserID() );
 		
+		//set up the user attributes
 		$ui->setAttribute( 'real_name', INSTALL_USER_NAME );
 		$ui->setAttribute( 'phone_number', INSTALL_USER_PHONE );
 		$ui->setAttribute( 'phone_country_code', INSTALL_USER_COUNTRY_CODE);
 		
-		$ui->setAttribute( 'authy_user_id', 666 );
+		//We dont want to see the newsflow, do we?
+		$u->saveConfig('NEWSFLOW_LAST_VIEWED', time());
+		
+		//trigger update event in order to get the authy id
+		Loader::library("event_handler");
+		$event_lib = new EventHandler();
+		$event_lib->user_updated($ui);
 		
 	}
 	

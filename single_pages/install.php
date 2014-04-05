@@ -77,7 +77,7 @@ $(function() {
 <?php echo $successMessage?>
 <br/><br/>
 <div class="well">
-<input type="button" class="btn large primary" onclick="window.location.href='<?php echo DIR_REL?>/'" value="<?php echo t('Continue to your site')?>" />
+<input type="button" class="btn large primary" onclick="window.location.href='<?php echo DIR_REL?>/'" value="<?php echo t('Continue to the password system')?>" />
 </div>
 </div>
 
@@ -265,6 +265,7 @@ $configs = array(
 	"ENABLE_MARKETPLACE_SUPPORT"	=>	"false",
 	"ENABLE_NEWSFLOW_OVERLAY"	=>	"false",
 	"ENABLE_APP_NEWS"	=>	"false",
+	"ENABLE_APPLICATION_EVENTS"	=>	"true",
 	"PERMISSIONS_MODEL"	=>	"advanced",
 	"DATE_FORM_HELPER_FORMAT_HOUR" => "24",
 	"DATE_APP_DATE_PICKER"	=>	"dd-mm-yy",

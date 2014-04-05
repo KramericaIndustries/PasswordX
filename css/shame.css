@@ -1,0 +1,9 @@
+/******
+* Overwrites of the core css
+******/
+
+#ccm-logo {
+	height: 40px;
+	width: 40px;
+	margin-top: 4px;
+}
