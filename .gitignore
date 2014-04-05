@@ -1,3 +1,5 @@
 error/*
 stats/*
 files/*
+config/site.php
+
