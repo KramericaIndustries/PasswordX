@@ -19,3 +19,8 @@ define('DATE_APP_GENERIC_T', 'G:i:s');
 define('DATE_APP_GENERIC_TS', 'G:i:s');
 define('ENCRYPTION_KEY', 'dSZbBgCbxgTcO26v5nngFYWZ3t3lGlAqVO2Huq0pOXTcVi4MBuTjcO1HvPT');
 define('UP_SINCE', '2014-04-05 19:26:24');
+define('ENABLE_INTELLIGENT_SEARCH_HELP', false);
+define('ENABLE_INTELLIGENT_SEARCH_MARKETPLACE', false);
+define('WHITE_LABEL_APP_NAME', 'PasswordX');
+define('WHITE_LABEL_LOGO_SRC', '/images/logo_menu.png');
+define('CONCRETE5_ORG_URL','http://www.concrete5.org/r/-/167051');

@@ -277,7 +277,12 @@ $configs = array(
 	"DATE_APP_GENERIC_T"	=>	"G:i:s",
 	"DATE_APP_GENERIC_TS"	=>	"G:i:s",
 	"ENCRYPTION_KEY"		=>	RandomString(),
-	"UP_SINCE"				=> date('Y-m-d H:i:s')
+	"UP_SINCE"				=> date('Y-m-d H:i:s'),
+	"ENABLE_INTELLIGENT_SEARCH_HELP"=>"false",
+	"ENABLE_INTELLIGENT_SEARCH_MARKETPLACE"=>"false",
+	"WHITE_LABEL_APP_NAME"	=>	"PasswordX",
+	"WHITE_LABEL_LOGO_SRC"	=>	"/images/logo_menu.png",
+	"CONCRETE5_ORG_URL"	=>	"http://www.concrete5.org/r/-/167051"
 );
 foreach( $configs as $k=>$v ) { ?>
 	<input type="hidden" name="SITE_CONFIG[<?php echo $k ?>]" value="<?php echo $v ?>" />	
