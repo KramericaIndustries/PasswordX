@@ -16,4 +16,4 @@ define('DATE_APP_GENERIC_MDY_FULL', 'j. F Y');
 define('DATE_APP_DATE_ATTRIBUTE_TYPE_T', 'G:i:s');
 define('DATE_APP_GENERIC_T', 'G:i:s');
 define('DATE_APP_GENERIC_TS', 'G:i:s');
-define('ENCRYPTION_KEY', 'dx35WNVZaTdoUvcxdv5FjjHScDSrXL7ZvkiIFEn0liYdRmFAhF7qRkaiDEp');
+define('ENCRYPTION_KEY', 'UsZckHKuglpxwyPCxfVAV12nadXxhxsLbzxAhjglYzwddu46uPe76pVDpmhO');

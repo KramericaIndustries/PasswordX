@@ -98,6 +98,7 @@
             <type checked="1"/>
         </attributekey>
         <!-- Custom User attrbiutes for authy -->
+        <attributekey handle="real_name" name="Name" package="" searchable="1" indexed="1" type="text" category="user" profile-displayed="1" profile-editable="1" profile-required="1" register-editable="1" register-required="1" member-list-displayed="1" />
         <attributekey handle="phone_number" name="Phone Number" package="" searchable="1" indexed="1" type="text" category="user" profile-displayed="0" profile-editable="1" profile-required="1" register-editable="1" register-required="1" member-list-displayed="0" />
         <attributekey handle="phone_country_code" name="Phone Country Code" package="" searchable="1" indexed="1" type="text" category="user" profile-displayed="0" profile-editable="1" profile-required="1" register-editable="1" register-required="1" member-list-displayed="0" />
         <attributekey handle="authy_user_id" name="Authy User ID" package="" searchable="1" indexed="1" type="text" category="user" profile-displayed="0" profile-editable="0" profile-required="0" register-editable="0" register-required="0" member-list-displayed="0" />
