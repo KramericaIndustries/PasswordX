@@ -60,6 +60,8 @@ class InstallController extends Concrete5_Controller_Install {
 			$val->addRequired("SITE", t("Please specify your site's name"));
 			$val->addRequired("uName", t('You must specify a valid name'));
 			$val->addRequiredEmail("uEmail", t('Please specify a valid email address'));
+			$val->addRequired("authy-cellphone", t('You must specify a valid phone number'));
+			$val->addRequired("countryCode", t('You must specify a valid country'));
 			$val->addRequired("DB_DATABASE", t('You must specify a valid database name'));
 			$val->addRequired("DB_SERVER", t('You must specify a valid database server'));
 			$val->addRequired("AUTHY_API_KEY", t('You must specify a Authy API Key'));
@@ -122,9 +124,13 @@ class InstallController extends Concrete5_Controller_Install {
 					Loader::library('3rdparty/phpass/PasswordHash');
 					$hasher = new PasswordHash(PASSWORD_HASH_COST_LOG2, PASSWORD_HASH_PORTABLE);
 					$configuration = "<?php\n";
+					$configuration .= "define('INSTALL_USER_NAME', '" . $_POST['uName'] . "');\n";
 					$configuration .= "define('INSTALL_USER_EMAIL', '" . $_POST['uEmail'] . "');\n";
 					$configuration .= "define('INSTALL_USER_PASSWORD_HASH', '" . $hasher->HashPassword($_POST['uPassword']) . "');\n";
 					$configuration .= "define('INSTALL_STARTING_POINT', '" . $this->post('SAMPLE_CONTENT') . "');\n";
+					$configuration .= "define('INSTALL_USER_PHONE', '" . addslashes($_POST['authy-cellphone']) . "');\n";
+					$configuration .= "define('INSTALL_USER_COUNTRY_CODE', '" . addslashes($_POST['countryCode']) . "');\n";
+					$configuration .= "define('AUTHY_API_KEY', '" . addslashes($_POST['AUTHY_API_KEY']) . "');\n";
 					$configuration .= "define('SITE', '" . addslashes($_POST['SITE']) . "');\n";
 					if (defined('ACTIVE_LOCALE') && ACTIVE_LOCALE != '' && ACTIVE_LOCALE != 'en_US') {
 						$configuration .= "define('ACTIVE_LOCALE', '" . ACTIVE_LOCALE . "');\n";
@@ -132,7 +138,7 @@ class InstallController extends Concrete5_Controller_Install {
 					$res = fwrite($this->fpu, $configuration);
 					fclose($this->fpu);
 					chmod(DIR_CONFIG_SITE . '/site_install_user.php', 0700);
-					if (PHP_SAPI != 'cli') {
+					if (PHP_SAPI != 'cli') { 
 						$this->redirect('/');
 					}
 				} else {

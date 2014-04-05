@@ -107,6 +107,9 @@ $(function() {
 
 <?php } else if ($this->controller->getTask() == 'setup' || $this->controller->getTask() == 'configure') { ?>
 
+<link href="//cdnjs.cloudflare.com/ajax/libs/authy-forms.css/2.0/form.authy.min.css" media="screen" rel="stylesheet" type="text/css">
+<script src="/js/form.authy.min.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 $(function() {
 	$("#sample-content-selector td").click(function() {
@@ -180,13 +183,13 @@ $(function() {
 		<div class="clearfix">
 		<label for="phoneNumber"><?php echo t('Phone number')?>:</label>
 		<div class="input">
-			<?php echo $form->text('phoneNumber', array('class' => 'xlarge'))?>
+			<?php echo $form->text('authy-cellphone', array('class' => 'xlarge' ))?>
 		</div>
 		</div>
 		<div class="clearfix">
 		<label for="countryCode"><?php echo t('Country Code')?>:</label>
 		<div class="input">
-			<?php echo $form->text('countryCode', "+45", array('class' => 'xlarge'))?>
+			<select id="authy-countries" name="countryCode"></select>
 		</div>
 		</div>
 	</fieldset>
