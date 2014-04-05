@@ -3,8 +3,12 @@
 	
 	<!-- Preinstall block types-->
 	<blocktypes>
-		<blocktype handle="encrypted_generic_pass" package=""/>
-		<blocktype handle="encrypted_vhost" package=""/>
+		<blocktype handle="encrypted_generic_pass" package="">
+			<btDisplayOrder><![CDATA[1]]></btDisplayOrder>
+		</blocktype>
+		<blocktype handle="encrypted_vhost" package="">
+			<btDisplayOrder><![CDATA[2]]></btDisplayOrder>
+		</blocktype>
 	</blocktypes>
 	
 	<!-- Set main Theme -->

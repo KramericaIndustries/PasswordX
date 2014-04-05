@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<concrete5-cif version="1.0">
+
+    <blocktypes>
+        
+        <blocktype handle="core_scrapbook_display" package=""/>
+        <blocktype handle="core_stack_display" package=""/>
+        
+        <blocktype handle="dashboard_featured_addon" package=""/>
+        <blocktype handle="dashboard_featured_theme" package=""/>
+        <blocktype handle="dashboard_newsflow_latest" package=""/>
+        <blocktype handle="dashboard_app_status" package=""/>
+        <blocktype handle="dashboard_site_activity" package=""/>
+        
+        <blocktype handle="content" package="">
+        	<btDisplayOrder><![CDATA[3]]></btDisplayOrder>
+        </blocktype>
+        <blocktype handle="file" package="">
+        	<btDisplayOrder><![CDATA[4]]></btDisplayOrder>
+        </blocktype>
+        <blocktype handle="autonav" package="">
+        	<btDisplayOrder><![CDATA[5]]></btDisplayOrder>
+        </blocktype>
+        <blocktype handle="form" package="">
+        	<btDisplayOrder><![CDATA[6]]></btDisplayOrder>
+        </blocktype>
+        <blocktype handle="html" package="">
+        	<btDisplayOrder><![CDATA[7]]></btDisplayOrder>
+        </blocktype>
+        <blocktype handle="image" package="">
+        	<btDisplayOrder><![CDATA[8]]></btDisplayOrder>
+        </blocktype>
+        <blocktype handle="next_previous" package="">
+        	<btDisplayOrder><![CDATA[9]]></btDisplayOrder>
+        </blocktype>
+        <blocktype handle="page_list" package="">
+        	<btDisplayOrder><![CDATA[10]]></btDisplayOrder>
+        </blocktype>
+        <blocktype handle="search" package="">
+        	<btDisplayOrder><![CDATA[11]]></btDisplayOrder>
+        </blocktype>
+
+        
+        <!-- 
+        <blocktype handle="slideshow" package=""/>
+        <blocktype handle="survey" package=""/>
+        <blocktype handle="tags" package=""/>
+        <blocktype handle="video" package=""/>
+        <blocktype handle="youtube" package=""/>
+        <blocktype handle="rss_displayer" package=""/>
+        <blocktype handle="google_map" package=""/>
+        <blocktype handle="guestbook" package=""/>
+        <blocktype handle="flash_content" package=""/>
+        <blocktype handle="external_form" package=""/>
+        <blocktype handle="date_nav" package=""/>
+         -->
+        
+    </blocktypes>
+
+</concrete5-cif>

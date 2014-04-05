@@ -53,13 +53,37 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		
 		//Import the predefines
 		$ci = new ContentImporter();
-		$ci->importContentFile(DIR_BASE_CORE. '/config/install/base/config.xml');
+		$ci->importContentFile(DIR_BASE. '/config/install/base/config.xml');
 		
 		//and manually save config for authy
 		Config::save('AUTHY_API_KEY', AUTHY_API_KEY);
 		Config::save('AUTHY_TYPE', 2); // 2 factor auth
 		Config::save('AUTHY_SMS_TOKENS', 2); //sms token for all
 		Config::save('AUTHY_SERVER_PRODUCTION', 1); //do not use sandbox servers
+	}
+	
+	/**
+	 * Remove blocktype we do not need at install
+	 */
+	public function install_blocktypes() {
+		$ci = new ContentImporter();
+		$ci->importContentFile(DIR_BASE. '/config/install/base/blocktypes.xml');
+	}
+	
+	/**
+	 * Remove C5 demo themes
+	 */
+	public function install_themes() {
+		$ci = new ContentImporter();
+		$ci->importContentFile(DIR_BASE. '/config/install/base/themes.xml');
+	}
+	
+	/**
+	 * Do not install all the dashboard
+	 */
+	public function install_dashboard() {
+		$ci = new ContentImporter();
+		$ci->importContentFile(DIR_BASE. '/config/install/base/dashboard.xml');
 	}
 
 	/**
