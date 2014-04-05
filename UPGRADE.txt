@@ -7,4 +7,5 @@ Here I am going to details changes made to the core of the C5.
 /concrete/themes/ 
 removed bloat themes
 
-3.
+3. Logo
+/concrete/images/logo_menu.png was replaced with our own logo

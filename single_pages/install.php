@@ -154,6 +154,12 @@ $(function() {
 	<fieldset>
 		<legend style="margin-bottom: 0px"><?php echo t('Administrator Information')?></legend>
 		<div class="clearfix">
+		<label for="uName"><?php echo t('Real Name')?>:</label>
+		<div class="input">
+			<?php echo $form->text('uName', array('class' => 'xlarge'))?>
+		</div>
+		</div>
+		<div class="clearfix">
 		<label for="uEmail"><?php echo t('Email Address')?>:</label>
 		<div class="input">
 			<?php echo $form->email('uEmail', array('class' => 'xlarge'))?>
@@ -219,12 +225,23 @@ $(function() {
 	</div>
 	</div>
 	</fieldset>
+	
+	<fieldset>
+	<legend style="margin-bottom: 0px"><?php echo t('Authy Configuration')?></legend>
+
+	<div class="clearfix">
+	<label for="AUTHY_API_KEY"><?php echo t('Authy API Key')?>:</label>
+	<div class="input">
+		<?php echo $form->text('AUTHY_API_KEY', array('class' => 'xlarge'))?>
+	</div>
+	</div>
+
+	</fieldset>
+	
 </div>
 </div>
 
-<!--
-<input type="hidden" name="SAMPLE_CONTENT" id="SAMPLE_CONTENT1" value="standard_theme_1">
--->
+
 
 <?php
 //Additional configs
@@ -267,7 +284,7 @@ foreach( $configs as $k=>$v ) { ?>
 <div class="row">
 <div class="span10 offset1">
 
-<h3><?php echo t('Content')?></h3>
+<h3><?php echo t('Install Mode')?></h3>
 
 		
 		<?php

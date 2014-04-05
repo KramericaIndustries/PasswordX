@@ -28,6 +28,28 @@ class InstallController extends Concrete5_Controller_Install {
 	}
 	
 	/**
+	 * validate the authy api key provided
+	 * @param $e
+	 * @return $e
+	 */
+	protected function validateAuthy($e) {
+		
+		if( !function_exists("curl_version") ) {
+			$e->add( t('Function curl_version() not found. Your system does not appear to have cURL available within PHP.') );
+		} else {
+			
+			$authy = Loader::helper("authy");
+			
+			if( !$authy->validAPIKey( $_POST['AUTHY_API_KEY'] ) ) {
+				$e->add( "Authy Error: " . $authy->getLastError() );
+			}
+			
+		}
+
+		return $e;
+	}
+	
+	/**
 	 * Overwrite the Configure part of the script
 	 */
 	public function configure() {	
@@ -36,9 +58,11 @@ class InstallController extends Concrete5_Controller_Install {
 			$val = Loader::helper('validation/form');
 			$val->setData($this->post());
 			$val->addRequired("SITE", t("Please specify your site's name"));
+			$val->addRequired("uName", t('You must specify a valid name'));
 			$val->addRequiredEmail("uEmail", t('Please specify a valid email address'));
 			$val->addRequired("DB_DATABASE", t('You must specify a valid database name'));
 			$val->addRequired("DB_SERVER", t('You must specify a valid database server'));
+			$val->addRequired("AUTHY_API_KEY", t('You must specify a Authy API Key'));
 			
 			$password = $_POST['uPassword'];
 			$passwordConfirm = $_POST['uPasswordConfirm'];
@@ -58,6 +82,7 @@ class InstallController extends Concrete5_Controller_Install {
 			}
 			
 			$e = $this->validateDatabase($e);
+			$e = $this->validateAuthy($e);
 			
 			//This is just a gimmick call, for C5 reasons
 			$e = $this->validateSampleContent($e);
