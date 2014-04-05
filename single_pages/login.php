@@ -3,8 +3,12 @@
 <?php  $form = Loader::helper('form'); ?>
 <style>
 	div#ccm-logo {
-		border-top: none!important;
-		background: none!important;
+		border-top: none;
+	}
+	img#ccm-logo {
+		width: 40px;
+		height: 40px;
+		margin-top: 4px;
 	}
 </style>
 <script type="text/javascript">

@@ -9,7 +9,16 @@ $(function() {
 	});
 });
 </script>
-
+<style>
+div#ccm-logo {
+	border-top: none;
+}
+img#ccm-logo {
+	width: 40px;
+	height: 40px;
+	margin-top: 4px;
+}
+</style>
 <?php 
 
 $introMsg = t('To install PasswordX, please fill out the form below.');
