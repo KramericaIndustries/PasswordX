@@ -92,6 +92,8 @@ foreach($items as $ih) {
 }
 ?>
 
+menuHTML += '<li><a class="ccm-icon-edit-external-link ccm-menu-icon" target="_blank" id="ccm-nav-report" href="https://bitbucket.org/hammertimedk/passwordx/issues">Report a bug</a></li>';
+
 <?php if ($dh->canRead()) { ?>
 	menuHTML += '<li><a class="ccm-icon-dashboard ccm-menu-icon" id="ccm-nav-dashboard<?php if ($md->isMobile()) { ?>-mobile<?php } ?>" href="<?php echo View::url('/dashboard')?>">' + <?php echo $jh->encode(t('Dashboard'))?> + '</a></li>';
 <?php } ?>

@@ -1,9 +1,21 @@
 /******
 * Overwrites of the core css
+* This are nasty hacks :)
 ******/
 
+/*
+* The original C5 logo has about 4px of transparency on top and bottomn
+* simulate that feeling
+*/
 #ccm-logo {
 	height: 40px;
 	width: 40px;
 	margin-top: 4px;
+}
+
+/**
+* Center the icon from report a bug
+*/
+#ccm-nav-report { 
+	background-position: -19px -2144px!important;
 }
