@@ -33,13 +33,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
 		
 		<div class="easter-egg">
 			<small> 
-				<?php 
-				$start_date = new DateTime('2013-10-26');
-				$now_date = new DateTime('now');
-				$uptime = $now_date->diff($start_date);
-				$uptime_days = $uptime->y * 365 + $uptime->m * 31 + $uptime->d;
-				?>
-				This site is proudly NSA free for <?php echo $uptime_days; ?> days, <?php echo $uptime->h; ?> hours, <?php echo $uptime->i; ?> minutes and <?php echo $uptime->s ?> seconds. 
+				<?php Loader::helper("nsa"); ?> 
 			</small>
 		</div>
       </div>

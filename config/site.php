@@ -18,3 +18,4 @@ define('DATE_APP_DATE_ATTRIBUTE_TYPE_T', 'G:i:s');
 define('DATE_APP_GENERIC_T', 'G:i:s');
 define('DATE_APP_GENERIC_TS', 'G:i:s');
 define('ENCRYPTION_KEY', 'KThl8SntOk17YguN3iP3WO0vxdoV8CLxAOhTDdtEH0i13t1mctgVGx4Qg0');
+define('UP_SINCE', '2013-08-24 19:35:24');

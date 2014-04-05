@@ -276,8 +276,8 @@ $configs = array(
 	"DATE_APP_DATE_ATTRIBUTE_TYPE_T"	=>	"G:i:s",
 	"DATE_APP_GENERIC_T"	=>	"G:i:s",
 	"DATE_APP_GENERIC_TS"	=>	"G:i:s",
-	"ENCRYPTION_KEY"		=>	RandomString()
-	
+	"ENCRYPTION_KEY"		=>	RandomString(),
+	"UP_SINCE"				=> date('Y-m-d H:i:s')
 );
 foreach( $configs as $k=>$v ) { ?>
 	<input type="hidden" name="SITE_CONFIG[<?php echo $k ?>]" value="<?php echo $v ?>" />	
