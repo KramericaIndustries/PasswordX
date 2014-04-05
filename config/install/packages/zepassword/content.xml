@@ -153,6 +153,13 @@
 				</attributekey>
 			</attributes>
 		</page>
+		<page name="Authy Configuration" path="/dashboard/users/authy" filename="/dashboard/users/authy.php" pagetype="" description="" package="">
+			<attributes>
+				<attributekey handle="icon_dashboard">
+					<value><![CDATA[icon-cog]]></value>
+				</attributekey>
+			</attributes>
+		</page>
     </singlepages>
     	
     <!-- -->
