@@ -12,4 +12,12 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		return t('Password System Application');
 	}
 	
+	/**
+	 * Install a custom list of attributes
+	 */
+	public function install_attributes() {
+		$ci = new ContentImporter();
+		$ci->importContentFile(DIR_BASE. '/config/install/base/attributes.xml');
+	}
+	
 }

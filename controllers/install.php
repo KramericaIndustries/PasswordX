@@ -12,6 +12,38 @@ class InstallController extends Concrete5_Controller_Install {
 		parent::on_start();
 		$this->setRequiredItemsExtended();
 	}
+	
+	/**
+	 * If all the config steps are done, let's install this beatch
+	 */
+	protected function testAndRunInstall() {
+		if (file_exists(DIR_CONFIG_SITE . '/site_install_user.php')) {
+			require(DIR_CONFIG_SITE . '/site_install.php');
+			@include(DIR_CONFIG_SITE . '/site_install_user.php');
+			if (defined('ACTIVE_LOCALE') && Localization::activeLocale() !== ACTIVE_LOCALE) {
+				Localization::changeLocale(ACTIVE_LOCALE);
+			}
+			$e = Loader::helper('validation/error');
+			$e = $this->validateDatabase($e);
+			$e = $this->validateAuthy($e);
+			if ($e->has()) {
+				$this->set('error', $e);
+			} else { 
+				//var_dump(DIR_STARTING_POINT_PACKAGES_CORE); var_dump(DIR_STARTING_POINT_PACKAGES); var_dump(DIR_BASE_CORE); var_dump(DIR_BASE); die("before install");
+				$this->addHeaderItem(Loader::helper('html')->css('jquery.ui.css'));
+				$this->addHeaderItem(Loader::helper('html')->javascript('jquery.ui.js'));
+				if (defined('INSTALL_STARTING_POINT') && INSTALL_STARTING_POINT) {
+					$spl = Loader::startingPointPackage(INSTALL_STARTING_POINT);
+				} else {
+					$spl = Loader::startingPointPackage('standard');
+				}
+				$this->set('installPackage', $spl->getPackageHandle());
+				$this->set('installRoutines', $spl->getInstallRoutines());
+				$this->set('successMessage', t('Congratulations. concrete5 has been installed. You have been logged in as <b>%s</b> with the password you chose. If you wish to change this password, you may do so from the users area of the dashboard.', USER_SUPER, $uPassword));
+			}
+		}
+	}
+	
 
 	/**
 	 * Check for additional requirements for the app to run
@@ -40,7 +72,9 @@ class InstallController extends Concrete5_Controller_Install {
 			
 			$authy = Loader::helper("authy");
 			
-			if( !$authy->validAPIKey( $_POST['AUTHY_API_KEY'] ) ) {
+			$api_key = defined('AUTHY_API_KEY') ? AUTHY_API_KEY : $_POST['AUTHY_API_KEY'];
+			
+			if( !$authy->validAPIKey( $api_key ) ) {
 				$e->add( "Authy Error: " . $authy->getLastError() );
 			}
 			

@@ -89,8 +89,10 @@ class AuthyHelper {
     public function validAPIKey( $key ) {
     	
     	//sanity check
-    	if( empty($key) )
+    	if( empty($key) ) {
+    		$this->last_error = "Empty API Key";
     		return false;
+    	}
     	
     	//load data
     	$this->api_key = $key;
