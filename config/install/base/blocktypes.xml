@@ -12,33 +12,15 @@
         <blocktype handle="dashboard_app_status" package=""/>
         <blocktype handle="dashboard_site_activity" package=""/>
         
-        <blocktype handle="content" package="">
-        	<btDisplayOrder><![CDATA[3]]></btDisplayOrder>
-        </blocktype>
-        <blocktype handle="file" package="">
-        	<btDisplayOrder><![CDATA[4]]></btDisplayOrder>
-        </blocktype>
-        <blocktype handle="autonav" package="">
-        	<btDisplayOrder><![CDATA[5]]></btDisplayOrder>
-        </blocktype>
-        <blocktype handle="form" package="">
-        	<btDisplayOrder><![CDATA[6]]></btDisplayOrder>
-        </blocktype>
-        <blocktype handle="html" package="">
-        	<btDisplayOrder><![CDATA[7]]></btDisplayOrder>
-        </blocktype>
-        <blocktype handle="image" package="">
-        	<btDisplayOrder><![CDATA[8]]></btDisplayOrder>
-        </blocktype>
-        <blocktype handle="next_previous" package="">
-        	<btDisplayOrder><![CDATA[9]]></btDisplayOrder>
-        </blocktype>
-        <blocktype handle="page_list" package="">
-        	<btDisplayOrder><![CDATA[10]]></btDisplayOrder>
-        </blocktype>
-        <blocktype handle="search" package="">
-        	<btDisplayOrder><![CDATA[11]]></btDisplayOrder>
-        </blocktype>
+        <blocktype handle="content" package="" />
+        <blocktype handle="file" package="" />
+        <blocktype handle="autonav" package="" />
+        <blocktype handle="form" package="" />
+        <blocktype handle="html" package="" />
+        <blocktype handle="image" package="" />
+        <blocktype handle="next_previous" package="" />
+        <blocktype handle="page_list" package="" />
+        <blocktype handle="search" package="" />
 
         
         <!-- 

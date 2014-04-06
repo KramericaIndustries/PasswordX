@@ -2,6 +2,8 @@
 <concrete5-cif version="1.0">
     <singlepages>
         <page name="Dashboard" path="/dashboard" filename="/dashboard/view.php" pagetype="" description="" package="" root="true" />
+        
+        <!-- 
         <page name="Composer" path="/dashboard/composer" filename="/dashboard/composer/view.php" pagetype="" description="Write for your site." package="">
 			<attributes>
 				<attributekey handle="meta_keywords">
@@ -21,7 +23,7 @@
 					<value>icon-pencil</value>
 				</attributekey>
 			</attributes>
-        </page>
+        </page> 
         <page name="Drafts" path="/dashboard/composer/drafts" filename="/dashboard/composer/drafts.php" pagetype="" description="" package="">
 			<attributes>
 				<attributekey handle="meta_keywords">
@@ -32,6 +34,9 @@
 				</attributekey>
 			</attributes>
         </page>
+        -->
+        
+        
         <page name="Sitemap" path="/dashboard/sitemap" filename="/dashboard/sitemap/view.php" pagetype="" description="Whole world at a glance." package="">
 			<attributes>
 				<attributekey handle="meta_keywords">
@@ -297,6 +302,7 @@
 			</attributes>
         </page>        
 
+		<!-- 
         <page name="Workflow" path="/dashboard/workflow" filename="/dashboard/workflow/view.php" pagetype="" description="" package="">
         	<attributes>
 				<attributekey handle="meta_keywords">
@@ -318,6 +324,9 @@
 				</attributekey>
 			</attributes>        
         </page>
+         -->
+         
+         
         <page name="Stacks &amp; Blocks" path="/dashboard/blocks" filename="/dashboard/blocks/view.php" pagetype="" description="Manage sitewide content and administer block types." package="" />
         <page name="Stacks" path="/dashboard/blocks/stacks" filename="/dashboard/blocks/stacks/view.php" pagetype="" description="Share content across your site." package="">
         	<attributes>
@@ -755,7 +764,7 @@
         <pagetype handle="dashboard_header_four_col" name="Dashboard Header + Four Column" internal="1" package="" />
     </pagetypes>
     <pages>
-    	<page name="Welcome to concrete5" path="/dashboard/welcome" filename="" description="Learn about how to use concrete5, how to develop for concrete5, and get general help." pagetype="dashboard_header_four_col">
+		<page name="Welcome to passwordX" path="/dashboard/welcome" filename="" description="Learn about how to use passwordX, how to develop for passwordX, and get general help." pagetype="dashboard_header_four_col">
 			<attributes>
 				<attributekey handle="exclude_nav">
 					<value><![CDATA[1]]></value>
@@ -765,8 +774,7 @@
 				<block type="content" name="">
 					<data table="btContentLocal">
 						<record>
-						<content><![CDATA[	<div id="newsflow-header-first-run"><h1>Welcome to concrete5.</h1>
-						<h2>It's easy to edit content and add pages using in-context editing.</h2></div>
+						<content><![CDATA[	<div id="newsflow-header-first-run"><h1>Welcome to PasswordX.</h1></div>
 						]]></content>
 						</record>
 					</data>
@@ -777,10 +785,10 @@
 					<data table="btContentLocal">
 						<record>
 						<content><![CDATA[<div class="newsflow-column-first-run">
-							<h3>Building Your Own Site</h3>
-							<p>Editing with concrete5 is a breeze. Just point and click to make changes.</p>
+							<h3>Start adding password</h3>
+							<p>Just point and click to make changes.</p>
 							<br/>
-							<p><a href="javascript:void(0)" onclick="ccm_getNewsflowByPath('/welcome/editors')" class="btn primary">Editor's Guide</a></p>
+							<p><a href="javascript:void(0)" class="btn primary">User's Guide</a></p>
 							</div>]]></content>
 						</record>
 					</data>
@@ -791,9 +799,9 @@
 					<data table="btContentLocal">
 						<record>
 						<content><![CDATA[<div class="newsflow-column-first-run">
-							<h3>Developing Applications</h3>
-							<p>If you’re comfortable in PHP concrete5 should be a breeze to learn. Take a few moments to understand the architecture.</p>
-							<p><a href="javascript:void(0)" onclick="ccm_getNewsflowByPath('/welcome/developers')" class="btn primary">Developer's Guide</a></p>
+							<h3>Extending functionality</h3>
+							<p>If you’re comfortable in PHP it should be a breeze to extend functionality. Take a few moments to understand the architecture.</p>
+							<p><a href="javascript:void(0)" class="btn primary">Developer's Guide</a></p>
 							</div>]]></content>
 						</record>
 					</data>
@@ -803,25 +811,11 @@
 				<block type="content" name="">
 					<data table="btContentLocal">
 						<record>
-						<content><![CDATA[<div class="newsflow-column-first-run">
-							<h3>Designing Websites</h3>
-							<p>Good with CSS and HTML? You can easily theme anything with concrete5.</p>
-							<br/>
-							<p><a href="javascript:void(0)" onclick="ccm_getNewsflowByPath('/welcome/designers')" class="btn primary">Designer's Guide</a></p>
-							</div>]]></content>
-						</record>
-					</data>
-				</block>
-			</area>
-			<area name="Column 4">
-				<block type="content" name="">
-					<data table="btContentLocal">
-						<record>
 						<content><![CDATA[
 						<div class="newsflow-column-first-run">
-						<h3>Business Background</h3>
-						<p>Worried about license structures, white-labeling or why concrete5 is a good choice for your agency?</p>
-						<p><a href="javascript:void(0)" onclick="ccm_getNewsflowByPath('/welcome/executives')" class="btn primary">Executive's Guide</a></p>
+						<h3>Security</h3>
+						<p>Here are a few tip and trick on how to keep stuff secure.</p>
+						<p><a href="javascript:void(0)" class="btn primary">Security Guide</a></p>
 						</div>]]></content>
 						</record>
 					</data>

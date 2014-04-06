@@ -82,8 +82,21 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 	 * Remove blocktype we do not need at install
 	 */
 	public function install_blocktypes() {
+		
+		//Import Block types
 		$ci = new ContentImporter();
 		$ci->importContentFile(DIR_BASE. '/config/install/base/blocktypes.xml');
+		
+		//bubble up our block to the top
+		$db = Loader::db();
+		$q="UPDATE BlockTypes SET btDisplayOrder=? WHERE btHandle=?";
+		
+		//bubble_up
+		$db->query($q, array(1,'encrypted_generic_pass'));
+		$db->query($q, array(1,'encrypted_vhost'));
+		
+		//push down
+		$db->query($q, array(2,'content'));
 	}
 	
 	/**
@@ -125,12 +138,43 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		$event_lib->user_updated($ui);
 		
 	}
-	
+		
 	/**
 	 * Here is the place where we set up defaukt permissions for the site tree
 	 */
 	public function configure_permissions() {
 		
+		//get all groups
+		$guest_group = Group::getByID(GUEST_GROUP_ID);
+		$registered_group = Group::getByID(REGISTERED_GROUP_ID);
+		$admin_group = Group::getByID(ADMIN_GROUP_ID);
+		
+		//all pages should be visible only to logged in persons
+		$home = Page::getByID(1, "RECENT");
+		$home->clearPagePermissions();
+		$home->assignPermissions($registered_group, array('view_page'));
+		$home->assignPermissions($admin_group, array('view_page_versions', 'view_page_in_sitemap', 'preview_page_as_user', 'edit_page_properties', 'edit_page_contents', 'edit_page_speed_settings', 'edit_page_theme', 'edit_page_type', 'edit_page_permissions', 'delete_page', 'delete_page_versions', 'approve_page_versions', 'add_subpage', 'move_or_copy_page', 'schedule_page_contents_guest_access'));
+		
+		
+		//everything under My Passwords should be visible to registered users
+		$my_pass = Page::getByPath('/my-passwords');
+		$my_pass->clearPagePermissions();
+		$my_pass->assignPermissions($registered_group, array('view_page','view_page_in_sitemap','edit_page_properties','edit_page_contents','approve_page_versions', 'add_subpage'));
+		$my_pass->assignPermissions($admin_group, array('view_page_versions', 'view_page_in_sitemap', 'preview_page_as_user', 'edit_page_properties', 'edit_page_contents', 'edit_page_speed_settings', 'edit_page_theme', 'edit_page_type', 'edit_page_permissions', 'delete_page', 'delete_page_versions', 'approve_page_versions', 'add_subpage', 'move_or_copy_page', 'schedule_page_contents_guest_access'));
+		//Create a new site area and allow manual change
+		$my_pass->setPermissionsToManualOverride();
+		$my_pass->setPermissionsInheritanceToOverride();
+		
+	}
+	
+	/**
+	 * Make final changes before finishing
+	 */
+	public function finish() {
+		
+		//Add here
+		
+		parent::finish(); //let concrete finish the install
 	}
 	
 }

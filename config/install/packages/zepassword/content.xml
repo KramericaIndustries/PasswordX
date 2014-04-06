@@ -3,12 +3,8 @@
 	
 	<!-- Preinstall block types-->
 	<blocktypes>
-		<blocktype handle="encrypted_generic_pass" package="">
-			<btDisplayOrder><![CDATA[1]]></btDisplayOrder>
-		</blocktype>
-		<blocktype handle="encrypted_vhost" package="">
-			<btDisplayOrder><![CDATA[2]]></btDisplayOrder>
-		</blocktype>
+		<blocktype handle="encrypted_generic_pass" package="" />
+		<blocktype handle="encrypted_vhost" package="" />
 	</blocktypes>
 	
 	<!-- Set main Theme -->
@@ -170,11 +166,11 @@
     <pages>
     	
     		<!-- Main Page-->
-            <page name="Home" path="" filename="" pagetype="landing" description="" package="">
+            <page name="PasswordX" path="" filename="" pagetype="landing" description="" package="">
             </page>
             
             <!--Demo Container -->
-            <page name="Root" path="/root" filename="" pagetype="container" description="" package="">
+            <page name="My Passwords" path="/my-passwords" filename="" pagetype="container" description="" package="">
             </page>
             
             <!-- System Pages below-->

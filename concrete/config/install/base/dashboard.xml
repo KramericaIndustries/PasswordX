@@ -754,7 +754,7 @@
         <pagetype handle="dashboard_primary_five" name="Dashboard Primary + Five" internal="1" package="" />
         <pagetype handle="dashboard_header_four_col" name="Dashboard Header + Four Column" internal="1" package="" />
     </pagetypes>
-    <pages>
+   <pages>
     	<page name="Welcome to concrete5" path="/dashboard/welcome" filename="" description="Learn about how to use concrete5, how to develop for concrete5, and get general help." pagetype="dashboard_header_four_col">
 			<attributes>
 				<attributekey handle="exclude_nav">
