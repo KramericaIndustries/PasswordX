@@ -821,6 +821,20 @@
 					</data>
 				</block>
 			</area>
+			<area name="Column 4">
+				<block type="content" name="">
+					<data table="btContentLocal">
+						<record>
+						<content><![CDATA[
+						<div class="newsflow-column-first-run">
+						<h3>NSA Free</h3>
+						<p>...as fare as we know...</p>
+						<p><a href="javascript:void(0)" class="btn primary">Security Guide</a></p>
+						</div>]]></content>
+						</record>
+					</data>
+				</block>
+			</area>
     	</page>
     	
     	<page name="Customize Dashboard Home" path="/dashboard/home" filename="" pagetype="dashboard_primary_five" description="" package="">

@@ -87,16 +87,6 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		$ci = new ContentImporter();
 		$ci->importContentFile(DIR_BASE. '/config/install/base/blocktypes.xml');
 		
-		//bubble up our block to the top
-		$db = Loader::db();
-		$q="UPDATE BlockTypes SET btDisplayOrder=? WHERE btHandle=?";
-		
-		//bubble_up
-		$db->query($q, array(1,'encrypted_generic_pass'));
-		$db->query($q, array(1,'encrypted_vhost'));
-		
-		//push down
-		$db->query($q, array(2,'content'));
 	}
 	
 	/**
@@ -171,8 +161,17 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 	 * Make final changes before finishing
 	 */
 	public function finish() {
+
+		//bubble up our blocks to the top
+		$db = Loader::db();
+		$q="UPDATE BlockTypes SET btDisplayOrder=? WHERE btHandle=?";
 		
-		//Add here
+		//bubble_up
+		$db->Execute($q, array(1,'encrypted_generic_pass'));
+		$db->Execute($q, array(1,'encrypted_vhost'));
+		
+		//push down
+		$db->Execute($q, array(2,'content'));
 		
 		parent::finish(); //let concrete finish the install
 	}
