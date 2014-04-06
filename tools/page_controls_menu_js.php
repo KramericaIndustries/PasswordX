@@ -95,9 +95,12 @@ foreach($items as $ih) {
 menuHTML += '<li><a class="ccm-icon-edit-external-link ccm-menu-icon" target="_blank" id="ccm-nav-report" href="https://bitbucket.org/hammertimedk/passwordx/issues">Report a bug</a></li>';
 
 <?php if ($dh->canRead()) { ?>
-	menuHTML += '<li><a class="ccm-icon-dashboard ccm-menu-icon" id="ccm-nav-dashboard<?php if ($md->isMobile()) { ?>-mobile<?php } ?>" href="<?php echo View::url('/dashboard')?>">' + <?php echo $jh->encode(t('Dashboard'))?> + '</a></li>';
+	menuHTML += '<li><a class="ccm-icon-dashboard ccm-menu-icon" id="ccm-nav-dashboard<?php if ($md->isMobile()) { ?>-mobile<?php } ?>" href="<?php echo View::url('/dashboard/passwordx/administration')?>">' + <?php echo $jh->encode(t('Dashboard'))?> + '</a></li>';
 <?php } ?>
-menuHTML += '<li id="ccm-nav-intelligent-search-wrapper"><input type="search" placeholder="' + <?php echo $jh->encode(t('Intelligent Search'))?> + '" id="ccm-nav-intelligent-search" tabindex="1" /></li>';
+
+//menuHTML += '<li id="ccm-nav-intelligent-search-wrapper"><input type="search" placeholder="' + <?php echo $jh->encode(t('Intelligent Search'))?> + '" id="ccm-nav-intelligent-search" tabindex="1" /></li>';
+
+
 menuHTML += '<li><a id="ccm-nav-sign-out" class="ccm-icon-sign-out ccm-menu-icon" href="<?php echo View::url('/login', 'logout')?>">' + <?php echo $jh->encode(t('Sign Out'))?> + '</a></li>';
 menuHTML += '</ul>';
 
@@ -107,7 +110,8 @@ menuHTML += '</div>';
 $dh = Loader::helper('concrete/dashboard');
 ?>
 
-menuHTML += <?php echo $jh->encode($dh->addQuickNavToMenus($dh->getDashboardAndSearchMenus()))?>;
+/* Disabling flyout and search */
+//menuHTML += <?php echo $jh->encode($dh->addQuickNavToMenus($dh->getDashboardAndSearchMenus()))?>;
 
 menuHTML += '<div id="ccm-edit-overlay">';
 menuHTML += '<div class="ccm-edit-overlay-inner">';

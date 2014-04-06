@@ -110,7 +110,7 @@ $backgroundImage = Loader::helper('concrete/dashboard')->getDashboardBackgroundI
 <div id="ccm-toolbar">
 <ul id="ccm-main-nav">
 <li id="ccm-logo-wrapper"><?php echo Loader::helper('concrete/interface')->getToolbarLogoSRC()?></li>
-<li><a class="ccm-icon-back ccm-menu-icon" href="<?php echo $this->url('/')?>"><?php if ($md->isMobile()) { ?><?php echo t('Back')?><?php } else { ?><?php echo t('Return to Website')?><?php } ?></a></li>
+<li><a class="ccm-icon-back ccm-menu-icon" href="<?php echo $this->url('/')?>"><?php if ($md->isMobile()) { ?><?php echo t('Back')?><?php } else { ?><?php echo t('Return to PasswordX')?><?php } ?></a></li>
 <?php if (Loader::helper('concrete/interface')->showWhiteLabelMessage()) { ?>
 	<li id="ccm-white-label-message"><?php echo t('Powered by <a href="%s">concrete5</a>.', CONCRETE5_ORG_URL)?></li>
 <?php } ?>
@@ -118,8 +118,11 @@ $backgroundImage = Loader::helper('concrete/dashboard')->getDashboardBackgroundI
 
 <ul id="ccm-system-nav">
 <li><a class="ccm-icon-edit-external-link ccm-menu-icon" id="ccm-nav-report" target="_blank" href="https://bitbucket.org/hammertimedk/passwordx/issues">Report a bug</a></li>
-<li><a class="ccm-icon-dashboard ccm-menu-icon" id="ccm-nav-dashboard<?php if ($md->isMobile()) { ?>-mobile<?php } ?>" href="<?php echo $this->url('/dashboard')?>"><?php echo t('Dashboard')?></a></li>
-<li id="ccm-nav-intelligent-search-wrapper"><input type="search" placeholder="<?php echo t('Intelligent Search')?>" id="ccm-nav-intelligent-search" tabindex="1" /></li>
+<li><a class="ccm-icon-dashboard ccm-menu-icon" id="ccm-nav-dashboard<?php if ($md->isMobile()) { ?>-mobile<?php } ?>" href="<?php echo $this->url('/dashboard/passwordx/administration')?>"><?php echo t('Dashboard')?></a></li>
+
+<!-- Disabling the "intelligent search" here - we might bring this back if it makes sense.
+<li id="ccm-nav-intelligent-search-wrapper"><input type="search" placeholder="<?php echo t('Intelligent Search')?>" id="ccm-nav-intelligent-search" tabindex="1" /></li>-->
+
 <?php if ($md->isMobile() == false) { ?>
 	<li><a id="ccm-nav-sign-out" class="ccm-icon-sign-out ccm-menu-icon" href="<?php echo $this->url('/login', 'logout')?>"><?php echo t('Sign Out')?></a></li>
 <?php } ?>
@@ -127,10 +130,12 @@ $backgroundImage = Loader::helper('concrete/dashboard')->getDashboardBackgroundI
 
 </div>
 <?php
+/* Commented out in order to disable hover on Dashboard button
 $_ih = Loader::helper('concrete/interface');
 $dh = Loader::helper('concrete/dashboard');
 $html = $dh->getDashboardAndSearchMenus();
 print $dh->addQuickNavToMenus($html);
+*/
 ?>
 </div>
 <div id="ccm-dashboard-page">
