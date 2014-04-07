@@ -209,13 +209,32 @@
     <form method="post" action="<?php echo $this->url('/login', 'do_login')?>" class="form-horizontal">
 
         <div class="row">
-            <div class="span10 offset1">
-                <div class="row">
-                    <div class="span5">
+            <div class="span12 offset1">
 
                         <fieldset>
 
-                            <legend><?php echo t('User Account')?></legend>
+							
+							<?php  if (isset($locales) && is_array($locales) && count($locales) > 0) { ?>
+                                <div class="control-group">
+                                    <label for="USER_LOCALE" class="control-label"><?php echo t('Language')?></label>
+                                    <div class="controls"><?php echo $form->select('USER_LOCALE', $locales)?></div>
+                                </div>
+                            <?php  } ?>
+
+                            <div class="control-group">
+							<label class="control-label">
+							 <?php echo t('Remember Me')?>
+							</label>
+							<div class="controls">
+                                <label class="checkbox"><?php echo $form->checkbox('uMaintainLogin', 1)?> <span><?php echo t('Stay signed in for 2 weeks.')?> <strong>Warning:</strong> Do NOT check this box if you are logging in from a public location</span></label>
+							</div>	
+								
+                            </div>
+							
+                            <?php  $rcID = isset($_REQUEST['rcID']) ? Loader::helper('text')->entities($_REQUEST['rcID']) : $rcID; ?>
+                            <input type="hidden" name="rcID" value="<?php echo $rcID?>" />
+							
+							
 
                             <div class="control-group">
 
@@ -272,37 +291,66 @@
                             </fieldset>
                         <?php  } ?>
 
-                    </div>
-                    <div class="span4 offset1">
-
-                        <fieldset>
-
-                            <legend><?php echo t('Options')?></legend>
-
-                            <?php  if (isset($locales) && is_array($locales) && count($locales) > 0) { ?>
-                                <div class="control-group">
-                                    <label for="USER_LOCALE" class="control-label"><?php echo t('Language')?></label>
-                                    <div class="controls"><?php echo $form->select('USER_LOCALE', $locales)?></div>
-                                </div>
-                            <?php  } ?>
-
-                            <div class="control-group">
-                                <label class="checkbox"><?php echo $form->checkbox('uMaintainLogin', 1)?> <span><?php echo t('Remain logged in to website.')?></span></label>
-                            </div>
-                            <?php  $rcID = isset($_REQUEST['rcID']) ? Loader::helper('text')->entities($_REQUEST['rcID']) : $rcID; ?>
-                            <input type="hidden" name="rcID" value="<?php echo $rcID?>" />
-
-                        </fieldset>
-                    </div>
+					
+					
+					<div class="row">
                     <div class="span10">
                         <div class="actions">
                             <?php echo $form->submit('submit', t('Sign In') . ' &gt;', array('class' => 'primary'))?>
                         </div>
                     </div>
-                </div>
+					</div>
+				
             </div>
         </div>
     </form>
+	
+	<?php
+	 //Check for SSL Encrypted
+	 if (true) { //Connection is insecure
+	 ?>
+	 <div class="row">
+       <div class="span10 offset1">
+	   <h3 style="color: #990000;"><i class="icon-warning-sign"></i> <?php echo t('This connection is not secure. Please set up SSL encryption.')?></h3>
+	    <p>This connection is not secure at the moment as you are connecting through plain HTTP. This means you are susceptible to <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">man-in-the-middle attacks</a>. </p>
+		
+		<p>How you set up SSL depends on what your webserver setup is. You do not need to buy an SSL certificate, as an unsigned certificate you issue yourself is just as secure as an unsigned one. However, users will see a browser warning if you serve an unsigned certificate.</p>
+	
+		<p>If you need easy and hassle-free HTTPS we recommend using <a href="https://www.cloudflare.com/" target="_blank">Cloudflare</a> as your DNS provider, as they have a very affordable turnkey SSL encryption (along with a host of other benefits such as CDN, DDOS attack mitigation and more) in their paid Pro plans.</p>
+		
+		<div class="actions">
+		<p><i class="icon-info-sign"></i> If this installation is running on a secure network, the administrator can disable this warning message by setting the SUPPRESS_SSL_WARNING to true in config/site.php</p>
+		</div>
+		
+	   </div>
+	 </div>
+	 
+	 <?php } ?>	
+	
+	<?php
+	 //Check for Two-Factor enabled
+	 if (true) { //Two-factor is disabled atm
+	 ?>
+	 <div class="row">
+       <div class="span10 offset1">
+	   <h3 style="color: #990000;"><i class="icon-warning-sign"></i> <?php echo t('Two-Factor Authentication is disabled!')?></h3>
+
+	   <p>If this system is publicly accessible on the web, it is strongly recommended that you enable two-factor authentication. If you do not know what two-factor authentication is, <a href="http://en.wikipedia.org/wiki/Two-step_verification" target="_blank">read more at Wikipedia.</a> You should only turn off two-factor authentication if your installation is behind a firewall and only accessible on a LAN or through a VPN.</p>
+	   
+	   <p>You can configure Two-Factor authentication in the Dashboard after logging in</p>
+	   
+	   <div class="actions">
+	   	<p><i class="icon-info-sign"></i> If this installation is running on a secure network, the administrator can disable this warning message by setting the SUPPRESS_TWOFACTOR_WARNING to true in config/site.php</p>
+		</div>
+	    
+	   </div>
+	 </div>
+	 
+	 <?php } ?>
+	 
+	 
+	
+	
 
     <?php if( !$otp ) { //no need for password in OTP mode ?>
     <a name="forgot_password"></a>
