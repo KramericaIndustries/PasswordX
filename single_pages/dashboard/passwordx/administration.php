@@ -24,7 +24,7 @@
 <hr>
 
 
-<h2>Passwords & Content</h2>
+<h2>Passwords &amp; Content</h2>
 
 	<div class="well" >
 
@@ -40,9 +40,11 @@
 	
 	<li>
 	<a href="/index.php/dashboard/files/search/"><i class="icon-picture"></i> File Manager</a>
+	</li>
+	
+	<li>
+	<a href="/index.php/dashboard/passwordx/administration/"><i class="icon-download-alt"></i> (Todo) Export Passwords</a>
 	</li>	
-	
-	
 	
 	</ul>
 	</div>
@@ -71,10 +73,6 @@
 	<ul class="nav nav-list">
 	
 	<li>
-	<a href="/index.php/dashboard/users/authy/"><i class="icon-cog"></i> Two-Factor (Authy) Configuration</a>
-	</li>
-	
-<li>
 	<a href="/index.php/dashboard/system/basics/icons/"><i class="icon-star"></i> Bookmark Icons</a>
 	</li>	
 	
@@ -93,11 +91,15 @@
 	</ul>
 	</div>
 	
-<h2>Security</h2>
+<h2>Security &amp; Login</h2>
 
 	<div class="well" >
 	<ul class="nav nav-list">
 
+	<li>
+	<a href="/index.php/dashboard/users/authy/"><i class="icon-cog"></i> Two-Factor (Authy) Configuration</a>
+	</li>	
+	
 	<li>
 	<a href="/index.php/dashboard/system/permissions/ip_blacklist/"><i class="icon-warning-sign"></i> IP Blacklist</a>
 	</li>
@@ -169,7 +171,7 @@
 	</div>
 
 	<div style="text-align: center;">
-	<p>PasswordX vXXXX (c) 2014 - <a href="#">gitHub</a> - MIT License, free for commercial use.</p>
+	<p>PasswordX <?php echo APP_VERSION; ?> (c) <?php echo date("Y"); ?> - <a href="#">gitHub</a> - MIT License, free for commercial use.</p>
 	 Built with the <a href="<?php echo CONCRETE5_ORG_URL; ?>">Concrete5 MVC Framework</a>
 	</div>
 	
