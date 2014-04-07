@@ -13,14 +13,14 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 	 * Package name
 	 */
 	public function getPackageName() {
-		return t('Password System');
+		return t('PasswordX');
 	}
 	
 	/**
 	 * Package Description, required by C5
 	 */
 	public function getPackageDescription() {
-		return t('Password System Application');
+		return t('PasswordX Core Application');
 	}
 	
 	/**

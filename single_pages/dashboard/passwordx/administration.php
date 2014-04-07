@@ -24,7 +24,7 @@
 <hr>
 
 
-<h2>Interface</h2>
+<h2>Passwords & Content</h2>
 
 	<div class="well" >
 
@@ -35,19 +35,7 @@
 	</li>
 	
 	<li>
-	<a href="/index.php/dashboard/blocks/types/"><i class="icon-wrench"></i> Block Types</a>
-	</li>
-	
-	<li>
-	<a href="/index.php/dashboard/system/basics/icons/"><i class=""></i> Bookmark Icons</a>
-	</li>	
-	
-	<li>
-	<a href="/index.php/dashboard/system/basics/editor/"><i class=""></i> Rich Text Editor</a>
-	</li>	
-	
-	<li>
-	<a href="/index.php/dashboard/system/basics/multilingual/"><i class=""></i> Languages</a>
+	<a href="/index.php/dashboard/blocks/types/"><i class="icon-wrench"></i> Block/Content Types</a>
 	</li>
 	
 	<li>
@@ -85,6 +73,18 @@
 	<li>
 	<a href="/index.php/dashboard/users/authy/"><i class="icon-cog"></i> Two-Factor (Authy) Configuration</a>
 	</li>
+	
+<li>
+	<a href="/index.php/dashboard/system/basics/icons/"><i class=""></i> Bookmark Icons</a>
+	</li>	
+	
+	<li>
+	<a href="/index.php/dashboard/system/basics/editor/"><i class=""></i> Rich Text Editor</a>
+	</li>	
+	
+	<li>
+	<a href="/index.php/dashboard/system/basics/multilingual/"><i class=""></i> Languages</a>
+	</li>	
 	
 	<li>
 	<a href="/index.php/dashboard/system/mail/method/"><i class=""></i> Mail/SMTP Method</a>
@@ -168,6 +168,11 @@
 	</ul>
 	</div>
 
+	<div style="text-align: center;">
+	<p>PasswordX vXXXX (c) 2014 - <a href="#">gitHub</a> - MIT License, free for commercial use.</p>
+	 Built with the <a href="<?php echo CONCRETE5_ORG_URL; ?>">Concrete5 MVC Framework</a>
+	</div>
+	
 
 </div> 
 <script type="text/javascript">

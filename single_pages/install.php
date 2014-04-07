@@ -189,18 +189,6 @@ $(function() {
 			<?php echo $form->password('uPasswordConfirm', array('class' => 'xlarge'))?>
 		</div>
 		</div>
-		<div class="clearfix">
-		<label for="phoneNumber"><?php echo t('Phone number')?>:</label>
-		<div class="input">
-			<?php echo $form->text('authy-cellphone', array('class' => 'xlarge' ))?>
-		</div>
-		</div>
-		<div class="clearfix">
-		<label for="countryCode"><?php echo t('Country Code')?>:</label>
-		<div class="input">
-			<select id="authy-countries" name="countryCode"></select>
-		</div>
-		</div>
 	</fieldset>
 
 </div>
@@ -238,21 +226,89 @@ $(function() {
 	</div>
 	</fieldset>
 	
-	<fieldset>
-	<legend style="margin-bottom: 0px"><?php echo t('Authy Configuration')?></legend>
 
+</div>
+</div>
+
+<div class="row">
+<div class="span12 offset1">
+
+	<fieldset>
+	<legend ><?php echo t('Two-Factor Login Configuration')?></legend>
+	<p>If this system is publicly accessible on the web, it is strongly recommended that you enable two-factor authentication. If you do not know what two-factor authentication is, <a href="http://en.wikipedia.org/wiki/Two-step_verification" target="_blank">read more at Wikipedia.</a> You should only skip this step / turn off two-factor authentication if your installation is behind a firewall and only accessible on a LAN or through a VPN. PasswordX provides Authy integration for two-factor which requires you to <a href="https://dashboard.authy.com/signup" target="_blank">create a developer account</a> with them and create an API key. It is <a href="https://www.authy.com/developer/pricing" target="_blank">free to get started with Authy</a>, and they offer a range of awesome customization options as well as SMS token support.</p>
+
+	<div class="clearfix" style="margin-top: 25px;">
+	<label for="AUTHY_API_KEY"><?php echo t('Two-Factor Authentication Method')?>:</label>
+	<div class="input">
+		<?php echo $form->select('TWO_FACTOR_AUTH_METHOD', array("authy"=>"Use Authy integration","no_2factor"=>"Turn off two-factor for now, I'll set this up later"), "authy", array('class' => 'xlarge'))?>
+	</div>
+	</div>
+	
+	<div id="authy_config_options">
+	
 	<div class="clearfix">
 	<label for="AUTHY_API_KEY"><?php echo t('Authy API Key')?>:</label>
 	<div class="input">
 		<?php echo $form->text('AUTHY_API_KEY', array('class' => 'xlarge'))?>
 	</div>
 	</div>
+	
+	<div class="clearfix">
+	 <label for="phoneNumber"><?php echo t('Phone number')?>:</label>
+	  <div class="input">
+			<?php echo $form->text('authy-cellphone', array('class' => 'xlarge' ))?>
+	  </div>
+	</div>
+	
+	<div class="clearfix">
+	 <label for="countryCode"><?php echo t('Country Code')?>:</label>
+	  <div class="input">
+		<select id="authy-countries" name="countryCode"></select>
+		<strong>Note:</strong> When requesting a token SMS, this country code will be used as default
+	  </div>
+	</div>
+	
+	</div>
+	
 
 	</fieldset>
 	
+<script type="text/javascript">
+ $(function() {
+ 
+  $('#TWO_FACTOR_AUTH_METHOD').change(function() {
+  
+   if ($(this).val() === "authy") {
+    $('#authy_config_options').fadeIn();
+   } else {
+    $('#authy_config_options').fadeOut();
+   }
+  
+  });
+ 
+ });
+
+</script>	
+
 </div>
 </div>
 
+
+<div class="row">
+<div class="span12 offset1">
+
+	<fieldset>
+	<legend ><?php echo t('Configure SSL')?></legend>
+	<p>If this system is publicly accessible on the web, it is strongly recommended that you enable SSL encryption for this host on your webserver. If you do not set up HTTPS for PasswordX, we will warn you on the login screen that you are accessing your secret data through an unencrypted connection and that you are vulnerable to <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">man-in-the-middle attacks</a>. </p>
+	
+	<p>How you set up SSL depends on what your webserver setup is. You do not need to buy an SSL certificate, as an unsigned certificate you issue yourself is just as secure as an unsigned one. However, users will see a browser warning if you serve an unsigned certificate.</p>
+	
+	<p>If you need easy and hassle-free HTTPS we recommend using <a href="https://www.cloudflare.com/" target="_blank">Cloudflare</a> as your DNS provider, as they have a very affordable turnkey SSL encryption (along with a host of other benefits such as CDN, DDOS attack mitigation and more) in their paid Pro plans.</p>
+	
+
+	</fieldset>
+</div>
+</div>
 
 
 <?php
@@ -525,9 +581,6 @@ $(function() {
 	</div>	
 </div>
 
-<div class="block-message alert-message info">
-<?php echo t('Having trouble? we\'re sorry :(.. write us and we might be able to help you!')?>
-</div>
 </div>
 </div>
 
