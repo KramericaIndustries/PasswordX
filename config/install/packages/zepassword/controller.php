@@ -46,12 +46,27 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 				new StartingPointInstallRoutine('install_config', 55, t('Configuring site.')),
 				new StartingPointInstallRoutine('import_files', 58, t('Importing files.')),
 				new StartingPointInstallRoutine('install_content', 65, t('Adding pages and content.')),
-				new StartingPointInstallRoutine('set_site_permissions', 80, t('Setting up site permissions.')),
-				new StartingPointInstallRoutine('precache', 85, t('Prefetching information.')),
-				new StartingPointInstallRoutine('admin_setup', 90, t('Setting up admin configurations.')),
-				new StartingPointInstallRoutine('configure_permissions', 92, t('Setting up admin configurations.')),
+				new StartingPointInstallRoutine('set_site_permissions', 70, t('Setting up site permissions.')),
+				new StartingPointInstallRoutine('precache', 80, t('Prefetching information.')),
+				new StartingPointInstallRoutine('admin_setup', 85, t('Setting up admin configurations.')),
+				new StartingPointInstallRoutine('configure_permissions', 87, t('Setting up admin configurations.')),
+				new StartingPointInstallRoutine('encryption_setup', 92, t('Setting up encryption system.')),
 				new StartingPointInstallRoutine('finish', 95, t('Finishing.'))
 		);
+	}
+	
+	/**
+	 * Installing database scheme
+	 */
+	public function install_database() {
+		$db = Loader::db();			
+		$installDirectory = DIR_BASE . '/config';
+		try {
+			Database::ensureEncoding();
+			Package::installDB($installDirectory . '/db.xml');
+		} catch (Exception $e) { 
+			throw new Exception(t('Unable to install database: %s', $db->ErrorMsg()));
+		}
 	}
 	
 	/**
@@ -72,8 +87,12 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		$ci->importContentFile(DIR_BASE. '/config/install/base/config.xml');
 		
 		//and manually save config for authy
+		
+		//do not set tfa, unless the user enter authy setup
+		$auth_type = TWO_FACTOR_AUTH_METHOD == 'authy' ? 2 : 0; 
+		
 		Config::save('AUTHY_API_KEY', AUTHY_API_KEY);
-		Config::save('AUTHY_TYPE', 2); // 2 factor auth
+		Config::save('AUTHY_TYPE', $auth_type); // 2 factor auth
 		Config::save('AUTHY_SMS_TOKENS', 2); //sms token for all
 		Config::save('AUTHY_SERVER_PRODUCTION', 1); //do not use sandbox servers
 	}
@@ -116,17 +135,20 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		
 		//set up the user attributes
 		$ui->setAttribute( 'real_name', INSTALL_USER_NAME );
-		$ui->setAttribute( 'phone_number', INSTALL_USER_PHONE );
-		$ui->setAttribute( 'phone_country_code', INSTALL_USER_COUNTRY_CODE);
 		
 		//We dont want to see the newsflow, do we?
 		$u->saveConfig('NEWSFLOW_LAST_VIEWED', time());
 		
-		//trigger update event in order to get the authy id
-		Loader::library("event_handler");
-		$event_lib = new EventHandler();
-		$event_lib->user_updated($ui);
-		
+		//set up authy, if user selected so
+		if( TWO_FACTOR_AUTH_METHOD == 'authy' ) {
+			
+			$ui->setAttribute( 'phone_number', INSTALL_USER_PHONE );
+			$ui->setAttribute( 'phone_country_code', INSTALL_USER_COUNTRY_CODE);
+			
+			Loader::library("event_handler");
+			$event_lib = new EventHandler();
+			$event_lib->user_updated($ui);
+		}
 	}
 		
 	/**
@@ -155,6 +177,45 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		$my_pass->setPermissionsToManualOverride();
 		$my_pass->setPermissionsInheritanceToOverride();
 		
+	}
+
+
+	/**
+	 * Set up MEK, UEK and other TLA
+	 */
+	public function encryption_setup() {
+		
+		//store MEK for admin
+		$crypto = Loader::helper("crypto");
+		
+		//retrieve admin UEK
+		$admin_uek = $crypto->decrypt( ADMIN_eUEK, $_SESSION['session_randomness'] );
+		
+		//generate the master encryption key
+		$MEK = $crypto->generateRandomString(1024);
+		$eMEK = $crypto->encrypt( $MEK, $admin_uek );
+		
+		$db = Loader::db();
+		$q="INSERT INTO MasterKeyStorage(ksID,uID,encrypted_MEK) VALUES(?,?,?)";
+		
+		//store the encrypted master key
+		$db->Execute($q, array(
+			1,	//first item in the table
+			1,	//admin user id
+			$eMEK //encrypted key
+		));
+		
+		//and the session UEK
+		$q="INSERT INTO SessionEncryptionKeyStorage(sekID,uID,encrypted_UEK,createdAt) VALUES(?,?,?,?)";
+		
+		//store the encrypted master key
+		$db->Execute($q, array(
+			1,	//first item in the table
+			1,	//admin user id
+			ADMIN_eUEK, //encrypted key
+			time() //creation epoch time
+		));
+
 	}
 	
 	/**

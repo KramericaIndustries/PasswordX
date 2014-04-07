@@ -312,18 +312,6 @@ $(function() {
 
 
 <?php
-//Additional configs
-
-//FIXME: we need a better way to handle encryption
-function RandomString()
-{
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $randstring = '';
-    for ($i = 0; $i < 60; $i++) {
-        $randstring .= $characters[rand(0, strlen($characters))];
-    }
-    return $randstring;
-}
 
 //To be added automatically to site.php
 $configs = array(
@@ -341,7 +329,6 @@ $configs = array(
 	"DATE_APP_DATE_ATTRIBUTE_TYPE_T"	=>	"G:i:s",
 	"DATE_APP_GENERIC_T"	=>	"G:i:s",
 	"DATE_APP_GENERIC_TS"	=>	"G:i:s",
-	"ENCRYPTION_KEY"		=>	RandomString(),
 	"UP_SINCE"				=> date('Y-m-d H:i:s'),
 	"ENABLE_INTELLIGENT_SEARCH_HELP"=>"false",
 	"ENABLE_INTELLIGENT_SEARCH_MARKETPLACE"=>"false",
@@ -499,8 +486,13 @@ $(function() {
 	</td>
 	<td><?php if (!$curlTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('cURL library is required in order to provide 2 factor authentication through Authy.')?>" /><?php } ?></td>
 </tr>
+<tr>
+	<td><?php if ($hashTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
+	<td width="100%"><?php echo t('Support for hash functions')?>
+	</td>
+	<td><?php if (!$hashTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('hash functions are required.')?>" /><?php } ?></td>
+</tr>
 </table>
-
 </div>
 <div class="span5">
 
@@ -530,7 +522,18 @@ $(function() {
 	</td>
 	<td><img id="ccm-test-cookies-enabled-tooltip" src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('Cookies must be enabled in your browser to install concrete5.')?>" /></td>
 </tr>
-
+<tr>
+	<td><?php if ($mcryptTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
+	<td width="100%"><?php echo t('Support for mcrypt')?>
+	</td>
+	<td><?php if (!$mcryptTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('mcrypt library is required in order to safely store password in the database.')?>" /><?php } ?></td>
+</tr>
+<tr>
+	<td><?php if ($opensslTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
+	<td width="100%"><?php echo t('Support for OpenSSL')?>
+	</td>
+	<td><?php if (!$opensslTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('PHP support for OpenSSL is required in order to safely generate encryption keys.')?>" /><?php } ?></td>
+</tr>
 </tbody>
 </table>
 

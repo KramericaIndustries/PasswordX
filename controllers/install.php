@@ -25,11 +25,14 @@ class InstallController extends Concrete5_Controller_Install {
 			}
 			$e = Loader::helper('validation/error');
 			$e = $this->validateDatabase($e);
-			$e = $this->validateAuthy($e);
+			
+			if( TWO_FACTOR_AUTH_METHOD == 'authy' ) {
+				$e = $this->validateAuthy($e);
+			}
+			
 			if ($e->has()) {
 				$this->set('error', $e);
 			} else { 
-				//var_dump(DIR_STARTING_POINT_PACKAGES_CORE); var_dump(DIR_STARTING_POINT_PACKAGES); var_dump(DIR_BASE_CORE); var_dump(DIR_BASE); die("before install");
 				$this->addHeaderItem(Loader::helper('html')->css('jquery.ui.css'));
 				$this->addHeaderItem(Loader::helper('html')->javascript('jquery.ui.js'));
 				if (defined('INSTALL_STARTING_POINT') && INSTALL_STARTING_POINT) {
@@ -49,14 +52,14 @@ class InstallController extends Concrete5_Controller_Install {
 	 * Check for additional requirements for the app to run
 	 */
 	protected function setRequiredItemsExtended() {
+			
+		//for authy
 		$this->set('curlTest', function_exists('curl_version'));
-	}
-	
-	/**
-	 * We will use our own theme. Make this function a passthough
-	 */
-	protected function validateSampleContent($e) {
-		return $e;
+		
+		//security related
+		$this->set('hashTest', function_exists('hash'));
+		$this->set('mcryptTest', function_exists('mcrypt_module_self_test'));
+		$this->set('opensslTest', function_exists('openssl_random_pseudo_bytes'));
 	}
 	
 	/**
@@ -97,11 +100,15 @@ class InstallController extends Concrete5_Controller_Install {
 			$val->addRequired("SITE", t("Please specify your site's name"));
 			$val->addRequired("uName", t('You must specify a valid name'));
 			$val->addRequiredEmail("uEmail", t('Please specify a valid email address'));
-			$val->addRequired("authy-cellphone", t('You must specify a valid phone number'));
-			$val->addRequired("countryCode", t('You must specify a valid country'));
 			$val->addRequired("DB_DATABASE", t('You must specify a valid database name'));
 			$val->addRequired("DB_SERVER", t('You must specify a valid database server'));
-			$val->addRequired("AUTHY_API_KEY", t('You must specify a Authy API Key'));
+			
+			if( $_POST['TWO_FACTOR_AUTH_METHOD'] == "authy" ) {
+				$val->addRequired("AUTHY_API_KEY", t('You must specify a Authy API Key'));
+				$val->addRequired("authy-cellphone", t('You must specify a valid phone number'));
+				$val->addRequired("countryCode", t('You must specify a valid country'));
+			}
+				
 			
 			$password = $_POST['uPassword'];
 			$passwordConfirm = $_POST['uPasswordConfirm'];
@@ -121,13 +128,19 @@ class InstallController extends Concrete5_Controller_Install {
 			}
 			
 			$e = $this->validateDatabase($e);
-			$e = $this->validateAuthy($e);
+			
+			if( $_POST['TWO_FACTOR_AUTH_METHOD'] == "authy" ) {
+				$e = $this->validateAuthy($e);	
+			}
 			
 			//This is just a gimmick call, for C5 reasons
 			$e = $this->validateSampleContent($e);
 			
 			if ($val->test() && (!$e->has())) {
 				
+				//Crypto Helper
+				$crypto = Loader::helper("crypto"); 
+
 				// write the config file
 				$vh = Loader::helper('validation/identifier');
 				$this->fp = @fopen(DIR_CONFIG_SITE . '/site_install.php', 'w+');
@@ -138,6 +151,11 @@ class InstallController extends Concrete5_Controller_Install {
 					$configuration .= "define('DB_USERNAME', '" . addslashes($_POST['DB_USERNAME']) . "');\n";
 					$configuration .= "define('DB_PASSWORD', '" . addslashes($_POST['DB_PASSWORD']) . "');\n";
 					$configuration .= "define('DB_DATABASE', '" . addslashes($_POST['DB_DATABASE']) . "');\n";
+					
+					//UEK_SALT
+					$UEK_SALT = $crypto->generateRandomString(128);
+					$configuration .= "define('UEK_SALT', '" . addslashes($UEK_SALT) . "');\n";
+					
 					if (isset($setPermissionsModel)) {
 						$configuration .= "define('PERMISSIONS_MODEL', '" . addslashes($setPermissionsModel) . "');\n";
 					}
@@ -169,13 +187,26 @@ class InstallController extends Concrete5_Controller_Install {
 					$configuration .= "define('INSTALL_USER_COUNTRY_CODE', '" . addslashes($_POST['countryCode']) . "');\n";
 					$configuration .= "define('AUTHY_API_KEY', '" . addslashes($_POST['AUTHY_API_KEY']) . "');\n";
 					$configuration .= "define('SITE', '" . addslashes($_POST['SITE']) . "');\n";
+					$configuration .= "define('INSTALL_USER_NAME', '" . $_POST['uName'] . "');\n";
+					$configuration .= "define('TWO_FACTOR_AUTH_METHOD', '" . $_POST['TWO_FACTOR_AUTH_METHOD'] . "');\n";
+					
+					//compute the user encryption key
+					$admin_uek = $crypto->computeUEK( $_POST['uPassword'], $UEK_SALT );
+					
+					//generate a session randomness and encrypt it
+					$_SESSION['session_randomness'] = $crypto->generateRandomString(1024); 
+					$eUEK = $crypto->encrypt( $admin_uek, $_SESSION['session_randomness'] );
+					
+					//save it in file
+					$configuration .= "define('ADMIN_eUEK', '" . $eUEK . "');\n";
+					
 					if (defined('ACTIVE_LOCALE') && ACTIVE_LOCALE != '' && ACTIVE_LOCALE != 'en_US') {
 						$configuration .= "define('ACTIVE_LOCALE', '" . ACTIVE_LOCALE . "');\n";
 					}
 					$res = fwrite($this->fpu, $configuration);
 					fclose($this->fpu);
 					chmod(DIR_CONFIG_SITE . '/site_install_user.php', 0700);
-					if (PHP_SAPI != 'cli') { 
+					if (PHP_SAPI != 'cli') {
 						$this->redirect('/');
 					}
 				} else {

@@ -160,6 +160,9 @@
 				</attributekey>
 			</attributes>
 		</page>
+		
+		<page name="Administration" path="/dashboard/passwordx/administration" filename="/dashboard/passwordx/administration.php" pagetype="" description="" package="" />
+		
     </singlepages>
     	
     <!-- -->

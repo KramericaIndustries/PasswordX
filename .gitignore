@@ -2,3 +2,4 @@ error/*
 stats/*
 config/site.php
 nuke.php
+single_pages/debug.php
