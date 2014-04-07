@@ -111,9 +111,15 @@ $backgroundImage = Loader::helper('concrete/dashboard')->getDashboardBackgroundI
 <ul id="ccm-main-nav">
 <li id="ccm-logo-wrapper"><?php echo Loader::helper('concrete/interface')->getToolbarLogoSRC()?></li>
 <li><a class="ccm-icon-back ccm-menu-icon" href="<?php echo $this->url('/')?>"><?php if ($md->isMobile()) { ?><?php echo t('Back')?><?php } else { ?><?php echo t('Return to PasswordX')?><?php } ?></a></li>
+
+<!-- Concrete5 gets a prominent mention in our custom Dashboard footer 
+
 <?php if (Loader::helper('concrete/interface')->showWhiteLabelMessage()) { ?>
 	<li id="ccm-white-label-message"><?php echo t('Powered by <a href="%s">concrete5</a>.', CONCRETE5_ORG_URL)?></li>
 <?php } ?>
+
+-->
+
 </ul>
 
 <ul id="ccm-system-nav">
