@@ -13,7 +13,7 @@
 <h2>Hello <?php echo ucfirst($uobj->getUserName()); ?></h2>
 <div class="row-fluid">
  <div class="span9">
- <p>This is your personal control panel for administrating PasswordX. Here you have access to the most common functions. If you need help, please take a look at the user guide.</p>
+ <p>This is the main PasswordX control panel. Here you have access to the most common functions. If you need help, please take a look at the user guide.</p>
 
  </div>
  <div class="span3">
@@ -22,10 +22,7 @@
 </div>
 
 <hr>
-
-
 <h2>Passwords &amp; Content</h2>
-
 	<div class="well" >
 
 	<ul class="nav nav-list" >
@@ -50,7 +47,6 @@
 	</div>
 
 <h2>Users</h2>
-
 	<div class="well" >
 	<ul class="nav nav-list">
 		
@@ -66,11 +62,13 @@
 	</ul>
 	</div>
 
-	
 <h2>Configuration</h2>
-
 	<div class="well" >
 	<ul class="nav nav-list">
+	
+	<li>
+	<a href="/index.php/dashboard/passwordx/administration/"><i class="icon-picture"></i> (Todo) Customize Login page</a>
+	</li>		
 	
 	<li>
 	<a href="/index.php/dashboard/system/basics/icons/"><i class="icon-star"></i> Bookmark Icons</a>
@@ -92,13 +90,12 @@
 	</div>
 	
 <h2>Security &amp; Login</h2>
-
 	<div class="well" >
 	<ul class="nav nav-list">
 
 	<li>
 	<a href="/index.php/dashboard/users/authy/"><i class="icon-cog"></i> Two-Factor (Authy) Configuration</a>
-	</li>	
+	</li>
 	
 	<li>
 	<a href="/index.php/dashboard/system/permissions/ip_blacklist/"><i class="icon-warning-sign"></i> IP Blacklist</a>
@@ -120,9 +117,7 @@
 	</ul>
 	</div>	
 
-	
 <h2>Developer</h2>
-
 	<div class="well" >
 	<ul class="nav nav-list">
 	
