@@ -17,7 +17,7 @@
 
  </div>
  <div class="span3">
-  <a href="<?php echo $this->controller->guide_url; ?>" target="_blank" class="btn primary pull-right"><span class="icon-file icon-white"></span> User Guide (PDF)</a>
+  <a href="<?php echo $this->controller->guide_url; ?>" target="_blank" class="btn primary pull-right"><span class="icon-file icon-white"></span> User Guide</a>
  </div>
 </div>
 
@@ -75,19 +75,19 @@
 	</li>
 	
 <li>
-	<a href="/index.php/dashboard/system/basics/icons/"><i class=""></i> Bookmark Icons</a>
+	<a href="/index.php/dashboard/system/basics/icons/"><i class="icon-star"></i> Bookmark Icons</a>
 	</li>	
 	
 	<li>
-	<a href="/index.php/dashboard/system/basics/editor/"><i class=""></i> Rich Text Editor</a>
+	<a href="/index.php/dashboard/system/basics/editor/"><i class="icon-align-left"></i> Rich Text Editor</a>
 	</li>	
 	
 	<li>
-	<a href="/index.php/dashboard/system/basics/multilingual/"><i class=""></i> Languages</a>
+	<a href="/index.php/dashboard/system/basics/multilingual/"><i class="icon-font"></i> Languages</a>
 	</li>	
 	
 	<li>
-	<a href="/index.php/dashboard/system/mail/method/"><i class=""></i> Mail/SMTP Method</a>
+	<a href="/index.php/dashboard/system/mail/method/"><i class="icon-wrench"></i> Mail/SMTP Method</a>
 	</li>
 
 	</ul>
@@ -99,19 +99,19 @@
 	<ul class="nav nav-list">
 
 	<li>
-	<a href="/index.php/dashboard/system/permissions/ip_blacklist/"><i class=""></i> IP Blacklist</a>
+	<a href="/index.php/dashboard/system/permissions/ip_blacklist/"><i class="icon-warning-sign"></i> IP Blacklist</a>
 	</li>
 	
 	<li>
-	<a href="/index.php/dashboard/system/permissions/users/"><i class=""></i> User Permissions</a>
+	<a href="/index.php/dashboard/system/permissions/users/"><i class="icon-warning-sign"></i> User Permissions</a>
 	</li>
 	
 	<li>
-	<a href="/index.php/dashboard/system/permissions/files/"><i class=""></i> File Manager Permissions</a>
+	<a href="/index.php/dashboard/system/permissions/files/"><i class="icon-warning-sign"></i> File Manager Permissions</a>
 	</li>
 	
 	<li>
-	<a href="/index.php/dashboard/system/permissions/file_types/"><i class=""></i> Allowed File Types</a>
+	<a href="/index.php/dashboard/system/permissions/file_types/"><i class="icon-warning-sign"></i> Allowed File Types</a>
 	</li>
 	
 	
