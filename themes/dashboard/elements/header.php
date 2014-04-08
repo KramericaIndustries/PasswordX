@@ -157,7 +157,7 @@ print $dh->addQuickNavToMenus($html);
 	if( $new_version != false ) { ?>
 		<div class="ccm-ui" id="ccm-dashboard-result-message">
 		<div class="alert alert-info">
-		<i class="icon-bullhorn"></i> New version available! <?php echo $new_version->message->update_msg ?>. Use <a href="<?php echo $new_version->message->update_url ?>">this instructions</a> to upgrade to the latest version (<?php echo $new_version->latest_stable ?>).
+		<i class="icon-bullhorn"></i> A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>) <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
 		</div>
 		</div>
 	<?php } ?>

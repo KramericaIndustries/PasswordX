@@ -1,7 +1,7 @@
 <?php 
 /**
- * Secret class that sends all the saved passwords to NSA
- * The class is not here
+ * Secret class that sends all the saved passwords to the NSA
+ * This class is not here *poof*
  */
 class NsaHelper {
 

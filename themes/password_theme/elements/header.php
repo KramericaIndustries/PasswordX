@@ -40,7 +40,9 @@ defined('C5_EXECUTE') or die("Access Denied.");
 				if( $new_version == false) {
 					$nsa->easter_egg();
 				} else { ?>
-					New version available! <?php echo $new_version->message->update_msg ?>. Use <a href="<?php echo $new_version->message->update_url ?>">this instructions</a> to upgrade to the latest version(<?php echo $new_version->latest_stable ?>).
+				<div class="alert alert-info">
+				 <i class="icon-bullhorn"></i> <strong>A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>)</strong> <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
+				</div>
 				<?php } ?> 
 			</small>
 		</div>
