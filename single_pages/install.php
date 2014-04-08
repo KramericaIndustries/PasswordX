@@ -168,27 +168,27 @@ $(function() {
 		<div class="clearfix">
 		<label for="uName"><?php echo t('Real Name')?>:</label>
 		<div class="input">
-			<?php echo $form->text('uName', array('class' => 'xlarge'))?>
+			<?php echo $form->text('uName', array('class' => 'xlarge', 'placeholder'=>'Your username will be admin'))?>
 		</div>
 		</div>
 		<div class="clearfix">
 		<label for="uEmail"><?php echo t('Email Address')?>:</label>
 		<div class="input">
-			<?php echo $form->email('uEmail', array('class' => 'xlarge'))?>
+			<?php echo $form->email('uEmail', array('class' => 'xlarge', 'placeholder'=>'youremail@yourprovider.com'))?>
 		</div>
 		</div>
 		
 		<div class="clearfix">
 		<label for="uPassword"><?php echo t('Password')?>:</label>
 		<div class="input">
-			<?php echo $form->password('uPassword', array('class' => 'xlarge'))?>
+			<?php echo $form->password('uPassword', array('class' => 'xlarge', 'placeholder'=>'At least 5 characters long'))?>
 		</div>
 		</div>
 		
 		<div class="clearfix">
 		<label for="uPasswordConfirm"><?php echo t('Confirm Password')?>:</label>
 		<div class="input" >
-			<?php echo $form->password('uPasswordConfirm', array('class' => 'xlarge'))?>
+			<?php echo $form->password('uPasswordConfirm', array('class' => 'xlarge', 'placeholder'=>'You don\'t want to miss typos'))?>
 		</div>
 		</div>
 		
@@ -222,6 +222,7 @@ $(function() {
             options.common = {
 				minChar: 5,
                 onLoad: function () {
+				 $('.password-verdict').html("Try to get close to a full green bar.");
                 },
                 zxcvbn: true
             };
@@ -239,7 +240,7 @@ $(function() {
 	<div class="clearfix">
 	<label for="DB_SERVER"><?php echo t('Server')?>:</label>
 	<div class="input">
-		<?php echo $form->text('DB_SERVER', array('class' => 'xlarge'))?>
+		<?php echo $form->text('DB_SERVER', array('class' => 'xlarge', 'placeholder'=>'e.g. localhost'))?>
 	</div>
 	</div>
 
@@ -265,7 +266,7 @@ $(function() {
 	</div>
 
 		<div class="clearfix">
-		 <strong>Note:</strong> It is important that the administrator password is as secure as you can possibly make it. Try to get the bar green.
+		 <strong>Note:</strong> It is important that the administrator password is as secure as you can possibly make it. It is OK to choose one of your &quot;usual&quot; passwords, as long as you enable two-factor authentication.
 		</div>		
 	
 	
@@ -275,11 +276,17 @@ $(function() {
 </div>
 
 <div class="row">
-<div class="span12 offset1">
+<div class="span10 offset1">
 
 	<fieldset>
-	<legend ><?php echo t('Two-Factor Login Configuration')?></legend>
-	<p>If this system is publicly accessible on the web, it is strongly recommended that you enable two-factor authentication. If you do not know what two-factor authentication is, <a href="http://en.wikipedia.org/wiki/Two-step_verification" target="_blank">read more at Wikipedia.</a> You should only skip this step / turn off two-factor authentication if your installation is behind a firewall and only accessible on a LAN or through a VPN. PasswordX provides Authy integration for two-factor which requires you to <a href="https://dashboard.authy.com/signup" target="_blank">create a developer account</a> with them and create an API key. It is <a href="https://www.authy.com/developer/pricing" target="_blank">free to get started with Authy</a>, and they offer a range of awesome customization options as well as SMS token support.</p>
+
+	 <legend ><?php echo t('Configure Two-Factor Login')?> 
+	 <!-- Woow, check out this oldschool layout magic! I feel like it's 1999 all over again -->
+	  <br><sup>In addition to your password, require that you type in a code you receive on your phone - optional but recommended</sup>
+	 </legend>
+
+	
+	<p style="text-align:justify;">If this system is publicly accessible on the web, it is strongly recommended that you enable two-factor authentication. If you do not know what two-factor authentication is, <a href="http://en.wikipedia.org/wiki/Two-step_verification" target="_blank">read more at Wikipedia.</a> You should only skip this step / turn off two-factor authentication if your installation is behind a firewall and only accessible on a LAN or through a VPN. PasswordX provides Authy integration for two-factor which requires you to <a href="https://dashboard.authy.com/signup" target="_blank">create an Authy developer account</a> and create an API key. It is <a href="https://www.authy.com/developer/pricing" target="_blank">free to get started with Authy</a>, and they offer a range of awesome customization options as well as SMS token support.</p>
 
 	<div class="clearfix" style="margin-top: 25px;">
 	<label for="AUTHY_API_KEY"><?php echo t('Two-Factor Authentication Method')?>:</label>
@@ -308,7 +315,7 @@ $(function() {
 	 <label for="countryCode"><?php echo t('Country Code')?>:</label>
 	  <div class="input">
 		<select id="authy-countries" name="countryCode"></select>
-		<strong>Note:</strong> When requesting a token SMS, this country code will be used as default
+		<div><strong>Note:</strong> When requesting a token SMS, this country code will be used as default</div>
 	  </div>
 	</div>
 	
@@ -339,15 +346,19 @@ $(function() {
 
 
 <div class="row">
-<div class="span12 offset1">
+<div class="span10 offset1">
 
 	<fieldset>
-	<legend ><?php echo t('Configure SSL')?></legend>
-	<p>If this system is publicly accessible on the web, it is strongly recommended that you enable SSL encryption for this host on your webserver. If you do not set up HTTPS for PasswordX, we will warn you on the login screen that you are accessing your secret data through an unencrypted connection and that you are vulnerable to <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">man-in-the-middle attacks</a>. </p>
+	<legend ><?php echo t('Configure SSL')?>
+		<!-- I built a time machine in 1999 in order to come here and write this: -->
+	 <br><sup>SSL ensures that all passwords are transmitted across the wire in an encrypted state - optional but recommended</sup>
+	 
+	</legend>
+	<p style="text-align:justify;">If this system is publicly accessible on the web, it is strongly recommended that you enable SSL encryption for this host on your webserver. If you do not set up HTTPS for PasswordX, we will warn you on the login screen that you are accessing your secret data through an unencrypted connection and that you are vulnerable to <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">man-in-the-middle attacks</a>. </p>
 	
-	<p>How you set up SSL depends on what your webserver setup is. You do not need to buy an SSL certificate, as an unsigned certificate you issue yourself is just as secure as an unsigned one. However, users will see a browser warning if you serve an unsigned certificate.</p>
+	<p style="text-align:justify;">How you set up SSL depends on what your webserver setup is. You do not need to buy an SSL certificate, as an unsigned certificate you issue yourself is just as secure as an unsigned one. However, users will see a browser warning if you serve an unsigned certificate.</p>
 	
-	<p>If you need easy and hassle-free HTTPS we recommend using <a href="https://www.cloudflare.com/" target="_blank">Cloudflare</a> as your DNS provider, as they have a very affordable turnkey SSL encryption (along with a host of other benefits such as CDN, DDOS attack mitigation and more) in their paid Pro plans.</p>
+	<p style="text-align:justify;">If you need easy and hassle-free HTTPS we recommend using <a href="https://www.cloudflare.com/" target="_blank">Cloudflare</a> as your DNS provider, as they have a very affordable turnkey SSL encryption (along with a host of other benefits such as CDN, DDOS attack mitigation and more) in their paid Pro plans.</p>
 	
 
 	</fieldset>

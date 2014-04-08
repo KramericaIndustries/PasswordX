@@ -150,10 +150,6 @@
 	</li>
 	
 	<li>
-	<a href="/index.php/dashboard/system/backup_restore/database/"><i class=""></i> Database XML</a>
-	</li>
-	
-	<li>
 	<a href="/index.php/dashboard/"><i class=""></i> Standard Concrete5 Dashboard</a>
 	</li>
 	
