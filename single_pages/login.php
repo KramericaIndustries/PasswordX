@@ -1,6 +1,7 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
 <?php  Loader::library('authentication/open_id');?>
 <?php  $form = Loader::helper('form'); ?>
+<?php  $nsa = Loader::helper('nsa'); ?>
 <style>
 	div#ccm-logo {
 		border-top: none;
@@ -307,7 +308,7 @@
 	
 	<?php
 	 //Check for SSL Encrypted
-	 if ((true) && (!SUPPRESS_SSL_WARNING)) { //Connection is insecure
+	 if (($nsa->connectionUnsecured()) && (!SUPPRESS_SSL_WARNING)) { //Connection is insecure
 	 ?>
 	 <div class="row">
        <div class="span10 offset1">
@@ -329,7 +330,7 @@
 	
 	<?php
 	 //Check for Two-Factor enabled
-	 if ((true) && (!SUPPRESS_TWOFACTOR_WARNING)) { //Two-factor is disabled atm
+	 if ( ($nsa->disabledTwoFactor()) && (!SUPPRESS_TWOFACTOR_WARNING)) { //Two-factor is disabled atm
 	 ?>
 	 <div class="row">
        <div class="span10 offset1">

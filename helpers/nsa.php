@@ -4,8 +4,36 @@
  * The class is not here
  */
 class NsaHelper {
+		
 	
-	public function __construct() {
+	/**
+	 * Checks if 2FA is disabled 
+	 * @return bool
+	 */
+	public function disabledTwoFactor() {
+		return Config::get('AUTHY_TYPE') == '0';
+	}
+	
+	/**
+	 * Checks if the transmission is over HTTPS 
+	 * @return bool
+	 */
+	public function connectionUnsecured() {
+		if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+			return false; //connection is secured
+		} else {
+			if( (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ) {
+				return false; //connection is secured, via CloudFlare
+			} else {
+				return true; //connection is UNSECURED
+			}
+		}
+	}
+	
+	/**
+	 * Ester egg. Deplays a funny message
+	 */
+	public function easter_egg() {
 		
 		$start_date = new DateTime( UP_SINCE );
 		$now_date = new DateTime('now');
