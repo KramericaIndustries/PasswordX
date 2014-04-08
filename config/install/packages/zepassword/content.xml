@@ -117,42 +117,7 @@
     
     <!-- Single Pages -->
     <singlepages>
-		<page name="Jobworker" path="/jobworker" filename="/jobworker.php" pagetype="" description="" package="">
-			<attributes>
-				<attributekey handle="exclude_nav">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-				<attributekey handle="exclude_page_list">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-				<attributekey handle="exclude_search_index">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-				<attributekey handle="exclude_sitemapxml">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-			</attributes>
-			<area name="Header Nav"/>
-			<area name="Header"/>
-			<area name="Sidebar"/>
-			<area name="Main"/>
-		</page>
-		<page name="Searchpass" path="/searchpass" filename="/searchpass.php" pagetype="" description="" package="">
-			<attributes>
-				<attributekey handle="exclude_nav">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-				<attributekey handle="exclude_page_list">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-				<attributekey handle="exclude_search_index">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-				<attributekey handle="exclude_sitemapxml">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-			</attributes>
-		</page>
+
 		<page name="Authy Configuration" path="/dashboard/users/authy" filename="/dashboard/users/authy.php" pagetype="" description="" package="">
 			<attributes>
 				<attributekey handle="icon_dashboard">

@@ -36,6 +36,22 @@ $this->inc('elements/header.php');
 			</div>
 		</div>
 
+<pre>
+<?php
+//DEBUG AREA
+
+//var_dump( session_id() );
+//var_dump( $_SESSION );
+
+$c = Loader::helper("crypto");
+
+var_dump($c->generateRandomString(1029,true));
+echo "<hr />";
+var_dump($c->generateRandomString(1029,false));
+
+?>
+</pre>
+	
 <?php 
 $this->inc('elements/footer.php');
 ?>

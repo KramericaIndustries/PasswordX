@@ -8,19 +8,71 @@ class CryptoHelper {
 	protected $EOT = '__EOT';	//string to appended to all text in order to avoid unknown endings
 	protected $hmac_algo = 'ripemd160'; //algorithm used for MAC
 	
+	
 	/**
-	 * Generates a random string
+	 * Genertes random bytes securely
+	 * @param int $length
 	 */
-	public function generateRandomString( $length = 16 ) {
-		
-		$cstrong = false;
-		
-		//loop until we have something strong
-		while( !$cstrong ) {
-			$bytes = openssl_random_pseudo_bytes($length/2, $cstrong);
+	private function generateRandomBytes( $length ) {
+
+		//Do we ahve access to openssl?
+		if( function_exists('openssl_random_pseudo_bytes') ) {
+				
+			$rand = openssl_random_pseudo_bytes($length, $cstrong);
+			
+			if($cstrong) {
+				return $rand;
+			}
 		}
 		
-		return bin2hex($bytes);
+		//If openssl is not available, try to fish out bytes from /dev/urandom 
+		$rand = '';
+		if( @is_readable('/dev/urandom') && ($fh = @fopen('/dev/urandom', 'rb')) ) {
+			$rand = fread($fh, $length);
+			fclose($fh);
+		}
+
+		//last fallback, in case we do not have access to /dev/urandom
+		if (strlen($rand) < $length) {
+			
+			$rand = '';
+			
+			//Create a random state
+			$random_state = microtime();
+			if (function_exists('getmypid')) {
+				$random_state .= getmypid();
+			}
+			
+			//find some pseudoradom bytes
+			for ($i = 0; $i < $length; $i += 16) {
+				$random_state = md5(microtime() . $random_state);
+				$rand .= pack('H*', md5($random_state));
+			}
+			
+			$rand = substr($rand, 0, $length);
+		}
+
+		//return
+		return $rand;
+	}
+	
+	/**
+	 * Generates a secure random string
+	 * @param int $length
+	 * @param bool $base64
+	 */
+	public function generateRandomString( $length = 16, $base64 = false ) {
+		
+		//compute how many bytes we will need to generate
+		$bytes = $base64 ? $length : ceil( $length/2 ); 
+		
+		$rand = $this->generateRandomBytes( $bytes );
+		
+		//convert it to hex or base64
+		$converted_rand = $base64 ? base64_encode($rand) : bin2hex($rand); 
+		
+		//trim the excess
+		return substr( $converted_rand, 0, $length );
 	}
 	
 	/**

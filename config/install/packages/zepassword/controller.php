@@ -123,6 +123,15 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		$ci = new ContentImporter();
 		$ci->importContentFile(DIR_BASE. '/config/install/base/dashboard.xml');
 	}
+	
+	/**
+	 * Make sure we install a few pages as system pages
+	 */
+	public function install_required_single_pages() {
+		Loader::model('single_page');
+		$ci = new ContentImporter();
+		$ci->importContentFile(DIR_BASE . '/config/install/base/login_registration.xml');
+	}
 
 	/**
 	 * Sets up admin name and authy ID
