@@ -199,32 +199,20 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		
 		//retrieve admin UEK
 		$admin_uek = $crypto->decrypt( ADMIN_eUEK, $_SESSION['session_randomness'] );
+		unset($_SESSION['session_randomness']);
 		
 		//generate the master encryption key
 		$MEK = $crypto->generateRandomString(1024);
-		$eMEK = $crypto->encrypt( $MEK, $admin_uek );
 		
-		$db = Loader::db();
-		$q="INSERT INTO MasterKeyStorage(ksID,uID,encrypted_MEK) VALUES(?,?,?)";
+		//grab ze user
+		$admin = new User();
 		
-		//store the encrypted master key
-		$db->Execute($q, array(
-			1,	//first item in the table
-			1,	//admin user id
-			$eMEK //encrypted key
-		));
+		//save the masterkkey
+		$admin->saveMECforUser( $MEK, $admin_uek );
 		
-		//and the session UEK
-		$q="INSERT INTO SessionEncryptionKeyStorage(sekID,uID,encrypted_UEK,createdAt) VALUES(?,?,?,?)";
-		
-		//store the encrypted master key
-		$db->Execute($q, array(
-			1,	//first item in the table
-			1,	//admin user id
-			ADMIN_eUEK, //encrypted key
-			time() //creation epoch time
-		));
-
+		//and save the session tokens and uek
+		$admin->plantSessionToken();
+		$admin->saveSessionUEK( $admin_uek );	
 	}
 	
 	/**

@@ -45,13 +45,38 @@ $this->inc('elements/header.php');
 
 $c = Loader::helper("crypto");
 
-var_dump($c->generateRandomString(1029,true));
+/*$correct_uek = $c->computeUEK("baconipsum");
+
+$u = new User();
+
+echo "<h1>Planting Seeds</h1>";
+
+$planted = $u->plantSessionToken();
+$got = $u->getSessionToken();
+
+var_dump( $planted );
+var_dump( $got );
+var_dump( $planted == $got );
+
+echo "<h1>Handling UEK</h1>";
+$u->saveSessionUEK( $correct_uek );
+$ret_uek = $u->getUEK();
+
+var_dump($correct_uek);
+var_dump( $ret_uek );
+var_dump($correct_uek == $ret_uek );
+
+echo "<h1>Handling Master Key</h1>";*/
+
+//var_dump($u->sanity());
+
+/*var_dump($c->generateRandomString(1029,true));
 echo "<hr />";
-var_dump($c->generateRandomString(1029,false));
+var_dump($c->generateRandomString(1029,false));*/
 
 ?>
 </pre>
-	
+end
 <?php 
 $this->inc('elements/footer.php');
 ?>

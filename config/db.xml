@@ -3213,7 +3213,7 @@
   <table name="SessionEncryptionKeyStorage">
     <field name="sekID" type="I" size="10">
       <KEY/>
-      <DEFAULT value="0"/>
+      <AUTOINCREMENT/>
       <UNSIGNED/>
     </field>
     <field name="uID" type="I" size="10">
@@ -3233,7 +3233,7 @@
   <table name="MasterKeyStorage">
     <field name="ksID" type="I" size="10">
       <KEY/>
-      <DEFAULT value="0"/>
+      <AUTOINCREMENT/>
       <UNSIGNED/>
     </field>
     <field name="uID" type="I" size="10">

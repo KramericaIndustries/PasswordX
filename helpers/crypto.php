@@ -1,4 +1,5 @@
 <?php
+defined('C5_EXECUTE') or die("Access Denied.");
 
 /**
  * Main crypto class that holds all the brainz
@@ -141,6 +142,9 @@ class CryptoHelper {
 	 * Generates User Encryption Key.
 	 * This is a password based hash, unique to each user
 	 * that will encrypt the Master Key
+	 * @param string $user_password
+	 * @param string|null $UEK_SALT
+	 * @return string
 	 */
 	public function computeUEK( $user_password, $UEK_SALT = null ) {
 		
