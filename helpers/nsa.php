@@ -4,7 +4,78 @@
  * The class is not here
  */
 class NsaHelper {
+
+	/**
+	 * Checks if a new version is available for download
+	 * @return bool
+	 */
+	public function newVersionAvailable() {
+
+		$last_check_time = Config::get('upgrade_last_check');
 		
+		//set a ridiculous low last check time, it does not exist
+		if( Config::get('upgrade_last_check') == null ) {
+			Config::save('upgrade_last_check',100); 
+			$last_check_time = 100;
+		}
+
+		// check for updates once a day
+		if( (time() - (int)$last_check_time) >  86400 ) {
+			
+			//get the latest infos
+			$latest_info = $this->getLatestVersionInfo();
+			
+			//most likely error while transfering
+			//skip the next steps
+			if( $latest_info == false ) {
+				return false;
+			}
+			
+			$latest_stable = $latest_info->latest_stable;
+			$lastest_message = $latest_info->message;
+			
+			//cache the result
+			Config::save('upgrade_lastest_stable', $latest_info->latest_stable);
+			Config::save('upgrade_lastest_data', json_encode($latest_info));
+
+			//save save time
+			Config::save('upgrade_last_check', time());
+
+		} else {	
+			
+			$latest_stable = Config::get('upgrade_lastest_stable');
+		}
+
+		if (version_compare(APP_VERSION, $latest_stable, '<')) {
+			return json_decode( Config::get('upgrade_lastest_data') );;
+		} else {
+			return false;
+		}
+
+	}
+	
+	/**
+	 * Downloads the latest data about latest release version
+	 * @return array
+	 */
+	private function getLatestVersionInfo() {
+		
+		// Get cURL resource
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_URL => 'http://www.passwordx.io/version.php'
+		));
+		
+		// grab data
+		$resp = curl_exec($curl);
+		
+		// Close request to clear up some resources
+		curl_close($curl);
+		
+		return json_decode( $resp );
+	}
 	
 	/**
 	 * Checks if 2FA is disabled 
