@@ -360,25 +360,27 @@ $(function() {
 //To be added automatically to site.php
 $configs = array(
 	"ENABLE_MARKETPLACE_SUPPORT"	=>	"false",
-	"ENABLE_NEWSFLOW_OVERLAY"	=>	"false",
-	"ENABLE_APP_NEWS"	=>	"false",
-	"ENABLE_APPLICATION_EVENTS"	=>	"true",
-	"PERMISSIONS_MODEL"	=>	"advanced",
-	"DATE_FORM_HELPER_FORMAT_HOUR" => "24",
-	"DATE_APP_DATE_PICKER"	=>	"dd-mm-yy",
-	"DATE_APP_GENERIC_MDYT_FULL" => "j. F Y - G:i",
-	"DATE_APP_GENERIC_MDYT"	=>	"j-n-Y - G:i",
-	"DATE_APP_GENERIC_MDY"	=>	"j-n-Y",
-	"DATE_APP_GENERIC_MDY_FULL"	=> "j. F Y",	
-	"DATE_APP_DATE_ATTRIBUTE_TYPE_T"	=>	"G:i:s",
-	"DATE_APP_GENERIC_T"	=>	"G:i:s",
-	"DATE_APP_GENERIC_TS"	=>	"G:i:s",
-	"UP_SINCE"				=> date('Y-m-d H:i:s'),
+	"ENABLE_NEWSFLOW_OVERLAY"		=>	"false",
+	"ENABLE_APP_NEWS"				=>	"false",
+	"ENABLE_APPLICATION_EVENTS"		=>	"true",
+	"PERMISSIONS_MODEL"				=>	"advanced",
+	"DATE_FORM_HELPER_FORMAT_HOUR" 	=> "24",
+	"DATE_APP_DATE_PICKER"			=>	"dd-mm-yy",
+	"DATE_APP_GENERIC_MDYT_FULL" 	=> "j. F Y - G:i",
+	"DATE_APP_GENERIC_MDYT"			=>	"j-n-Y - G:i",
+	"DATE_APP_GENERIC_MDY"			=>	"j-n-Y",
+	"DATE_APP_GENERIC_MDY_FULL"		=> "j. F Y",	
+	"DATE_APP_DATE_ATTRIBUTE_TYPE_T"=>	"G:i:s",
+	"DATE_APP_GENERIC_T"			=>	"G:i:s",
+	"DATE_APP_GENERIC_TS"			=>	"G:i:s",
+	"UP_SINCE"						=> date('Y-m-d H:i:s'),
 	"ENABLE_INTELLIGENT_SEARCH_HELP"=>"false",
 	"ENABLE_INTELLIGENT_SEARCH_MARKETPLACE"=>"false",
-	"WHITE_LABEL_APP_NAME"	=>	"PasswordX",
-	"WHITE_LABEL_LOGO_SRC"	=>	"/images/logo_menu.png",
-	"CONCRETE5_ORG_URL"	=>	"http://www.concrete5.org/r/-/167051"
+	"WHITE_LABEL_APP_NAME"			=>	"PasswordX",
+	"WHITE_LABEL_LOGO_SRC"			=>	"/images/logo_menu.png",
+	"CONCRETE5_ORG_URL"				=>	"http://www.concrete5.org/r/-/167051",
+	"SUPPRESS_SSL_WARNING"			=>	"false",
+	"SUPPRESS_TWOFACTOR_WARNING"	=>	"false",
 );
 foreach( $configs as $k=>$v ) { ?>
 	<input type="hidden" name="SITE_CONFIG[<?php echo $k ?>]" value="<?php echo $v ?>" />	
@@ -572,12 +574,6 @@ $(function() {
 	</td>
 	<td><?php if (!$mcryptTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('mcrypt library is required in order to safely store password in the database.')?>" /><?php } ?></td>
 </tr>
-<tr>
-	<td><?php if ($opensslTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
-	<td width="100%"><?php echo t('Support for OpenSSL')?>
-	</td>
-	<td><?php if (!$opensslTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('PHP support for OpenSSL is required in order to safely generate encryption keys.')?>" /><?php } ?></td>
-</tr>
 </tbody>
 </table>
 
@@ -596,6 +592,7 @@ $(function() {
 <div class="row">
 <div class="span5 offset1">
 
+<!-- First Column Optional -->
 <table class="table table-striped">
 <tbody>
 <tr>
@@ -604,8 +601,24 @@ $(function() {
 	</td>
 	<td><?php if (!$remoteFileUploadTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('Remote file importing through the file manager requires the iconv PHP extension.')?>" /><?php } ?></td>
 </tr>
+</tbody>
 </table>
 
+</div>
+<div class="span5">
+
+	<!-- Second Column Optional -->
+	<table class="table table-striped">
+	<tbody>
+	<tr>
+		<td><?php if ($opensslTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
+		<td width="100%"><?php echo t('Support for OpenSSL')?>
+		</td>
+		<td><?php if (!$opensslTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('PHP support for OpenSSL is required in order to safely generate encryption keys.')?>" /><?php } ?></td>
+	</tr>
+	</tbody>
+	</table>
+	
 </div>
 </div>
 

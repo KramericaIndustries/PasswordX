@@ -220,8 +220,9 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 	 */
 	public function finish() {
 
-		//bubble up our blocks to the top
 		$db = Loader::db();
+
+		//bubble up our blocks to the top
 		$q="UPDATE BlockTypes SET btDisplayOrder=? WHERE btHandle=?";
 		
 		//bubble_up
