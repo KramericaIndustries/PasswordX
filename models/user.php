@@ -42,6 +42,33 @@ class User extends Concrete5_Model_User {
 	}
 	
 	/**
+	 * Logout an user.
+	 */
+	public function logout() {
+		
+		//make sure we destroy the session token
+		unset($_SESSION['random_token']);
+		if (isset($_COOKIE['random_token']) && $_COOKIE['random_token']) {
+				setcookie(
+					"random_token", "", 
+					315532800, DIR_REL . '/',
+					(defined('SESSION_COOKIE_PARAM_DOMAIN')?SESSION_COOKIE_PARAM_DOMAIN:''),
+					(defined('SESSION_COOKIE_PARAM_SECURE')?SESSION_COOKIE_PARAM_SECURE:false),
+					(defined('SESSION_COOKIE_PARAM_HTTPONLY')?SESSION_COOKIE_PARAM_HTTPONLY:false)
+				);
+				unset($_COOKIE['random_token']);
+		}
+		
+		//and clean un session from DB
+		$db = Loader::db();
+		$q = "DELETE FROM SessionEncryptionKeyStorage WHERE uID=?";
+		$db->Execute($q, array( $this->uID ));
+		
+		//call the parent to necesarry steps remaining
+		parent::logout(); 
+	}
+	
+	/**
 	 * Saved the uek encrypted with the session key in the database
 	 * @param string $uek
 	 * @param bool $garbage_collection 

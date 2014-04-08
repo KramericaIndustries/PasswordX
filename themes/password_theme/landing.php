@@ -53,8 +53,6 @@ var_dump( $c->decrypt($chiper,$mek) );
 
 /*$correct_uek = $c->computeUEK("baconipsum");
 
-
-
 echo "<h1>Planting Seeds</h1>";
 
 $planted = $u->plantSessionToken();
