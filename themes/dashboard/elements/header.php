@@ -150,7 +150,18 @@ print $dh->addQuickNavToMenus($html);
 
 	<div class="container">
 
-
+	<?php 
+	$nsa = Loader::helper("nsa"); 
+	$new_version = $nsa->newVersionAvailable();
+	
+	if( $new_version != false ) { ?>
+		<div class="ccm-ui" id="ccm-dashboard-result-message">
+		<div class="alert alert-info">
+		<i class="icon-bullhorn"></i> New version available! <?php echo $new_version->message->update_msg ?>. Use <a href="<?php echo $new_version->message->update_url ?>">this instructions</a> to upgrade to the latest version (<?php echo $new_version->latest_stable ?>).
+		</div>
+		</div>
+	<?php } ?>
+	
 	<?php if (isset($error)) { ?>
 		<?php 
 		if ($error instanceof Exception) {

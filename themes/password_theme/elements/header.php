@@ -33,7 +33,15 @@ defined('C5_EXECUTE') or die("Access Denied.");
 		
 		<div class="easter-egg">
 			<small> 
-				<?php $nsa = Loader::helper("nsa"); $nsa->easter_egg(); ?> 
+				<?php 
+				$nsa = Loader::helper("nsa"); 
+				$new_version = $nsa->newVersionAvailable();
+				
+				if( $new_version == false) {
+					$nsa->easter_egg();
+				} else { ?>
+					New version available! <?php echo $new_version->message->update_msg ?>. Use <a href="<?php echo $new_version->message->update_url ?>">this instructions</a> to upgrade to the latest version(<?php echo $new_version->latest_stable ?>).
+				<?php } ?> 
 			</small>
 		</div>
       </div>

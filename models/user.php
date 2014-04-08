@@ -127,9 +127,12 @@ class User extends Concrete5_Model_User {
 		$crypto = Loader::helper("crypto");
 		$db = Loader::db();
 				
-		$q="INSERT INTO MasterKeyStorage(ksID,uID,encrypted_MEK) VALUES('',?,?)";
+		//make sure there are no duplicate keys
+		$q = "DELETE FROM MasterKeyStorage WHERE uID=?";
+		$db->Execute($q, array( $this->uID ));
 		
-		//store the encrypted master key
+		//store the encrypted master key		
+		$q="INSERT INTO MasterKeyStorage(ksID,uID,encrypted_MEK) VALUES('',?,?)";
 		$db->Execute($q, array(
 			$this->uID,
 			$crypto->encrypt( $master_key, $uek )
