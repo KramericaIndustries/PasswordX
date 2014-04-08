@@ -34,6 +34,27 @@ class UserInfo extends Concrete5_Model_UserInfo {
 		}
 	
 		/**
+		 * Deletes a user
+		 * @return void
+		 */
+		public function delete(){
+			
+			// we will NOT let you delete the admin user
+			if ($this->uID == USER_SUPER_ID) {
+				return false;
+			}
+			
+			//clean encryption related stuff
+			$db = Loader::db();
+			
+			$r = $db->query("DELETE FROM MasterKeyStorage WHERE uID = ?",array(intval($this->uID)) );
+			$r = $db->query("DELETE FROM SessionEncryptionKeyStorage WHERE uID = ?",array(intval($this->uID)) );
+			
+			//callback to parent
+			parent::delete();	
+		}
+	
+		/**
 		 * When the user is changing the password, change also the master key hash
 		 */
 		public function changePassword( $newPassword ) {
