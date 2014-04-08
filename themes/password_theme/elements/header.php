@@ -33,7 +33,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
 		
 		<div class="easter-egg">
 			<small> 
-				<?php Loader::helper("nsa"); ?> 
+				<?php $nsa = Loader::helper("nsa"); $nsa->easter_egg(); ?> 
 			</small>
 		</div>
       </div>
