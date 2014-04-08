@@ -165,6 +165,10 @@ class LoginController extends Concrete5_Controller_Login {
 
                 }
 
+				//Create a session UEK for this user
+				$crypto = Loader::helper("crypto");
+				$u->saveSessionUEK( $crypto->computeUEK( $this->post('uPassword') ) );
+
                 //and finish the process
                 $loginData['success']=1;
                 $loginData['msg']=t('Login Successful');
