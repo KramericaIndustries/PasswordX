@@ -40,14 +40,20 @@ $this->inc('elements/header.php');
 <?php
 //DEBUG AREA
 
-//var_dump( session_id() );
-//var_dump( $_SESSION );
-
 $c = Loader::helper("crypto");
+
+$u = new User();
+
+$chiper = "buDa4JadECyhFEnUIdJIlyX0rgG4Z0/jbwGUqSWi2YzJC/D0cOjK8tUAEEa53JOUsgVjCL/CQvbXFajFXz/Fd5jEbdUZqs3E7CBxH9iZpVkaronQ3HI1UaxrM84bKlq92Bxf2tMNIj6R+ChsaK8jR6uvIkcYP4IEw+NJWft8ULc=:7bba46437bffef9157dc81b089e32b692a05500a";
+
+echo "<h1>Handling Master Key</h1>";
+$mek = $u->getMEK();
+
+var_dump( $c->decrypt($chiper,$mek) );
 
 /*$correct_uek = $c->computeUEK("baconipsum");
 
-$u = new User();
+
 
 echo "<h1>Planting Seeds</h1>";
 

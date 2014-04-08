@@ -109,4 +109,26 @@ class User extends Concrete5_Model_User {
 		));		
 	}
 	
+	/**
+	 * Return the master encryption key
+	 * @return string
+	 */
+	public function getMEK( $uek = null ) {
+		
+		//which key to use?
+		if( !isset($uek) ) {
+			$uek = $this->getUEK();
+		}
+		
+		//load needed libs
+		$crypto = Loader::helper("crypto");
+		$db = Loader::db();
+		
+		//grab it from db
+		$q = "SELECT encrypted_MEK from MasterKeyStorage WHERE uID=?";
+		$eMEK = $db->GetOne( $q, array($this->uID) );
+		
+		//decrypt and return
+		return $crypto->decrypt( $eMEK, $uek );
+	} 
 }
