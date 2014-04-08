@@ -55,12 +55,41 @@ class UserInfo extends Concrete5_Model_UserInfo {
 		}
 	
 		/**
+		 * wheneer an admin is changing user data, this function gets called
+		 */
+		public function update($data) {
+			
+			//should we change the key
+			if ($data['uPassword'] != null) {
+					if ($data['uPassword'] == $data['uPasswordConfirm']) {
+						
+						$crypto = Loader::helper("crypto");
+						$edit_user_uek = $crypto->computeUEK( $data['uPassword'] ); 
+						
+						//get the MEK, via the logged in admin/superuser
+						$user = new User();
+						$mek = $user->getMEK();
+						
+						//and save it for the user
+						$edit_user = $this->getUserObject(); 
+						$edit_user->saveMECforUser( $mek, $edit_user_uek );
+						
+					}
+			}
+			
+			//callback to parent for the boring stuff
+			return parent::update($data);
+		}
+	
+	
+		/**
 		 * When the user is changing the password, change also the master key hash
 		 */
 		public function changePassword( $newPassword ) {
 				
-			//Add some login here
-				 
-			parent::changePassword();
+			die("change pass");
+				
+			//Add some login here	 
+			//parent::changePassword();
 		}
 }

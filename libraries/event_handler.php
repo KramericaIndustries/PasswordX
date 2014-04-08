@@ -17,6 +17,10 @@ class EventHandler {
 		if( $_POST["skip_useradd_event"] == 1 ) {
 			return;
 		}
+		
+		if( Config::get('AUTHY_TYPE') == '0' ) {
+			return;
+		}
 	 
         /*
          * So, C5 fires the on_user_add before it saved the attributes in DB
@@ -65,6 +69,10 @@ class EventHandler {
      * @param $full_country_code
      */
     private static function updateUserAuthy( $ui, $email_addr, $dirty_phone_number, $full_country_code ) {
+
+		if( Config::get('AUTHY_TYPE') == '0' ) {
+			return;
+		}
 
         //Allow only digits in the phone number
         $clean_phone_number = preg_replace("/[^0-9]/", "", $dirty_phone_number);
