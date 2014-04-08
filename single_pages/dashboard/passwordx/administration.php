@@ -1,12 +1,9 @@
 <?php defined('C5_EXECUTE') or die("Access Denied.");
- /*
-  Custom Admin panel for PasswordX - Provides a simplified entrypoint into all the various backend admin panels
-  (c) 2014 PasswordX
-  MIT License
-  AHJ
+/**
+ * Custom Admin panel for PasswordX - Provides a simplified entrypoint into all the various backend admin panels
+ * (c) 2014 PasswordX
+ * Apache v2 License
  */
- 
-   
 ?>
 <?php echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('PasswordX Dashboard'), t('This is your personal control panel for administrating PasswordX.'), false, false);?>
 <div class="ccm-pane-body"> 

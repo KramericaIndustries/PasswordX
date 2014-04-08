@@ -265,9 +265,9 @@ $(function() {
 	</div>
 	</div>
 
-		<div class="clearfix">
-		 <strong>Note:</strong> It is important that the administrator password is as secure as you can possibly make it. It is OK to choose one of your &quot;usual&quot; passwords, as long as you enable two-factor authentication.
-		</div>		
+		<p class="clearfix">
+		 <strong>Note:</strong> It is important that the administrator password is as secure as you can make it. It is OK to choose one of your &quot;usual&quot; passwords, as long as you enable two-factor authentication. See this helpful illustration om <a href="https://xkcd.com/936/" target="_blank">how to choose passwords</a>
+		</p>		
 	
 	
 	</fieldset>
@@ -315,7 +315,7 @@ $(function() {
 	 <label for="countryCode"><?php echo t('Country Code')?>:</label>
 	  <div class="input">
 		<select id="authy-countries" name="countryCode"></select>
-		<div><strong>Note:</strong> When requesting a token SMS, this country code will be used as default</div>
+		<div style="margin-top: 10px;"><strong>Note:</strong> When requesting a token SMS, this country code will be used as default</div>
 	  </div>
 	</div>
 	
