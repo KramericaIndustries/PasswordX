@@ -307,11 +307,11 @@
 	
 	<?php
 	 //Check for SSL Encrypted
-	 if (true) { //Connection is insecure
+	 if ((true) && (!SUPPRESS_SSL_WARNING)) { //Connection is insecure
 	 ?>
 	 <div class="row">
        <div class="span10 offset1">
-	   <h3 style="color: #990000;"><i class="icon-warning-sign"></i> <?php echo t('This connection is not secure. Please set up SSL encryption.')?></h3>
+	   <h3 style="color: #990000;"><?php echo t('This connection is not secure. Please set up SSL encryption.')?></h3>
 	    <p>This connection is not secure at the moment as you are connecting through plain HTTP. This means you are susceptible to <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">man-in-the-middle attacks</a>. </p>
 		
 		<p>How you set up SSL depends on what your webserver setup is. You do not need to buy an SSL certificate, as an unsigned certificate you issue yourself is just as secure as an unsigned one. However, users will see a browser warning if you serve an unsigned certificate.</p>
@@ -319,7 +319,7 @@
 		<p>If you need easy and hassle-free HTTPS we recommend using <a href="https://www.cloudflare.com/" target="_blank">Cloudflare</a> as your DNS provider, as they have a very affordable turnkey SSL encryption (along with a host of other benefits such as CDN, DDOS attack mitigation and more) in their paid Pro plans.</p>
 		
 		<div class="actions">
-		<p><i class="icon-info-sign"></i> If this installation is running on a secure network, the administrator can disable this warning message by setting the SUPPRESS_SSL_WARNING to true in config/site.php</p>
+		<p><i class="icon-info-sign"></i> If this installation is running on a secure network, the administrator can disable this warning message by setting SUPPRESS_SSL_WARNING to true in config/site.php</p>
 		</div>
 		
 	   </div>
@@ -329,18 +329,18 @@
 	
 	<?php
 	 //Check for Two-Factor enabled
-	 if (true) { //Two-factor is disabled atm
+	 if ((true) && (!SUPPRESS_TWOFACTOR_WARNING)) { //Two-factor is disabled atm
 	 ?>
 	 <div class="row">
        <div class="span10 offset1">
-	   <h3 style="color: #990000;"><i class="icon-warning-sign"></i> <?php echo t('Two-Factor Authentication is disabled!')?></h3>
+	   <h3 style="color: #990000;"><?php echo t('Two-Factor Authentication is disabled!')?></h3>
 
 	   <p>If this system is publicly accessible on the web, it is strongly recommended that you enable two-factor authentication. If you do not know what two-factor authentication is, <a href="http://en.wikipedia.org/wiki/Two-step_verification" target="_blank">read more at Wikipedia.</a> You should only turn off two-factor authentication if your installation is behind a firewall and only accessible on a LAN or through a VPN.</p>
 	   
 	   <p>You can configure Two-Factor authentication in the Dashboard after logging in</p>
 	   
 	   <div class="actions">
-	   	<p><i class="icon-info-sign"></i> If this installation is running on a secure network, the administrator can disable this warning message by setting the SUPPRESS_TWOFACTOR_WARNING to true in config/site.php</p>
+	   	<p><i class="icon-info-sign"></i> If this installation is running on a secure network, the administrator can disable this warning message by setting SUPPRESS_TWOFACTOR_WARNING to true in config/site.php</p>
 		</div>
 	    
 	   </div>

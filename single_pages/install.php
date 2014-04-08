@@ -177,19 +177,58 @@ $(function() {
 			<?php echo $form->email('uEmail', array('class' => 'xlarge'))?>
 		</div>
 		</div>
+		
 		<div class="clearfix">
 		<label for="uPassword"><?php echo t('Password')?>:</label>
 		<div class="input">
 			<?php echo $form->password('uPassword', array('class' => 'xlarge'))?>
 		</div>
 		</div>
+		
 		<div class="clearfix">
 		<label for="uPasswordConfirm"><?php echo t('Confirm Password')?>:</label>
-		<div class="input">
+		<div class="input" >
 			<?php echo $form->password('uPasswordConfirm', array('class' => 'xlarge'))?>
 		</div>
 		</div>
+		
+		<div class="clearfix">
+		 <label for=""><?php echo t('Password strength')?>:</label>
+		 <div class="input" id="password_input">
+		  <span id="pwstrength_viewport_progress"></span> <span id="pwstrength_viewport_verdict"></span>
+		 </div>
+		</div>		
+		
 	</fieldset>
+	
+	<!-- Password strength meter for Bootstrap 
+		https://github.com/ablanco/jquery.pwstrength.bootstrap
+		https://tech.dropbox.com/2012/04/zxcvbn-realistic-password-strength-estimation/
+	-->
+<script type="text/javascript" src="/js/zxcvbn-async.js"></script>
+<script type="text/javascript" src="/js/pwstrength.js"></script>
+<script type="text/javascript">
+        jQuery(document).ready(function () {
+ 
+            var options = {};
+            options.ui = {
+				bootstrap2: true,
+                container: "#password_input",
+                viewports: {
+                    progress: "#pwstrength_viewport_progress",
+                    verdict: "#pwstrength_viewport_verdict"
+                }
+            };
+            options.common = {
+				minChar: 5,
+                onLoad: function () {
+                },
+                zxcvbn: true
+            };
+            $('#uPassword').pwstrength(options);
+        });
+    </script>	
+	
 
 </div>
 <div class="span5">
@@ -224,8 +263,13 @@ $(function() {
 		<?php echo $form->text('DB_DATABASE', array('class' => 'xlarge'))?>
 	</div>
 	</div>
-	</fieldset>
+
+		<div class="clearfix">
+		 <strong>Note:</strong> It is important that the administrator password is as secure as you can possibly make it. Try to get the bar green.
+		</div>		
 	
+	
+	</fieldset>
 
 </div>
 </div>
@@ -342,7 +386,7 @@ foreach( $configs as $k=>$v ) { ?>
 
 <!--
 	THEME CHOISE HERE WILL BE LATER -->
-<div class="row">
+<div class="row" style="margin-top:25px;">
 <div class="span10 offset1">
 
 <h3><?php echo t('Install Mode')?></h3>
