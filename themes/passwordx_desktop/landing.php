@@ -44,6 +44,53 @@ $mek = $u->getMEK();
 
 var_dump( $c->decrypt($chiper,$mek) );
 
+echo "<hr>";
+
+echo "<h1>Key Gen</h1>";
+
+Loader::library( "3rdparty/phpseclib/Math/BigInteger" );
+Loader::library( "3rdparty/phpseclib/Crypt/RSA" );
+Loader::library( "3rdparty/phpseclib/Crypt/AES" );
+Loader::library( "3rdparty/phpseclib/Crypt/TripleDES" );
+Loader::library( "3rdparty/phpseclib/Crypt/Random" );
+
+$rsa = new Crypt_RSA();
+$keys = $rsa->createKey(4096);
+
+var_dump( $keys );
+
+echo "<hr>";
+
+echo "<h1>Encrypt</h1>";
+
+$rsae = new Crypt_RSA();
+
+//public key
+$rsae->loadKey( $keys["publickey"] );
+
+$plaintext = 'SUPER Secret message';
+
+$rsae->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
+$ciphertext = $rsae->encrypt($plaintext);
+
+var_dump($ciphertext);
+
+echo "<hr>";
+
+echo "<h1>Decrypt</h1>";
+
+$rsad = new Crypt_RSA();
+
+//public key
+$rsad->loadKey( $keys["privatekey"] );
+$rsad->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
+
+$decr = $rsad->decrypt($ciphertext);
+
+var_dump($decr);
+
+echo "<hr>";
+
 /*$correct_uek = $c->computeUEK("baconipsum");
 
 echo "<h1>Planting Seeds</h1>";
