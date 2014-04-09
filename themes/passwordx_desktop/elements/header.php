@@ -7,22 +7,23 @@
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo LANGUAGE?>">
-   <head>  
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<meta charset="UTF-8">
-		<meta name="robots" content="noindex">
-		<meta name="googlebot" content="noindex">
-		<meta name="description" content="Password management system" />
-		<meta name="author" content="PasswordX.io">
+ <head>  
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<meta name="googlebot" content="noindex">
+<meta name="description" content="Password management system" />
+<meta name="author" content="PasswordX.io">
           
-        <?php   Loader::element('header_required'); ?>
+<?php   Loader::element('header_required'); ?>
 	
-		<!-- //CSS -->
-		<link href="<?php  echo $this->getThemePath(); ?>/frameworks/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" media="screen" type="text/css" href="<?php  echo $this->getStyleSheet('main.css')?>" />
-        <link rel="stylesheet" media="screen" type="text/css" href="<?php  echo $this->getThemePath(); ?>/typography.css" />
+<!-- //CSS -->
+<link href="<?php  echo $this->getThemePath(); ?>/frameworks/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" media="screen" type="text/css" href="<?php  echo $this->getStyleSheet('main.css')?>" />
+<link rel="stylesheet" media="screen" type="text/css" href="<?php  echo $this->getThemePath(); ?>/typography.css" />
 	
-		<script src="<?php  echo $this->getThemePath(); ?>/frameworks/bootstrap/js/bootstrap.min.js"></script>
+<script src="<?php  echo $this->getThemePath(); ?>/frameworks/bootstrap/js/bootstrap.min.js"></script>
 	
-	</head>
+ </head>
 <body>

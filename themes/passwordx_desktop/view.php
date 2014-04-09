@@ -9,7 +9,7 @@ $this->inc('elements/header.php');
 ?>
 
 
- <div id="wrapper">
+<div class="container">
 <?php  print $innerContent; ?>
 </div>
 

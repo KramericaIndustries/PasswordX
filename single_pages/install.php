@@ -390,6 +390,7 @@ $configs = array(
 	"WHITE_LABEL_APP_NAME"			=>	"PasswordX",
 	"WHITE_LABEL_LOGO_SRC"			=>	"/images/logo_menu.png",
 	"CONCRETE5_ORG_URL"				=>	"http://www.concrete5.org/r/-/167051",
+	"RECOVER_ACCESS_URL"				=>	"http://www.google.com",
 	"SUPPRESS_SSL_WARNING"			=>	"false",
 	"SUPPRESS_TWOFACTOR_WARNING"	=>	"false",
 );
