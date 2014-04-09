@@ -13,7 +13,7 @@ class EncryptedGenericPassBlockController extends BlockController {
 	protected $btTable = 'btDCEncryptedGenericPass';
 	
 	protected $btInterfaceWidth = "700";
-	protected $btInterfaceHeight = "500";
+	protected $btInterfaceHeight = "400";
 	
 	protected $btCacheBlockRecord = true;
 	protected $btCacheBlockOutput = true;

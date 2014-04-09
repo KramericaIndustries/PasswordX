@@ -1,11 +1,21 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied.");
+<?php  
+/**
+ * Edit for VHost Password Block
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
+defined('C5_EXECUTE') or die("Access Denied.");
 ?>
-
+<style>
+.form-horizontal .form-group {
+	margin-right: 0px!important;
+}
+</style>
 
    <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">Hostname</label>
     <div class="col-lg-10">
-      <?php  echo $form->text('field_1_textbox_text', $field_1_textbox_text, array('style' => 'width: 95%;', 'placeholder' => 'Title...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php  echo $form->text('field_1_textbox_text', $field_1_textbox_text, array('style' => '', 'placeholder' => 'Title...', 'class'=>"form-control", "autocomplete" => "off")); ?>
     </div>
   </div>
 
@@ -13,7 +23,7 @@
    <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">FTP Username</label>
     <div class="col-lg-10">
-      <?php  echo $form->text('field_2_textbox_text', $field_2_textbox_text, array('style' => 'width: 95%;', 'placeholder' => 'FTP Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php  echo $form->text('field_2_textbox_text', $field_2_textbox_text, array('style' => '', 'placeholder' => 'FTP Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
     </div>
   </div>
   
@@ -32,7 +42,7 @@
     <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">SSH Username</label>
     <div class="col-lg-10">
-      <?php  echo $form->text('field_4_textbox_text', $field_4_textbox_text, array('style' => 'width: 95%;', 'placeholder' => 'SSH Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php  echo $form->text('field_4_textbox_text', $field_4_textbox_text, array('style' => '', 'placeholder' => 'SSH Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
     </div>
   </div>
   
@@ -51,7 +61,7 @@
     <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">DB Username</label>
     <div class="col-lg-10">
-      <?php  echo $form->text('field_6_textbox_text', $field_6_textbox_text, array('style' => 'width: 95%;', 'placeholder' => 'DB Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php  echo $form->text('field_6_textbox_text', $field_6_textbox_text, array('style' => '', 'placeholder' => 'DB Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
     </div>
   </div>
   
@@ -69,7 +79,7 @@
    <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">DB names</label>
     <div class="col-lg-10">
-      <?php  echo $form->text('field_8_textbox_text', $field_8_textbox_text, array('style' => 'width: 95%;', 'placeholder' => 'DB Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php  echo $form->text('field_8_textbox_text', $field_8_textbox_text, array('style' => '', 'placeholder' => 'DB Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
     </div>
   </div>
   
@@ -77,6 +87,6 @@
   <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">Notes <i>(optional)</i></label>
     <div class="col-lg-10">
-      <textarea placeholder="Notes..." class="form-control" id="field_9_textarea_text" name="field_9_textarea_text" rows="5" style="width: 95%;"><?php  echo $field_9_textarea_text; ?></textarea>
+      <textarea placeholder="Notes..." class="form-control" id="field_9_textarea_text" name="field_9_textarea_text" rows="5"><?php  echo $field_9_textarea_text; ?></textarea>
     </div>
   </div>

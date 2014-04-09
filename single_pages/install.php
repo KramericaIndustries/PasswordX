@@ -1,4 +1,10 @@
-<?php defined('C5_EXECUTE') or die("Access Denied."); ?> 
+<?php 
+/**
+ * Install view 
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
+defined('C5_EXECUTE') or die("Access Denied."); ?> 
 
 <script type="text/javascript" src="<?php echo ASSETS_URL_JAVASCRIPT?>/bootstrap.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS_URL_JAVASCRIPT?>/jquery.cookie.js"></script>

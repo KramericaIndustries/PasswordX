@@ -1,8 +1,9 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied.");
-?>
-
-
-<?php  defined('C5_EXECUTE') or die("Access Denied.");
+/**
+ * View for VHost Password Block
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
 ?>
 
 <div class="bs-callout bs-callout-info">

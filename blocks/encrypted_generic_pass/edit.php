@@ -1,11 +1,21 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied.");
+<?php  
+/**
+ * Edit view for the Generic Password Block
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
+defined('C5_EXECUTE') or die("Access Denied.");
 ?>
-
+<style>
+.form-horizontal .form-group {
+	margin-right: 0px!important;
+}
+</style>
 
    <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">Title <i>(optional)</i></label>
     <div class="col-lg-10">
-      <?php  echo $form->text('field_1_textbox_text', $field_1_textbox_text, array('style' => 'width: 95%;', 'placeholder' => 'Title...', 'class'=>"form-control", "autocomplete" => "off" )); ?>
+      <?php  echo $form->text('field_1_textbox_text', $field_1_textbox_text, array('style' => '', 'placeholder' => 'Title...', 'class'=>"form-control", "autocomplete" => "off" )); ?>
     </div>
   </div>
 
@@ -13,7 +23,7 @@
    <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">Username</label>
     <div class="col-lg-10">
-      <?php  echo $form->text('field_2_textbox_text', $field_2_textbox_text, array('style' => 'width: 95%;', 'placeholder' => 'Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php  echo $form->text('field_2_textbox_text', $field_2_textbox_text, array('style' => '', 'placeholder' => 'Username...', 'class'=>"form-control", "autocomplete" => "off")); ?>
     </div>
   </div>
   
@@ -31,7 +41,7 @@
   <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">Notes <i>(optional)</i></label>
     <div class="col-lg-10">
-      <textarea placeholder="Notes..." class="form-control" id="field_4_textarea_text" name="field_4_textarea_text" rows="5" style="width: 95%;"><?php  echo $field_4_textarea_text; ?></textarea>
+      <textarea placeholder="Notes..." class="form-control" id="field_4_textarea_text" name="field_4_textarea_text" rows="5" style=""><?php  echo $field_4_textarea_text; ?></textarea>
     </div>
   </div>
 
