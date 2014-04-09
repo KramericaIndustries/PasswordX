@@ -63,8 +63,13 @@
 	<div class="well" >
 	<ul class="nav nav-list">
 	
+	<?php
+	 //Look up login page stack
+	 $stack = Stack::getByName('Login Page Content');
+	?>
+	
 	<li>
-	<a href="/index.php/dashboard/passwordx/administration/"><i class="icon-picture"></i> (Todo) Customize Login page</a>
+	<a href="/index.php/dashboard/blocks/stacks/view_details/<?php echo $stack->getCollectionId(); ?>"><i class="icon-picture"></i>Customize Login page</a>
 	</li>		
 	
 	<li>

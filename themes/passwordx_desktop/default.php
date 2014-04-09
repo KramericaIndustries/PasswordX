@@ -1,24 +1,14 @@
-<?php  
-defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
+/**
+ * No pagetype found for this page
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
+
 $this->inc('elements/header.php'); 
-
-$html = Loader::helper('html');
 ?>
 
-<h1>Stranger, you should not be here</h1>
+<h1>This page does not have a page type associated with it for some reason. This could indicate a misconfiguration.</h1>
 
-<p class="red sanity">CSS SANITY</p> 
+<?php $this->inc('elements/footer.php'); ?>
 
-<p id="sanity"> <a href="#">jQuery Sanity</a> </p>
-
-<?php  
-        $a = new Area('Main');
-        $a->display($c);
-?>
-
-
-<script type="text/javascript" src="<?php  echo $this->getThemePath(); ?>/js/main.js"></script>
-
-<?php 
-$this->inc('elements/footer.php');
-?>
