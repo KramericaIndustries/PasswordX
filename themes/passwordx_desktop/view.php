@@ -5,13 +5,21 @@
  * Apache v2 License
  */
 
-$this->inc('elements/header.php'); 
+$this->inc('elements/header.php');
+ if (!$nosidebar) {
+  $this->inc('elements/sidebar.php'); 
+ }
 ?>
 
-
-<div class="container">
 <?php  print $innerContent; ?>
-</div>
 
+<?php 
+ if (!$nosidebar) {
+ ?>
+	  </div> <!-- //inset -->
+  	 </div> <!-- //page-content-wrapper -->
+    </div> <!-- //wrapper -->
+ <?php
+ }
 
-<?php $this->inc('elements/footer.php'); ?>
+$this->inc('elements/footer.php'); ?>

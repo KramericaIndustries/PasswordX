@@ -29,6 +29,8 @@ class LoginController extends Concrete5_Controller_Login {
         $this->set( 'otp', $this->authy->isOTP() );
         $this->set( 'sms', $this->authy->isSMSAllowed() );
         $this->set( 'authy_enabled', $this->authy->isEnabled() );
+		
+		$this->set("nosidebar",true);
     }
 
     /**
@@ -36,6 +38,7 @@ class LoginController extends Concrete5_Controller_Login {
      */
     public function view() {
         parent::view(); //callback to parent
+		
     }
 
     /**

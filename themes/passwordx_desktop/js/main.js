@@ -1,5 +1,10 @@
 $(function(){
 
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+
 	/* Manipulate the nav to dropdown */
 	$("#sidebar-wrapper").on( "click", ".nav-dropdown > a", function(){
 			$(this).siblings().toggle();
@@ -57,12 +62,6 @@ $(function(){
 		});
 		
 	});
-	
-	//Facvy stuff with the menu
-	$("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("active");
-    });
 	
 	//Toggle the hash over password field
 	$( ".password_super_block" ).hover(

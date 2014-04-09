@@ -31,17 +31,38 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
- <div id="wrapper">
-      
-      <!-- Sidebar -->
-	  <div id="cover-up-sidebar-wrapper"></div>
-      <div id="sidebar-wrapper">
-		<p class="site-name">HammerPass</p>
-		<?php $a=new GlobalArea("Search Bar"); $a->display(); ?>
-		<?php $a=new GlobalArea("Password Navigator"); $a->display(); ?>
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+
+
+		<form action="/index.php/searchpass/" method="get" class="ccm-search-block-form" style="" autocomplete="off">
+		 <input name="search_paths[]" type="hidden" value="">
+		<div class="input-group">
+			<input  name="query" type="text" value="" class="form-control" id="search_input" placeholder="Search...">
+		 <span class="input-group-btn">
+			<button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+		 </span>	  
+		</div><!-- /input-group -->	
+		</form>
+
+
+		<?php 
+			$nav = BlockType::getByHandle('autonav');
+			$nav->controller->orderBy = 'display_asc';
+			$nav->controller->displayPages = 'top';
+			$nav->controller->displaySubPages = 'all';
+			$nav->controller->displaySubPageLevels = 'all';
+			$nav->render();
+		?>
+
+		</div>
+        <!-- Page content -->
+        <div id="page-content-wrapper">
 		
-		<div class="easter-egg">
-			<small> 
+			<div class="easter-egg hidden-xs hidden-mb">
+				<small> 
 				<?php 
 				$nsa = Loader::helper("nsa"); 
 				$new_version = $nsa->newVersionAvailable();
@@ -53,9 +74,9 @@
 				 <i class="icon-bullhorn"></i> <strong>A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>)</strong> <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
 				</div>
 				<?php } ?> 
-			</small>
-		</div>
-      </div>
-
-      <!-- Page content -->
-      <div id="page-content-wrapper">
+				</small>
+			</div>
+			
+			<div class="page-content inset">
+			
+			<a id="menu-toggle" href="javascript:void(0);" class="btn btn-default"><i class="glyphicon glyphicon-list"></i></a>

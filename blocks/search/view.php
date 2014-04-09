@@ -14,9 +14,10 @@
 	<?php   }
 	} ?>
 	
+	<!--
 	<input name="query" type="text" value="<?php echo htmlentities($query, ENT_COMPAT, APP_CHARSET)?>" class="ccm-search-block-text form-control search-input" id="search_input" placeholder="Search..."/>
-	
 	<input name="submit" type="submit" value="<?php echo $buttonText?>" class="ccm-search-block-submit btn btn-primary" />
+	-->
 
 		<?php  
 $tt = Loader::helper('text');

@@ -25,11 +25,11 @@
 	<ul class="nav nav-list" >
 		
 	<li>
-	<a href="/index.php/dashboard/passwordx/administration/"><i class="icon-th"></i> (Todo) Manage Password Blocks</a>
+	<a href="/index.php/dashboard/passwordx/administration/"><i class="icon-th"></i> Design your own Password Blocks</a>
 	</li>
 	
 	<li>
-	<a href="/index.php/dashboard/blocks/types/"><i class="icon-wrench"></i> Block/Content Types</a>
+	<a href="/index.php/dashboard/blocks/types/"><i class="icon-wrench"></i>Manage all Block/Content Types</a>
 	</li>
 	
 	<li>
@@ -159,24 +159,21 @@
 	<a href="/index.php/dashboard/system/"><i class=""></i> All Standard Concrete5 System & Settings</a>
 	</li>
 	
-
 	</ul>
 	</div>
 
 	<div style="text-align: center;">
-	<p>PasswordX <?php echo APP_VERSION; ?> (c) <?php echo date("Y"); ?> - <a href="#">gitHub</a> - MIT License, free for commercial use.</p>
+	<p>PasswordX <?php echo APP_VERSION; ?> (c) <?php echo date("Y"); ?> - <a href="<?php echo GITHUB_REPO_URL; ?>">gitHub</a> - MIT License, free for commercial use.</p>
 	 Built with the <a href="<?php echo CONCRETE5_ORG_URL; ?>">Concrete5 MVC Framework</a>
 	</div>
 	
 
 </div> 
 <script type="text/javascript">
-
-$(function() {
+ $(function() {
 
  
-});
-
+ });
 </script>
 
 <?php echo Loader::helper('concrete/dashboard')->getDashboardPaneFooterWrapper()?>

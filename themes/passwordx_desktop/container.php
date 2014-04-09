@@ -31,7 +31,7 @@ $page = Page::getCurrentPage();
 		</div>
 
 		
-
+	  </div> <!-- //inset -->
  	 </div> <!-- //page-content-wrapper -->
     </div> <!-- //wrapper -->
 	<script type="text/javascript" src="<?php  echo $this->getThemePath(); ?>/js/main.js"></script>

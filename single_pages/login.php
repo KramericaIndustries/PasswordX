@@ -44,6 +44,8 @@
     });
 </script>
 
+<div class="container">
+
 <?php  if (isset($intro_msg)) { ?>
     <div class="alert alert-success"><p><?php echo $intro_msg?></p></div>
 <?php  } ?>
@@ -211,3 +213,4 @@
         </div>
     <?php } ?>		
 	
+</div><!--//container-->	
