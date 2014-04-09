@@ -24,7 +24,8 @@ $dashboard = Page::getByPath("/dashboard");
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta name="who-made-this" content="Built with love by Hammertime (www.hammerti.me) (c) 2013-2014" />
+	<meta name="robots" content="noindex">
+	<meta name="googlebot" content="noindex">
 <?php
 Loader::library('3rdparty/mobile_detect');
 $md = new Mobile_Detect();
