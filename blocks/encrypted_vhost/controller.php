@@ -1,8 +1,14 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied.");
+<?php  
+/**
+ * Controller for the Virtual Host Block
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
+defined('C5_EXECUTE') or die("Access Denied.");
 
 class EncryptedVhostBlockController extends BlockController {
 	
-	protected $btName = 'Encrypted Virutal Host';
+	protected $btName = 'Encrypted Virtual Host';
 	protected $btDescription = '';
 	protected $btTable = 'btDCEncryptedVhost';
 	
@@ -32,55 +38,63 @@ class EncryptedVhostBlockController extends BlockController {
 	}
 	
 	
-	/* Encrypt the fields before doing anything actually saving it*/
+	/**
+	 * Encrypt the data before saving it in the DB
+	 * @param array $args
+	 */
 	function save($args) {
 		
-		$cipher = new Cipher2( ENCRYPTION_KEY );
+		//get the encryption key
+		global $u;
+		$mek = $u->getMEK();
+		
+		//and enrypt the fields
+		$crypto = Loader::helper("crypto");
 		
 		foreach($this->encrypted_fields as $thisField) {
-			$args[ $thisField ] = $cipher->encrypt( $args[ $thisField ]  );
+			$args[ $thisField ] = $crypto->encrypt( $args[ $thisField ], $mek );
 		}
+		
+		unset($mek);
 		
 		parent::save($args);
 	}
 
-	/* Decrypt the areas for view */
+	/**
+	 * Decrypt the area before sending them to view
+	 */
 	public function view() {
 	
-		$cipher = new Cipher2( ENCRYPTION_KEY );
+		global $u;
+		$mek = $u->getMEK();
+		
+		//and enrypt the fields
+		$crypto = Loader::helper("crypto");
 		
 		foreach($this->encrypted_fields as $thisField) {
-			$this->set( $thisField , $cipher->decrypt( $this->$thisField ) );
+			$this->set( $thisField , $crypto->decrypt( $this->$thisField, $mek ) );
 		}
+		
+		unset($mek);
 	}
 	
-	
+	/**
+	 * Data to be editted
+	 */
 	public function edit() {
-		$cipher = new Cipher2( ENCRYPTION_KEY );
+		
+		global $u;
+		$mek = $u->getMEK();
+		
+		//and enrypt the fields
+		$crypto = Loader::helper("crypto");
 		
 		foreach($this->encrypted_fields as $thisField) {
-			$this->set( $thisField , $cipher->decrypt( $this->$thisField ) );
+			$this->set( $thisField , $crypto->decrypt( $this->$thisField, $mek ) );
 		}
+		
+		unset($mek);
 	}
 	
 
 }
-
-class Cipher2 {
-    private $securekey, $iv;
-    function __construct($textkey) {
-	
-		$this->securekey = hash('sha256',$textkey,TRUE);	
-		$this->iv =mcrypt_create_iv(32,MCRYPT_DEV_URANDOM);
-		
-    }
-    function encrypt($input) {
-        return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->securekey, $input, MCRYPT_MODE_ECB, $this->iv));
-    }
-    function decrypt($input) {
-        return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->securekey, base64_decode($input), MCRYPT_MODE_ECB, $this->iv));
-    }
-}
-
-
-
