@@ -1,0 +1,321 @@
+/* 
+ * Main CSS File
+ */
+
+#wrapper {
+  padding-left: 275px;
+  transition: all 0.4s ease 0s;
+}
+
+#sidebar-wrapper {
+  margin-left: -250px;
+  left: 250px;
+  width: 270px;
+  background: #000;
+  position: fixed;
+  height: 93%;
+  overflow-y: auto;
+  z-index: 0;
+  transition: all 0.4s ease 0s;
+  padding-bottom: 30px;
+  z-index: 1;
+}
+
+#cover-up-sidebar-wrapper {
+	margin-left: -250px;
+  left: 250px;
+  width: 270px;
+  background: #000;
+  position: fixed;
+  height: 100%;
+  z-index: 0;
+}
+
+.easter-egg {
+	position: fixed;
+	right: 0px;
+	bottom: 0px;
+	width: 275px;
+	padding: 5px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.sidebar-nav {
+  position: absolute;
+  /*top: 0;*/
+  top: 1;
+  width: 250px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 20px;
+  margin-top: 20px;
+}
+
+.sidebar-nav-edit-mode {
+	/* top: 20px; */
+	top: 100px;
+}
+
+.sidebar-nav li {
+  line-height: 25px;
+  /* text-indent: 20px; */
+  text-indent: 12px;
+}
+
+.sidebar-nav a {
+  color: #999999;
+  display: block;
+  text-decoration: none;
+  -moz-transition: background-color .2s ease-in-out;
+  -webkit-transition: background-color .2s ease-in-out;
+  -o-transition: background-color .2s ease-in-out;
+  -ms-transition: background-color .2s ease-in-out;
+  transition: background-color .2s ease-in-out;
+}
+
+.sidebar-nav a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+  text-decoration: none;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  line-height: 60px;
+  font-size: 18px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #ddd;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #ddd;
+  background: none;
+}
+
+
+
+.sign-icon.glyphicon-plus,
+.sign-icon.glyphicon-minus {
+	font-size: 7px;
+	top: -2px;
+}
+
+.add-item {
+	font-style: italic;
+	color: #444;
+}
+
+a.add-item:hover{
+	font-style: italic;
+	color: #444;
+	text-decoration: none;
+}
+
+.add-item .glyphicon {
+	font-size: 12px;
+	padding-bottom: 2px;
+	color: #333;
+}
+
+.glyphicon {
+	/*margin-left: -20px;*/
+}
+#sidebar-wrapper  li a {
+ margin-left: -20px;
+}
+
+
+ul.nav-dropdown {
+	display: none;
+}
+
+ul.nav-path-selected {
+	display: block;
+}
+
+.content-header {
+  height: 65px;
+  line-height: 65px;
+}
+
+.content-header h1 {
+  margin: 0;
+  margin-left: 20px;
+  line-height: 65px;
+  display: inline-block;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.inset {
+  padding: 20px;
+  padding-top: 0px;
+}
+
+@media (max-width:767px) {
+
+#wrapper {
+  padding-left: 0;
+}
+
+#sidebar-wrapper {
+  left: 0;
+}
+
+#wrapper.active {
+  position: relative;
+  left: 250px;
+}
+
+#wrapper.active #sidebar-wrapper {
+  left: 250px;
+  width: 250px;
+  transition: all 0.4s ease 0s;
+}
+
+#menu-toggle {
+  display: inline-block;
+}
+
+.inset {
+  padding: 15px;
+  padding-top: 0px;
+}
+}
+
+.nav-selected  {
+	color: #fff!important;
+}
+
+/* Common styles for all types */
+.bs-callout {
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
+}
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.bs-callout p {
+  margin-left: 10px;
+}
+
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code,
+.bs-callout .highlight {
+  background-color: #fff;
+}
+
+/* Variations */
+.bs-callout-danger {
+  background-color: #fcf2f2;
+  border-color: #dFb5b4;
+}
+.bs-callout-warning {
+  background-color: #fefbed;
+  border-color: #f1e7bc;
+}
+.bs-callout-info {
+  background-color: #f0f7fd;
+  border-color: #d0e3f0;
+}
+
+.password-label,
+.username-label {
+	font-weight: bold;
+	font-size: 14px;
+	color: #444;
+}
+
+.password_block_hash {
+	display: inline-block;
+	width: 100px;
+	background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAaklEQVQYV2NkYGAwBuKzQAwC9UA8C4ifQ/n/GaEMkCIfIG6E8iWB9DMgZoQpAOncgmTSfyBbCmQSSAFIEqYTZNIZkE6YSSAGyDi4nUC2CbKb4CphdqK7CaYAbieSb8BuAikASSKblIbsJgCKXBfTNjWx1AAAAABJRU5ErkJggg==) repeat;
+	cursor: pointer;
+}
+
+.password_block {
+	display: none;
+}
+
+.password_textbox {
+	width: 100px;
+	cursor: pointer!important;
+	height: 20px;
+}
+
+.modal-input {
+	width: 300px;
+	display:inline-block;
+	margin-left: 10px;
+}
+
+.label-primary {
+	margin-right: 5px;
+}
+
+.spacer {
+	min-height: 30px;
+}
+
+.small-spacer {
+	min-height: 5px;
+}
+
+#cName, #cDatePublic_dt, #ccmBlockTypeSearch {
+	height: 25px;
+}
+
+.search-input {
+	width: 65%;
+	display: inline;
+}
+
+.ccm-search-block-form {
+	text-align: center;
+	margin-top: 5px;
+}
+
+.site-name {
+	color: #ddd;
+	font-size: 18px;
+	text-indent: 12px;
+	line-height: 45px;
+	margin-bottom: 0px;
+	
+}
+
+#searchResults {
+	display: none;
+}
+
+/*
+* UPDATE 2
+*/
+.selectedSearch {
+	font-style: italic;
+	text-decoration: underline!important;
+	color: #ccc!important;
+}

@@ -1,2 +1,0 @@
-Password Theme
-Theme for password manager
