@@ -38,7 +38,6 @@ if (is_object($c)) {
 ?>
 
 <meta http-equiv="content-type" content="text/html; charset=<?php echo APP_CHARSET?>" />
-<meta name="who-made-this" content="Built with love by Hammertime (www.hammerti.me) (c) 2013-2014" />
 <?php
 $akd = $c->getCollectionAttributeValue('meta_description');
 $akk = $c->getCollectionAttributeValue('meta_keywords');
@@ -87,7 +86,6 @@ var CCM_REL = "<?php echo DIR_REL?>";
 <?php
 $html = Loader::helper('html');
 $this->addHeaderItem($html->css('ccm.base.css'), 'CORE');
-$this->addHeaderItem($html->css('shame.css'), 'CORE');
 $this->addHeaderItem($html->javascript('jquery.js'), 'CORE');
 $this->addHeaderItem($html->javascript('ccm.base.js', false, true), 'CORE');
 

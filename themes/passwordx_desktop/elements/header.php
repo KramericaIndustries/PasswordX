@@ -15,6 +15,7 @@
 <meta name="googlebot" content="noindex">
 <meta name="description" content="Password management system" />
 <meta name="author" content="PasswordX.io">
+<meta name="viewport" content="width=device-width, initial-scale=1">
           
 <?php   Loader::element('header_required'); ?>
 	

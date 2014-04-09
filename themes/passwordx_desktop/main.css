@@ -2,34 +2,66 @@
  * Main CSS File
  */
 
-#wrapper {
-  padding-left: 275px;
+ #wrapper {
+  padding-left: 250px;
   transition: all 0.4s ease 0s;
 }
 
 #sidebar-wrapper {
   margin-left: -250px;
   left: 250px;
-  width: 270px;
-  background: #000;
-  position: fixed;
-  height: 93%;
-  overflow-y: auto;
-  z-index: 0;
-  transition: all 0.4s ease 0s;
-  padding-bottom: 30px;
-  z-index: 1;
-}
-
-#cover-up-sidebar-wrapper {
-	margin-left: -250px;
-  left: 250px;
-  width: 270px;
+  width: 250px;
+  padding: 10px;
   background: #000;
   position: fixed;
   height: 100%;
-  z-index: 0;
+  overflow-y: auto;
+  transition: all 0.4s ease 0s;
 }
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.inset {
+  padding: 20px;
+}
+
+@media (max-width:767px) {
+
+#wrapper {
+  padding-left: 0;
+}
+
+#sidebar-wrapper {
+  left: 0;
+}
+
+#wrapper.active {
+  position: relative;
+  left: 250px;
+}
+
+#wrapper.active #sidebar-wrapper {
+  left: 250px;
+  width: 250px;
+  transition: all 0.4s ease 0s;
+}
+
+#menu-toggle {
+  display: inline-block;
+}
+
+.inset {
+  padding: 15px;
+}
+
+}
+ 
 
 .easter-egg {
 	position: fixed;
@@ -37,10 +69,6 @@
 	bottom: 0px;
 	width: 275px;
 	padding: 5px;
-}
-
-#page-content-wrapper {
-  width: 100%;
 }
 
 ul {
@@ -135,9 +163,6 @@ a.add-item:hover{
 .glyphicon {
 	/*margin-left: -20px;*/
 }
-#sidebar-wrapper  li a {
- margin-left: -20px;
-}
 
 
 ul.nav-dropdown {
@@ -149,56 +174,12 @@ ul.nav-path-selected {
 }
 
 .content-header {
-  height: 65px;
-  line-height: 65px;
+ border-bottom: 1px solid #eee;
+ margin-bottom: 15px;
 }
 
-.content-header h1 {
-  margin: 0;
-  margin-left: 20px;
-  line-height: 65px;
-  display: inline-block;
-}
 
-#menu-toggle {
-  display: none;
-}
 
-.inset {
-  padding: 20px;
-  padding-top: 0px;
-}
-
-@media (max-width:767px) {
-
-#wrapper {
-  padding-left: 0;
-}
-
-#sidebar-wrapper {
-  left: 0;
-}
-
-#wrapper.active {
-  position: relative;
-  left: 250px;
-}
-
-#wrapper.active #sidebar-wrapper {
-  left: 250px;
-  width: 250px;
-  transition: all 0.4s ease 0s;
-}
-
-#menu-toggle {
-  display: inline-block;
-}
-
-.inset {
-  padding: 15px;
-  padding-top: 0px;
-}
-}
 
 .nav-selected  {
 	color: #fff!important;
@@ -294,7 +275,6 @@ ul.nav-path-selected {
 }
 
 .ccm-search-block-form {
-	text-align: center;
 	margin-top: 5px;
 }
 
@@ -307,8 +287,11 @@ ul.nav-path-selected {
 	
 }
 
-#searchResults {
-	display: none;
+
+#ccm-logo {
+	height: 40px;
+	width: 40px;
+	margin-top: 4px;
 }
 
 /*

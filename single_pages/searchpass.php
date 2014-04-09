@@ -1,44 +1,17 @@
-<?php 
-defined('C5_EXECUTE') or die("Access Denied.");
-$this->inc('elements/header.php'); 
+<?php defined('C5_EXECUTE') or die("Access Denied.");
+/**
+ * Content/Password search results
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
 ?>
-
-<div class="content-header">
-
-          <h1>
-            <a id="menu-toggle" href="#" class="btn btn-default"><span class="glyphicon glyphicon-align-justify"></span></a>
-            Hello world();
-          </h1>
-</div>
-
-        <!-- Keep all page content within the page-content inset div! -->
-        <div class="page-content inset">
-			
-			<div class="row">
-				<div class="col-md-10">
-					<p class="lead">Revealing the answer to life the universe and everything else.</p>
-					<hr />
+		<h1>Search results</h1>
+		<hr />
 					
-					<div id="mirror-results"></div>
-					
-					
-					
-					<?php //$a=new GlobalArea("Container Content"); $a->display(); ?>
-					<?php $a=new GlobalArea("Subpage list"); $a->display(); ?>
-				</div>
-			</div>
-		</div>
+		<?php
+		 // Include search block programmatically to process our search
+		$bt = BlockType::getByHandle('search');
+		$bt->render('view');
+		?>
 		
-		
-<script type="text/javascript">
-$(function(){
-	/* Cheat you fucking way out of it */
-	$clone = $("#searchResults").clone();
-	$("#mirror-results").append($clone);
-	$("#mirror-results").children().show();
-});
-</script>
-		
-<?php 
-$this->inc('elements/footer.php');
-?>
+	<script type="text/javascript" src="<?php  echo $this->getThemePath(); ?>/js/main.js"></script>

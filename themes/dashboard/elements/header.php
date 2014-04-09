@@ -66,6 +66,9 @@ if ($md->isMobile() == true) {
 $v->addHeaderItem($html->css('ccm.dashboard.css'));
 $v->addHeaderItem($html->css('jquery.ui.css'));
 
+//PasswordX overrides
+$this->addHeaderItem($html->css('passwordx.css'), 'CORE');
+
 $valt = Loader::helper('validation/token');
 $disp = '<script type="text/javascript">'."\n";
 $disp .=  "var CCM_SECURITY_TOKEN = '" . $valt->generate() . "';"."\n";
@@ -124,7 +127,9 @@ $backgroundImage = Loader::helper('concrete/dashboard')->getDashboardBackgroundI
 </ul>
 
 <ul id="ccm-system-nav">
-<li><a class="ccm-icon-edit-external-link ccm-menu-icon" id="ccm-nav-report" target="_blank" href="https://bitbucket.org/hammertimedk/passwordx/issues">Report a bug</a></li>
+
+<li class="hidden-xs"><a class="ccm-icon-edit-external-link ccm-menu-icon" id="ccm-nav-report" target="_blank" href="<?php echo GITHUB_ISSUES_URL; ?>">Suggestions / Bugs</a></li>
+
 <li><a class="ccm-icon-dashboard ccm-menu-icon" id="ccm-nav-dashboard<?php if ($md->isMobile()) { ?>-mobile<?php } ?>" href="<?php echo $this->url('/dashboard/passwordx/administration')?>"><?php echo t('Dashboard')?></a></li>
 
 <!-- Disabling the "intelligent search" here - we might bring this back if it makes sense.

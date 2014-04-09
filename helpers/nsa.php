@@ -6,7 +6,7 @@
 class NsaHelper {
 
 	/**
-	 * Checks if a new version is available for download
+	 * Checks if a new version of the system is available
 	 * @return bool
 	 */
 	public function newVersionAvailable() {
@@ -86,7 +86,7 @@ class NsaHelper {
 	}
 	
 	/**
-	 * Checks if the transmission is over HTTPS 
+	 * Checks if the transmission is secure (HTTPS)
 	 * @return bool
 	 */
 	public function connectionUnsecured() {
@@ -102,7 +102,7 @@ class NsaHelper {
 	}
 	
 	/**
-	 * Ester egg. Deplays a funny message
+	 * Ester egg. Displays a "funny" message
 	 */
 	public function easter_egg() {
 		
@@ -111,7 +111,7 @@ class NsaHelper {
 		$uptime = $now_date->diff($start_date);
 		$uptime_days = $uptime->y * 365 + $uptime->m * 31 + $uptime->d;
 		
-		echo sprintf("This site is proudly NSA free for %s days, %s hours, %s minutes and %s seconds.", $uptime_days, $uptime->h, $uptime->i, $uptime->s );
+		echo sprintf("This site has (probably) been NSA free for %s days, %s hours, %s minutes and %s seconds.", $uptime_days, $uptime->h, $uptime->i, $uptime->s );
 
 	}
 	
