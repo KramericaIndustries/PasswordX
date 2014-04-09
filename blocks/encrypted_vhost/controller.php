@@ -13,7 +13,7 @@ class EncryptedVhostBlockController extends BlockController {
 	protected $btTable = 'btDCEncryptedVhost';
 	
 	protected $btInterfaceWidth = "700";
-	protected $btInterfaceHeight = "450";
+	protected $btInterfaceHeight = "580";
 	
 	protected $btCacheBlockRecord = true;
 	protected $btCacheBlockOutput = true;

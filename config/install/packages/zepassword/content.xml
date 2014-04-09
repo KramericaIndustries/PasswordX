@@ -7,11 +7,6 @@
 		<blocktype handle="encrypted_vhost" package="" />
 	</blocktypes>
 	
-	<!-- Set main Theme -->
-    <themes>
-        <theme handle="password_theme" package="" activated="1"/>
-    </themes>
-    
     <!-- Page types-->
 	<pagetypes>
 		<pagetype handle="container" name="Container" internal="0" icon="main.png" package="">

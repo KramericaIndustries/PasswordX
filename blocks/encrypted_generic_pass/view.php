@@ -1,4 +1,10 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied.");
+<?php  
+/**
+ * View for the Generic Password Block
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
+defined('C5_EXECUTE') or die("Access Denied.");
 $block_color = array('info','warning','danger');
 ?>
 
