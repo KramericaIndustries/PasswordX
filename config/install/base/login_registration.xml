@@ -19,7 +19,7 @@
 		<page name="Download File" path="/download_file" filename="/download_file.php" pagetype="" description="" package=""/>
         <page name="Members" path="/members" filename="/members.php" pagetype="" description="" package=""/>
 
-		<!-- Jobworker -->
+		<!-- Internal Ajax methods -->
 		<page name="Ajax" path="/ajax" filename="/ajax.php" pagetype="" description="" package="" root="true">
 			<area name="Header Nav"/>
 			<area name="Header"/>

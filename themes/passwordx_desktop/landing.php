@@ -1,6 +1,12 @@
-<?php 
-defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
+/**
+ * Landing page pagetype
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
+
 $this->inc('elements/header.php'); 
+$this->inc('elements/sidebar.php'); 
 ?>
 
 <div class="content-header">
@@ -17,20 +23,7 @@ $this->inc('elements/header.php');
 			
 			<div class="row">
 				<div class="col-md-8">
-					<?php
-						$grettings = array(
-							"Nice to see you again here!",
-							"Long time no see!",
-							"You are about to see the secrets of life, universe and everything else!",
-							"Sorry, no lol cats here:(",
-							"Confucius said: Never trust a cat with a broken arm!",
-							"There is a chance of 10% to see this message",
-							"Shhh! Don't tell NSA I am here!"
-						);
-					?>
-					<p class="lead"><?php echo $grettings[ rand(0,(sizeof($grettings)-1)) ]; ?></p>
 					<hr />
-					<?php //$a=new GlobalArea("Container Content"); $a->display(); ?>
 					<?php $a=new GlobalArea("Subpage list"); $a->display(); ?>
 				</div>
 			</div>
@@ -81,6 +74,9 @@ var_dump($c->generateRandomString(1029,false));*/
 ?>
 </pre>
 end
-<?php 
-$this->inc('elements/footer.php');
-?>
+
+
+ 	 </div> <!-- //page-content-wrapper -->
+    </div> <!-- //wrapper -->
+	<script type="text/javascript" src="<?php  echo $this->getThemePath(); ?>/js/main.js"></script>
+	<?php $this->inc('elements/footer.php'); ?>

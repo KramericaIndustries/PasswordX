@@ -1,6 +1,13 @@
-<?php 
-defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
+/**
+ * Container pagetype
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
+
 $this->inc('elements/header.php'); 
+$this->inc('elements/sidebar.php'); 
+
 $page = Page::getCurrentPage();
 ?>
 
@@ -23,6 +30,9 @@ $page = Page::getCurrentPage();
 			</div>
 		</div>
 
-<?php 
-$this->inc('elements/footer.php');
-?>
+		
+
+ 	 </div> <!-- //page-content-wrapper -->
+    </div> <!-- //wrapper -->
+	<script type="text/javascript" src="<?php  echo $this->getThemePath(); ?>/js/main.js"></script>
+	<?php $this->inc('elements/footer.php'); ?>

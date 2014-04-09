@@ -146,7 +146,7 @@ $(function(){
 		var parent_node = $('.selected-add').data('parentCid');
 		
 		$.ajax({
-            url: '/jobworker/addnewitem/' + name + '/' + cat + '/' + parent_node,
+            url: '/ajax/addnewitem/' + name + '/' + cat + '/' + parent_node,
             dataType: 'json',
 			type : 'GET'
         }).done(function( data ){
@@ -173,7 +173,7 @@ $(function(){
 				
 			} else {
 				//alert that something bad happend
-				alert("Somehow there is an internal error!! The server will self-destroy in 4..3..2..");
+				alert("The server experienced an internal error while processing your request.");
 			}
         });
 	});
