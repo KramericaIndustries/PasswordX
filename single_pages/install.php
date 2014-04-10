@@ -33,6 +33,10 @@ if (isset($successMessage)) { ?>
 
 <script type="text/javascript">
 $(function() {
+
+$("#recovery-key-link").click(function(){
+	$("#continue_to_system").removeAttr('disabled');
+});
 	
 <?php for ($i = 1; $i <= count($installRoutines); $i++) {
 	$routine = $installRoutines[$i-1]; ?>
@@ -91,8 +95,20 @@ $(function() {
 <div id="success-message">
 <?php echo $successMessage?>
 <br/><br/>
+<div class="alert alert-warning">
+<h4><i class="icon-warning-sign"></i> Don't get locked out of the system!</h4>
+<p>If you forget your password, you will need to use the recovery key in order to reset it and gain access to the system again.</p>
+<p>Keep the recovery key in a secured place! After this step you will not be able to obtain this key again!</p>
+<p>If you lose this key you <strong>will not</strong> be able to access the system or recover any of the data!</p>
+<a class="btn btn-primary" id="recovery-key-link" href="/config/recovery/recovery_key.rsa" target="_blank" download>
+	<i class="icon-download icon-white" style="margin-top: 1px"></i> Download the recovery key
+</a>
+</div>
+<br/><br/>
 <div class="well">
-<input type="button" class="btn large primary" onclick="window.location.href='<?php echo DIR_REL?>/'" value="<?php echo t('Continue to the password system')?>" />
+<a href="<?php echo DIR_REL?>/" class="btn large primary" id="continue_to_system" disabled>
+	<?php echo t('Continue to the password system')?> <i class="icon-arrow-right icon-white" style="margin-top: 1px;"></i>
+</a>
 </div>
 </div>
 

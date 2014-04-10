@@ -212,7 +212,54 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		
 		//and save the session tokens and uek
 		$admin->plantSessionToken();
-		$admin->saveSessionUEK( $admin_uek );	
+		$admin->saveSessionUEK( $admin_uek );
+		
+		//
+		// Create the backup key
+		//	
+		Loader::library( "3rdparty/phpseclib/Math/BigInteger" );
+		Loader::library( "3rdparty/phpseclib/Crypt/RSA" );
+		Loader::library( "3rdparty/phpseclib/Crypt/AES" );
+		Loader::library( "3rdparty/phpseclib/Crypt/TripleDES" );
+		Loader::library( "3rdparty/phpseclib/Crypt/Random" );
+		
+		$rsa = new Crypt_RSA();
+		$keys = $rsa->createKey(4096);
+		
+		//save the key to file
+		$recovery_key_file = DIR_BASE . '/config/recovery/recovery_key.rsa';
+		if( @file_exists($recovery_key_file) ) {
+			throw new Exception("An existing recovery key already exists! I am confused! Bailing Out!");
+		}
+		
+		file_put_contents( $recovery_key_file, $keys["privatekey"], LOCK_EX );
+		
+		//
+		// Now encrypt the MEK and save it
+		//
+		$rsa->loadKey($keys["publickey"]);
+		$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
+		$cipherMEK = $rsa->encrypt($MEK);
+		
+		$cipher_MEK_file = DIR_BASE . '/config/recovery/master_key';
+		
+		if (!$handle = fopen($cipher_MEK_file, 'w')) {
+		     throw new Exception("Error opening master key file for write");
+		     exit;
+		}
+		
+		// Write $somecontent to our opened file.
+		if (fwrite($handle, $cipherMEK) === FALSE) {
+		    throw new Exception("Error writing the master key file!");
+		    exit;
+		}
+		
+		fclose($handle);
+				
+		//clean up
+		unset($rsa);
+		unset($MEK);
+		unset($cipherMEK);
 	}
 	
 	/**
