@@ -1,12 +1,6 @@
 <?xml version="1.0"?>
 <concrete5-cif version="1.0">
 	
-	<!-- Preinstall block types-->
-	<blocktypes>
-		<blocktype handle="encrypted_generic_pass" package="" />
-		<blocktype handle="encrypted_vhost" package="" />
-	</blocktypes>
-	
     <!-- Page types-->
 	<pagetypes>
 		<pagetype handle="container" name="Container" internal="0" icon="main.png" package="">
@@ -46,63 +40,6 @@
 						<record>
 							<content><![CDATA[<p><span class="label label-primary">HowTo</span>Hover over the hashed area to reveal the password.</p>
 						<p><span class="label label-info">Tip</span> Use Ctrl+C to copy it to clipboard. :)</p>]]></content>
-						</record>
-					</data>
-				</block>
-			</area>
-		</stack>
-		<stack name="Password Navigator" type="global_area">
-			<area name="Main">
-				<block type="autonav" name="">
-					<data table="btNavigation">
-						<record>
-							<orderBy><![CDATA[display_asc]]></orderBy>
-							<displayPages><![CDATA[top]]></displayPages>
-							<displayPagesCID/>
-							<displayPagesIncludeSelf><![CDATA[0]]></displayPagesIncludeSelf>
-							<displaySubPages><![CDATA[all]]></displaySubPages>
-							<displaySubPageLevels><![CDATA[all]]></displaySubPageLevels>
-							<displaySubPageLevelsNum><![CDATA[0]]></displaySubPageLevelsNum>
-							<displayUnavailablePages><![CDATA[1]]></displayUnavailablePages>
-						</record>
-					</data>
-				</block>
-			</area>
-		</stack>
-		<stack name="Search Bar" type="global_area">
-			<area name="Main">
-				<block type="search" name="">
-					<data table="btSearch">
-						<record>
-							<title><![CDATA[Search]]></title>
-							<buttonText><![CDATA[Search]]></buttonText>
-							<baseSearchPath><![CDATA[]]></baseSearchPath>
-							<postTo_cID>{ccm:export:page:/searchpass}</postTo_cID>
-							<resultsURL><![CDATA[]]></resultsURL>
-						</record>
-					</data>
-				</block>
-			</area>
-		</stack>
-		<stack name="Subpage list" type="global_area">
-			<area name="Main">
-				<block type="page_list" name="">
-					<data table="btPageList">
-						<record>
-							<num><![CDATA[0]]></num>
-							<orderBy><![CDATA[display_asc]]></orderBy>
-							<cParentID><![CDATA[1]]></cParentID>
-							<cThis><![CDATA[1]]></cThis>
-							<includeAllDescendents><![CDATA[0]]></includeAllDescendents>
-							<paginate><![CDATA[0]]></paginate>
-							<displayAliases><![CDATA[1]]></displayAliases>
-							<ctID/>
-							<rss><![CDATA[0]]></rss>
-							<rssTitle><![CDATA[]]></rssTitle>
-							<rssDescription><![CDATA[]]></rssDescription>
-							<truncateSummaries><![CDATA[0]]></truncateSummaries>
-							<displayFeaturedOnly><![CDATA[0]]></displayFeaturedOnly>
-							<truncateChars><![CDATA[0]]></truncateChars>
 						</record>
 					</data>
 				</block>
@@ -191,23 +128,5 @@
             	</attributes>
 			</page>
     </pages>
-    
-    <!-- Basic configuration-->
-    <config>
-    	<SITE_DEBUG_LEVEL>1</SITE_DEBUG_LEVEL>
-	    <ENABLE_LOG_EMAILS>1</ENABLE_LOG_EMAILS>
-	    <ENABLE_LOG_ERRORS>1</ENABLE_LOG_ERRORS>
-	    <FULL_PAGE_CACHE_GLOBAL>0</FULL_PAGE_CACHE_GLOBAL>
-	    <ENABLE_MARKETPLACE_SUPPORT>1</ENABLE_MARKETPLACE_SUPPORT>
-	    <ANTISPAM_LOG_SPAM>1</ANTISPAM_LOG_SPAM>
-	    <ENABLE_BLOCK_CACHE>0</ENABLE_BLOCK_CACHE>
-	    <ENABLE_OVERRIDE_CACHE>0</ENABLE_OVERRIDE_CACHE>
-	    <FULL_PAGE_CACHE_LIFETIME>default</FULL_PAGE_CACHE_LIFETIME>
-	    <FULL_PAGE_CACHE_LIFETIME_CUSTOM/>
-	    <URL_REWRITING>1</URL_REWRITING>
-	    <STATISTICS_TRACK_PAGE_VIEWS>0</STATISTICS_TRACK_PAGE_VIEWS>
-	    <DO_PAGE_REINDEX_CHECK>0</DO_PAGE_REINDEX_CHECK>
-	    <SITE_MAINTENANCE_MODE>0</SITE_MAINTENANCE_MODE>
-    </config>
     
 </concrete5-cif>

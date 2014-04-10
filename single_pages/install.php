@@ -328,7 +328,7 @@ $(function() {
 		<div class="clearfix">
 		 <label for="countryCode"><?php echo t('Country Code')?>:</label>
 		  <div class="input">
-			<select id="authy-countries" name="countryCode"></select>
+		  	<?php echo $form->text('countryCode'); ?>
 			<div style="margin-top: 10px;"><strong>Note:</strong> When requesting a token SMS, this country code will be used as default</div>
 		  </div>
 		</div>
@@ -366,8 +366,13 @@ $(function() {
     }
  
   });
- 
- });
+
+});
+
+//Load Authy CC selector
+window.onload = function() {
+    return Authy.UI.instance( "countryCode" );
+};
 
 </script>	
 
