@@ -287,13 +287,6 @@ ul.nav-path-selected {
 	
 }
 
-
-#ccm-logo {
-	height: 40px;
-	width: 40px;
-	margin-top: 4px;
-}
-
 /*
 * UPDATE 2
 */
@@ -301,4 +294,18 @@ ul.nav-path-selected {
 	font-style: italic;
 	text-decoration: underline!important;
 	color: #ccc!important;
+}
+
+/**
+* This stuff is duplicated for the dashboard in /css/passwordx.css
+*/
+
+#ccm-logo {
+	height: 40px;
+	width: 40px;
+	margin-top: 4px;
+}
+
+#ccm-nav-report { 
+	background-position: -19px -2144px!important;
 }

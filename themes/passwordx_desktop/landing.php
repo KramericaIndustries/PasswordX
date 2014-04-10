@@ -9,25 +9,24 @@ $this->inc('elements/header.php');
 $this->inc('elements/sidebar.php'); 
 ?>
 
-<div class="content-header">
+	<div class="content-header">
+        <h1><span id="greeting_time"></span>, <?php $u = new User(); echo ucfirst($u->getUserName()); ?>!</h1>
+	</div>
+	<script type="text/javascript">
+	 var now = new Date();
+	 var hrs = now.getHours();
+	 var msg = "";
 
-          <h1>
-            <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
-            Good morning, <?php $u = new User(); echo ucfirst($u->getUserName()); ?>!
-          </h1>
-		  
-</div>
+	 if (hrs >  2) msg = "Watch out for werewolves"; // REALLY early
+	 if (hrs >  6) msg = "Good morning";      // After 6am
+	 if (hrs > 12) msg = "Good afternoon";    // After 12pm
+	 if (hrs > 17) msg = "Good evening";      // After 5pm
+	 if (hrs > 23) msg = "You should really go to bed";        // After 10pm
+	 
+	 $('#greeting_time').html(msg);
+	</script>
 
-        <!-- Keep all page content within the page-content inset div! -->
-        <div class="page-content inset">
-			
-			<div class="row">
-				<div class="col-md-8">
-					<hr />
-					<?php $a=new GlobalArea("Subpage list"); $a->display(); ?>
-				</div>
-			</div>
-		</div>
+    TODO: New globalarea here with Instructions default content
 
 <pre>
 <?php

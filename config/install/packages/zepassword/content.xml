@@ -46,19 +46,6 @@
 			</area>
 		</stack>
 		
-		<!-- Adjust this according to arni;s page -->
-		<stack name="Login Page Content" type="global_area">
-			<area name="Main">
-				<block type="content" name="">
-						<data table="btContentLocal">
-							<record>
-								<content><![CDATA[<div class="page-header"><h1>Welcome to PasswordX</h1></div>]]></content>
-							</record>
-						</data>
-					</block>
-			</area>
-		</stack>
-
 	</stacks>
     
     <!-- Single Pages -->
