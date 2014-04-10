@@ -7,5 +7,6 @@ Here I am going to details changes made to the core of the C5.
 /concrete/themes/ 
 removed bloat themes
 
-3. Logo
-/concrete/images/logo_menu.png was replaced with our own logo
+3. Ensure no decryption key
+/concrete/startup/config_check.php
+Added logic to remove recovery key if it exists
