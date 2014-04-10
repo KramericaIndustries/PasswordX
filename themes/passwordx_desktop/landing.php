@@ -32,17 +32,26 @@ $this->inc('elements/sidebar.php');
 <pre>
 <?php
 //DEBUG AREA
-print_r(get_defined_constants() );
+//print_r(get_defined_constants() );
 $c = Loader::helper("crypto");
 
 $u = new User();
 
 $chiper = "buDa4JadECyhFEnUIdJIlyX0rgG4Z0/jbwGUqSWi2YzJC/D0cOjK8tUAEEa53JOUsgVjCL/CQvbXFajFXz/Fd5jEbdUZqs3E7CBxH9iZpVkaronQ3HI1UaxrM84bKlq92Bxf2tMNIj6R+ChsaK8jR6uvIkcYP4IEw+NJWft8ULc=:7bba46437bffef9157dc81b089e32b692a05500a";
 
-echo "<h1>Handling Master Key</h1>";
-$mek = $u->getMEK();
+//echo "<h1>Handling Master Key</h1>";
+//$mek = $u->getMEK();
 
-var_dump( $c->decrypt($chiper,$mek) );
+//var_dump( $c->decrypt($chiper,$mek) );
+
+//echo "<hr>";
+
+echo "<h1>SQL</h1>";
+
+require("concrete/core/libraries/log.php");
+var_dump( class_exists('Concrete5_Library_Log') );  
+
+var_dump($v); 
 
 echo "<hr>";
 

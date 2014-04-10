@@ -288,6 +288,7 @@ $(function() {
 
 	 <legend ><?php echo t('Configure Two-Factor Login')?> 
 	 <!-- Woow, check out this oldschool layout magic! I feel like it's 1999 all over again -->
+	 <!-- &nbsp;&nbsp;&nbsp;&nbsp; AWESOME!! &nbsp;&nbsp;&nbsp;&nbsp; -->
 	  <br><sup>In addition to your password, require that you type in a code you receive on your phone - optional but recommended</sup>
 	 </legend>
 
@@ -297,50 +298,73 @@ $(function() {
 	<div class="clearfix" style="margin-top: 25px;">
 	<label for="AUTHY_API_KEY"><?php echo t('Two-Factor Authentication Method')?>:</label>
 	<div class="input">
-		<?php echo $form->select('TWO_FACTOR_AUTH_METHOD', array("authy"=>"Use Authy integration","no_2factor"=>"Turn off two-factor for now, I'll set this up later"), "authy", array('class' => 'xlarge'))?>
+		<?php 
+		$two_factor_options = array(
+			"authy"=>"Use Authy integration",
+			"google"=>"Use Google Authenticator",
+			"no_2factor"=>"Turn off two-factor for now, I'll set this up later"
+		); 
+		echo $form->select('TWO_FACTOR_AUTH_METHOD', $two_factor_options, "authy", array('class' => 'xlarge'))?>
 	</div>
 	</div>
 	
-	<div id="authy_config_options">
+	<!-- Config specific to Authy-->
+	<div id="authy_config_options" class="2fa_config_options" style="display: none;">
 	
-	<div class="clearfix">
-	<label for="AUTHY_API_KEY"><?php echo t('Authy API Key')?>:</label>
-	<div class="input">
-		<?php echo $form->text('AUTHY_API_KEY', array('class' => 'xlarge'))?>
-	</div>
+		<div class="clearfix">
+		<label for="AUTHY_API_KEY"><?php echo t('Authy API Key')?>:</label>
+		<div class="input">
+			<?php echo $form->text('AUTHY_API_KEY', array('class' => 'xlarge'))?>
+		</div>
+		</div>
+		
+		<div class="clearfix">
+		 <label for="phoneNumber"><?php echo t('Phone number')?>:</label>
+		  <div class="input">
+				<?php echo $form->text('authy-cellphone', array('class' => 'xlarge' ))?>
+		  </div>
+		</div>
+		
+		<div class="clearfix">
+		 <label for="countryCode"><?php echo t('Country Code')?>:</label>
+		  <div class="input">
+			<select id="authy-countries" name="countryCode"></select>
+			<div style="margin-top: 10px;"><strong>Note:</strong> When requesting a token SMS, this country code will be used as default</div>
+		  </div>
+		</div>
+	
 	</div>
 	
-	<div class="clearfix">
-	 <label for="phoneNumber"><?php echo t('Phone number')?>:</label>
-	  <div class="input">
-			<?php echo $form->text('authy-cellphone', array('class' => 'xlarge' ))?>
-	  </div>
+	<div id="google_config_options" class="2fa_config_options" style="display: none;">
+		TODO; COMMING UP SOON;
 	</div>
-	
-	<div class="clearfix">
-	 <label for="countryCode"><?php echo t('Country Code')?>:</label>
-	  <div class="input">
-		<select id="authy-countries" name="countryCode"></select>
-		<div style="margin-top: 10px;"><strong>Note:</strong> When requesting a token SMS, this country code will be used as default</div>
-	  </div>
-	</div>
-	
-	</div>
-	
 
 	</fieldset>
 	
 <script type="text/javascript">
  $(function() {
  
+ //on page load, show the propper 2fa config form
+ $("#" + $('#TWO_FACTOR_AUTH_METHOD').val() + "_config_options").show();
+ $("#" + $('#TWO_FACTOR_AUTH_METHOD').val() + "_config_options").addClass("active");
+ 
   $('#TWO_FACTOR_AUTH_METHOD').change(function() {
   
-   if ($(this).val() === "authy") {
-    $('#authy_config_options').fadeIn();
-   } else {
-    $('#authy_config_options').fadeOut();
-   }
-  
+    if( $(".2fa_config_options.active").length > 0 ) {
+    	
+	    $(".2fa_config_options.active").fadeOut(function(){
+		   	 //and shopw the propper one
+			 $(".2fa_config_options").removeClass("active");
+		 	 $("#" + $('#TWO_FACTOR_AUTH_METHOD').val() + "_config_options").addClass("active");
+			 $("#" + $('#TWO_FACTOR_AUTH_METHOD').val() + "_config_options").fadeIn();	
+	   	 });
+	   	 	
+    } else {
+    	//skip fade out
+    	$("#" + $('#TWO_FACTOR_AUTH_METHOD').val() + "_config_options").addClass("active");
+		$("#" + $('#TWO_FACTOR_AUTH_METHOD').val() + "_config_options").fadeIn();
+    }
+ 
   });
  
  });
