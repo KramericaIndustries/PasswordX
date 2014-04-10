@@ -592,12 +592,6 @@ $(function() {
 	<td><img id="ccm-test-request-tooltip" src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('concrete5 cannot parse the PATH_INFO or ORIG_PATH_INFO information provided by your server.')?>" /></td>
 </tr>
 <tr>
-	<td><?php if ($curlTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
-	<td width="100%"><?php echo t('Support for cURL')?>
-	</td>
-	<td><?php if (!$curlTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('cURL library is required in order to provide 2 factor authentication through Authy.')?>" /><?php } ?></td>
-</tr>
-<tr>
 	<td><?php if ($hashTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
 	<td width="100%"><?php echo t('Support for hash functions')?>
 	</td>

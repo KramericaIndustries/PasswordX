@@ -13,6 +13,34 @@ class InstallController extends Concrete5_Controller_Install {
 		$this->setRequiredItemsExtended();
 	}
 	
+	protected function testFileWritePermissions() {
+		
+		$e = Loader::helper('validation/error');
+
+		if (!is_writable(DIR_CONFIG_SITE)) {
+			$e->add(t('Your configuration directory config/ does not appear to be writable by the web server.'));
+		}
+
+		if (!is_writable(DIR_FILES_UPLOADED)) {
+			$e->add(t('Your files directory files/ does not appear to be writable by the web server.'));
+		}
+		
+		if (!is_writable(DIR_PACKAGES)) {
+			$e->add(t('Your packages directory packages/ does not appear to be writable by the web server.'));
+		}
+		
+		if (!is_writable(DIR_CONFIG_SITE . '/recovery')) {
+			$e->add(t('Your recovery directory config/recovery/ does not appear to be writable by the web server.'));
+		}
+		
+		$this->fileWriteErrors = $e;
+		if ($this->fileWriteErrors->has()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	/**
 	 * If all the config steps are done, let's install this beatch
 	 */
@@ -52,10 +80,7 @@ class InstallController extends Concrete5_Controller_Install {
 	 * Check for additional requirements for the app to run
 	 */
 	protected function setRequiredItemsExtended() {
-			
-		//for authy
-		$this->set('curlTest', function_exists('curl_version'));
-		
+
 		//security related
 		$this->set('hashTest', function_exists('hash'));
 		$this->set('mcryptTest', function_exists('mcrypt_module_self_test'));
