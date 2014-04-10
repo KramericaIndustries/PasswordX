@@ -25,9 +25,10 @@
 		<blocktype handle="video" package=""/>
         <blocktype handle="youtube" package=""/>
 		<blocktype handle="google_map" package=""/>
+		
+        <blocktype handle="autonav" package="" />
         
         <!--
-        <blocktype handle="autonav" package="" />
        	<blocktype handle="next_previous" package="" />
         <blocktype handle="page_list" package="" /> 
         <blocktype handle="slideshow" package=""/>

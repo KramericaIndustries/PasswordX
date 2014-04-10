@@ -32,29 +32,16 @@ $this->inc('elements/sidebar.php');
 <?php
 //DEBUG AREA
 //print_r(get_defined_constants() );
+
+echo "<h1>Recovery</h1>";
+
 $c = Loader::helper("crypto");
 
 $u = new User();
 
-$chiper = "buDa4JadECyhFEnUIdJIlyX0rgG4Z0/jbwGUqSWi2YzJC/D0cOjK8tUAEEa53JOUsgVjCL/CQvbXFajFXz/Fd5jEbdUZqs3E7CBxH9iZpVkaronQ3HI1UaxrM84bKlq92Bxf2tMNIj6R+ChsaK8jR6uvIkcYP4IEw+NJWft8ULc=:7bba46437bffef9157dc81b089e32b692a05500a";
+$mek = $u->getMEK();
+var_dump($mek);
 
-//echo "<h1>Handling Master Key</h1>";
-//$mek = $u->getMEK();
-
-//var_dump( $c->decrypt($chiper,$mek) );
-
-//echo "<hr>";
-
-echo "<h1>SQL</h1>";
-
-require("concrete/core/libraries/log.php");
-var_dump( class_exists('Concrete5_Library_Log') );  
-
-var_dump($v); 
-
-echo "<hr>";
-
-echo "<h1>Key Gen</h1>";
 
 Loader::library( "3rdparty/phpseclib/Math/BigInteger" );
 Loader::library( "3rdparty/phpseclib/Crypt/RSA" );
@@ -63,14 +50,30 @@ Loader::library( "3rdparty/phpseclib/Crypt/TripleDES" );
 Loader::library( "3rdparty/phpseclib/Crypt/Random" );
 
 $rsa = new Crypt_RSA();
-$keys = $rsa->createKey(4096);
 
-var_dump( $keys );
+$filename = DIR_BASE . '/config/recovery/recovery_key.rsa';
+$handle = fopen($filename, "r");
+$private_key = fread($handle, filesize($filename));
+fclose($handle);
 
-echo "<hr>";
+$filename = DIR_BASE . '/config/recovery/master_key';
+$handle = fopen($filename, "r");
+$eMEK = fread($handle, filesize($filename));
+fclose($handle);
 
-echo "<h1>Encrypt</h1>";
+$rsa->loadKey($private_key);
+$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
 
+$dMEK = $rsa->decrypt($eMEK); 
+
+var_dump($dMEK);
+
+var_dump( ( $dMEK ==  $mek ) );
+
+//var_dump($private_key);
+//var_dump($eMEK);
+
+/*
 $rsae = new Crypt_RSA();
 
 //public key
@@ -79,53 +82,8 @@ $rsae->loadKey( $keys["publickey"] );
 $plaintext = 'SUPER Secret message';
 
 $rsae->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
-$ciphertext = $rsae->encrypt($plaintext);
-
-var_dump($ciphertext);
-
-echo "<hr>";
-
-echo "<h1>Decrypt</h1>";
-
-$rsad = new Crypt_RSA();
-
-//public key
-$rsad->loadKey( $keys["privatekey"] );
-$rsad->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
-
-$decr = $rsad->decrypt($ciphertext);
-
-var_dump($decr);
-
-echo "<hr>";
-
-/*$correct_uek = $c->computeUEK("baconipsum");
-
-echo "<h1>Planting Seeds</h1>";
-
-$planted = $u->plantSessionToken();
-$got = $u->getSessionToken();
-
-var_dump( $planted );
-var_dump( $got );
-var_dump( $planted == $got );
-
-echo "<h1>Handling UEK</h1>";
-$u->saveSessionUEK( $correct_uek );
-$ret_uek = $u->getUEK();
-
-var_dump($correct_uek);
-var_dump( $ret_uek );
-var_dump($correct_uek == $ret_uek );
-
-echo "<h1>Handling Master Key</h1>";*/
-
-//var_dump($u->sanity());
-
-/*var_dump($c->generateRandomString(1029,true));
-echo "<hr />";
-var_dump($c->generateRandomString(1029,false));*/
-
+$ciphertext = $rsae->encrypt($mek);
+*/
 ?>
 </pre>
 end
