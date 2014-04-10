@@ -53,8 +53,11 @@
 <div class="row">
     <div class="col-lg-12">
    	<?php 
-	 $stack = Stack::getByName('Login Page Content');
-     $stack->display();
+	 //Grab the right collection object for login page
+	 $lc = Page::getByPath("/login");
+	
+ 	 $a = new Area("Login Page Custom Header");
+	 $a->display($lc);
 	?>  
     </div>
 </div>
@@ -121,11 +124,33 @@
 	    
 	 <?php } ?>
 
+	 <p> </p>
  <div class="row">
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
 	
-<div class="panel panel-primary">
+	<?php
+	 if ($c->isEditMode()) { 
+	?>  
+	 <div class="alert alert-success">
+	  You can change the color of the login box and button by <a  id="edit_login_page_properties" href="/tools/edit_page_attributes?&cID=<?php echo $c->getCollectionId(); ?>" dialog-title="Edit login page properties" dialog-modal="false" dialog-width="640" dialog-height="400">clicking here</a> and editing the attributes to match one of the default Bootstrap 3 color classes (default, primary, success, info, warning, danger). Reload the page to see the result.
+	 </div>
+	 <script type="text/javascript">
+		$(function() {
+		 $("#edit_login_page_properties").dialog();
+		});
+	 </script>
+	<?php 
+	 }
+	 
+	 //Look up styles
+	 if (!$lc->getCollectionAttributeValue('login_box_style')) { $login_box_style = "primary"; } else { $login_box_style = $lc->getCollectionAttributeValue('login_box_style'); }
+	 
+	 if (!$lc->getCollectionAttributeValue('sign_in_button_style')) { $sign_in_button_style = "primary"; } else { $sign_in_button_style = $lc->getCollectionAttributeValue('sign_in_button_style'); }
+	?>
+	
+	
+<div class="panel panel-<?php echo $login_box_style; ?>">
 <div class="panel-heading">Please sign in</div>
   <div class="panel-body">
 	
@@ -136,7 +161,7 @@
 							<?php  if (isset($locales) && is_array($locales) && count($locales) > 0) { ?>
                                 <div class="form-group">
                                     <label for="USER_LOCALE"><?php echo t('Language')?></label>
-                                    <?php echo $form->select('USER_LOCALE', $locales)?>
+                                    <?php echo $form->select('USER_LOCALE', $locales, array("class"=>"form-control"))?>
                                 </div>
                             <?php  } ?>
 							
@@ -174,9 +199,8 @@
 							 <?php echo $form->checkbox('uMaintainLogin', 1)?> <span><?php echo t('Stay signed in for 2 weeks.')?> <strong>Warning:</strong> Do NOT check this box if you are logging in from a public location</span>
 							</label>
                             </div>							
-					
 
-                            <?php echo $form->submit('submit', t('Sign In') . ' &gt;', array('class' => 'btn-primary'))?>
+                            <?php echo $form->submit('submit', t('Sign In') . ' &gt;', array('class' => 'btn-'.$sign_in_button_style))?>
 				
     </form>
 	

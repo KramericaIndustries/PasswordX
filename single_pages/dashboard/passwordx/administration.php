@@ -29,7 +29,7 @@
 	</li>
 	
 	<li>
-	<a href="/index.php/dashboard/blocks/types/"><i class="icon-wrench"></i>Manage all Block/Content Types</a>
+	<a href="/index.php/dashboard/blocks/types/"><i class="icon-wrench"></i> Manage all Block/Content Types</a>
 	</li>
 	
 	<li>
@@ -64,12 +64,12 @@
 	<ul class="nav nav-list">
 	
 	<?php
-	 //Look up login page stack
-	 $stack = Stack::getByName('Login Page Content');
+	 //Token for putting page in edit mode
+	 $token = Loader::helper('validation/token')->generate();
 	?>
 	
 	<li>
-	<a href="/index.php/dashboard/blocks/stacks/view_details/<?php echo $stack->getCollectionId(); ?>"><i class="icon-picture"></i>Customize Login page</a>
+	<a href="/index.php/login/?ctask=check-out&ccm_token=<?php echo $token; ?>"><i class="icon-picture"></i> Customize Login page</a>
 	</li>		
 	
 	<li>
@@ -114,6 +114,10 @@
 	<li>
 	<a href="/index.php/dashboard/system/permissions/file_types/"><i class="icon-warning-sign"></i> Allowed File Types</a>
 	</li>
+	
+	<li>
+	<a href="/index.php/dashboard/reports/logs/"><i class="icon-time"></i> View Logs</a>
+	</li>		
 	
 	
 	</ul>
