@@ -297,7 +297,16 @@ ul.nav-path-selected {
 }
 
 /**
-* This stuff is duplicated for the dashboard in /css/passwordx.css
+* Dashboard overrides for frontend only
+*/
+
+div#ccm-edit-overlay {
+ max-width: 580px !important;
+ width: auto;
+}
+
+/**
+* Dashboard overrides which are the same for front and backend - duplicated for backend dashboard in /css/passwordx.css
 */
 
 #ccm-logo {
