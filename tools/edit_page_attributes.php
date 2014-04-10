@@ -4,6 +4,12 @@
  * (c) 2014 PasswordX
  * Apache v2 License
  */
+ 
+  global $u;
+ if (!$u->isLoggedIn()) {
+  die("Access Denied.");
+ }
+ 
 $c = Page::getByID($_REQUEST["cID"]);
 $pk = PermissionKey::getByHandle('edit_page_properties');
 $pk->setPermissionObject($c);

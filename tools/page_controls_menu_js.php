@@ -1,6 +1,12 @@
-<?php
-defined('C5_EXECUTE') or die("Access Denied.");
-header('Content-type: text/javascript');?>
+<?php defined('C5_EXECUTE') or die("Access Denied.");
+header('Content-type: text/javascript');
+
+ global $u;
+ if (!$u->isLoggedIn()) {
+  die("Access Denied.");
+ }
+
+?>
 
 var menuHTML = '';
 

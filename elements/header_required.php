@@ -1,5 +1,4 @@
-<?php 
-defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
 $c = $this->getCollectionObject();
 if (is_object($c)) {
 	$cp = new Permissions($c);
