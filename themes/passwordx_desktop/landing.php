@@ -31,7 +31,16 @@ $this->inc('elements/sidebar.php');
 <pre>
 <?php
 //DEBUG AREA
-print_r( $_SESSION );
+
+echo "<h1>Logs</h1>";
+
+Log::addEntry('I wish to log this string.','auth');
+
+//var_dump( Log::getList('','auth', 100) );
+
+var_dump( Log::getLastLogin() );
+
+echo "<hr/>";
 
 echo "<h1>Recovery</h1>";
 
