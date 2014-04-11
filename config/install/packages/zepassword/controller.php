@@ -226,13 +226,9 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		$rsa = new Crypt_RSA();
 		$keys = $rsa->createKey(4096);
 		
-		//save the key to file
-		$recovery_key_file = DIR_BASE . '/config/recovery/recovery_key.rsa';
-		if( @file_exists($recovery_key_file) ) {
-			throw new Exception("An existing recovery key already exists! I am confused! Bailing Out!");
-		}
-		
-		file_put_contents( $recovery_key_file, $keys["privatekey"], LOCK_EX );
+		//save the key for download
+		$_SESSION['recovery_key'] = $keys["privatekey"];
+		$_SESSION['recovery_key_downloaded'] = false;
 		
 		//
 		// Now encrypt the MEK and save it

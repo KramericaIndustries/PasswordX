@@ -18,7 +18,7 @@ class Page extends Concrete5_Model_Page {
 		// now we mark the page as a system page based on this path:
 		$systemPages=array(
 			'/login', '/register', '/!trash', '/!stacks', '/!drafts', '/!trash/*', '/!stacks/*', '/!drafts/*', '/download_file', '/profile', '/dashboard', '/profile/*', '/dashboard/*','/page_forbidden','/page_not_found','/members',
-			'/searchpass', '/ajax', '/sys'		
+			'/searchpass', '/ajax', '/sys', '/recovery'		
 		); 
 		$th = Loader::helper('text');
 		$db->Execute('update Pages set cIsSystemPage = 0 where cID = ?', array($cID));

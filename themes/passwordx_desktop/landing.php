@@ -31,7 +31,7 @@ $this->inc('elements/sidebar.php');
 <pre>
 <?php
 //DEBUG AREA
-//print_r(get_defined_constants() );
+print_r( $_SESSION );
 
 echo "<h1>Recovery</h1>";
 

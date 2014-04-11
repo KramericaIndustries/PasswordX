@@ -27,15 +27,18 @@
         <page name="Register" path="/register" filename="/register.php" pagetype="" description="" package="" root="true" />
         <page name="Profile" path="/profile" filename="/profile/view.php" pagetype="" description="" package="" />
         <page name="Edit" path="/profile/edit" filename="/profile/edit.php" pagetype="" description="" package="" />
-        <page name="Avatar" path="/profile/avatar" filename="/profile/avatar.php" pagetype="" description="" package="" />
-        <page name="Messages" path="/profile/messages" filename="/profile/messages.php" pagetype="" description="" package="" />
-        <page name="Friends" path="/profile/friends" filename="/profile/friends.php" pagetype="" description="" package=""/>
         <page name="Page Not Found" path="/page_not_found" filename="/page_not_found.php" pagetype="" description="" package="" root="true" >
             <area name="Main"/>
         </page>
         <page name="Page Forbidden" path="/page_forbidden" filename="/page_forbidden.php" pagetype="" description="" package="" root="true" />
 		<page name="Download File" path="/download_file" filename="/download_file.php" pagetype="" description="" package=""/>
         <page name="Members" path="/members" filename="/members.php" pagetype="" description="" package=""/>
+        
+        <!--
+        <page name="Avatar" path="/profile/avatar" filename="/profile/avatar.php" pagetype="" description="" package="" />
+        <page name="Messages" path="/profile/messages" filename="/profile/messages.php" pagetype="" description="" package="" />
+        <page name="Friends" path="/profile/friends" filename="/profile/friends.php" pagetype="" description="" package=""/>
+        -->
 
 		<!-- Internal Ajax methods -->
 		<page name="Ajax" path="/ajax" filename="/ajax.php" pagetype="" description="" package="" root="true">
@@ -47,6 +50,9 @@
 
 		<!-- Search pass -->
 		<page name="Searchpass" path="/searchpass" filename="/searchpass.php" pagetype="" description="" package="" root="true"/>
+	
+		<!-- Password recovery for admin -->
+		<page name="Recovery" path="/recovery" filename="/recovery.php" pagetype="" description="" package="" root="true"/>
 
     </singlepages>
 
