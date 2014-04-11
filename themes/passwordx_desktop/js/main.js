@@ -1,5 +1,20 @@
 $(function(){
 
+
+ $('.clipboard-copy').click(function(e) {
+ 
+ $("#test2")[0].selectionStart=0;
+$("#test2")[0].selectionEnd=$("#test2")[0].value.length;
+ 
+/*	$("#test2").select();
+
+	var data = $("#test2").val()
+ 
+	this.clipboardData.setData("text/plain", data);
+	e.preventDefault();*/
+ 
+ });
+
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("active");
@@ -69,13 +84,26 @@ $(function(){
 		function() {
 			$(this).children(".password_block_hash").hide();
 			$(this).children(".password_block").show();
-			$(this).children(".password_textbox").select();
-			
-			$(this).children(".password_block").children(".password_textbox").select();
+			$(this).find(".password_textbox").select();
+			//$(this).children(".password_block").children(".password_textbox").select();
 		},
 		function() {
 			$(this).children(".password_block_hash").show();
 			$(this).children(".password_block").hide();		
+		}
+	);
+	
+
+	//Toggle hover selection on usernames
+		$( ".pass-block-username" ).hover(
+	
+		function() {
+			$(this).select();
+			$(this).parent().find(".pass-block-username").select();
+//			$(this).children(".password_block").children(".password_textbox").select();
+		},
+		function() {
+			$(this).blur();
 		}
 	);
 	
@@ -102,8 +130,8 @@ $(function(){
 		}
 	});
 	
-	/* Transform url in content in link */
-	$(".notes").each(function(index, element){
+	/* Transform url in content into clickable link */
+	$(".notes, .block-title").each(function(index, element){
 		
 		//console.debug($(element).html());
 		if( $(element).html() ) {
@@ -139,8 +167,17 @@ $(function(){
 	
 	/* submit and create the ne item */
 	$("#save-modal-changes").click(function(){
+		
+		$("#new-name").parent().removeClass("has-error");
 	
 		var name = $("#new-name").val();
+		
+		if (!name) {
+		 $("#new-name").parent().addClass("has-error");
+		 $("#new-name").focus();
+		 return false;
+		}
+		
 		var cat = $(".select-picker").val();
 		var parent_node = $('.selected-add').data('parentCid');
 		

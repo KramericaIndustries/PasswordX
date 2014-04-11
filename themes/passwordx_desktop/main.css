@@ -223,6 +223,14 @@ ul.nav-path-selected {
   border-color: #d0e3f0;
 }
 
+.credentials-fields {
+ margin-bottom: 5px;
+}
+
+.credentials-fields label {
+ min-width: 75px;
+}
+
 .password-label,
 .username-label {
 	font-weight: bold;
@@ -230,9 +238,16 @@ ul.nav-path-selected {
 	color: #444;
 }
 
+.password_super_block {
+ display: inline-block;
+ height: 25px;
+}
+
 .password_block_hash {
 	display: inline-block;
-	width: 100px;
+	width: 150px;
+	height: 25px;
+	padding-top: 2px;
 	background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAaklEQVQYV2NkYGAwBuKzQAwC9UA8C4ifQ/n/GaEMkCIfIG6E8iWB9DMgZoQpAOncgmTSfyBbCmQSSAFIEqYTZNIZkE6YSSAGyDi4nUC2CbKb4CphdqK7CaYAbieSb8BuAikASSKblIbsJgCKXBfTNjWx1AAAAABJRU5ErkJggg==) repeat;
 	cursor: pointer;
 }
@@ -241,10 +256,10 @@ ul.nav-path-selected {
 	display: none;
 }
 
-.password_textbox {
-	width: 100px;
+.password_textbox, .pass-block-username {
+	width: 150px;
 	cursor: pointer!important;
-	height: 20px;
+	height: 25px;
 }
 
 .modal-input {
