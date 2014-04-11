@@ -32,13 +32,16 @@ $this->inc('elements/sidebar.php');
 <?php
 //DEBUG AREA
 
-echo "<h1>Logs</h1>";
+echo "<h1>IP</h1>";
 
-Log::addEntry('I wish to log this string.','auth');
+$nsa = Loader::helper("nsa");
+
+var_dump( $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] ) );
+//Log::addEntry('I wish to log this string.','auth');
 
 //var_dump( Log::getList('','auth', 100) );
 
-var_dump( Log::getLastLogin() );
+//var_dump( Log::getLastLogin() );
 
 echo "<hr/>";
 
