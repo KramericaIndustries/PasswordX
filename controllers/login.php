@@ -169,12 +169,13 @@ class LoginController extends Concrete5_Controller_Login {
 				//Log the sucess
 				$nsa = Loader::helper("nsa");
 				$geoIp = $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] );
-				$log_str = json_encode( array(
-					"type"	=>	"success",
-					"ip"	=>	$_SERVER["REMOTE_ADDR"],
-					"location"	=> is_object( $geoIp ) ? sprintf( "%s, %s, %s", $geoIp->city, $geoIp->region_name, $geoIp->country_name ) : "unknown location" 	
-				));
+				$location = $_SERVER["REMOTE_ADDR"] . ' (' . (is_object( $geoIp ) ? sprintf( "%s, %s, %s", $geoIp->city, $geoIp->region_name, $geoIp->country_name ) : "unknown location") . ')';
+			
+				$log_str = "Last successful login from: " . $location; 
 				Log::addEntry($log_str,'auth');
+
+				//Mark that he hasnt seen the msg
+				$u->saveConfig('SEEN_LAST_LOGIN',0);
 
 				//Create a session UEK for this user
 				$crypto = Loader::helper("crypto");
@@ -193,13 +194,12 @@ class LoginController extends Concrete5_Controller_Login {
         	
 			//Log the fail
 			$nsa = Loader::helper("nsa");
+			
 			$geoIp = $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] );
-			$log_str = json_encode( array(
-				"type"	=>	"fail",
-				"ip"	=>	$_SERVER["REMOTE_ADDR"],
-				"location"	=> is_object( $geoIp ) ? sprintf( "%s, %s, %s", $geoIp->city, $geoIp->region_name, $geoIp->country_name ) : "unknown location" 	
-			));
-			Log::addEntry($log_str,'auth');
+			$location = $_SERVER["REMOTE_ADDR"] . ' (' . (is_object( $geoIp ) ? sprintf( "%s, %s, %s", $geoIp->city, $geoIp->region_name, $geoIp->country_name ) : "unknown location") . ')';
+			
+			$log_str = "Failed login attemp for user " .  $this->post('uName') . " from: " . $location; 
+			Log::addEntry($log_str,'failed_auth');
 			
             $ip->logSignupRequest();
             if ($ip->signupRequestThreshholdReached()) {

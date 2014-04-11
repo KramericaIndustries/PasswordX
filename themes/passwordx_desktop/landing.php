@@ -34,15 +34,15 @@ $this->inc('elements/sidebar.php');
 
 echo "<h1>IP</h1>";
 
-$nsa = Loader::helper("nsa");
+//$nsa = Loader::helper("nsa");
 
-var_dump( $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] ) );
+//var_dump( $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] ) );
 //Log::addEntry('I wish to log this string.','auth');
 
 //var_dump( Log::getList('','auth', 100) );
 
 //var_dump( Log::getLastLogin() );
-
+/*
 echo "<hr/>";
 
 echo "<h1>Recovery</h1>";
@@ -81,7 +81,7 @@ $dMEK = $rsa->decrypt($eMEK);
 var_dump($dMEK);
 
 var_dump( ( $dMEK ==  $mek ) );
-
+*/
 //var_dump($private_key);
 //var_dump($eMEK);
 

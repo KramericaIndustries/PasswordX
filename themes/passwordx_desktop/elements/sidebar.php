@@ -63,16 +63,38 @@
 		
 			<div class="easter-egg hidden-xs hidden-mb">
 				<small> 
-				<?php 
+				<?php
+				
+				global $u;
 				$nsa = Loader::helper("nsa"); 
 				$new_version = $nsa->newVersionAvailable();
 				
-				if( $new_version == false) {
+				//decide what to show
+				//last login message
+				if( intval($u->config('SEEN_LAST_LOGIN')) == 0 ) { 
+					$last_login = Log::getLastLogin();
+					
+					//C5 way of displaying date
+					$dh = Loader::helper('date');
+					if (date('m-d-y') == date('m-d-y', strtotime($last_login->getTimestamp('user')))) {
+                            $timestamp = t(/*i18n %s is a time*/'today at %s', $dh->date(DATE_APP_GENERIC_TS, strtotime($last_login->getTimestamp('user'))));
+					} else {
+                            $timestamp = $dh->date(DATE_APP_GENERIC_MDYT, strtotime($last_login->getTimestamp('user')));
+                    }
+					
+					//show only once
+					$u->saveConfig('SEEN_LAST_LOGIN',1);
+					?>
+					<div class="alert alert-info">
+					 <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="margin-top: -13px; margin-right: -7px;">&times;</button>
+					 <?php echo $last_login->getText()?>, <?php echo $timestamp ?>.
+					</div>
+				<?php } else if( $new_version == false) {
 					$nsa->easter_egg();
 				} else { ?>
-				<div class="alert alert-info">
-				 <i class="icon-bullhorn"></i> <strong>A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>)</strong> <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
-				</div>
+					<div class="alert alert-info">
+					 <i class="icon-bullhorn"></i> <strong>A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>)</strong> <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
+					</div>
 				<?php } ?> 
 				</small>
 			</div>

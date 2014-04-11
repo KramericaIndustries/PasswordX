@@ -6,6 +6,8 @@ defined('C5_EXECUTE') or die("Access Denied.");
  * Apache v2 License
  */
 class Log extends Concrete5_Library_Log {
+
+
 	
 	/**
 	 * Searches the logs for a user's last login
