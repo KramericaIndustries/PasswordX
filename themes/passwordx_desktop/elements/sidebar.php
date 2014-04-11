@@ -9,23 +9,36 @@
 <div class="modal fade" id="add-modal">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header modal-primary">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add new 
-		<select class="select-picker">
-			<option value="secret">secret</option>
-			<option value="category">category</option>
-		</select>
-		</h4>
+        <h4 class="modal-title">Add new element</h4>
       </div>
       <div class="modal-body">
+
+	 <div class="alert alert-info">
+	  <div><strong>A Secrets page</strong> is a page where you can add your passwords and other content.</div>
+	  <div><strong>A Category page</strong> is a container (folder, if you will) which is used to organize your Secrets pages by, for example, client or type.</div>
+	 </div>
+	 
+	  <form>
+	 <div class="form-group">
+	  <label for="select-type">Type: </label>
+	  &nbsp;<select id="select-type" class="form-control select-picker">
+			<option value="secret">Secrets page</option>
+			<option value="category">Category/Container page</option>
+		</select>
+	 </div>	
+	 
+	 <div class="form-group">	  
         <label for="new-name">Name: </label>
-		<input type="text" id="new-name" class="form-control modal-input" placeholder="Name">
-		
+		<input type="text" id="new-name" class="form-control" placeholder="Name">
+	 </div>	
+	 </form>
+	 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="save-modal-changes">Save changes</button>
+        <button type="button" class="btn btn-primary" id="save-modal-changes"><i class="glyphicon glyphicon-plus"></i> Create page</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

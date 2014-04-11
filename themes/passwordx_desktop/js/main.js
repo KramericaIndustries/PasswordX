@@ -69,13 +69,26 @@ $(function(){
 		function() {
 			$(this).children(".password_block_hash").hide();
 			$(this).children(".password_block").show();
-			$(this).children(".password_textbox").select();
-			
-			$(this).children(".password_block").children(".password_textbox").select();
+			$(this).find(".password_textbox").select();
+			//$(this).children(".password_block").children(".password_textbox").select();
 		},
 		function() {
 			$(this).children(".password_block_hash").show();
 			$(this).children(".password_block").hide();		
+		}
+	);
+	
+
+	//Toggle hover selection on usernames
+		$( ".pass-block-username" ).hover(
+	
+		function() {
+			$(this).select();
+			$(this).parent().find(".pass-block-username").select();
+//			$(this).children(".password_block").children(".password_textbox").select();
+		},
+		function() {
+			$(this).blur();
 		}
 	);
 	
@@ -102,8 +115,8 @@ $(function(){
 		}
 	});
 	
-	/* Transform url in content in link */
-	$(".notes").each(function(index, element){
+	/* Transform url in content into clickable link */
+	$(".notes, .block-title").each(function(index, element){
 		
 		//console.debug($(element).html());
 		if( $(element).html() ) {
@@ -139,8 +152,17 @@ $(function(){
 	
 	/* submit and create the ne item */
 	$("#save-modal-changes").click(function(){
+		
+		$("#new-name").parent().removeClass("has-error");
 	
 		var name = $("#new-name").val();
+		
+		if (!name) {
+		 $("#new-name").parent().addClass("has-error");
+		 $("#new-name").focus();
+		 return false;
+		}
+		
 		var cat = $(".select-picker").val();
 		var parent_node = $('.selected-add').data('parentCid');
 		
