@@ -4,7 +4,6 @@
  * (c) 2014 PasswordX
  * Apache v2 License
  */
-  Loader::library('authentication/open_id');
   $form = Loader::helper('form');
   $nsa = Loader::helper('nsa'); 
 ?>

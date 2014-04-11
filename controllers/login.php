@@ -1,11 +1,9 @@
 <?php
 /**
-* login controller
-* c5authy
-* @author: Stefan Fodor
- * Built with love by Stefan Fodor @ 2014
-*/
-
+ * Login Controller
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
 defined('C5_EXECUTE') or die("Access Denied.");
 
 /**
@@ -170,6 +168,7 @@ class LoginController extends Concrete5_Controller_Login {
 
 				//Create a session UEK for this user
 				$crypto = Loader::helper("crypto");
+				$u->plantSessionToken();
 				$u->saveSessionUEK( $crypto->computeUEK( $this->post('uPassword') ) );
 
                 //and finish the process

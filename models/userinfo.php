@@ -80,16 +80,5 @@ class UserInfo extends Concrete5_Model_UserInfo {
 			//callback to parent for the boring stuff
 			return parent::update($data);
 		}
-	
-	
-		/**
-		 * When the user is changing the password, change also the master key hash
-		 */
-		public function changePassword( $newPassword ) {
-				
-			die("change pass");
-				
-			//Add some login here	 
-			//parent::changePassword();
-		}
+
 }
