@@ -23,11 +23,8 @@ $block_color = array('info','warning','danger');
 
 		<div class="credentials-fields">
 			<label for="pass-block-username" class="control-label">Username:</label> 
-			<input id="test2" name="pass-block-username" type="text" class="pass-block-username" value="<?php  echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?>" readonly>
-			<span class="clipboard-copy">select</span>
+			<input name="pass-block-username" type="text" class="pass-block-username" value="<?php  echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?>" readonly>
 		</div>
-		
-
 			
 		<?php  endif; ?>
 		<?php  if (!empty($field_3_textbox_text)): ?>

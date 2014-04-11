@@ -1,20 +1,5 @@
 $(function(){
 
-
- $('.clipboard-copy').click(function(e) {
- 
- $("#test2")[0].selectionStart=0;
-$("#test2")[0].selectionEnd=$("#test2")[0].value.length;
- 
-/*	$("#test2").select();
-
-	var data = $("#test2").val()
- 
-	this.clipboardData.setData("text/plain", data);
-	e.preventDefault();*/
- 
- });
-
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("active");
