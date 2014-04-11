@@ -1,11 +1,9 @@
 <?php
 /**
-* login controller
-* c5authy
-* @author: Stefan Fodor
- * Built with love by Stefan Fodor @ 2014
-*/
-
+ * Login Controller
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
 defined('C5_EXECUTE') or die("Access Denied.");
 
 /**
@@ -168,8 +166,19 @@ class LoginController extends Concrete5_Controller_Login {
 
                 }
 
+				//Log the sucess
+				$nsa = Loader::helper("nsa");
+				$geoIp = $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] );
+				$log_str = json_encode( array(
+					"type"	=>	"success",
+					"ip"	=>	$_SERVER["REMOTE_ADDR"],
+					"location"	=> is_object( $geoIp ) ? sprintf( "%s, %s, %s", $geoIp->city, $geoIp->region_name, $geoIp->country_name ) : "unknown location" 	
+				));
+				Log::addEntry($log_str,'auth');
+
 				//Create a session UEK for this user
 				$crypto = Loader::helper("crypto");
+				$u->plantSessionToken();
 				$u->saveSessionUEK( $crypto->computeUEK( $this->post('uPassword') ) );
 
                 //and finish the process
@@ -181,6 +190,17 @@ class LoginController extends Concrete5_Controller_Login {
             $loginData = $this->finishLogin($loginData);
 
         } catch(Exception $e) {
+        	
+			//Log the fail
+			$nsa = Loader::helper("nsa");
+			$geoIp = $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] );
+			$log_str = json_encode( array(
+				"type"	=>	"fail",
+				"ip"	=>	$_SERVER["REMOTE_ADDR"],
+				"location"	=> is_object( $geoIp ) ? sprintf( "%s, %s, %s", $geoIp->city, $geoIp->region_name, $geoIp->country_name ) : "unknown location" 	
+			));
+			Log::addEntry($log_str,'auth');
+			
             $ip->logSignupRequest();
             if ($ip->signupRequestThreshholdReached()) {
                 $ip->createIPBan();

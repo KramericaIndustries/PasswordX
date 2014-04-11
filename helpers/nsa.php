@@ -53,6 +53,26 @@ class NsaHelper {
 		}
 
 	}
+
+	/**
+	 * Return the location of an IP Address
+	 */
+	public function geoLocateIP( $ip ) {
+		
+		//small validation
+		if( !filter_var($ip, FILTER_VALIDATE_IP) ) {
+		    throw new Exception("Invalid IP Address");
+		}
+		
+		Loader::library("3rdparty/resty");
+		
+		//get the geolocation
+		$resty = new Resty();
+		$resty->setBaseURL( 'http://freegeoip.net/json/');
+		$resp = $resty->get($ip);
+		
+		return $resp["body"];
+	}
 	
 	/**
 	 * Downloads the latest data about latest release version

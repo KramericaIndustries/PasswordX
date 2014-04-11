@@ -124,7 +124,7 @@ class Concrete5_Controller_Install extends Controller {
 		}
 	}
 
-	private function testFileWritePermissions() {
+	protected function testFileWritePermissions() {
 		$e = Loader::helper('validation/error');
 
 		if (!is_writable(DIR_CONFIG_SITE)) {

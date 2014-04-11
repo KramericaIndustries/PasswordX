@@ -31,7 +31,19 @@ $this->inc('elements/sidebar.php');
 <pre>
 <?php
 //DEBUG AREA
-//print_r(get_defined_constants() );
+
+echo "<h1>IP</h1>";
+
+$nsa = Loader::helper("nsa");
+
+var_dump( $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] ) );
+//Log::addEntry('I wish to log this string.','auth');
+
+//var_dump( Log::getList('','auth', 100) );
+
+//var_dump( Log::getLastLogin() );
+
+echo "<hr/>";
 
 echo "<h1>Recovery</h1>";
 

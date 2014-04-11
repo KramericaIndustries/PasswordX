@@ -1,13 +1,13 @@
 <?php
-/**
- * 
- * @author stefan
+ /**
  * Sets up Concrete5 to be ready for used as password system
+ * (c) 2014 PasswordX
+ * Apache v2 License
  */
-class ZepasswordStartingPointPackage extends StartingPointPackage {
+class PasswordxStartingPointPackage extends StartingPointPackage {
 
 	//package handle
-	protected $pkgHandle = 'zepassword';
+	protected $pkgHandle = 'passwordx';
 	
 	/**
 	 * Package name
@@ -176,6 +176,12 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		$home->assignPermissions($registered_group, array('view_page'));
 		$home->assignPermissions($admin_group, array('view_page_versions', 'view_page_in_sitemap', 'preview_page_as_user', 'edit_page_properties', 'edit_page_contents', 'edit_page_speed_settings', 'edit_page_theme', 'edit_page_type', 'edit_page_permissions', 'delete_page', 'delete_page_versions', 'approve_page_versions', 'add_subpage', 'move_or_copy_page', 'schedule_page_contents_guest_access'));
 		
+		//recovery page is publicly visible
+		$recovery_page = Page::getByPath('/recovery');
+		$recovery_page->clearPagePermissions();
+		$recovery_page->assignPermissions($guest_group, array('view_page'));
+		$recovery_page->assignPermissions($registered_group, array('view_page'));
+		$recovery_page->assignPermissions($admin_group, array('view_page_versions', 'view_page_in_sitemap', 'preview_page_as_user', 'edit_page_properties', 'edit_page_contents', 'edit_page_speed_settings', 'edit_page_theme', 'edit_page_type', 'edit_page_permissions', 'delete_page', 'delete_page_versions', 'approve_page_versions', 'add_subpage', 'move_or_copy_page', 'schedule_page_contents_guest_access'));
 		
 		//everything under My Passwords should be visible to registered users
 		$my_pass = Page::getByPath('/my-passwords');
@@ -226,13 +232,9 @@ class ZepasswordStartingPointPackage extends StartingPointPackage {
 		$rsa = new Crypt_RSA();
 		$keys = $rsa->createKey(4096);
 		
-		//save the key to file
-		$recovery_key_file = DIR_BASE . '/config/recovery/recovery_key.rsa';
-		if( @file_exists($recovery_key_file) ) {
-			throw new Exception("An existing recovery key already exists! I am confused! Bailing Out!");
-		}
-		
-		file_put_contents( $recovery_key_file, $keys["privatekey"], LOCK_EX );
+		//save the key for download
+		$_SESSION['recovery_key'] = $keys["privatekey"];
+		$_SESSION['recovery_key_downloaded'] = false;
 		
 		//
 		// Now encrypt the MEK and save it

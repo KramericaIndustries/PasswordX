@@ -100,7 +100,7 @@ $("#recovery-key-link").click(function(){
 <p>If you forget your password, you will need to use the recovery key in order to reset it and gain access to the system again.</p>
 <p>Keep the recovery key in a secured place! After this step you will not be able to obtain this key again!</p>
 <p>If you lose this key you <strong>will not</strong> be able to access the system or recover any of the data!</p>
-<a class="btn btn-primary" id="recovery-key-link" href="/config/recovery/recovery_key.rsa" target="_blank" download>
+<a class="btn btn-primary" id="recovery-key-link" href="/recovery/downloadRecoveryKey" target="_blank" download>
 	<i class="icon-download icon-white" style="margin-top: 1px"></i> Download the recovery key
 </a>
 </div>
@@ -590,12 +590,6 @@ $(function() {
 	<td width="100%"><?php echo t('Supports for pretty URLs')?>
 	</td>
 	<td><img id="ccm-test-request-tooltip" src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('concrete5 cannot parse the PATH_INFO or ORIG_PATH_INFO information provided by your server.')?>" /></td>
-</tr>
-<tr>
-	<td><?php if ($curlTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
-	<td width="100%"><?php echo t('Support for cURL')?>
-	</td>
-	<td><?php if (!$curlTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('cURL library is required in order to provide 2 factor authentication through Authy.')?>" /><?php } ?></td>
 </tr>
 <tr>
 	<td><?php if ($hashTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
