@@ -740,6 +740,8 @@
 			</attributes>
         </page>
         <page name="Backup Database" path="/dashboard/system/backup_restore/backup" filename="/dashboard/system/backup_restore/backup.php" pagetype="" description="" package=""/>
+        
+        <!--
         <page name="Update concrete5" path="/dashboard/system/backup_restore/update" filename="/dashboard/system/backup_restore/update.php" pagetype="" description="" package="">
 			<attributes>
 				<attributekey handle="meta_keywords">
@@ -747,6 +749,8 @@
 				</attributekey>
 			</attributes>
         </page>
+        -->
+        
         <page name="Database XML" path="/dashboard/system/backup_restore/database" filename="/dashboard/system/backup_restore/database.php" pagetype="" description="" package="">
 			<attributes>
 				<attributekey handle="meta_keywords">
@@ -763,126 +767,5 @@
         <pagetype handle="dashboard_primary_five" name="Dashboard Primary + Five" internal="1" package="" />
         <pagetype handle="dashboard_header_four_col" name="Dashboard Header + Four Column" internal="1" package="" />
     </pagetypes>
-    <pages>
-		<page name="Welcome to passwordX" path="/dashboard/welcome" filename="" description="Learn about how to use passwordX, how to develop for passwordX, and get general help." pagetype="dashboard_header_four_col">
-			<attributes>
-				<attributekey handle="exclude_nav">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-			</attributes>
-			<area name="Header">
-				<block type="content" name="">
-					<data table="btContentLocal">
-						<record>
-						<content><![CDATA[	<div id="newsflow-header-first-run"><h1>Welcome to PasswordX.</h1></div>
-						]]></content>
-						</record>
-					</data>
-				</block>
-			</area>
-			<area name="Column 1">
-				<block type="content" name="">
-					<data table="btContentLocal">
-						<record>
-						<content><![CDATA[<div class="newsflow-column-first-run">
-							<h3>Start adding password</h3>
-							<p>Just point and click to make changes.</p>
-							<br/>
-							<p><a href="javascript:void(0)" class="btn primary">User's Guide</a></p>
-							</div>]]></content>
-						</record>
-					</data>
-				</block>
-			</area>
-			<area name="Column 2">
-				<block type="content" name="">
-					<data table="btContentLocal">
-						<record>
-						<content><![CDATA[<div class="newsflow-column-first-run">
-							<h3>Extending functionality</h3>
-							<p>If you’re comfortable in PHP it should be a breeze to extend functionality. Take a few moments to understand the architecture.</p>
-							<p><a href="javascript:void(0)" class="btn primary">Developer's Guide</a></p>
-							</div>]]></content>
-						</record>
-					</data>
-				</block>
-			</area>
-			<area name="Column 3">
-				<block type="content" name="">
-					<data table="btContentLocal">
-						<record>
-						<content><![CDATA[
-						<div class="newsflow-column-first-run">
-						<h3>Security</h3>
-						<p>Here are a few tip and trick on how to keep stuff secure.</p>
-						<p><a href="javascript:void(0)" class="btn primary">Security Guide</a></p>
-						</div>]]></content>
-						</record>
-					</data>
-				</block>
-			</area>
-			<area name="Column 4">
-				<block type="content" name="">
-					<data table="btContentLocal">
-						<record>
-						<content><![CDATA[
-						<div class="newsflow-column-first-run">
-						<h3>NSA Free</h3>
-						<p>...as fare as we know...</p>
-						<p><a href="javascript:void(0)" class="btn primary">Security Guide</a></p>
-						</div>]]></content>
-						</record>
-					</data>
-				</block>
-			</area>
-    	</page>
-    	
-    	<page name="Customize Dashboard Home" path="/dashboard/home" filename="" pagetype="dashboard_primary_five" description="" package="">
-			<attributes>
-				<attributekey handle="exclude_nav">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-				<attributekey handle="exclude_search_index">
-					<value><![CDATA[1]]></value>
-				</attributekey>
-			</attributes>
-			<area name="Primary">
-				<block type="dashboard_app_status" name=""/>
-				<block type="dashboard_site_activity" name=""/>
-			</area>
-			<area name="Secondary 1">
-				<block type="dashboard_newsflow_latest" name="">
-					<data table="btDashboardNewsflowLatest">
-						<record>
-							<slot>A</slot>
-						</record>
-					</data>
-				</block>
-			</area>
-			<area name="Secondary 2">
-				<block type="dashboard_newsflow_latest" name="">
-					<data table="btDashboardNewsflowLatest">
-						<record>
-							<slot>B</slot>
-						</record>
-					</data>
-				</block>
-			</area>
-			<area name="Secondary 3">
-				<block type="dashboard_featured_theme" name=""/>
-			</area>
-			<area name="Secondary 4">
-				<block type="dashboard_featured_addon" name=""/>
-			</area>
-			<area name="Secondary 5">
-				<block type="dashboard_newsflow_latest" name="">
-					<data table="btDashboardNewsflowLatest">
-						<record>
-							<slot>C</slot>
-						</record>
-					</data>
-				</block>
-			</area>
-		</page>
-      </pages>
+
 </concrete5-cif>
