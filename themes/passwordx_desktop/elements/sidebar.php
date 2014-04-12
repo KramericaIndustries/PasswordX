@@ -82,6 +82,7 @@
 				$nsa = Loader::helper("nsa"); 
 				$new_version = $nsa->newVersionAvailable();
 				
+				
 				//decide what to show
 				//last login message
 				if( intval($u->config('SEEN_LAST_LOGIN')) == 0 ) { 

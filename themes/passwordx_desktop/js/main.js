@@ -92,29 +92,6 @@ $(function(){
 		}
 	);
 	
-	//Modal for adding new item to structure
-	//$(".add-item").click(function(){
-	$("#sidebar-wrapper").on( "click", ".add-item", function(){
-		
-		//Clean the garbage
-		$("#new-name").val("");
-		$(".select-picker").val("secret");
-		
-		//Deplot the modal
-		$("#add-modal").modal();
-		
-		//And remember here it as deployed from
-		$(".add-item").removeClass('selected-add');
-		$(this).addClass('selected-add');
-	});
-	
-	/* bind the enter key to the input field for autosubmit*/
-	$("#new-name").keyup(function(event){
-		if( event.keyCode == 13 ) {
-			$("#save-modal-changes").click();
-		}
-	});
-	
 	/* Transform url in content into clickable link */
 	$(".notes, .block-title").each(function(index, element){
 		
@@ -148,9 +125,39 @@ $(function(){
 			
 		}
 		
+	});	
+	
+	//Modal for adding new item to structure
+	//$(".add-item").click(function(){
+	$("#sidebar-wrapper").on( "click", ".add-item", function(){
+		
+		//Clean the garbage
+		$("#new-name").val("");
+		$(".select-picker").val("secret");
+		
+		//Deplot the modal
+		$("#add-modal").modal();
+		
+		//And remember here it as deployed from
+		$(".add-item").removeClass('selected-add');
+		$(this).addClass('selected-add');
 	});
 	
-	/* submit and create the ne item */
+	/* Focus field after modal shown */
+	$("#add-modal").on('shown.bs.modal', function (e) {
+	 $("#new-name").focus();
+	});
+	
+	/* bind the enter key to the input field for autosubmit*/
+	$("#new-name").keyup(function(event){
+		if( event.keyCode == 13 ) {
+			$("#save-modal-changes").click();
+			event.preventDefault();
+			return false;
+		}
+	});
+	
+	/* submit and create the new item */
 	$("#save-modal-changes").click(function(){
 		
 		$("#new-name").parent().removeClass("has-error");

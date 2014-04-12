@@ -61,6 +61,10 @@
     </div>
 </div>
 
+ <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+
 
 	<?php
 	 //Check for SSL Encrypted
@@ -70,17 +74,18 @@
   <div class="panel panel-danger">
     <div class="panel-heading">
       <div class="panel-title">
-		<strong><i class="glyphicon glyphicon-warning-sign"></i> <?php echo t('This connection is not secure. Please set up SSL encryption.')?></strong>
-		<a class="pull-right" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="glyphicon glyphicon-chevron-down"></i> </a>
+	   <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+		<strong><i class="glyphicon glyphicon-warning-sign"></i> <?php echo t('This connection is not secure!')?></strong>
+		<i class="pull-right glyphicon glyphicon-chevron-down"></i> 
+	   </a>
 	 </div>
     </div>
     <div id="collapseOne" class="panel-collapse collapse">
       <div class="panel-body">		
-
 	  
 	    <p>This connection is not secure at the moment as you are connecting through plain HTTP. This means you are susceptible to <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">man-in-the-middle attacks</a>. </p>
 		
-		<p>How you set up SSL depends on what your webserver setup is. You do not need to buy an SSL certificate, as an unsigned certificate you issue yourself is just as secure as an unsigned one. However, users will see a browser warning if you serve an unsigned certificate.</p>
+		<p>Please set up SSL encryption. How you set up SSL depends on what your webserver setup is. You do not need to buy an SSL certificate, as an unsigned certificate you issue yourself is just as secure as an unsigned one. However, users will see a browser warning if you serve an unsigned certificate.</p>
 	
 		<p>If you need easy and hassle-free HTTPS we recommend using <a href="https://www.cloudflare.com/" target="_blank">Cloudflare</a> as your DNS provider, as they have a very affordable turnkey SSL encryption (along with a host of other benefits such as CDN, DDOS attack mitigation and more) in their paid Pro plans.</p>
 		
@@ -102,8 +107,10 @@
   <div class="panel panel-danger">
     <div class="panel-heading">
       <div class="panel-title">
+	   <a  data-toggle="collapse"  href="#collapseTwo">
 		<strong><i class="glyphicon glyphicon-warning-sign"></i> <?php echo t('Two-Factor Authentication is disabled!')?></strong>
-		<a class="pull-right" data-toggle="collapse"  href="#collapseTwo"><i class="glyphicon glyphicon-chevron-down"></i> </a>
+		<i class="pull-right glyphicon glyphicon-chevron-down"></i> 
+		</a>
 	 </div>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse">
@@ -122,6 +129,10 @@
   </div>			
 	    
 	 <?php } ?>
+	 
+</div>
+<div class="col-lg-3"></div>
+</div>	 
 
 	 <p> </p>
  <div class="row">
@@ -195,7 +206,8 @@
 							
                             <div class="checkbox">
 							<label >
-							 <?php echo $form->checkbox('uMaintainLogin', 1)?> <span><?php echo t('Stay signed in for 2 weeks.')?> <strong>Warning:</strong> Do NOT check this box if you are logging in from a public location</span>
+							 <?php echo $form->checkbox('uMaintainLogin', 1)?> <span><?php echo t('Stay signed in for 2 weeks.')?></span> 
+							 <p><strong>Warning:</strong> Do NOT check this box if you are logging in from a public location</p>
 							</label>
                             </div>							
 
