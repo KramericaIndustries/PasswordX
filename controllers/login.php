@@ -173,6 +173,8 @@ class LoginController extends Concrete5_Controller_Login {
 			
 				$log_str = "Last successful login from: " . $location; 
 				Log::addEntry($log_str,'auth');
+				
+                $u->recordLogin();
 
 				//Mark that he hasnt seen the msg
 				$u->saveConfig('SEEN_LAST_LOGIN',0);

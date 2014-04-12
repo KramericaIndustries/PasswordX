@@ -19,10 +19,11 @@ class Log extends Concrete5_Library_Log {
 
 		//query DB
 		$v = array( 'auth', $u->getUserId() );
-		$r = $db->GetOne('select logID from Logs where logType = ? and logUserID = ? order by timestamp desc, logID desc', $v); 
-			
+		$r = $db->Execute('select logID from Logs where logType = ? and logUserID = ? order by timestamp desc, logID desc LIMIT 1 OFFSET 1', $v); 
+		$r = $r->FetchRow();
+		
 		//return
-		return LogEntry::getByID($r);
+		return LogEntry::getByID( $r["logID"] );
 	}
 	
 }

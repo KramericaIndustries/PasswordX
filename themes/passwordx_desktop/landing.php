@@ -34,6 +34,11 @@ $this->inc('elements/sidebar.php');
 
 echo "<h1>IP</h1>";
 
+//global $u;
+
+//var_dump( $u->getLastOnline() );
+//var_dump( Log::getLastLogin() );
+
 //$nsa = Loader::helper("nsa");
 
 //var_dump( $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] ) );
