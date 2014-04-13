@@ -191,9 +191,9 @@
                                 </div>
                             <?php } ?>
 							
-                            <?php if($authy_enabled){ ?>
+                            <?php if($two_factor_auth){ ?>
                                 <div class="form-group">
-                                    <label for="uPassword">
+                                    <label for="uToken">
                                            <?php echo t('Token')?>
                                             <?php if( $sms ) { ?>
                                                 <a tabindex="4" href="javascript:void(0);" id="request_sms" style="font-size: 10px; display:block; margin-top: -5px; outline: none;">(<?php echo t('Request SMS token') ?>)</a>

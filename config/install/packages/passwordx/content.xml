@@ -51,7 +51,7 @@
     <!-- Single Pages -->
     <singlepages>
 
-		<page name="Authy Configuration" path="/dashboard/users/authy" filename="/dashboard/users/authy.php" pagetype="" description="" package="">
+		<page name="Two Factor Configuration" path="/dashboard/passwordx/two_factor_configuration" filename="/dashboard/passwordx/two_factor_configuration.php" pagetype="" description="" package="">
 			<attributes>
 				<attributekey handle="icon_dashboard">
 					<value><![CDATA[icon-cog]]></value>

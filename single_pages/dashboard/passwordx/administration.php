@@ -96,7 +96,7 @@
 	<ul class="nav nav-list">
 
 	<li>
-	<a href="/index.php/dashboard/users/authy/"><i class="icon-cog"></i> Two-Factor (Authy) Configuration</a>
+	<a href="/index.php/dashboard/passwordx/two_factor_configuration/"><i class="icon-cog"></i> Two-Factor Authentication Configuration</a>
 	</li>
 	
 	<li>
