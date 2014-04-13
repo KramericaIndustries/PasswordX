@@ -13,6 +13,10 @@ class InstallController extends Concrete5_Controller_Install {
 		$this->setRequiredItemsExtended();
 	}
 	
+	/**
+	 * Write we need recovery dir to be writeble aswell
+	 * @return boolean
+	 */
 	protected function testFileWritePermissions() {
 		
 		$e = Loader::helper('validation/error');
@@ -75,6 +79,20 @@ class InstallController extends Concrete5_Controller_Install {
 		}
 	}
 	
+	/**
+	 * When we reach setup, generate a google auth secret, just in case:)
+	 */
+	public function setup() {
+		
+		$ga = Loader::helper("google_authenticator");
+		$ga_secret = $ga->createSecret();
+		
+		$this->set("ga_secret", $ga_secret);
+		$this->set("qr_url", $ga->getQrUrl($ga_secret));
+		
+		parent::setup();
+	}
+	
 
 	/**
 	 * Check for additional requirements for the app to run
@@ -133,7 +151,16 @@ class InstallController extends Concrete5_Controller_Install {
 				$val->addRequired("authy-cellphone", t('You must specify a valid phone number'));
 				$val->addRequired("countryCode", t('You must specify a valid country'));
 			}
-				
+
+			//Unless the page was tampered with, this should not be triggered
+			if( $_POST['TWO_FACTOR_AUTH_METHOD'] == 'google' ) {
+				$val->addRequired("GA_SECRET", t('Invalid Google Auth secret'));
+			}
+			
+			//send to view the values for GA, in case or error
+			$ga = Loader::helper("google_authenticator");
+			$this->set("ga_secret", $_POST['GA_SECRET']);
+			$this->set("qr_url", $ga->getQrUrl($ga_secret));
 			
 			$password = $_POST['uPassword'];
 			$passwordConfirm = $_POST['uPasswordConfirm'];

@@ -352,7 +352,10 @@ $(function() {
 	</div>
 	
 	<div id="google_config_options" class="2fa_config_options" style="display: none;">
-		TODO; COMMING UP SOON;
+		<a href="#">Click here to see how to setup Google Authenticator</a><br/><br/>
+		<img src="<?php echo $qr_url ?>" />
+		<h4><?php echo $ga_secret ?></h4>
+		<?php echo $form->hidden('GA_SECRET',$ga_secret); ?>
 	</div>
 
 	</fieldset>
