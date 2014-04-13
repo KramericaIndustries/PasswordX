@@ -212,6 +212,9 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		//grab ze user
 		$admin = new User();
 		
+		//do not show last login on the first time run
+		$admin->saveConfig('SEEN_LAST_LOGIN',1);
+		
 		//save the masterkkey
 		$admin->saveMECforUser( $MEK, $admin_uek );
 		

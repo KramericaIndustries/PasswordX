@@ -22,8 +22,8 @@ class Log extends Concrete5_Library_Log {
 		$r = $db->Execute('select logID from Logs where logType = ? and logUserID = ? order by timestamp desc, logID desc LIMIT 1 OFFSET 1', $v); 
 		$r = $r->FetchRow();
 		
-		//return
-		return LogEntry::getByID( $r["logID"] );
+		//do we have something to return?
+		return $r ? LogEntry::getByID( $r["logID"] ) : NULL;
 	}
 	
 }

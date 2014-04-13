@@ -86,24 +86,29 @@
 				//decide what to show
 				//last login message
 				if( intval($u->config('SEEN_LAST_LOGIN')) == 0 ) { 
+					
+					//grab last login
 					$last_login = Log::getLastLogin();
 					
-					//C5 way of displaying date
-					$dh = Loader::helper('date');
-					if (date('m-d-y') == date('m-d-y', strtotime($last_login->getTimestamp('user')))) {
-                            $timestamp = t(/*i18n %s is a time*/'today at %s', $dh->date(DATE_APP_GENERIC_TS, strtotime($last_login->getTimestamp('user'))));
-					} else {
-                            $timestamp = $dh->date(DATE_APP_GENERIC_MDYT, strtotime($last_login->getTimestamp('user')));
-                    }
-					
-					//show only once
+					//show only once per session
 					$u->saveConfig('SEEN_LAST_LOGIN',1);
+					
+					//FIXME: date display
+					if( $last_login ) {
+						//C5 way of displaying date
+						$dh = Loader::helper('date');
+						if (date('m-d-y') == date('m-d-y', strtotime($last_login->getTimestamp('user')))) {
+							$timestamp = t(/*i18n %s is a time*/'today at %s', $dh->date(DATE_APP_GENERIC_TS, strtotime($last_login->getTimestamp('user'))));
+						} else {
+							$timestamp = $dh->date(DATE_APP_GENERIC_MDYT, strtotime($last_login->getTimestamp('user')));
+						}	
 					?>
 					<div class="alert alert-info">
 					 <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="margin-top: -13px; margin-right: -7px;">&times;</button>
 					 <?php echo $last_login->getText()?>, <?php echo $timestamp ?>.
 					</div>
-				<?php } else if( $new_version == false) {
+				<?php }
+				} else if( $new_version == false) {
 					$nsa->easter_egg();
 				} else { ?>
 					<div class="alert alert-info">
