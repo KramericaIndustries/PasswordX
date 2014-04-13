@@ -58,7 +58,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
 	        </fieldset>
 		</div>
 		
-		<div id="authy-options">
+		<div id="authy-options" style="<?php echo ($TWO_FACTOR_METHOD == "google" ? "display:none;" : ""); ?>">
 	        <fieldset>
 	            <legend style="margin-bottom: 0px"><?php  echo t('Authy Configuration')?></legend>
 	            <div class="control-group">
@@ -77,7 +77,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
 	                </div>
 	                <div class="controls">
 	                    <label class="radio">
-	                        <input type="radio" name="AUTHY_SMS" value="2"  <?php if($authy_sms_tokens == "2") echo "checked"; ?> />
+	                        <input type="radio" name="AUTHY_SMS" value="2"  <?php echo (!$authy_sms_tokens || $authy_sms_tokens == "2" ? "checked" : ""); ?> />
 	                        <span><strong><?php echo t('Enabled')?></strong> - <?php  echo t('any user can request an SMS token')?></span>
 	                    </label>
 	                </div>
@@ -92,11 +92,14 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
 	        </fieldset>
         </div>
         
-        <div id="google-options">
+        <div id="google-options" <?php echo ($TWO_FACTOR_METHOD == "authy" ? "display:none;" : ""); ?>>
         	<fieldset>
 	            <legend style="margin-bottom: 0px"><?php  echo t('Google Configuration')?></legend>
 	          	
-	          	<div class="alert alert-warning"><i class="icon-warning-sign"></i> <?php echo t('You do not have a Google Authentication Secret setup for this account. Be sure to generate one from Users menu after saving this changes')?></div>
+	          	<div class="alert alert-warning"><i class="icon-warning-sign"></i> 
+				 <strong><?php echo t('You do not have a Google Authentication Secret setup for this account.'); ?></strong>
+				 <p><?php echo t('Be sure to generate one in Users management after saving these changes')?></p>
+				</div>
 	            
 	            <div class="control-group">
 	          		<label class="control-label"><?php  echo t('Google Authentication Secret')?></label>

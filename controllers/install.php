@@ -74,7 +74,7 @@ class InstallController extends Concrete5_Controller_Install {
 				}
 				$this->set('installPackage', $spl->getPackageHandle());
 				$this->set('installRoutines', $spl->getInstallRoutines());
-				$this->set('successMessage', t('Congratulations! PasswordX has been installed. You have been logged in as <b>%s</b> with the password you chose. It seems that everything went better than expected.', USER_SUPER));
+				$this->set('successMessage', t('Congratulations! PasswordX has been installed. You have been logged in as <strong>%s</strong> with the <strong>password you chose</strong>.', USER_SUPER));
 			}
 		}
 	}
