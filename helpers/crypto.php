@@ -11,12 +11,12 @@ class CryptoHelper {
 	
 	
 	/**
-	 * Genertes random bytes securely
+	 * Generates random bytes securely
 	 * @param int $length
 	 */
 	private function generateRandomBytes( $length ) {
 
-		//Do we ahve access to openssl?
+		//Do we have access to openssl?
 		if( function_exists('openssl_random_pseudo_bytes') ) {
 				
 			$rand = openssl_random_pseudo_bytes($length, $cstrong);
