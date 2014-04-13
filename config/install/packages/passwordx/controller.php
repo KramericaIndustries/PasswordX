@@ -86,15 +86,13 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		$ci = new ContentImporter();
 		$ci->importContentFile(DIR_BASE. '/config/install/base/config.xml');
 		
-		//and manually save config for authy
+		//save 2 factor auth related configs
+		Config::save('TWO_FACTOR_METHOD', TWO_FACTOR_AUTH_METHOD); //AUTHY, GOOGLE, NO_2FACTOR
+		Config::save('AUTH_FACTORS_REQUIRED', 2); // ONE TIME PASSWORDS, PASSWORD+TOKEN
 		
-		//do not set tfa, unless the user enter authy setup
-		$auth_type = TWO_FACTOR_AUTH_METHOD == 'authy' ? 2 : 0; 
-		
+		//authy config
 		Config::save('AUTHY_API_KEY', AUTHY_API_KEY);
-		Config::save('AUTHY_TYPE', $auth_type); // 2 factor auth
 		Config::save('AUTHY_SMS_TOKENS', 2); //sms token for all
-		Config::save('AUTHY_SERVER_PRODUCTION', 1); //do not use sandbox servers
 	}
 	
 	/**
@@ -145,9 +143,6 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		//set up the user attributes
 		$ui->setAttribute( 'real_name', INSTALL_USER_NAME );
 		
-		//We dont want to see the newsflow, do we?
-		$u->saveConfig('NEWSFLOW_LAST_VIEWED', time());
-		
 		//set up authy, if user selected so
 		if( TWO_FACTOR_AUTH_METHOD == 'authy' ) {
 			
@@ -157,11 +152,15 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 			Loader::library("event_handler");
 			$event_lib = new EventHandler();
 			$event_lib->user_updated($ui);
+		
+		//or if he selected google, save secret against user
+		}elseif( TWO_FACTOR_AUTH_METHOD == 'google' ) {
+			$u->saveConfig('ga_secret', GA_SECRET);
 		}
 	}
 		
 	/**
-	 * Here is the place where we set up defaukt permissions for the site tree
+	 * Here is the place where we set up default permissions for the site tree
 	 */
 	public function configure_permissions() {
 		

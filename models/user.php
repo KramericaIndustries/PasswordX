@@ -86,10 +86,11 @@ class User extends Concrete5_Model_User {
 		}
 		
 		//insert the uek in db
-		$q="INSERT INTO SessionEncryptionKeyStorage(sekID,uID,encrypted_UEK,createdAt) VALUES('',?,?,?)";
+		$q="INSERT INTO SessionEncryptionKeyStorage(sekID,uID,session_id,encrypted_UEK,createdAt) VALUES('',?,?,?,?)";
 				
 		$db->Execute($q, array(
 			$this->uID,
+			hash('sha512',session_id()),
 			$crypto->encrypt( $uek, $this->getSessionToken() ),
 			time()
 		));
@@ -105,8 +106,11 @@ class User extends Concrete5_Model_User {
 		$crypto = Loader::helper("crypto");
 		$db = Loader::db();
 		
-		$q="SELECT encrypted_UEK FROM SessionEncryptionKeyStorage WHERE uID = ? ORDER BY sekID DESC";
-		$eUEK = $db->GetOne($q, array($this->uID));
+		$q="SELECT encrypted_UEK FROM SessionEncryptionKeyStorage WHERE uID = ? AND session_id = ?";
+		$eUEK = $db->GetOne($q, array(
+				$this->uID, 
+				hash('sha512', session_id()) 
+		));
 
 		return (isset( $eUEK ) ? $crypto->decrypt( $eUEK, $this->getSessionToken() ) : false ); 
 	}

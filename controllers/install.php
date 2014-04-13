@@ -235,17 +235,25 @@ class InstallController extends Concrete5_Controller_Install {
 					$configuration .= "define('INSTALL_USER_EMAIL', '" . $_POST['uEmail'] . "');\n";
 					$configuration .= "define('INSTALL_USER_PASSWORD_HASH', '" . $hasher->HashPassword($_POST['uPassword']) . "');\n";
 					$configuration .= "define('INSTALL_STARTING_POINT', '" . $this->post('SAMPLE_CONTENT') . "');\n";
-					$configuration .= "define('INSTALL_USER_PHONE', '" . addslashes($_POST['authy-cellphone']) . "');\n";
-					$configuration .= "define('INSTALL_USER_COUNTRY_CODE', '" . addslashes($_POST['countryCode']) . "');\n";
-					$configuration .= "define('AUTHY_API_KEY', '" . addslashes($_POST['AUTHY_API_KEY']) . "');\n";
 					$configuration .= "define('SITE', '" . addslashes($_POST['SITE']) . "');\n";
 					$configuration .= "define('INSTALL_USER_NAME', '" . $_POST['uName'] . "');\n";
+					
+					//2FA related 
 					$configuration .= "define('TWO_FACTOR_AUTH_METHOD', '" . $_POST['TWO_FACTOR_AUTH_METHOD'] . "');\n";
+					
+					$configuration .= "define('AUTHY_API_KEY', '" . addslashes($_POST['AUTHY_API_KEY']) . "');\n";
+					$configuration .= "define('INSTALL_USER_PHONE', '" . addslashes($_POST['authy-cellphone']) . "');\n";
+					$configuration .= "define('INSTALL_USER_COUNTRY_CODE', '" . addslashes($_POST['countryCode']) . "');\n";
+					
+					$configuration .= "define('GA_SECRET', '" . addslashes($_POST['GA_SECRET']) . "');\n";
+					
 					
 					//compute the user encryption key
 					$admin_uek = $crypto->computeUEK( $_POST['uPassword'], $UEK_SALT );
 					
 					//generate a session randomness and encrypt it
+					//this is going to be used only for passing the admin_uek securely 
+					//to the nest stage of the install
 					$_SESSION['session_randomness'] = $crypto->generateRandomString(1024); 
 					$eUEK = $crypto->encrypt( $admin_uek, $_SESSION['session_randomness'] );
 					

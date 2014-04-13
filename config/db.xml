@@ -3221,6 +3221,9 @@
       <DEFAULT value="0"/>
       <UNSIGNED/>
     </field>
+   	<field name="session_id" type="C" size="255">
+      <NOTNULL/>
+    </field>
     <field name="encrypted_UEK" type="X2">
       <NOTNULL/>
     </field>
