@@ -102,13 +102,13 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
 	          		<label class="control-label"><?php  echo t('Google Authentication Secret')?></label>
 	                <div class="controls">
 	                    <label class="radio">
-	                        <input type="radio" name="GA_SECRET_SHARED" value="sitewide" <?php if($AUTH_FACTORS_REQUIRED == "1") echo "checked"; ?> />
+	                        <input type="radio" name="GA_SECRET_SHARED" value="sitewide" <?php if($GA_SECRET_SHARED == "sitewide") echo "checked"; ?> />
 	                        <span><strong><?php echo t('Sitewide')?></strong> - <?php  echo t('1 secret for all the users')?></span>
 	                    </label>
 	                </div>
 	                <div class="controls">
 	                    <label class="radio">
-	                        <input type="radio" name="GA_SECRET_SHARED" value="per_user" <?php if($AUTH_FACTORS_REQUIRED =="2") echo "checked"; ?> />
+	                        <input type="radio" name="GA_SECRET_SHARED" value="per_user" <?php if($GA_SECRET_SHARED =="per_user") echo "checked"; ?> />
 	                        <span><strong><?php echo t('Per User')?></strong> - <?php  echo t('secret unique to each user')?></span>
 	                    </label>
 	                </div>
