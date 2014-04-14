@@ -35,7 +35,7 @@ if (isset($successMessage)) { ?>
 $(function() {
 
 $("#recovery-key-link").click(function(){
-	$("#continue_to_system").removeAttr('disabled');
+	$("#continue_to_system").fadeIn();
 });
 	
 <?php for ($i = 1; $i <= count($installRoutines); $i++) {
@@ -94,21 +94,35 @@ $("#recovery-key-link").click(function(){
 
 <div id="success-message">
 <?php echo $successMessage?>
-<br/><br/>
-<div class="alert alert-warning">
+
+<div class="alert alert-warning" style="margin-top: 25px;">
 <h4><i class="icon-warning-sign"></i> Don't get locked out of the system!</h4>
-<p>If you forget your password, you will need to use the recovery key in order to reset it and gain access to the system again.</p>
-<p>Keep the recovery key in a secured place! After this step you will not be able to obtain this key again!</p>
-<p>If you lose this key you <strong>will not</strong> be able to access the system or recover any of the data!</p>
-<a class="btn btn-primary" id="recovery-key-link" href="/recovery/downloadRecoveryKey" target="_blank" download>
-	<i class="icon-download icon-white" style="margin-top: 1px"></i> Download the recovery key
-</a>
+<p>If you forget your password, you will need to use a recovery key in order to reset and gain access to the system again.</p>
 </div>
-<br/><br/>
-<div class="well">
-<a href="<?php echo DIR_REL?>/" class="btn large primary" id="continue_to_system" disabled>
+
+<ul>
+<li><strong>Keep the recovery key secure!</strong> We recommend you download it and save it to a USB drive or some other non-network connected device. Remember: anyone possessing this file with FTP access can gain control of the system.</li>
+
+<li><strong>This is the only opportunity you get to download this key.</strong> After this step you will not be able to obtain the recovery key again.</li>
+
+<li>If you forget your password and don't have this key, you <strong>will not</strong> be able to access the system or recover any data.</li>
+</ul>
+
+ <div style="text-align:center;">
+  <a class="btn btn-primary" id="recovery-key-link" href="/recovery/downloadRecoveryKey" target="_blank" download>
+	<i class="icon-download icon-white" style="margin-top: 1px"></i> Download the recovery key
+  </a>
+ </div>
+
+
+
+<div class="well" style="margin-top: 25px;">
+<a href="<?php echo DIR_REL?>/" class="btn large primary" id="continue_to_system" style="display:none;">
 	<?php echo t('Continue to the password system')?> <i class="icon-arrow-right icon-white" style="margin-top: 1px;"></i>
 </a>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -133,8 +147,7 @@ $("#recovery-key-link").click(function(){
 <input type="button" class="btn" onclick="window.location.href='<?php echo $this->url('/install')?>'" value="<?php echo t('Back')?>" />
 </div>
 </div>
-</div>
-</div>
+
 
 <?php } else if ($this->controller->getTask() == 'setup' || $this->controller->getTask() == 'configure') { ?>
 
@@ -288,7 +301,7 @@ $(function() {
 	</div>
 
 		<p class="clearfix">
-		 <strong>Note:</strong> It is important that the administrator password is as secure as you can make it. It is OK to choose one of your &quot;usual&quot; passwords, as long as you enable two-factor authentication. See this helpful illustration om <a href="https://xkcd.com/936/" target="_blank">how to choose passwords</a>
+		 <strong>Note:</strong> It is important that the administrator password is as secure as you can make it. It is OK to choose one of your &quot;usual&quot; passwords, as long as you enable two-factor authentication. See <a href="https://xkcd.com/936/" target="_blank">this helpful illustration</a> on how to choose passwords.
 		</p>		
 	
 	
@@ -300,17 +313,20 @@ $(function() {
 <div class="row">
 <div class="span10 offset1">
 
-	<fieldset>
-
-	 <legend ><?php echo t('Configure Two-Factor Login')?> 
+	<legend ><?php echo t('Configure Two-Factor Login')?> 
 	 <!-- Woow, check out this oldschool layout magic! I feel like it's 1999 all over again -->
 	 <!-- &nbsp;&nbsp;&nbsp;&nbsp; AWESOME!! &nbsp;&nbsp;&nbsp;&nbsp; -->
-	  <br><sup>In addition to your password, require that you type in a code you receive on your phone - optional but recommended</sup>
+	  <br><sup><i>In addition to your password, require that you type in a code you receive on your phone - optional but recommended</i></sup>
 	 </legend>
 
 	
-	<p style="text-align:justify;">If this system is publicly accessible on the web, it is strongly recommended that you enable two-factor authentication. If you do not know what two-factor authentication is, <a href="http://en.wikipedia.org/wiki/Two-step_verification" target="_blank">read more at Wikipedia.</a> You should only skip this step / turn off two-factor authentication if your installation is behind a firewall and only accessible on a LAN or through a VPN. PasswordX provides Authy integration for two-factor which requires you to <a href="https://dashboard.authy.com/signup" target="_blank">create an Authy developer account</a> and create an API key. It is <a href="https://www.authy.com/developer/pricing" target="_blank">free to get started with Authy</a>, and they offer a range of awesome customization options as well as SMS token support.</p>
+	<p style="text-align:justify;">If this system is publicly accessible on the web, it is strongly recommended that you enable two-factor authentication. If you do not know what two-factor authentication is, <a href="http://en.wikipedia.org/wiki/Two-step_verification" target="_blank">read more at Wikipedia.</a> You should only skip this step / turn off two-factor authentication if your installation is behind a firewall and only accessible on a LAN or through a VPN.</p>
 
+	<div class="row" style="margin-top: 20px;">
+	 <div class="span5 well">
+	 
+	<fieldset >
+	
 	<div class="clearfix" style="margin-top: 25px;">
 	<label for="AUTHY_API_KEY"><?php echo t('Two-Factor Authentication Method')?>:</label>
 	<div class="input">
@@ -360,6 +376,33 @@ $(function() {
 
 	</fieldset>
 	
+	</div>
+	<div class="span4">
+	 
+	 <div style="text-align: center;">
+	  <img src="/images/authy_logo.jpg" />
+	 </div>
+	 <ul style="margin-top: 10px;">
+	  <li>Easy to get started, <a href="https://dashboard.authy.com/signup" target="_blank">just create a developer account</a>, create an API key and come back here.</li>
+	  <li>Free to get started, but if you have lots of users <a href="https://www.authy.com/developer/pricing" target="_blank">fees may apply</a>.</li>
+	  <li>Awesome customizable smartphone apps.</li>
+	  <li>SMS and phonecall token support.</li>
+	 </ul>
+	
+	 <div style="text-align: center;margin-top: 20px;">
+	  <img src="/images/googleauth_logo.jpg" />
+	 </div>
+	 <ul style="margin-top: 10px;">
+	  <li>Completely free and <a href="https://code.google.com/p/google-authenticator/" target="_blank">Open Source</a>.</li>
+	  <li>A bit harder to set up for you and your users.</li>
+	  <li>Less awesome smartphone apps.</li>
+	  <li>No SMS or phonecall token support.</li>
+	 </ul>
+	 
+	 
+	</div>
+	</div>
+	
 <script type="text/javascript">
  $(function() {
  
@@ -405,7 +448,7 @@ window.onload = function() {
 	<fieldset>
 	<legend ><?php echo t('Configure SSL')?>
 		<!-- I built a time machine in 1999 in order to come here and write this: -->
-	 <br><sup>SSL ensures that all passwords are transmitted across the wire in an encrypted state - optional but recommended</sup>
+	 <br><sup><i>SSL ensures that all passwords are transmitted across the wire in an encrypted state - optional but recommended</i></sup>
 	 
 	</legend>
 	<p style="text-align:justify;">If this system is publicly accessible on the web, it is strongly recommended that you enable SSL encryption for this host on your webserver. If you do not set up HTTPS for PasswordX, we will warn you on the login screen that you are accessing your secret data through an unencrypted connection and that you are vulnerable to <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">man-in-the-middle attacks</a>. </p>
@@ -622,7 +665,7 @@ $(function() {
 	<td><?php if ($fileWriteTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
 	<td width="100%"><?php echo t('Writable Files and Configuration Directories')?>
 	</td>
-	<td><?php if (!$fileWriteTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('The config/, packages/ and files/ directories must be writable by your web server.')?>" /><?php } ?></td>
+	<td><?php if (!$fileWriteTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('The config/, config/recovery, packages/ and files/ directories must be writable by your web server.')?>" /><?php } ?></td>
 </tr>
 <tr>
 	<td><img id="ccm-test-cookies-enabled-loading"  src="<?php echo ASSETS_URL_IMAGES?>/dashboard/sitemap/loading.gif" /></td>
