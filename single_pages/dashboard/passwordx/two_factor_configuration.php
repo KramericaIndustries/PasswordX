@@ -38,7 +38,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
             </div>
         </fieldset>
         
-        <div id="2fa-options">
+        <div id="2fa-options" style="<?php echo ($TWO_FACTOR_METHOD == "no_2factor" ? "display:none;" : ""); ?>">
 	        <fieldset>
 	            <legend style="margin-bottom: 0px"><?php  echo t('Authentication Type')?></legend>
 	            <div class="control-group">
@@ -96,35 +96,21 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
         	<fieldset>
 	            <legend style="margin-bottom: 0px"><?php  echo t('Google Configuration')?></legend>
 	          	
-	          	<div class="alert alert-warning"><i class="icon-warning-sign"></i> 
-				 <strong><?php echo t('You do not have a Google Authentication Secret setup for this account.'); ?></strong>
-				 <p><?php echo t('Be sure to generate one in Users management after saving these changes')?></p>
-				</div>
-	            
-	            <div class="control-group">
-	          		<label class="control-label"><?php  echo t('Google Authentication Secret')?></label>
-	                <div class="controls">
-	                    <label class="radio">
-	                        <input type="radio" name="GA_SECRET_SHARED" value="sitewide" <?php if($GA_SECRET_SHARED == "sitewide") echo "checked"; ?> />
-	                        <span><strong><?php echo t('Sitewide')?></strong> - <?php  echo t('1 secret for all the users')?></span>
-	                    </label>
-	                </div>
-	                <div class="controls">
-	                    <label class="radio">
-	                        <input type="radio" name="GA_SECRET_SHARED" value="per_user" <?php if($GA_SECRET_SHARED =="per_user") echo "checked"; ?> />
-	                        <span><strong><?php echo t('Per User')?></strong> - <?php  echo t('secret unique to each user')?></span>
-	                    </label>
-	                </div>
-	            </div>
+	          	<?php if($show_secret_warning) { ?>
+		          	<div class="alert alert-warning"><i class="icon-warning-sign"></i> 
+					 <strong><?php echo t('You do not have a Google Authentication Secret setup for all the users in the system.'); ?></strong>
+					 <p><?php echo t('Be sure to generate one in Users management after saving these changes, otherwise users may end up not having access to the system.')?></p>
+					</div>
+	            <?php } ?>
 	            
 	            <div class="control-group">
 	            	<label class="control-label"><?php  echo t('Valid time slice')?></label>
 	                <div class="controls">
 	                    <label class="select">
 	                    	<select name="GA_TIME_SLICE">
-	                    		<option val="30">30 <?php  echo t('seconds')?></option>
-	                    		<option val="45">45 <?php  echo t('seconds')?></option>
-	                    		<option val="60">60 <?php  echo t('seconds')?></option>
+	                    		<option value="30" <?php echo ($GA_TIME_SLICE == "30" ? "selected" : "")?>>30 <?php  echo t('seconds')?></option>
+	                    		<option value="45" <?php echo ($GA_TIME_SLICE == "45" ? "selected" : "")?>>45 <?php  echo t('seconds')?></option>
+	                    		<option value="60" <?php echo ($GA_TIME_SLICE == "60" ? "selected" : "")?>>60 <?php  echo t('seconds')?></option>
 	                    	</select>
 	                    </label>
 	                </div>

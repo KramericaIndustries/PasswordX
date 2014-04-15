@@ -161,10 +161,15 @@ print $dh->addQuickNavToMenus($html);
 	$new_version = $nsa->newVersionAvailable();
 	
 	if( $new_version != false ) { ?>
-		<div class="ccm-ui" id="ccm-dashboard-result-message">
-		<div class="alert alert-info">
-		<i class="icon-bullhorn"></i> A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>) <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
-		</div>
+	<!-- id="ccm-dashboard-result-message" -->
+		<div class="ccm-ui">
+			<div class="row">
+				<div class="span10 offset1">
+				<div class="alert alert-info">
+					<i class="icon-bullhorn"></i> A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>) <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
+				</div>
+				</div>
+			</div>
 		</div>
 	<?php } ?>
 	
