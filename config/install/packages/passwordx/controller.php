@@ -78,7 +78,8 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 	}
 	
 	/**
-	 * Overwrite the default confs. Couse we live the though life
+	 * Overwrite the default confs.
+	 * Append 2f configs 
 	 */
 	public function install_config() {
 		
@@ -93,6 +94,9 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		//authy config
 		Config::save('AUTHY_API_KEY', AUTHY_API_KEY);
 		Config::save('AUTHY_SMS_TOKENS', 2); //sms token for all
+		
+		//google auth config
+		Config::save('GA_TIME_SLICE', 30); //have a timeslice of 30 sec
 	}
 	
 	/**
@@ -155,6 +159,7 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		
 		//or if he selected google, save secret against user
 		}elseif( TWO_FACTOR_AUTH_METHOD == 'google' ) {
+			
 			$u->saveConfig('ga_secret', GA_SECRET);
 		}
 	}
@@ -234,7 +239,8 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		$rsa = new Crypt_RSA();
 		$keys = $rsa->createKey(4096);
 		
-		//save the key for download
+		//save the key for download in a session var
+		//and force file download via HTTP headerd
 		$_SESSION['recovery_key'] = $keys["privatekey"];
 		$_SESSION['recovery_key_downloaded'] = false;
 		
@@ -245,7 +251,12 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
 		$cipherMEK = $rsa->encrypt($MEK);
 		
-		$cipher_MEK_file = DIR_BASE . '/config/recovery/master_key';
+		//randomize the filename
+		$mek_filename = $crypto->generateRandomString();
+		$cipher_MEK_file = DIR_BASE . '/config/recovery/' . $mek_filename;
+		
+		//and save the filename in config
+		Config::save('RECOVERY_MASTER_KEY', $mek_filename);
 		
 		if (!$handle = fopen($cipher_MEK_file, 'w')) {
 		     throw new Exception("Error opening master key file for write");
@@ -264,6 +275,7 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		unset($rsa);
 		unset($MEK);
 		unset($cipherMEK);
+		unset($mek_filename);
 	}
 	
 	/**
