@@ -65,19 +65,19 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
 	            	<label class="control-label"><?php  echo t('SMS Tokens')?></label>
 	                <div class="controls">
 	                    <label class="radio">
-	                        <input type="radio" name="AUTHY_SMS" value="0" <?php if($authy_sms_tokens == "0") echo "checked"; ?>/>
+	                        <input type="radio" name="AUTHY_SMS_TOKENS" value="0" <?php if($AUTHY_SMS_TOKENS == "0") echo "checked"; ?>/>
 	                        <span><strong><?php echo t('Disabled')?></strong> - <?php  echo t('SMS token are not allowed')?></span>
 	                    </label>
 	                </div>
 	                <div class="controls">
 	                    <label class="radio">
-	                        <input type="radio" name="AUTHY_SMS" value="1"  <?php if($authy_sms_tokens == "1") echo "checked"; ?> />
+	                        <input type="radio" name="AUTHY_SMS_TOKENS" value="1"  <?php if($AUTHY_SMS_TOKENS == "1") echo "checked"; ?> />
 	                        <span><strong><?php echo t('Limited')?></strong> - <?php  echo t('available only for users that do not have a smartphone')?></span>
 	                    </label>
 	                </div>
 	                <div class="controls">
 	                    <label class="radio">
-	                        <input type="radio" name="AUTHY_SMS" value="2"  <?php echo (!$authy_sms_tokens || $authy_sms_tokens == "2" ? "checked" : ""); ?> />
+	                        <input type="radio" name="AUTHY_SMS_TOKENS" value="2"  <?php if($AUTHY_SMS_TOKENS == "2") echo "checked"; ?> />
 	                        <span><strong><?php echo t('Enabled')?></strong> - <?php  echo t('any user can request an SMS token')?></span>
 	                    </label>
 	                </div>
@@ -86,7 +86,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
 	            <div class="control-group">
 	            	<label class="control-label"><?php  echo t('API Key')?></label>
 	                <div class="controls">
-	                    <input type="text" name="AUTHY_KEY" value="<?php echo $authy_api_key ?>" style="height: 20px; width: 250px;"/>
+	                    <input type="text" name="AUTHY_API_KEY" value="<?php echo $AUTHY_API_KEY ?>" style="height: 20px; width: 250px;"/>
 	                </div>
 	            </div>
 	        </fieldset>

@@ -21,7 +21,7 @@ class DashboardPasswordxTwoFactorConfigurationController extends DashboardBaseCo
 
         //error msg
         if( $msg == "key_error" ) {
-            $this->error = t('API key cannot be null!');
+            $this->error = t('Invalid Authy API Key!');
         }
 
         //error msg
@@ -36,13 +36,9 @@ class DashboardPasswordxTwoFactorConfigurationController extends DashboardBaseCo
         //ga
         $this->set( 'show_secret_warning', $this->showGASecretWarning() );
         
-        //global $u;
-        //var_dump($u->config('ga_secret'));
-        //TODO: authy
-        /*$this->set( 'authy_type', Config::get('AUTHY_TYPE') );
-        $this->set( 'authy_server_production', Config::get('AUTHY_SERVER_PRODUCTION') );
-        $this->set( 'authy_sms_tokens', Config::get('AUTHY_SMS_TOKENS') );
-        $this->set( 'authy_api_key', Config::get('AUTHY_API_KEY') );*/
+        //authy
+        $this->set( 'AUTHY_API_KEY', Config::get('AUTHY_API_KEY') );
+        $this->set( 'AUTHY_SMS_TOKENS', Config::get('AUTHY_SMS_TOKENS') );
 
     }
 
@@ -68,22 +64,21 @@ class DashboardPasswordxTwoFactorConfigurationController extends DashboardBaseCo
             	
             	//authy specific
             	if( $this->post('TWO_FACTOR_METHOD') == "authy" ) {
-            		//TODO: authy
-            	}
-            	
-            	
-            	
-            	
-                //we need a good api key
-                /*$api_key = $this->post("AUTHY_KEY");
-                if( empty( $api_key ) ) {
-                    $this->redirect( "/dashboard/users/authy/key_error" );
-                }
+            		
+            		//check that the key provided, is indeed valid
+            		require( DIR_BASE . "/helpers/authy.php" );
+            		$authy = new AuthyHelper(false); //do not read config
 
-                Config::save('AUTHY_API_KEY', $this->post("AUTHY_KEY"));
-                Config::save('AUTHY_TYPE', $this->post("AUTH_TYPE"));
-                Config::save('AUTHY_SMS_TOKENS', $this->post("AUTHY_SMS"));
-                Config::save('AUTHY_SERVER_PRODUCTION', $this->post("AUTHY_SERVER"));*/
+            		if( !$authy->validAPIKey( $this->post("AUTHY_API_KEY") ) ) {
+            			$this->redirect( "/dashboard/passwordx/two_factor_configuration/key_error" );
+            			return;
+            		}
+            		
+            		//save data
+            		Config::save('AUTHY_API_KEY', $this->post("AUTHY_API_KEY"));
+            		Config::save('AUTHY_SMS_TOKENS', $this->post('AUTHY_SMS_TOKENS'));
+            	}
+
                 
                 $this->redirect( "/dashboard/passwordx/two_factor_configuration/success" );
             }
