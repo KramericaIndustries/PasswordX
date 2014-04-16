@@ -34,9 +34,24 @@ $this->inc('elements/sidebar.php');
 
 echo "<h1>IP</h1>";
 
-//global $u;
+global $u;
 
-//var_dump( $u->getLastOnline() );
+$ui = UserInfo::getByID( $u->getUserID() );
+$ll = $ui->getPreviousLogin();
+$ttime = date("F j, Y, g:i a", $ll);
+var_dump($ttime);
+var_dump($u->config('last_ip'));
+
+
+/*
+var_dump($u);
+var_dump( $u->getLastOnline() );
+
+
+var_dump(  $ui->getLastLogin()   );
+var_dump(  $ui->getPreviousLogin()  );
+var_dump( $ui->getLastOnline('user') );
+*/
 //var_dump( Log::getLastLogin() );
 
 //$nsa = Loader::helper("nsa");

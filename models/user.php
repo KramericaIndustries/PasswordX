@@ -7,6 +7,20 @@ defined('C5_EXECUTE') or die("Access Denied.");
 class User extends Concrete5_Model_User {
 	
 	/**
+	 * Saves the last login IP, before it is overwritten by the one in use
+	 */
+	protected function recordLogin() {
+		
+		$db = Loader::db();
+		$uLastIP = $db->getOne("select uLastIP from Users where uID = ?", array($this->uID));
+		
+		$this->saveConfig( 'last_ip', long2ip($uLastIP) );
+		
+		//call to parent
+		parent::recordLogin();
+	}
+	
+	/**
 	 * Plant a session seed in session and in cookie
 	 * used for encryption uek
 	 * @param int $size

@@ -237,7 +237,7 @@
 			return $this;
 		}
 		
-		function recordLogin() {
+		protected function recordLogin() {
 			$db = Loader::db();
 			$uLastLogin = $db->getOne("select uLastLogin from Users where uID = ?", array($this->uID));
 			

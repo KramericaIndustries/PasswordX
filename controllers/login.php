@@ -184,6 +184,7 @@ class LoginController extends Concrete5_Controller_Login {
 
             //No error, no problem
             //record the login, login the user and let c5 set up all the cookies
+            $u->saveConfig('SEEN_LAST_LOGIN',0);
             User::loginByUserID($u->getUserID());
             $loginData = $this->finishLogin($loginData);
 

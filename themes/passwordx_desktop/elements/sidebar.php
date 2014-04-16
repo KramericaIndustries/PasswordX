@@ -81,31 +81,33 @@
 				global $u;
 				$nsa = Loader::helper("nsa"); 
 				$new_version = $nsa->newVersionAvailable();
-				
-				
+
 				//decide what to show
 				//last login message
 				if( intval($u->config('SEEN_LAST_LOGIN')) == 0 ) { 
 					
 					//grab last login
-					$last_login = Log::getLastLogin();
+					global $u;
+					
+					$ui = UserInfo::getByID( $u->getUserID() );
+					$last_login_epoch = $ui->getPreviousLogin();
 					
 					//show only once per session
 					$u->saveConfig('SEEN_LAST_LOGIN',1);
-					
-					//FIXME: date display
-					if( $last_login ) {
-						//C5 way of displaying date
-						$dh = Loader::helper('date');
-						if (date('m-d-y') == date('m-d-y', strtotime($last_login->getTimestamp('user')))) {
-							$timestamp = t(/*i18n %s is a time*/'today at %s', $dh->date(DATE_APP_GENERIC_TS, strtotime($last_login->getTimestamp('user'))));
-						} else {
-							$timestamp = $dh->date(DATE_APP_GENERIC_MDYT, strtotime($last_login->getTimestamp('user')));
-						}	
+
+					if( $last_login_epoch ) {
+
+						$timestamp = date(DATE_APP_GENERIC_MDY_FULL . ' \a\t ' . DATE_APP_DATE_ATTRIBUTE_TYPE_T, $last_login_epoch);
+						
+						$last_ip = $u->config('last_ip');
+						
+						$geoIp = $nsa->geoLocateIP( $last_ip );
+						$location = (is_object( $geoIp ) ? sprintf( "%s, %s, %s", $geoIp->city, $geoIp->region_name, $geoIp->country_name ) : "unknown location");
+						
 					?>
 					<div class="alert alert-info">
 					 <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="margin-top: -13px; margin-right: -7px;">&times;</button>
-					 <?php echo $last_login->getText()?>, <?php echo $timestamp ?>.
+					 Last login on <?php echo $timestamp ?>, from <?php echo $last_ip ?> (<?php echo $location ?>)
 					</div>
 				<?php }
 				} else if( $new_version == false) {
