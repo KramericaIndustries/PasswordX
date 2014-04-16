@@ -34,8 +34,8 @@ class DashboardPasswordxTwoFactorConfigurationController extends DashboardBaseCo
         $this->set( 'AUTH_FACTORS_REQUIRED', Config::get('AUTH_FACTORS_REQUIRED') );
         
         //ga
-        $this->set( 'GA_TIME_SLICE', Config::get('GA_TIME_SLICE') );
         $this->set( 'show_secret_warning', $this->showGASecretWarning() );
+        
         //global $u;
         //var_dump($u->config('ga_secret'));
         //TODO: authy
@@ -63,7 +63,7 @@ class DashboardPasswordxTwoFactorConfigurationController extends DashboardBaseCo
             	
             	//ga specific
             	if( $this->post('TWO_FACTOR_METHOD') == "google" ) {
-            		Config::save('GA_TIME_SLICE', $this->post('GA_TIME_SLICE'));
+           			
             	}
             	
             	//authy specific

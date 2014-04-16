@@ -96,7 +96,7 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		Config::save('AUTHY_SMS_TOKENS', 2); //sms token for all
 		
 		//google auth config
-		Config::save('GA_TIME_SLICE', 30); //have a timeslice of 30 sec
+
 	}
 	
 	/**

@@ -55,163 +55,119 @@ class LoginController extends Concrete5_Controller_Login {
 
         $loginData['success']=0;
 
+        //OK, the default code for C5 login is not cutting for me anymore
+        //so I am going to rewrite the logic
         try {
+        	
+        	//we require cookies at this piont
             if(!$_COOKIE[SESSION]) {
                 throw new Exception(t('Your browser\'s cookie functionality is turned off. Please turn it on.'));
             }
-            throw new Exception(t('A username and password are required.'));
+
+            //do not allow ban ip
             if (!$ip->check()) {
                 throw new Exception($ip->getErrorMessage());
             }
 
-            //on OTP mode, we dont need password
-            $pass = $this->otp ? $this->post('uToken') : $this->post('uPassword');
-
-            if ( (!$vs->notempty($this->post('uName'))) || (!$vs->notempty( $pass ))) {
-                if (USER_REGISTRATION_WITH_EMAIL_ADDRESS) {
-                    throw new Exception(t('An email address and password are required.'));
-                } else {
-                    throw new Exception(t('A username and password are required.'));
-                }
+            //username is a must
+            if( !$vs->notempty($this->post('uName')) ) {
+            	if (USER_REGISTRATION_WITH_EMAIL_ADDRESS) {
+            		throw new Exception(t('An email address and password are required.'));
+            	} else {
+            		throw new Exception(t('A username and password are required.'));
+            	}            	
             }
 
-            if ( !$vs->notempty($this->post('uToken')) && $this->two_factor_auth ) {
-                throw new Exception(t('A token is required.'));
+            //password is required only if not otp
+            if( !$this->otp ) {
+            	if( !$vs->notempty($this->post('uPassword')) ) {
+	            	if (USER_REGISTRATION_WITH_EMAIL_ADDRESS) {
+	            		throw new Exception(t('An email address and password are required.'));
+	            	} else {
+	            		throw new Exception(t('A username and password are required.'));
+	            	}
+            	}            	
             }
-
-            /*
-             * If OTP login is enabled, make a few changes in the way C5 handles login
-             * Search the user list for a user with $this->post('uName'), that is active.
-             * Go to step 2, token verification, only if userlist contains 1 elements
-             */
-            if($this->otp) {
-
-                Loader::model('user_list');
-                $ul = new UserList();
-                $ul->filterByIsActive(1);
-
-                //search by name or email?
-                if( USER_REGISTRATION_WITH_EMAIL_ADDRESS ) {
-                    $ul->filterByKeywords( $this->post('uName') );
-                } else {
-                    $ul->filterByUserName( $this->post('uName') );
-                }
-
-                $users = $ul->get(1);
-
-                //do we have a valid username?
-                if( count($users) == 1 ) {
-                    $u=$users[0];
-                } else {
-                    //fake it if not
-                    $u = new User();
-                    $u->loadError(USER_INVALID);
-                }
-
-            } else { //default C5 statement
-
-                $u = new User($this->post('uName'), $this->post('uPassword'));
+            
+            //if 2 factor auth, we need a token
+            if( $this->two_factor_auth ) {
+            	if( !$vs->notempty($this->post('uToken')) ) {
+            		throw new Exception(t('A token is required.'));
+            	}
             }
-
-            if ( $u->isError() ) {
-                switch($u->getError()) {
-                    case USER_NON_VALIDATED:
-                        throw new Exception(t('This account has not yet been validated. Please check the email associated with this account and follow the link it contains.'));
-                        break;
-                    case USER_INVALID:
-
-                        $usr_str = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? 'email' : 'username';
-                        $pwd_str = $this->otp ? 'token' : 'password';
-
-                        throw new Exception(t('Invalid ' . $usr_str . ' or ' . $pwd_str . '.'));
-
-                        break;
-                    case USER_INACTIVE:
-                        throw new Exception(t('This user is inactive. Please contact us regarding this account.'));
-                        break;
-                }
+            
+            
+            //Find a user that matches the critaria submitted
+            Loader::model('user_list');
+            $ul = new UserList();
+            $ul->filterByIsActive(1);
+            
+            //search by name or email?
+            if( USER_REGISTRATION_WITH_EMAIL_ADDRESS ) {
+            	$ul->filterByKeywords( $this->post('uName') );
             } else {
-
-            	$valid_login = true;
+            	$ul->filterByUserName( $this->post('uName') );
+            }
+            
+            $users = $ul->get(1);
+            
+            //do we have a valid username?
+            if( count($users) == 0 ) {
             	
-                if( $this->two_factor_auth ) {
-
-                	$valid_login = false;
-                	
-                	//validate a google token
-                	if( $this->two_factor_method == 'google' ) {
-                		
-                		$ga = Loader::helper("google_authenticator");                		
-                		$valid_login = $ga->validateToken( $u->config('ga_secret'), $this->post('uToken'), 30 );
-
-                	
-                	//validate an authy token
-                	} elseif( $this->two_factor_method == 'authy' ) {
-                		
-                	}
-                	
-                	/*
-                    //UI
-                    $ui = UserInfo::getByID( $u->getUserID() );
-                    $authy_id = $ui->getAttribute('authy_user_id');
-
-                    //If for some reason we dont have the Authy ID stored, try again to get it
-                    if( empty($authy_id) ) {
-
-                        list( $country_code, $junk ) = explode( ' ', (string)$ui->getAttribute('phone_country_code') );
-                        $country_code = ltrim( $country_code, '+' );
-
-                        $authy_id = $this->authy->getAuthyUserId(
-                            $ui->getUserEmail(),
-                            $ui->getAttribute('phone_number'),
-                            $country_code
-                        );
-
-                        //save id DB
-                        $ui->setAttribute( 'authy_user_id', $authy_id );
-                    }
-
-					*/
-                }
-
-                //did not passed the 2 factor
-                if( !$valid_login ) {
-                	$usr_str = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? 'email or' : 'username or';
-                	$msg_str = $this->otp ? $usr_str : '';
-                	
-                	$loginData['msg']=t('Invalid ' . $msg_str . ' token.');
-                	throw new Exception(t('Invalid ' . $msg_str . ' token.'));
-                }
-                
-                //log the user in if OTP
-                if($this->otp) {
-                	//User::loginByUserID($u->getUserID());
-                }
-                
-				//Log the sucess
-				$nsa = Loader::helper("nsa");
-				$geoIp = $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] );
-				$location = $_SERVER["REMOTE_ADDR"] . ' (' . (is_object( $geoIp ) ? sprintf( "%s, %s, %s", $geoIp->city, $geoIp->region_name, $geoIp->country_name ) : "unknown location") . ')';
-			
-				$log_str = "Last successful login from: " . $location; 
-				Log::addEntry($log_str,'auth');
-				
-                $u->recordLogin();
-
-				//Mark that he hasnt seen the msg
-				$u->saveConfig('SEEN_LAST_LOGIN',0);
-
-				//Create a session UEK for this user
-				$crypto = Loader::helper("crypto");
-				$u->plantSessionToken();
-				$u->saveSessionUEK( $crypto->computeUEK( $this->post('uPassword') ) );
-
-                //and finish the process
-                $loginData['success']=1;
-                $loginData['msg']=t('Login Successful');
-                $loginData['uID'] = intval($u->getUserID());
+            	$usr_str = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? 'email' : 'username';
+            	$pwd_str = $this->otp ? 'token' : 'password';
+            	
+            	throw new Exception(t('Invalid ' . $usr_str . ' or ' . $pwd_str . '.'));
+            	
+            }
+            
+            //exact the objects that we need
+            $ui = $users[0];
+            $u = $ui->getUserObject();
+            
+            //check for the password, if not otp
+            if( !$this->otp ) { 
+	            if( !$u->getUserPasswordHasher()->checkPassword( $this->post('uPassword'), $ui->getUserPassword() )) {
+	            	
+	            	$usr_str = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? 'email' : 'username';
+	            	$pwd_str = $this->otp ? 'token' : 'password';
+	            	 
+	            	throw new Exception(t('Invalid ' . $usr_str . ' or ' . $pwd_str . '.'));
+	            	
+	            }
             }
 
+            //and lastly, check the validity of the token
+            if( $this->two_factor_auth ) {
+            	
+            	$valid_token = false;
+            	
+				//validate a google token
+                if( $this->two_factor_method == 'google' ) {
+
+                	$ga = Loader::helper("google_authenticator");
+                	$valid_token = $ga->validateToken( $u->config('ga_secret'), $this->post('uToken'), 30 );
+
+
+                //validate an authy token
+                } elseif( $this->two_factor_method == 'authy' ) {
+
+                }
+            	
+            	if( !$valid_token ) {
+            		$usr_str = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? 'email or' : 'username or';
+            		$msg_str = $this->otp ? $usr_str : '';
+            		
+            		$loginData['msg']=t('Invalid ' . $msg_str . ' token.');
+            		throw new Exception(t('Invalid ' . $msg_str . ' token.'));
+            	}
+            }
+            
+            echo "NOT ERROR";
+            
+            //No error, no problem
+            //record the login, login the user and let c5 set up all the cookies
+            User::loginByUserID($u->getUserID());
             $loginData = $this->finishLogin($loginData);
 
         } catch(Exception $e) {

@@ -104,15 +104,9 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
 	            <?php } ?>
 	            
 	            <div class="control-group">
-	            	<label class="control-label"><?php  echo t('Valid time slice')?></label>
+	            	<label class="control-label"><?php  echo t('')?></label>
 	                <div class="controls">
-	                    <label class="select">
-	                    	<select name="GA_TIME_SLICE">
-	                    		<option value="30" <?php echo ($GA_TIME_SLICE == "30" ? "selected" : "")?>>30 <?php  echo t('seconds')?></option>
-	                    		<option value="45" <?php echo ($GA_TIME_SLICE == "45" ? "selected" : "")?>>45 <?php  echo t('seconds')?></option>
-	                    		<option value="60" <?php echo ($GA_TIME_SLICE == "60" ? "selected" : "")?>>60 <?php  echo t('seconds')?></option>
-	                    	</select>
-	                    </label>
+	                	<?php  echo t('No configuration available')?>
 	                </div>
 	            </div>
 	        </fieldset>
