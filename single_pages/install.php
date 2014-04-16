@@ -261,6 +261,11 @@ $(function() {
                 },
                 zxcvbn: true
             };
+
+            //having preexisting data in the password field will cause zxcvbn to crash
+            //workaround: save the values, init the input, restore values, trigger key up event
+            $('#uPassword').val('');
+            $('#uPasswordConfirm').val('');
             $('#uPassword').pwstrength(options);
         });
     </script>	
