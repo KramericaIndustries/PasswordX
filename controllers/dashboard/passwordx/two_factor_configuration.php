@@ -36,7 +36,8 @@ class DashboardPasswordxTwoFactorConfigurationController extends DashboardBaseCo
         //ga
         $this->set( 'GA_TIME_SLICE', Config::get('GA_TIME_SLICE') );
         $this->set( 'show_secret_warning', $this->showGASecretWarning() );
-        
+        //global $u;
+        //var_dump($u->config('ga_secret'));
         //TODO: authy
         /*$this->set( 'authy_type', Config::get('AUTHY_TYPE') );
         $this->set( 'authy_server_production', Config::get('AUTHY_SERVER_PRODUCTION') );
@@ -55,12 +56,23 @@ class DashboardPasswordxTwoFactorConfigurationController extends DashboardBaseCo
 
             	//2f options
             	Config::save('TWO_FACTOR_METHOD', $this->post('TWO_FACTOR_METHOD'));
-            	Config::save('AUTH_FACTORS_REQUIRED', $this->post('AUTH_FACTORS_REQUIRED'));
+   
+            	if( $this->post('TWO_FACTOR_METHOD') != "no_2factor" ) { 
+            		Config::save('AUTH_FACTORS_REQUIRED', $this->post('AUTH_FACTORS_REQUIRED'));
+            	}
             	
             	//ga specific
-            	Config::save('GA_TIME_SLICE', $this->post('GA_TIME_SLICE'));
+            	if( $this->post('TWO_FACTOR_METHOD') == "google" ) {
+            		Config::save('GA_TIME_SLICE', $this->post('GA_TIME_SLICE'));
+            	}
             	
-            	//TODO: authy
+            	//authy specific
+            	if( $this->post('TWO_FACTOR_METHOD') == "authy" ) {
+            		//TODO: authy
+            	}
+            	
+            	
+            	
             	
                 //we need a good api key
                 /*$api_key = $this->post("AUTHY_KEY");
@@ -92,7 +104,7 @@ class DashboardPasswordxTwoFactorConfigurationController extends DashboardBaseCo
     	$users = $ul->get(1000);
     	
     	foreach( $users as $thisUser ) {
-    		if( $thisUser->config('ga_secret') == NULL || $thisUser->config('ga_secret') == "" ) {
+    		if( $thisUser->getUserObject()->config('ga_secret') == NULL || $thisUser->getUserObject()->config('ga_secret') == "" ) {
     			return true;
     		}
     	}

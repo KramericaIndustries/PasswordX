@@ -64,8 +64,23 @@
  <div class="row">
     <div class="col-lg-3"></div>
     <div class="col-lg-6">
-
-
+    
+    <?php 
+    //Display login errors
+    if( !empty($error) ) { 
+	//we are interested only in the first error
+	$error_list = $error->getList();
+	?>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <div class="panel-title">
+		<strong><i class="glyphicon glyphicon-exclamation-sign"></i> <?php echo $error_list[0] ?></strong>
+	   </a>
+	 </div>
+    </div>
+    </div>
+	<?php } ?>
+	
 	<?php
 	 //Check for SSL Encrypted
 	 if (($nsa->connectionUnsecured()) && (!SUPPRESS_SSL_WARNING)) { //Connection is insecure

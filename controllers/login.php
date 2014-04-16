@@ -12,20 +12,28 @@ defined('C5_EXECUTE') or die("Access Denied.");
  */
 class LoginController extends Concrete5_Controller_Login {
 
-    //classwide vars
-    protected $authy = null; //!< Authy instance
-
+    //login configs
+    protected $two_factor_auth;
+    protected $two_factor_method;
+    protected $otp;
+    protected $sms;
+    
     /**
      * On start
      */
     public function on_start() {
-        parent::on_start(); //who know what secrets parent holds for us?
 
-        $this->authy = Loader::helper("authy");
-		
-        $this->set( 'two_factor_auth', (Config::get('TWO_FACTOR_METHOD') != 'no_2factor') );
-        $this->set( 'otp', (Config::get('AUTH_FACTORS_REQUIRED') == 1) );
-        $this->set( 'sms', ( (Config::get('TWO_FACTOR_METHOD') == 'authy') && (Config::get('AUTHY_SMS_TOKENS') != "0") ));
+    	parent::on_start(); //who know what secrets parent holds for us?
+
+        //grab configs
+    	$this->two_factor_method = Config::get('TWO_FACTOR_METHOD');
+        $this->two_factor_auth = ( $this->two_factor_method != 'no_2factor');
+        $this->otp = ( (Config::get('AUTH_FACTORS_REQUIRED') == 1) && (Config::get('TWO_FACTOR_METHOD') != 'no_2factor') );
+        $this->sms = ( (Config::get('TWO_FACTOR_METHOD') == 'authy') && (Config::get('AUTHY_SMS_TOKENS') != "0") );
+        
+        $this->set( 'two_factor_auth', $this->two_factor_auth );
+        $this->set( 'otp', $this->otp );
+        $this->set( 'sms', $this->sms );
         
 		$this->set("nosidebar",true);
     }
@@ -35,7 +43,6 @@ class LoginController extends Concrete5_Controller_Login {
      */
     public function view() {
         parent::view(); //callback to parent
-		
     }
 
     /**
@@ -52,13 +59,13 @@ class LoginController extends Concrete5_Controller_Login {
             if(!$_COOKIE[SESSION]) {
                 throw new Exception(t('Your browser\'s cookie functionality is turned off. Please turn it on.'));
             }
-
+            throw new Exception(t('A username and password are required.'));
             if (!$ip->check()) {
                 throw new Exception($ip->getErrorMessage());
             }
 
             //on OTP mode, we dont need password
-            $pass = $this->authy->isOTP() ? $this->post('uToken') : $this->post('uPassword');
+            $pass = $this->otp ? $this->post('uToken') : $this->post('uPassword');
 
             if ( (!$vs->notempty($this->post('uName'))) || (!$vs->notempty( $pass ))) {
                 if (USER_REGISTRATION_WITH_EMAIL_ADDRESS) {
@@ -68,7 +75,7 @@ class LoginController extends Concrete5_Controller_Login {
                 }
             }
 
-            if ( !$vs->notempty($this->post('uToken')) && $this->authy->isEnabled() ) {
+            if ( !$vs->notempty($this->post('uToken')) && $this->two_factor_auth ) {
                 throw new Exception(t('A token is required.'));
             }
 
@@ -77,7 +84,7 @@ class LoginController extends Concrete5_Controller_Login {
              * Search the user list for a user with $this->post('uName'), that is active.
              * Go to step 2, token verification, only if userlist contains 1 elements
              */
-            if($this->authy->isOTP()) {
+            if($this->otp) {
 
                 Loader::model('user_list');
                 $ul = new UserList();
@@ -114,7 +121,7 @@ class LoginController extends Concrete5_Controller_Login {
                     case USER_INVALID:
 
                         $usr_str = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? 'email' : 'username';
-                        $pwd_str = $this->authy->isOTP() ? 'token' : 'password';
+                        $pwd_str = $this->otp ? 'token' : 'password';
 
                         throw new Exception(t('Invalid ' . $usr_str . ' or ' . $pwd_str . '.'));
 
@@ -125,8 +132,25 @@ class LoginController extends Concrete5_Controller_Login {
                 }
             } else {
 
-                if( $this->authy->isEnabled() ) {
+            	$valid_login = true;
+            	
+                if( $this->two_factor_auth ) {
 
+                	$valid_login = false;
+                	
+                	//validate a google token
+                	if( $this->two_factor_method == 'google' ) {
+                		
+                		$ga = Loader::helper("google_authenticator");                		
+                		$valid_login = $ga->validateToken( $u->config('ga_secret'), $this->post('uToken'), 30 );
+
+                	
+                	//validate an authy token
+                	} elseif( $this->two_factor_method == 'authy' ) {
+                		
+                	}
+                	
+                	/*
                     //UI
                     $ui = UserInfo::getByID( $u->getUserID() );
                     $authy_id = $ui->getAttribute('authy_user_id');
@@ -147,24 +171,23 @@ class LoginController extends Concrete5_Controller_Login {
                         $ui->setAttribute( 'authy_user_id', $authy_id );
                     }
 
-                    //validate the token
-                    if( ! $this->authy->validToken( $this->post('uToken'), $authy_id ) ) {
-
-                        $usr_str = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? 'email or' : 'username or';
-                        $msg_str = $this->authy->isOTP() ? $usr_str : '';
-
-                        $loginData['msg']=t('Invalid ' . $msg_str . ' token.');
-                        throw new Exception(t('Invalid ' . $msg_str . ' token.'));
-
-                    }
-
-                    //log the user in if OTP
-                    if($this->authy->isOTP()) {
-                        User::loginByUserID($u->getUserID());
-                    }
-
+					*/
                 }
 
+                //did not passed the 2 factor
+                if( !$valid_login ) {
+                	$usr_str = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? 'email or' : 'username or';
+                	$msg_str = $this->otp ? $usr_str : '';
+                	
+                	$loginData['msg']=t('Invalid ' . $msg_str . ' token.');
+                	throw new Exception(t('Invalid ' . $msg_str . ' token.'));
+                }
+                
+                //log the user in if OTP
+                if($this->otp) {
+                	//User::loginByUserID($u->getUserID());
+                }
+                
 				//Log the sucess
 				$nsa = Loader::helper("nsa");
 				$geoIp = $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] );
@@ -218,70 +241,16 @@ class LoginController extends Concrete5_Controller_Login {
     }
 
     /**
-     * Change password
+     * Change password, disable the function
      */
     public function change_password($uHash = '') {
-        $db = Loader::db();
-        $h = Loader::helper('validation/identifier');
-        $e = Loader::helper('validation/error');
-        $ui = UserInfo::getByValidationHash($uHash);
-        if (is_object($ui)) {
-            $hashCreated = $db->GetOne("select uDateGenerated FROM UserValidationHashes where uHash=?", array($uHash));
-            if ($hashCreated < (time()-(USER_CHANGE_PASSWORD_URL_LIFETIME))) {
-                $h->deleteKey('UserValidationHashes','uHash',$uHash);
-                throw new Exception( t('Key Expired. Please visit the forgot password page again to have a new key generated.') );
-            } else {
-
-                if (strlen($_POST['uPassword'])) {
-
-                    $authy_id = $ui->getAttribute('authy_user_id');
-
-                    //validate the token
-                    if( ! $this->authy->validToken( $_POST['uToken'], $authy_id ) ) {
-                        throw new Exception(t('Invalid token.'));
-                    }
-
-
-                    $userHelper = Loader::helper('concrete/user');
-                    $userHelper->validNewPassword($_POST['uPassword'],$e);
-
-                    if (strlen($_POST['uPassword']) && $_POST['uPasswordConfirm']!=$_POST['uPassword']) {
-                        $e->add(t('The two passwords provided do not match.'));
-                    }
-
-                    if (!$e->has()) {
-                        $ui->changePassword( $_POST['uPassword'] );
-                        $h->deleteKey('UserValidationHashes','uHash',$uHash);
-                        $this->set('passwordChanged', true);
-
-                        $u = $ui->getUserObject();
-                        if (USER_REGISTRATION_WITH_EMAIL_ADDRESS) {
-                            $_POST['uName'] =  $ui->getUserEmail();
-                        } else {
-                            $_POST['uName'] =  $u->getUserName();
-                        }
-                        $this->do_login();
-
-                        return;
-                    } else { // This else is always used (due to return above), no need for else statement.
-                        $this->set('uHash', $uHash);
-                        $this->set('changePasswordForm', true);
-                        $this->set('errorMsg', join( '<br>', $e->getList() ) );
-                    }
-                } else {
-                    $this->set('uHash', $uHash);
-                    $this->set('changePasswordForm', true);
-                }
-            }
-        } else {
-            throw new Exception( t('Invalid Key. Please visit the forgot password page again to have a new key generated.') );
-        }
+    	throw new Exception( "Reset Passwd: function disabled!" );
     }
 
     /**
      * Make a request to send an SMS token to a user
      */
-    public function request_sms() {
+    /*public function request_sms() {
 
         //are sms allowed
         if(!$this->authy->isSMSAllowed()) {
@@ -365,6 +334,6 @@ class LoginController extends Concrete5_Controller_Login {
 
         //end exit
         exit();
-    }
+    }*/
 
 }

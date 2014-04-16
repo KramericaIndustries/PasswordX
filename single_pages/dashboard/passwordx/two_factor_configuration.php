@@ -38,7 +38,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
             </div>
         </fieldset>
         
-        <div id="2fa-options" style="<?php echo ($TWO_FACTOR_METHOD == "no_2factor" ? "display:none;" : ""); ?>">
+        <div id="2fa-options" style="display:<?php echo ($TWO_FACTOR_METHOD == "no_2factor" ? "none" : "block"); ?>;">
 	        <fieldset>
 	            <legend style="margin-bottom: 0px"><?php  echo t('Authentication Type')?></legend>
 	            <div class="control-group">
@@ -58,7 +58,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
 	        </fieldset>
 		</div>
 		
-		<div id="authy-options" style="<?php echo ($TWO_FACTOR_METHOD == "google" ? "display:none;" : ""); ?>">
+		<div id="authy-options" style="display: <?php echo ($TWO_FACTOR_METHOD == "authy" ? "block" : "none"); ?>;">
 	        <fieldset>
 	            <legend style="margin-bottom: 0px"><?php  echo t('Authy Configuration')?></legend>
 	            <div class="control-group">
@@ -92,7 +92,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper($title,
 	        </fieldset>
         </div>
         
-        <div id="google-options" <?php echo ($TWO_FACTOR_METHOD == "authy" ? "display:none;" : ""); ?>>
+        <div id="google-options" style="display: <?php echo ($TWO_FACTOR_METHOD == "google" ? "block" : "none"); ?>;">
         	<fieldset>
 	            <legend style="margin-bottom: 0px"><?php  echo t('Google Configuration')?></legend>
 	          	

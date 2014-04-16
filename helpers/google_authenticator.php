@@ -17,6 +17,54 @@ class GoogleAuthenticatorHelper {
 	}
 	
 	/**
+	 * Check if the token is valid
+	 * @param string $secret
+	 * @param string $token
+	 * @param int $deltaTime
+	 */
+	public function validateToken( $secret, $token, $timeSlice = 30 ) {
+	
+		$timeSpan = floor(time() / $timeSlice);
+		$tokenSize = strlen($token);
+	
+		for ($i = -$deltaTime; $i <= $deltaTime; $i++) {
+
+			//If token generated in the timespan is equal witht he one given
+			if ( $this->getToken($secret, $tokenSize, $timeSpan + $i, $timeSlice) == $token ) {
+				//everything is OK
+				return true;
+			}
+		}
+	
+		return false;
+	}
+	
+	/**
+	 * Gets a token for a given point in time
+	 */
+	private function getToken( $secret, $tokenSize = 6, $timeSpan = null, $timeSlice = 30 ) {
+	
+		if ($timeSpan === null) {
+			$timeSpan = floor(time() / $timeSlice);
+		}
+	
+		$secretkey = Base32::base32Decode($secret);
+	
+		// Binary voodoo
+		$time = chr(0).chr(0).chr(0).chr(0).pack('N*', $timeSpan);
+		$hm = hash_hmac('SHA1', $time, $secretkey, true);
+		$offset = ord(substr($hm, -1)) & 0x0F;
+		$hashpart = substr($hm, $offset, 4);
+		$value = unpack('N', $hashpart);
+		$value = $value[1];
+		$value = $value & 0x7FFFFFFF;
+	
+		//and voila
+		$modulo = pow(10, $tokenSize);
+		return str_pad($value % $modulo, $tokenSize, '0', STR_PAD_LEFT);
+	}
+	
+	/**
 	 * Returns 
 	 * @param string $ga_secret
 	 */
