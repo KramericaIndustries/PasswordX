@@ -47,7 +47,7 @@ class NsaHelper {
 		}
 
 		if (version_compare(APP_VERSION, $latest_stable, '<')) {
-			return json_decode( Config::get('upgrade_lastest_data') );;
+			return json_decode( Config::get('upgrade_lastest_data') );
 		} else {
 			return false;
 		}

@@ -223,10 +223,10 @@ class LoginController extends Concrete5_Controller_Login {
     /**
      * Make a request to send an SMS token to a user
      */
-    /*public function request_sms() {
+    public function request_sms() {
 
         //are sms allowed
-        if(!$this->authy->isSMSAllowed()) {
+        if(!$this->sms) {
             throw new Exception( t('SMS Disabled.') );
         }
 
@@ -292,9 +292,7 @@ class LoginController extends Concrete5_Controller_Login {
 
 
         //load the library
-        $pkg = Package::getByHandle("c5authy");
-        Loader::library('authy', $pkg);
-        $authy = new Authy();
+        $authy = Loader::helper("authy");
 
         //request the SMS
         if( $authy->requestSMS( $authy_id ) ) {
@@ -307,6 +305,6 @@ class LoginController extends Concrete5_Controller_Login {
 
         //end exit
         exit();
-    }*/
+    }
 
 }

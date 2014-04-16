@@ -178,7 +178,7 @@ class AuthyHelper {
         }
 
         //Send the request
-        $got = $this->req( sprintf("/sms/%s", $authy_id), null, false, ($this->sms_token=="2") );
+        $got = $this->req( sprintf("/sms/%s", $authy_id), null, false, ( Config::get('AUTHY_SMS_TOKENS') =="2" ) );
 
         //sanity check
         if( is_object($got) ) {
@@ -212,7 +212,7 @@ class AuthyHelper {
     	);
 
     	if( $force ) {
-    		$params['force'] = true;
+    		$params['force'] = "true";
     	}
     	
     	//post or get?
