@@ -215,7 +215,7 @@
                                             <?php } ?>
                                     </label>
 
-                                    <input tabindex="3" type="text" name="uToken" id="uToken" maxlength="7" class="form-control" />
+                                    <input tabindex="3" type="text" name="uToken" id="uToken" maxlength="7" class="form-control" autocomplete="off"/>
                                 </div>
                             <?php } ?>
 							

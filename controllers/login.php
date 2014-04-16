@@ -151,7 +151,26 @@ class LoginController extends Concrete5_Controller_Login {
 
                 //validate an authy token
                 } elseif( $this->two_factor_method == 'authy' ) {
+                	
+                	$authy_id = $ui->getAttribute('authy_user_id');
+                	
+                	$authy = Loader::helper("authy");
+                	
+                    //If for some reason we dont have the Authy ID stored, try again to get it
+                    if( empty($authy_id) ) {
 
+                        $authy_id = $authy->getAuthyUserId(
+                            $ui->getUserEmail(),
+                            $ui->getAttribute('phone_number'),
+                            $ui->getAttribute('phone_country_code')
+                        );
+
+                        //save id DB
+                        $ui->setAttribute( 'authy_user_id', $authy_id );
+                    }
+                    
+                    $valid_token = $authy->validToken( $this->post('uToken'), $authy_id );
+                    
                 }
             	
             	if( !$valid_token ) {
@@ -162,13 +181,11 @@ class LoginController extends Concrete5_Controller_Login {
             		throw new Exception(t('Invalid ' . $msg_str . ' token.'));
             	}
             }
-            
-            echo "NOT ERROR";
-            
+
             //No error, no problem
             //record the login, login the user and let c5 set up all the cookies
-            User::loginByUserID($u->getUserID());
-            $loginData = $this->finishLogin($loginData);
+            //User::loginByUserID($u->getUserID());
+            //$loginData = $this->finishLogin($loginData);
 
         } catch(Exception $e) {
         	

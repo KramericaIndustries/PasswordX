@@ -13,6 +13,7 @@ class AuthyHelper {
     protected $auth_type            = null;     //!< OTP or 2 Factor? or none?
     protected $sms_token            = null;     //!< Do we allow sms tokens?
 	protected $last_error			= null;		//!< Last error message from authy
+	protected $resty				= null;		//!< Our connection hookl
 	
     //addresses for authy servers
     const LIVE_SERVER       = "https://api.authy.com";
@@ -30,6 +31,10 @@ class AuthyHelper {
         	$this->loadConfig();
     	}
 
+    	//init resty
+    	Loader::library("3rdparty/resty");
+    	$this->resty = new Resty();
+    	$this->resty->setBaseURL( self::LIVE_SERVER . '/protected/' . self::FORMAT);
     }
 
     /**
@@ -39,9 +44,6 @@ class AuthyHelper {
 
     	//set the values 
     	$this->api_key = Config::get('AUTHY_API_KEY');
-    	$this->server = self::LIVE_SERVER;
-    	$this->auth_type = Config::get('AUTHY_TYPE');
-    	$this->sms_token = Config::get('AUTHY_SMS_TOKENS');
 
     }
     
@@ -52,29 +54,6 @@ class AuthyHelper {
     	return $this->last_error;
     }
 
-    /**
-     * Convenience method to check if OTP
-     * @return bool
-     */
-    public function isOTP(){
-        return ($this->auth_type == "1");
-    }
-
-    /**
-     * Convenience method to check if we should try to SMS
-     * @return bool
-     */
-    public function isSMSAllowed(){
-        return ($this->sms_token != "0");
-    }
-
-    /**
-     * Convenience method to check if authy is enabled
-     * @return bool
-     */
-    public function isEnabled() {
-        return ($this->auth_type != "0");
-    }
     
     /**
      * Validates an API key
@@ -90,7 +69,6 @@ class AuthyHelper {
     	
     	//load data
     	$this->api_key = $key;
-    	$this->server = self::LIVE_SERVER;
     	
     	//ask authy if the key is valid
         $got = $this->req( '/app/details' );
@@ -126,13 +104,12 @@ class AuthyHelper {
             throw new Exception( t('Invalid country code') );
         }
 
-        //build the payload
-        $payload = http_build_query( array(
-            'user[email]'           => $email,
-            'user[cellphone]'       => $phone_number,
-            'user[country_code]'    => $country_code
+        $payload = array( 'user' => array(
+        	'email'	=>	$email,
+        	'country_code'	=>	$country_code,
+        	'cellphone'	=>	$phone_number
         ));
-
+        
         //and ask authy
         $got = $this->req( '/users/new', $payload , true );
 
@@ -228,38 +205,26 @@ class AuthyHelper {
      * @return mixed
      */
     private function req( $path, $payload = array(), $post = false, $force = false ) {
+		
+    	//set the request params
+    	$params = array(
+    		'api_key'	=>	$this->api_key
+    	);
 
-        //compose the req url
-        $url = sprintf( '%s/protected/%s%s?api_key=%s', $this->server, self::FORMAT, $path, $this->api_key );
+    	if( $force ) {
+    		$params['force'] = true;
+    	}
+    	
+    	//post or get?
+    	if( $post ) {
+    		$params = array_merge($params, $payload);
+    		$resp = $this->resty->post( $path, $params );
+    	} else {
+    		$resp = $this->resty->get( $path, $params );
+    	}
 
-        //force an action
-        if( $force ) {
-            $url .= "&force=true";
-        }
-
-        //curl handler
-        $ch = curl_init();
-
-        //url to curl
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        //receive server response ...
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        // post data
-        if( $post ) {
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload );
-        }
-
-        //ruun
-        $server_output = curl_exec($ch);
-
-        //always close the sockets
-        curl_close ($ch);
-
-        //perfect
-        return json_decode( $server_output );
+    	//and return
+    	return $resp["body"];
     }
 
 }
