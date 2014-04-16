@@ -18,7 +18,7 @@ class EventHandler {
 			return;
 		}
 		
-		if( Config::get('AUTHY_TYPE') == '0' ) {
+		if( Config::get('TWO_FACTOR_METHOD') != 'authy' ) {
 			return;
 		}
 	 
@@ -70,7 +70,7 @@ class EventHandler {
      */
     private static function updateUserAuthy( $ui, $email_addr, $dirty_phone_number, $full_country_code ) {
 
-		if( Config::get('AUTHY_TYPE') == '0' ) {
+    	if( Config::get('TWO_FACTOR_METHOD') != 'authy' ) {
 			return;
 		}
 
