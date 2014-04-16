@@ -17,8 +17,9 @@ class RecoveryController extends Controller {
         parent::on_start(); 
         
 		//Test for recovery files to exist
+        $mek_filename = Config::get('RECOVERY_MASTER_KEY');
 		$this->set("recoveryTest", file_exists( DIR_BASE . '/config/recovery/recovery_key.rsa' ));
-        $this->set("masterTest", file_exists( DIR_BASE . '/config/recovery/master_key' ));
+        $this->set("masterTest", file_exists( DIR_BASE . '/config/recovery/' . $mek_filename ));
 		
         //no sidebar, please
         $this->set("nosidebar",true);
@@ -31,13 +32,15 @@ class RecoveryController extends Controller {
 		
 		$token = Loader::helper('validation/token');
 		
+		$mek_filename = Config::get('RECOVERY_MASTER_KEY');
+		
 		//validate the security token
 		if (!$token->validate('password_reset')) {
 			throw new Exception('Invalid security token!');
 		}
 		
 		//check that we have the needed files
-		if( !file_exists( DIR_BASE . '/config/recovery/master_key' ) ) {
+		if( !file_exists( DIR_BASE . '/config/recovery/' . $mek_filename ) ) {
 			throw new Exception('Master key not found!');
 		}
 		
@@ -62,7 +65,7 @@ class RecoveryController extends Controller {
 		fclose($handle);
 		
 		//read encrypted master key
-		$filename = DIR_BASE . '/config/recovery/master_key';
+		$filename = DIR_BASE . '/config/recovery/' . $mek_filename;
 		$handle = fopen($filename, "r");
 		$eMEK = fread($handle, filesize($filename));
 		fclose($handle);
