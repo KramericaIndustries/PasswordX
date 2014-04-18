@@ -66,9 +66,6 @@ if ($md->isMobile() == true) {
 $v->addHeaderItem($html->css('ccm.dashboard.css'));
 $v->addHeaderItem($html->css('jquery.ui.css'));
 
-//PasswordX overrides
-$this->addHeaderItem($html->css('passwordx.css'), 'CORE');
-
 $valt = Loader::helper('validation/token');
 $disp = '<script type="text/javascript">'."\n";
 $disp .=  "var CCM_SECURITY_TOKEN = '" . $valt->generate() . "';"."\n";
@@ -77,6 +74,9 @@ $disp .= "</script>"."\n";
 $v->addHeaderItem($disp);
 Loader::element('header_required', array('disableTrackingCode' => true));
 $backgroundImage = Loader::helper('concrete/dashboard')->getDashboardBackgroundImage();
+
+//PasswordX overrides
+echo $html->css('/css/passwordx.css');
 ?>
 <script type="text/javascript">
 
