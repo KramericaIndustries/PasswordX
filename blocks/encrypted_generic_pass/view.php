@@ -18,7 +18,7 @@ $block_color = array('info','warning','danger');
 			}
 		?>
 	</h4>
-	<p>
+
 		<?php  if (!empty($field_2_textbox_text)): ?>
 
 		<div class="credentials-fields">
@@ -46,7 +46,8 @@ $block_color = array('info','warning','danger');
 		<div>
 			<span class="username-label">Other notes:</span><br/>
 			<span class="notes"><?php  echo nl2br(htmlentities($field_4_textarea_text, ENT_QUOTES, APP_CHARSET)); ?></span>
-		<?php  endif; ?>
 		</div>
-	</p>
+		<?php  endif; ?>
+		
+
 </div>

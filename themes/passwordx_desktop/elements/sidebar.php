@@ -67,7 +67,7 @@
 			$nav->controller->displayPages = 'top';
 			$nav->controller->displaySubPages = 'all';
 			$nav->controller->displaySubPageLevels = 'all';
-			$nav->render();
+			$nav->render("templates/sidebar");
 		?>
 
 		</div>
@@ -110,13 +110,15 @@
 					 Last login on <?php echo $timestamp ?>, from <?php echo $last_ip ?> (<?php echo $location ?>)
 					</div>
 				<?php }
-				} else if( $new_version == false) {
-					$nsa->easter_egg();
-				} else { ?>
+				} else if( $new_version ) {
+				?>
 					<div class="alert alert-info">
 					 <i class="icon-bullhorn"></i> <strong>A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>)</strong> <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
 					</div>
-				<?php } ?> 
+				<?php 					
+				} else { 
+					$nsa->easter_egg();
+				} ?> 
 				</small>
 			</div>
 			

@@ -21,106 +21,16 @@ $this->inc('elements/sidebar.php');
 	 if (hrs >  6) msg = "Good morning";      // After 6am
 	 if (hrs > 12) msg = "Good afternoon";    // After 12pm
 	 if (hrs > 17) msg = "Good evening";      // After 5pm
-	 if (hrs > 23) msg = "You should really go to bed";        // After 10pm
+	 if (hrs > 22 || hrs < 2) msg = "You should go to bed";        // After 10pm
 	 
 	 $('#greeting_time').html(msg);
 	</script>
-
-    TODO: New globalarea here with Instructions default content
-
-<pre>
-<?php
-//DEBUG AREA
-
-echo "<h1>IP</h1>";
-
-global $u;
-
-$ui = UserInfo::getByID( $u->getUserID() );
-$ll = $ui->getPreviousLogin();
-$ttime = date("F j, Y, g:i a", $ll);
-var_dump($ttime);
-var_dump($u->config('last_ip'));
-
-
-/*
-var_dump($u);
-var_dump( $u->getLastOnline() );
-
-
-var_dump(  $ui->getLastLogin()   );
-var_dump(  $ui->getPreviousLogin()  );
-var_dump( $ui->getLastOnline('user') );
-*/
-//var_dump( Log::getLastLogin() );
-
-//$nsa = Loader::helper("nsa");
-
-//var_dump( $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] ) );
-//Log::addEntry('I wish to log this string.','auth');
-
-//var_dump( Log::getList('','auth', 100) );
-
-//var_dump( Log::getLastLogin() );
-/*
-echo "<hr/>";
-
-echo "<h1>Recovery</h1>";
-
-$c = Loader::helper("crypto");
-
-$u = new User();
-
-$mek = $u->getMEK();
-var_dump($mek);
-
-
-Loader::library( "3rdparty/phpseclib/Math/BigInteger" );
-Loader::library( "3rdparty/phpseclib/Crypt/RSA" );
-Loader::library( "3rdparty/phpseclib/Crypt/AES" );
-Loader::library( "3rdparty/phpseclib/Crypt/TripleDES" );
-Loader::library( "3rdparty/phpseclib/Crypt/Random" );
-
-$rsa = new Crypt_RSA();
-
-$filename = DIR_BASE . '/config/recovery/recovery_key.rsa';
-$handle = fopen($filename, "r");
-$private_key = fread($handle, filesize($filename));
-fclose($handle);
-
-$filename = DIR_BASE . '/config/recovery/master_key';
-$handle = fopen($filename, "r");
-$eMEK = fread($handle, filesize($filename));
-fclose($handle);
-
-$rsa->loadKey($private_key);
-$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
-
-$dMEK = $rsa->decrypt($eMEK); 
-
-var_dump($dMEK);
-
-var_dump( ( $dMEK ==  $mek ) );
-*/
-//var_dump($private_key);
-//var_dump($eMEK);
-
-/*
-$rsae = new Crypt_RSA();
-
-//public key
-$rsae->loadKey( $keys["publickey"] );
-
-$plaintext = 'SUPER Secret message';
-
-$rsae->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
-$ciphertext = $rsae->encrypt($mek);
-*/
-?>
-</pre>
-end
-
-
+    
+	<?php
+	 $b = new GlobalArea("Welcome Tutorial"); 
+	 $b->display();
+	?>
+	
  	 </div> <!-- //page-content-wrapper -->
     </div> <!-- //wrapper -->
 	<script type="text/javascript" src="<?php  echo $this->getThemePath(); ?>/js/main.js"></script>

@@ -71,12 +71,9 @@
 	padding: 5px;
 }
 
-ul {
-	list-style-type: none;
-}
-
 .sidebar-nav {
   position: absolute;
+  list-style-type: none;
   /*top: 0;*/
   top: 1;
   width: 250px;
@@ -115,6 +112,22 @@ ul {
   text-decoration: none;
 }
 
+.sidebar-nav a.add-item {
+	font-style: italic;
+	color: #444;
+}
+
+.sidebar-nav a.add-item:hover{
+	font-style: italic;
+	text-decoration: none;
+	color: #fff;
+}
+
+.sidebar-nav a.add-item .glyphicon {
+	font-size: 12px;
+	padding-bottom: 2px;
+}
+
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
   text-decoration: none;
@@ -135,29 +148,16 @@ ul {
   background: none;
 }
 
+.sidebar-nav  .nav-selected  {
+	color: #fff!important;
+}
+
 
 
 .sign-icon.glyphicon-plus,
 .sign-icon.glyphicon-minus {
 	font-size: 7px;
 	top: -2px;
-}
-
-.add-item {
-	font-style: italic;
-	color: #444;
-}
-
-a.add-item:hover{
-	font-style: italic;
-	color: #444;
-	text-decoration: none;
-}
-
-.add-item .glyphicon {
-	font-size: 12px;
-	padding-bottom: 2px;
-	color: #333;
 }
 
 .glyphicon {
@@ -167,6 +167,7 @@ a.add-item:hover{
 
 ul.nav-dropdown {
 	display: none;
+	list-style-type: none;
 }
 
 ul.nav-path-selected {
@@ -178,12 +179,6 @@ ul.nav-path-selected {
  margin-bottom: 15px;
 }
 
-
-
-
-.nav-selected  {
-	color: #fff!important;
-}
 
 /* Common styles for all types */
 .bs-callout {
@@ -318,7 +313,14 @@ ul.nav-path-selected {
 div#ccm-edit-overlay {
  max-width: 580px !important;
  width: auto;
+  border-top: 1px solid #888;
+ top: 49px;
 }
+
+div.ccm-block-arrange, div.ccm-block {
+ border: 2px dotted #009900;
+}
+
 
 /**
 * Dashboard overrides which are the same for front and backend - duplicated for backend dashboard in /css/passwordx.css
@@ -332,4 +334,13 @@ div#ccm-edit-overlay {
 
 #ccm-nav-report { 
 	background-position: -19px -2144px!important;
+}
+
+li.ccm-system-nav-selected, ul#ccm-main-nav li:hover, ul#ccm-system-nav li:hover {
+background: #c7e8fd !important;
+}
+
+div#ccm-toolbar {
+ border-bottom: none;
+ background: #fff;
 }

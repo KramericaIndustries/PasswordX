@@ -167,7 +167,7 @@
 	</div>
 
 	<div style="text-align: center;">
-	<p>PasswordX <?php echo APP_VERSION; ?> (c) <?php echo date("Y"); ?> - <a href="<?php echo GITHUB_REPO_URL; ?>">gitHub</a> - MIT License, free for commercial use.</p>
+	<p>PasswordX <?php echo APP_VERSION; ?> (c) <?php echo date("Y"); ?> - <a href="<?php echo GITHUB_REPO_URL; ?>">gitHub</a> - <a href="/LICENSE.TXT">Apache V2 license</a></p>
 	 Built with the <a href="<?php echo CONCRETE5_ORG_URL; ?>">Concrete5 MVC Framework</a>
 	</div>
 	

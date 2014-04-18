@@ -22,30 +22,17 @@
 	
 	<!-- Global Areas -->
 	<stacks>
-		<stack name="Add tutorial" type="global_area">
+		<stack name="Welcome Tutorial" type="global_area">
 			<area name="Main">
 				<block type="content" name="">
 					<data table="btContentLocal">
 						<record>
-							<content><![CDATA[<p><span class="label label-info">Info</span> Add new information by putting the page in Edit mode and adding one of the blocks available.</p>]]></content>
+							<content><![CDATA[]]></content>
 						</record>
 					</data>
 				</block>
 			</area>
 		</stack>
-		<stack name="howto" type="global_area">
-			<area name="Main">
-				<block type="content" name="">
-					<data table="btContentLocal">
-						<record>
-							<content><![CDATA[<p><span class="label label-primary">HowTo</span>Hover over the hashed area to reveal the password.</p>
-						<p><span class="label label-info">Tip</span> Use Ctrl+C to copy it to clipboard. :)</p>]]></content>
-						</record>
-					</data>
-				</block>
-			</area>
-		</stack>
-		
 	</stacks>
     
     <!-- Single Pages -->

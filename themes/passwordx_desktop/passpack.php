@@ -11,7 +11,7 @@ $page = Page::getCurrentPage();
 ?>
 
         <div class="content-header">
-          <h1><?php echo $page->getCollectionName(); ?> Secrets</h1>
+          <h1><?php echo $page->getCollectionName(); ?></h1>
         </div>
 		
         <!-- Keep all page content within the page-content inset div! -->
@@ -23,18 +23,20 @@ $page = Page::getCurrentPage();
 
 				<div class="spacer"></div>
 				
-				<?php if ($c->isEditMode()) { ?>
-					<hr>
-				<?php } ?>
 				
 				<?php
 					if($a->getTotalBlocksInArea() == 0 ) {
-						$b = new GlobalArea("Add tutorial"); $b->display();
+				?>
+				<p><span class="label label-info">Info</span> Add new information by putting the page in Edit mode and adding one of the blocks available.</p>
+				<?php
+						
 					} 
 				?>
 
-				<hr />
-				<?php $a = new GlobalArea("howto"); $a->display();?>
+		<!-- Need check for mobile and show different tip -->
+			<hr />
+			<p><span class="label label-primary">HowTo</span> Hover over the hashed area to reveal the password.</p>
+			<p><span class="label label-info">Tip</span> Use Ctrl+C to copy it to clipboard. :)</p>
 		
 	  </div> <!-- //inset -->       
  	 </div> <!-- //page-content-wrapper -->

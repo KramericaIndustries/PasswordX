@@ -4,7 +4,15 @@
  * (c) 2014 PasswordX
  * Apache v2 License
  */
-defined('C5_EXECUTE') or die("Access Denied."); ?> 
+defined('C5_EXECUTE') or die("Access Denied."); 
+
+
+$html = Loader::helper('html');
+/* Need to load this in header for some reason or another, despite it being labeled asynch. 
+Todo: optimize all these JS blocks - might as well since we've hijacked the install view to such a high degree */
+$this->addHeaderItem($html->javascript('/js/zxcvbn-async.js'));
+
+?> 
 
 <script type="text/javascript" src="<?php echo ASSETS_URL_JAVASCRIPT?>/bootstrap.js"></script>
 <script type="text/javascript" src="<?php echo ASSETS_URL_JAVASCRIPT?>/jquery.cookie.js"></script>
@@ -240,12 +248,11 @@ $(function() {
 		https://github.com/ablanco/jquery.pwstrength.bootstrap
 		https://tech.dropbox.com/2012/04/zxcvbn-realistic-password-strength-estimation/
 	-->
-<script type="text/javascript" src="/js/zxcvbn-async.js"></script>
+
 <script type="text/javascript" src="/js/pwstrength.js"></script>
 <script type="text/javascript">
-        jQuery(document).ready(function () {
- 
-            var options = {};
+        $(function () {
+             var options = {};
             options.ui = {
 				bootstrap2: true,
                 container: "#password_input",
@@ -337,7 +344,7 @@ $(function() {
 	<div class="input">
 		<?php 
 		$two_factor_options = array(
-			"authy"=>"Use Authy integration",
+			"authy"=>"Use Authy",
 			"google"=>"Use Google Authenticator",
 			"no_2factor"=>"Turn off two-factor for now, I'll set this up later"
 		); 

@@ -128,8 +128,7 @@ $(function(){
 	});	
 	
 	//Modal for adding new item to structure
-	//$(".add-item").click(function(){
-	$("#sidebar-wrapper").on( "click", ".add-item", function(){
+	$("body").on( "click", ".add-item", function(){
 		
 		//Clean the garbage
 		$("#new-name").val("");

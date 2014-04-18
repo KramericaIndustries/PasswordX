@@ -18,7 +18,7 @@
 <?php  if (!empty($field_2_textbox_text) || !empty($field_3_textbox_text)): ?>
 <div class="bs-callout bs-callout-danger">
 	<h4> FTP </h4>
-	<p>
+
 		<?php  if (!empty($field_2_textbox_text)): ?>
 		
 		<div class="credentials-fields">
@@ -39,14 +39,13 @@
 			</span>
 		</div>	
 		<?php  endif; ?>
-	</p>
 </div>
 <?php  endif; ?>
 
 <?php  if (!empty($field_4_textbox_text) || !empty($field_5_textbox_text)): ?>
 <div class="bs-callout bs-callout-danger">
 	<h4> SSH </h4>
-	<p>
+
 		<?php  if (!empty($field_4_textbox_text)): ?>
 		<div class="credentials-fields">
 			<label class="username-label control-label">Username:</label> 
@@ -65,14 +64,14 @@
 			</span>
 		</div>	
 		<?php  endif; ?>
-	</p>
+
 </div>
 <?php  endif; ?>
 
 <?php  if (!empty($field_6_textbox_text) || !empty($field_7_textbox_text) || !empty($field_8_textbox_text)): ?>
 <div class="bs-callout bs-callout-danger">
 	<h4> Database </h4>
-	<p>
+
 		<?php  if (!empty($field_6_textbox_text)): ?>
 		<div class="credentials-fields">
 			<label class="username-label control-label">Username:</label> 
@@ -98,7 +97,7 @@
 			<input type="text" value="<?php  echo htmlentities($field_8_textbox_text, ENT_QUOTES, APP_CHARSET); ?>"/>
 		</div>	
 		<?php  endif; ?>		
-	</p>
+
 </div>
 <?php  endif; ?>
 
