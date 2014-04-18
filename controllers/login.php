@@ -30,7 +30,7 @@ class LoginController extends Concrete5_Controller_Login {
         $this->two_factor_auth = ( $this->two_factor_method != 'no_2factor');
         $this->otp = ( (Config::get('AUTH_FACTORS_REQUIRED') == 1) && (Config::get('TWO_FACTOR_METHOD') != 'no_2factor') );
         $this->sms = ( (Config::get('TWO_FACTOR_METHOD') == 'authy') && (Config::get('AUTHY_SMS_TOKENS') != "0") );
-        
+		
         $this->set( 'two_factor_auth', $this->two_factor_auth );
         $this->set( 'otp', $this->otp );
         $this->set( 'sms', $this->sms );
@@ -233,7 +233,7 @@ class LoginController extends Concrete5_Controller_Login {
 
         //sanity check
         if( !$this->isPost() ) {
-            throw new Exception( t('Invalid call.') );
+            throw new Exception( t('Invalid request type.') );
         }
 
         //get and parse the phone number

@@ -27,7 +27,27 @@
 				<block type="content" name="">
 					<data table="btContentLocal">
 						<record>
-							<content><![CDATA[]]></content>
+							<content><![CDATA[<p>Welcome to PasswordX! Follow these instructions to get started:</p>
+<p> </p>
+<ul>
+<li>
+<p><strong>Organize your passwords by categories<br /></strong>Create container pages  by clicking</p>
+</li>
+<li>
+<p><strong>Add password pages below categories<br /></strong>Add a new password page below any container page</p>
+</li>
+<li>
+<p><strong>Place the page in Edit mode and add Passwords</strong></p>
+</li>
+<li>
+<p><strong><strong>Create your own password blocks<br /></strong></strong>Don't like the default password blocks? Go to the Dashboard and Design your own Password Blocks<strong><br /> </strong></p>
+</li>
+</ul>
+<div> </div>
+<div> </div>
+<p> </p>
+<p> </p>
+<p class="small" style="text-align: center;"><strong>Tip: You can remove this welcome message or replace it with your own content by editing this page.</strong></p>]]></content>
 						</record>
 					</data>
 				</block>

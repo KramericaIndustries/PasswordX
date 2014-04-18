@@ -102,7 +102,7 @@ class NsaHelper {
 	 * @return bool
 	 */
 	public function disabledTwoFactor() {
-		return Config::get('AUTHY_TYPE') == '0';
+		return Config::get('TWO_FACTOR_METHOD') == 'no_2factor';
 	}
 	
 	/**
