@@ -7,7 +7,7 @@ $(function(){
 
 	/* Manipulate the nav to dropdown */
 	$("#sidebar-wrapper").on( "click", ".nav-dropdown > a", function(){
-			$(this).siblings().toggle();
+			$(this).parent().find("ul.nav-dropdown").toggle();
 			
 			$(this).children(".glyphicon").toggleClass("glyphicon-minus");
 			$(this).children(".glyphicon").toggleClass("glyphicon-plus");			
@@ -146,6 +146,7 @@ $(function(){
 	$("#add-modal").on('shown.bs.modal', function (e) {
 	 $("#new-name").focus();
 	});
+		
 	
 	/* bind the enter key to the input field for autosubmit*/
 	$("#new-name").keyup(function(event){
@@ -179,11 +180,11 @@ $(function(){
         }).done(function( data ){
 			if( data.status === "OK" ) {
 				
-				if(cat == "secret") { //redirect to the new page if the page required is a passpack
+				//if(cat == "secret") { //redirect to the new page if the page required is a passpack
 					
 					window.location = "/index.php?cID=" + data.new_cID;
 				
-				} else { //manipulate the dom and do some crazy voodoo
+				/*} else { //manipulate the dom and do some crazy voodoo
 				
 					//Clone an tree struct
 					$clone = $("#li-matrix").clone();
@@ -196,7 +197,7 @@ $(function(){
 					
 					//and hide the modal
 					$("#add-modal").modal('hide');
-				}
+				} */
 				
 			} else {
 				//alert that something bad happend
@@ -204,4 +205,39 @@ $(function(){
 			}
         });
 	});
+	
+	
+	//Modal for deleting item from page structure
+	$("body").on( "click", ".delete-item", function(){
+		
+		//Clean old confirmation
+		$("#confirm_delete").val("");
+		
+		//Deplot the modal
+		$("#delete-modal").modal();
+		
+		var name = $(this).data("name");
+		$('#page-name-delete').html(name);
+		
+	});	
+	
+	/* Handle button click in modal */
+	$('#delete_item').click(function() {
+	
+	 if ($("#confirm_delete").val() !== "DELETE") {
+	  alert("You must type the word DELETE to confirm deletion.");
+	  return false;
+	 }
+	 
+	 //Something to ajax deletion
+	 
+	 //reload page
+	
+	});
+	
+	/* Focus field after modal shown */
+	$("#delete-modal").on('shown.bs.modal', function (e) {
+	 $("#confirm_delete").focus();
+	});	
+	
 });

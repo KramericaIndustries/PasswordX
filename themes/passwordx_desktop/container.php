@@ -18,7 +18,7 @@ $page = Page::getCurrentPage();
             <?php echo $page->getCollectionName(); ?>
           </h1>
 	</div>
-		<p>This is a container page. If it contains any password pages, they are listed below. Add new password pages below this container page by <a href="javascript:void(0);" class="add-item">clicking here</a></p>
+		<p>This is a container page. If it contains any password pages, they are listed below. Add new password pages below this container page by <a href="javascript:void(0);" data-parent-cid="<?php echo $page->getCollectionId(); ?>" class="add-item">clicking here</a></p>
 		
 		<?php
 			$nav = BlockType::getByHandle('autonav');

@@ -111,9 +111,12 @@ foreach ($navItems as $ni) {
 //*** Step 2 of 2: Output menu HTML ***/
 global $c;
 echo '<ul class="sidebar-nav ' . ($c->isEditMode() ? "sidebar-nav-edit-mode" : "") . '">'; //opens the top-level menu
-/*
-* <a href="javascript:void(0);" class="expandall"><span class="innertext">Expand all</span> <span class="glyphicon glyphicon-collapse-down"></span></a>
-*/
+
+?>
+<li>
+ <a href="javascript:void(0);" class="expandall"><span class="innertext">Expand all</span> <span class="glyphicon glyphicon-collapse-down"></span></a>
+</li>
+<?php
 
 $last_cid = array(); //keep a stack structure of all the parent pages
 
@@ -129,7 +132,7 @@ foreach ($navItems as $ni) {
 		$ni->classes .= ' nav-dropdown';
 	}
 	
-	echo '<li class="' . $ni->classes . '">'; //opens a nav item
+	echo '<li class="sidebar-item ' . $ni->classes . '">'; //opens a nav item
 
 	//Start displaying the link content
 	echo '<a href="' . ( $page->getCollectionTypeHandle() == "passpack" ? $ni->url : '#' ) . '" target="' . $ni->target . '" class="' . $ni->classes . '">';
@@ -140,8 +143,10 @@ foreach ($navItems as $ni) {
 	}
 	
 	echo $ni->name;
-	 
+
 	echo '</a>';
+	
+	echo '<span class="edit-item actions-icon sign-icon glyphicon glyphicon-pencil" alt="Rename" title="Rename" data-name="'.$ni->name.'"></span> <span class="delete-item actions-icon sign-icon glyphicon glyphicon-remove" alt="Delete" title="Delete" data-name="'.$ni->name.'"></span>';	
 
 	if ($ni->hasSubmenu) {
 		echo '<ul class="' . $ni->classes . '">'; //opens a dropdown sub-menu
@@ -169,6 +174,10 @@ foreach ($navItems as $ni) {
 	
 }
 
+/* Add to top level link */
+?>
+<li class="new-item"><a class="add-item" data-parent-cid="1" href="javascript:void(0)"><span class="glyphicon glyphicon-plus-sign"></span> Add new item</a></li>
+<?php
 echo '</ul>'; //closes the top-level menu
 //As a matrix for the clone
 echo '<ul id="ul-matrix" style="display: none;"><li id="li-matrix" class="nav-dropdown"><a href="#"><span class="sign-icon glyphicon glyphicon-plus"></span> <span class="clone_text">Hello world</span></a><ul class="nav-dropdown"><li><a class="add-item" data-parent-cid="666" href="javascript:void(0)"><span class="glyphicon glyphicon-plus-sign"></span> Add new item</a></li></ul></li></ul>';

@@ -11,7 +11,7 @@
     <div class="modal-content">
       <div class="modal-header modal-primary">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add new element</h4>
+        <h4 class="modal-title">Add new page</h4>
       </div>
       <div class="modal-body">
 
@@ -39,6 +39,41 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="save-modal-changes"><i class="glyphicon glyphicon-plus"></i> Create page</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="delete-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Delete page</h4>
+      </div>
+      <div class="modal-body">
+
+		 <h4>Are you sure you want to delete &quot;<span id="page-name-delete"></span>&quot; ?</h4>
+		 <p>All subpages will also be deleted. This is permanent and cannot be undone.</p>
+		
+		  <div id="warn_mustconfirm" class="alert alert-danger">
+		   <i class="glyphicon glyphicon-warning-sign"></i> Please enter the word &quot;DELETE&quot; exactly as displayed to confirm deletion.
+		  </div>
+		  
+		<div class="space-6"></div>	
+          <div class="row">
+		   <div class="col-xs-3">
+		   <strong>Confirm</strong>
+		   </div>
+		   <div class="col-xs-9">
+		    <input class="width-80 tooltip-error" id="confirm_delete" data-rel="tooltip" data-trigger="manual" data-placement="right" title="Required" type="text" placeholder="Type the word DELETE to confirm">
+		   </div>
+		  </div>	  
+ 
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+          <button type="button" id="delete_item" class="btn btn-danger">Delete page</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

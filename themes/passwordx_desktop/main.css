@@ -96,8 +96,7 @@
 }
 
 .sidebar-nav a {
-  color: #999999;
-  display: block;
+  color: #ccc;
   text-decoration: none;
   -moz-transition: background-color .2s ease-in-out;
   -webkit-transition: background-color .2s ease-in-out;
@@ -114,7 +113,7 @@
 
 .sidebar-nav a.add-item {
 	font-style: italic;
-	color: #444;
+	color: #999;
 }
 
 .sidebar-nav a.add-item:hover{
@@ -152,17 +151,21 @@
 	color: #fff!important;
 }
 
-
-
-.sign-icon.glyphicon-plus,
-.sign-icon.glyphicon-minus {
-	font-size: 7px;
-	top: -2px;
+.sign-icon {
+	font-size: 10px;
+	top: 0px;
+	cursor: pointer;
+	color: #ccc;
 }
-
-.glyphicon {
-	/*margin-left: -20px;*/
+.sign-icon:hover {
+ color: #428bca;
 }
+.actions-icon {
+	display: none;
+}
+.sidebar-item:hover > .actions-icon {
+ display: inline-block;
+} 
 
 
 ul.nav-dropdown {
@@ -179,6 +182,9 @@ ul.nav-path-selected {
  margin-bottom: 15px;
 }
 
+.expandall, .contractall {
+ font-size: 12px;
+}
 
 /* Common styles for all types */
 .bs-callout {
