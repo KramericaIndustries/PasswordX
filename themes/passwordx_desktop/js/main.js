@@ -1,3 +1,17 @@
+
+	/**
+	 * Returns a password that isn't too sucky to type out, but is relatively secure. Hope some boffins will work on this.
+	 * Is in the global scope so any custom block can reuse this. Idea: Make this customizable
+	 */
+	function sanePassword() {
+		var nato = ["alfa","bravo","charlie","delta","echo","foxtrot","golf","hotel","india","juliett","kilo","lima","mike","november","oscar","papa","romeo","sierra","tango","uniform","victor","whiskey","xray","yankee","zulu","three","four","five","seven","eight","nine","zero"];
+	
+		nato.sort( function() { return 0.5 - Math.random() } );
+	
+		return nato[0] + nato[(Math.floor(Math.random() * nato.length))+1] + Math.floor((Math.random()*1000)+1000);
+	}
+
+
 $(function(){
 
     $("#menu-toggle").click(function(e) {
@@ -34,6 +48,8 @@ $(function(){
 	 $(this).find('.glyphicon').addClass('glyphicon-collapse-down');
 	 $(this).find('.glyphicon').removeClass('glyphicon-collapse-up');
 	});	
+	
+
 	
 	//$("#search_input").keyup(function(){ alert("in");
 	$('body').on('keyup', '#search_input', function(){
@@ -98,7 +114,7 @@ $(function(){
 		//console.debug($(element).html());
 		if( $(element).html() ) {
 		
-			old_regex = /((https?\:\/\/)|(www\.))(\S+)(\w{2,4})(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/gi;
+			//old_regex = /((https?\:\/\/)|(www\.))(\S+)(\w{2,4})(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/gi;
 			regex = /(https?:\/\/[^\s]+)/g;
 		
 			linkified = $(element).html().replace(
@@ -179,25 +195,8 @@ $(function(){
 			type : 'GET'
         }).done(function( data ){
 			if( data.status === "OK" ) {
-				
-				//if(cat == "secret") { //redirect to the new page if the page required is a passpack
 					
 					window.location = "/index.php?cID=" + data.new_cID;
-				
-				/*} else { //manipulate the dom and do some crazy voodoo
-				
-					//Clone an tree struct
-					$clone = $("#li-matrix").clone();
-					$clone.find(".clone_text").html( name );
-					$clone.find(".add-item").data('parentCid', data.new_cID );
-					
-					//slap it to the tree
-					$clone.insertBefore( ".selected-add" );
-					
-					
-					//and hide the modal
-					$("#add-modal").modal('hide');
-				} */
 				
 			} else {
 				//alert that something bad happend
@@ -213,7 +212,7 @@ $(function(){
 		//Clean old confirmation
 		$("#confirm_delete").val("");
 		
-		//Deplot the modal
+		//Deploy the modal
 		$("#delete-modal").modal();
 		
 		var name = $(this).data("name");
@@ -231,6 +230,7 @@ $(function(){
 	 
 	 //Something to ajax deletion
 	 
+	 
 	 //reload page
 	
 	});
@@ -239,5 +239,51 @@ $(function(){
 	$("#delete-modal").on('shown.bs.modal', function (e) {
 	 $("#confirm_delete").focus();
 	});	
+	
+	//Modal for renaming items
+	$("body").on( "click", ".rename-item", function(){
+		
+		var name = $(this).data("name");
+		var cID = $(this).data("cid");
+		
+		//Set name
+		$("#rename-name").val(name);
+		
+		//Set data in modal
+		$('#rename-cid').val(cID);
+		
+		//Deploy the modal
+		$("#rename-modal").modal();
+		
+	});	
+	
+		/* Focus field after modal shown */
+	$("#rename-modal").on('shown.bs.modal', function (e) {
+	 $("#rename-name").focus().select();
+	});	
+	
+	/* Handle button click in modal */
+	$('#rename_item').click(function() {
+	
+	 var newname = $("#rename-name").val();
+	 var cID = $('#rename-cid').val();
+	
+		$.ajax({
+            url: '/ajax/renameitem/' + newname + '/' + cID,
+            dataType: 'json',
+			type : 'GET'
+        }).done(function( data ){
+			if( data.status === "RENAMED" ) {
+					
+					//Reload page
+					window.location.reload();
+				
+			} else {
+				//alert that something bad happend
+				alert("The server experienced an internal error while processing your request.");
+			}
+        });
+		
+	});
 	
 });

@@ -79,6 +79,33 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" id="rename-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Rename page</h4>
+      </div>
+      <div class="modal-body">
+		
+		<input type="hidden" id="rename-cid" value="" />
+		
+		<form>
+		 <div class="form-group">
+			<label for="rename-name">New name: </label>
+			<input type="text" name="rename-name" id="rename-name" class="form-control" placeholder="">
+		 </div>	
+		</form>
+ 
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" id="rename_item" class="btn btn-primary">Save</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
     <div id="wrapper">
 
         <!-- Sidebar -->
