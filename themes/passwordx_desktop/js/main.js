@@ -21,7 +21,7 @@ $(function(){
 
 	/* Manipulate the nav to dropdown */
 	$("#sidebar-wrapper").on( "click", ".nav-dropdown > a", function(){
-			$(this).parent().find("ul.nav-dropdown").toggle();
+			$(this).parent().next().toggle();
 			
 			$(this).children(".glyphicon").toggleClass("glyphicon-minus");
 			$(this).children(".glyphicon").toggleClass("glyphicon-plus");			
@@ -212,11 +212,20 @@ $(function(){
 		//Clean old confirmation
 		$("#confirm_delete").val("");
 		
+		var cID = $(this).data("cid");
+		
+		//Set data in modal
+		$('#delete-cid').val(cID);		
+		
 		//Deploy the modal
 		$("#delete-modal").modal();
 		
+		//Set display name
 		var name = $(this).data("name");
 		$('#page-name-delete').html(name);
+		
+		$(".delete-item").removeClass('selected-delete');
+		$(this).addClass('selected-delete');
 		
 	});	
 	
@@ -229,15 +238,43 @@ $(function(){
 	 }
 	 
 	 //Something to ajax deletion
-	 
-	 
-	 //reload page
+	 var cID = $('#delete-cid').val();
 	
+		$.ajax({
+            url: '/ajax/deleteitem/' + cID,
+            dataType: 'json',
+			type : 'GET'
+        }).done(function( data ){
+			if( data.status === "DELETED" ) {
+				
+				if ($('.selected-delete').parent().next().is("ul.nav-dropdown")) {
+				 $('.selected-delete').parent().next().fadeOut();
+				}
+				$('.selected-delete').parent().fadeOut();
+				
+				$("#delete-modal").modal("hide");
+				
+				
+			} else {
+				//alert that something bad happend
+				alert("The server experienced an internal error while processing your request.");
+			}
+        });	 
+	 
 	});
 	
 	/* Focus field after modal shown */
 	$("#delete-modal").on('shown.bs.modal', function (e) {
 	 $("#confirm_delete").focus();
+	});	
+	
+	/* bind the enter key to the input field for autosubmit*/
+	$("#confirm_delete").keyup(function(event){
+		if( event.keyCode == 13 ) {
+			$("#delete_item").click();
+			event.preventDefault();
+			return false;
+		}
 	});	
 	
 	//Modal for renaming items
@@ -276,7 +313,7 @@ $(function(){
 			if( data.status === "RENAMED" ) {
 					
 					//Reload page
-					window.location.reload();
+					window.location = "/index.php?cID=" + data.cID;
 				
 			} else {
 				//alert that something bad happend
@@ -285,5 +322,14 @@ $(function(){
         });
 		
 	});
+	
+	/* bind the enter key to the input field for autosubmit*/
+	$("#rename-name").keyup(function(event){
+		if( event.keyCode == 13 ) {
+			$("#rename_item").click();
+			event.preventDefault();
+			return false;
+		}
+	});		
 	
 });

@@ -20,7 +20,6 @@
 	  <div><strong>A Category page</strong> is a container (folder, if you will) which is used to organize your Secrets pages by, for example, client or type.</div>
 	 </div>
 	 
-	  <form>
 	 <div class="form-group">
 	  <label for="select-type">Type: </label>
 	  &nbsp;<select id="select-type" class="form-control select-picker">
@@ -33,7 +32,6 @@
         <label for="new-name">Name: </label>
 		<input type="text" id="new-name" class="form-control" placeholder="Name">
 	 </div>	
-	 </form>
 	 
       </div>
       <div class="modal-footer">
@@ -68,7 +66,9 @@
 		   <div class="col-xs-9">
 		    <input class="width-80 tooltip-error" id="confirm_delete" data-rel="tooltip" data-trigger="manual" data-placement="right" title="Required" type="text" placeholder="Type the word DELETE to confirm">
 		   </div>
-		  </div>	  
+		  </div>
+
+		  <input type="hidden" id="delete-cid" value="" />		  
  
       </div>
       <div class="modal-footer">
@@ -90,12 +90,10 @@
 		
 		<input type="hidden" id="rename-cid" value="" />
 		
-		<form>
 		 <div class="form-group">
 			<label for="rename-name">New name: </label>
 			<input type="text" name="rename-name" id="rename-name" class="form-control" placeholder="">
 		 </div>	
-		</form>
  
       </div>
       <div class="modal-footer">

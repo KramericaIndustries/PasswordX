@@ -30,13 +30,14 @@ $page = Page::getCurrentPage();
 				<p><span class="label label-info">Info</span> Add new information by putting the page in Edit mode and adding one of the blocks available.</p>
 				<?php
 						
-					} 
+					} else { 
 				?>
-
-		<!-- Need check for mobile and show different tip -->
+			<!-- Need check for mobile and show different tip -->
 			<hr />
 			<p><span class="label label-primary">HowTo</span> Hover over the hashed area to reveal the password.</p>
 			<p><span class="label label-info">Tip</span> Use Ctrl+C to copy it to clipboard. :)</p>
+			
+				<?php } ?>
 		
 	  </div> <!-- //inset -->       
  	 </div> <!-- //page-content-wrapper -->

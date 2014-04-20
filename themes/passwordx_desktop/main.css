@@ -3,14 +3,14 @@
  */
 
  #wrapper {
-  padding-left: 250px;
+  padding-left: 270px;
   transition: all 0.4s ease 0s;
 }
 
 #sidebar-wrapper {
-  margin-left: -250px;
-  left: 250px;
-  width: 250px;
+  margin-left: -270px;
+  left: 270px;
+  width: 270px;
   padding: 10px;
   background: #000;
   position: fixed;
@@ -43,12 +43,12 @@
 
 #wrapper.active {
   position: relative;
-  left: 250px;
+  left: 270px;
 }
 
 #wrapper.active #sidebar-wrapper {
-  left: 250px;
-  width: 250px;
+  left: 270px;
+  width: 270px;
   transition: all 0.4s ease 0s;
 }
 
@@ -97,6 +97,8 @@
 
 .sidebar-nav a {
   color: #ccc;
+  display: inline-block;
+  padding-right: 10px;
   text-decoration: none;
   -moz-transition: background-color .2s ease-in-out;
   -webkit-transition: background-color .2s ease-in-out;
