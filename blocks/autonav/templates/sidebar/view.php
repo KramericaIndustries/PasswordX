@@ -93,13 +93,13 @@ foreach ($navItems as $ni) {
 	
 	echo '<li class="sidebar-item ' . $ni->classes . '">'; //opens a nav item
 
-	//Start displaying the link content
-	echo '<a href="' . ( $page->getCollectionTypeHandle() == "passpack" ? $ni->url : 'javascript:void(0);' ) . '" target="' . $ni->target . '" class="' . $ni->classes . '">';
-	
 	//show the dropdown icons
 	if( $page->getCollectionTypeHandle() == "container" && !$ni->isHome) {
-		echo '<span class="sign-icon glyphicon glyphicon-' . ($ni->inPath  ? 'minus' : 'plus' ). '"></span> ';
-	}
+		echo '<span class="container-toggle sign-icon glyphicon glyphicon-' . ($ni->inPath  ? 'minus' : 'plus' ). '"></span> ';
+	}	
+	
+	//Start displaying the link content
+	echo '<a href="' . $ni->url . '" target="' . $ni->target . '" class="' . $ni->classes . '">';
 	
 	echo $ni->name;
 
@@ -141,3 +141,7 @@ foreach ($navItems as $ni) {
 <li class="new-item"><a class="add-item" data-parent-cid="1" href="javascript:void(0)"><span class="glyphicon glyphicon-plus-sign"></span> Add new item</a></li>
 <?php
 echo '</ul>'; //closes the top-level menu
+?>
+<!-- Experimenting to see if I can bring up a fully functional C5 sitemap in a modal, seems like I'm stranded in the js
+<a id="sidebar_move_advanced" href="/tools/required/sitemap_search_selector?sitemap_select_mode=move_copy_delete&cID=158" dialog-title="Advanced sitemap editing" dialog-modal="false" dialog-width="640" dialog-height="480">test</a>-->
+

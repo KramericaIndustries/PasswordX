@@ -1,7 +1,7 @@
 
 	/**
 	 * Returns a password that isn't too sucky to type out, but is relatively secure. Hope some boffins will work on this.
-	 * Is in the global scope so any custom block can reuse this. Idea: Make this customizable
+	 * Is in the global scope so any custom block can reuse this. Idea: Make this customizable from dash
 	 */
 	function sanePassword() {
 		var nato = ["alfa","bravo","charlie","delta","echo","foxtrot","golf","hotel","india","juliett","kilo","lima","mike","november","oscar","papa","romeo","sierra","tango","uniform","victor","whiskey","xray","yankee","zulu","three","four","five","seven","eight","nine","zero"];
@@ -20,11 +20,11 @@ $(function(){
     });
 
 	/* Manipulate the nav to dropdown */
-	$("#sidebar-wrapper").on( "click", ".nav-dropdown > a", function(){
+	$("#sidebar-wrapper").on( "click", ".container-toggle", function(){
 			$(this).parent().next().toggle();
 			
-			$(this).children(".glyphicon").toggleClass("glyphicon-minus");
-			$(this).children(".glyphicon").toggleClass("glyphicon-plus");			
+			$(this).toggleClass("glyphicon-minus");
+			$(this).toggleClass("glyphicon-plus");			
 	});
 	
 	/* Expand/contract all */
@@ -49,6 +49,8 @@ $(function(){
 	 $(this).find('.glyphicon').removeClass('glyphicon-collapse-up');
 	});	
 	
+	//Attach legacy C5 modal to our move/advanced link
+	  $("#sidebar_move_advanced").dialog();
 
 	
 	//$("#search_input").keyup(function(){ alert("in");
@@ -283,6 +285,8 @@ $(function(){
 		var name = $(this).data("name");
 		var cID = $(this).data("cid");
 		
+		$("#rename-name").parent().removeClass("has-error");
+		
 		//Set name
 		$("#rename-name").val(name);
 		
@@ -303,6 +307,12 @@ $(function(){
 	$('#rename_item').click(function() {
 	
 	 var newname = $("#rename-name").val();
+	 
+	 if (!newname) {
+	  $("#rename-name").parent().addClass("has-error");
+	  return false;
+	 }
+	 
 	 var cID = $('#rename-cid').val();
 	
 		$.ajax({

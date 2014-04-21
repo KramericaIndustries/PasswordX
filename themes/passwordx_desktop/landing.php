@@ -21,7 +21,7 @@ $this->inc('elements/sidebar.php');
 	 if (hrs >  6) msg = "Good morning";      // After 6am
 	 if (hrs > 12) msg = "Good afternoon";    // After 12pm
 	 if (hrs > 17) msg = "Good evening";      // After 5pm
-	 if (hrs > 22 || hrs < 2) msg = "Good night";        // After 10pm
+	 if (hrs > 22 || hrs < 2) msg = "It's getting late";        // After 10pm
 	 
 	 $('#greeting_time').html(msg);
 	</script>

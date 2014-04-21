@@ -47,11 +47,9 @@
     <div class="modal-content">
       <div class="modal-header modal-primary">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Delete page</h4>
+        <h4 class="modal-title">Delete &quot;<span id="page-name-delete"></span>&quot;</h4>
       </div>
       <div class="modal-body">
-
-		 <h4>Are you sure you want to delete &quot;<span id="page-name-delete"></span>&quot; ?</h4>
 		 <p>All subpages will also be deleted. This is permanent and cannot be undone.</p>
 		
 		  <div id="warn_mustconfirm" class="alert alert-danger">
@@ -91,7 +89,7 @@
 		<input type="hidden" id="rename-cid" value="" />
 		
 		 <div class="form-group">
-			<label for="rename-name">New name: </label>
+			<label for="rename-name">Enter name: </label>
 			<input type="text" name="rename-name" id="rename-name" class="form-control" placeholder="">
 		 </div>	
  

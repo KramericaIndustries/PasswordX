@@ -85,14 +85,12 @@
 }
 
 .sidebar-nav-edit-mode {
-	/* top: 20px; */
 	top: 100px;
 }
 
 .sidebar-nav li {
   line-height: 25px;
-  /* text-indent: 20px; */
-  text-indent: 12px;
+  text-indent: 5px;
 }
 
 .sidebar-nav a {
