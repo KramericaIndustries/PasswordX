@@ -291,6 +291,7 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		//bubble_up
 		$db->Execute($q, array(1,'encrypted_generic_pass'));
 		$db->Execute($q, array(1,'encrypted_vhost'));
+		$db->Execute($q, array(1,'encrypted_content'));
 		
 		//push down
 		$db->Execute($q, array(2,'content'));

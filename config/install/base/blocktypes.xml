@@ -15,6 +15,7 @@
         <!-- Encrypted Block types -->
         <blocktype handle="encrypted_generic_pass" package="" />
 		<blocktype handle="encrypted_vhost" package="" />
+		<blocktype handle="encrypted_content" package="" />
         
         <blocktype handle="content" package="" />
         <blocktype handle="file" package="" />
