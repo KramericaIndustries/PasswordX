@@ -52,6 +52,11 @@ class User extends Concrete5_Model_User {
 	 * @return string
 	 */
 	public function getSessionToken() {
+			
+		if( empty($_SESSION['random_token']) || empty($_COOKIE['random_token']) ) {
+			throw new Exception(t('Session token not generated!'));
+		}
+		
 		return $_SESSION['random_token'] . $_COOKIE['random_token'];
 	}
 	
@@ -75,8 +80,11 @@ class User extends Concrete5_Model_User {
 		
 		//and clean un session from DB
 		$db = Loader::db();
-		$q = "DELETE FROM SessionEncryptionKeyStorage WHERE uID=?";
-		$db->Execute($q, array( $this->uID ));
+		$q = "DELETE FROM SessionEncryptionKeyStorage WHERE uID=? AND session_id = ?";
+		$db->Execute($q, array( 
+			$this->uID,
+			hash('sha512', session_id())
+		));
 		
 		//call the parent to necesarry steps remaining
 		parent::logout(); 
@@ -95,8 +103,16 @@ class User extends Concrete5_Model_User {
 		
 		//garbage collection, remove old entries
 		if( $garbage_collection ) {
-			$q = "DELETE FROM SessionEncryptionKeyStorage WHERE uID=?";
-			$db->Execute($q, array( $this->uID ));
+				
+			$EXPIRE_SEK_EPOCH = 1209600; //2 weeks
+			$epoch_limit = time() - $EXPIRE_SEK_EPOCH;
+			
+			$q = "DELETE FROM SessionEncryptionKeyStorage WHERE uID=? and createdAt < ?";
+			$db->Execute($q, array( 
+				$this->uID,
+				$epoch_limit 
+			));
+			
 		}
 		
 		//insert the uek in db

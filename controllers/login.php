@@ -196,6 +196,16 @@ class LoginController extends Concrete5_Controller_Login {
 			$log_str = "Succesful login from " . $location; 
 			Log::addEntry($log_str,'successful_auth');
 			
+			//set up the login data
+			$loginData['success']=1;
+          	$loginData['msg']=t('Login Successful');
+            $loginData['uID'] = intval($u->getUserID());
+			
+			//Create a session UEK for this user
+			$crypto = Loader::helper("crypto");
+			$u->plantSessionToken();
+			$u->saveSessionUEK( $crypto->computeUEK( $this->post('uPassword') ) );
+						
 			//and let c5 set up all the cookies
             $loginData = $this->finishLogin($loginData);
 
