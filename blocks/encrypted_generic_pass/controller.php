@@ -46,8 +46,16 @@ class EncryptedGenericPassBlockController extends BlockController {
 		//and enrypt the fields
 		$crypto = Loader::helper("crypto");
 		
-		$args['field_3_textbox_text'] = $crypto->encrypt( $args['field_3_textbox_text'], $mek );
-		$args['field_2_textbox_text'] = $crypto->encrypt( $args['field_2_textbox_text'], $mek );
+		$encrypted_fields = array(
+			'field_1_textbox_text', //title
+			'field_2_textbox_text', //username
+			'field_3_textbox_text', //password
+			'field_4_textarea_text' //notes
+		);
+		
+		foreach( $encrypted_fields as $thisField ) {
+			$args[ $thisField ] = $crypto->encrypt( $args[ $thisField ], $mek );	
+		}
 		
 		unset($mek);
 		
@@ -65,8 +73,16 @@ class EncryptedGenericPassBlockController extends BlockController {
 		//and enrypt the fields
 		$crypto = Loader::helper("crypto");
 		
-		$this->set("field_2_textbox_text", $crypto->decrypt( $this->field_2_textbox_text, $mek ) );
-		$this->set("field_3_textbox_text", $crypto->decrypt( $this->field_3_textbox_text, $mek ) );
+		$encrypted_fields = array(
+			'field_1_textbox_text', //title
+			'field_2_textbox_text', //username
+			'field_3_textbox_text', //password
+			'field_4_textarea_text' //notes
+		);
+		
+		foreach( $encrypted_fields as $thisField ) {
+			$this->set( $thisField, $crypto->decrypt( $this->$thisField, $mek ) );	
+		}
 		
 		unset($mek);
 	
@@ -83,8 +99,16 @@ class EncryptedGenericPassBlockController extends BlockController {
 		//and enrypt the fields
 		$crypto = Loader::helper("crypto");
 		
-		$this->set("field_2_textbox_text", $crypto->decrypt( $this->field_2_textbox_text, $mek ) );
-		$this->set("field_3_textbox_text", $crypto->decrypt( $this->field_3_textbox_text, $mek ) );
+		$encrypted_fields = array(
+			'field_1_textbox_text', //title
+			'field_2_textbox_text', //username
+			'field_3_textbox_text', //password
+			'field_4_textarea_text' //notes
+		);
+		
+		foreach( $encrypted_fields as $thisField ) {
+			$this->set( $thisField, $crypto->decrypt( $this->$thisField, $mek ) );	
+		}
 		
 		unset($mek);
 		

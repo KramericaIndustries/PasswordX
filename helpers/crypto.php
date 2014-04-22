@@ -81,6 +81,10 @@ class CryptoHelper {
 	 */
 	public function encrypt( $plaintext, $key ) {
 		
+		if( empty($key) ) {
+			throw new Exception('Will not encrypt with an empty key!');
+		}
+		
 		//append end of text delimiter
 		$plaintext .= $this->EOT;
 		
