@@ -121,8 +121,8 @@ class CryptoHelper {
 	
 		if( $thisHmac != $hmac ) {
 			
-			if( $raise_hell ) {
-				throw new Exception(t('Invalid decryption key!'));	
+			if( $raise_hell ) { return false;
+				//throw new Exception(t('Invalid decryption key!'));	
 			} else {
 				return false;
 			}
