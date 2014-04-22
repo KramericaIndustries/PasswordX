@@ -25,7 +25,7 @@
 	<ul class="nav nav-list" >
 		
 	<li>
-	<a href="/index.php/dashboard/passwordx/administration/"><i class="icon-th"></i> Design your own Password Blocks</a>
+	<a href="/index.php/dashboard/passwordx/designer/"><i class="icon-th"></i> Design your own Password Blocks</a>
 	</li>
 	
 	<li>

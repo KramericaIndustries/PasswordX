@@ -9,13 +9,10 @@ function s2nb($text) {
 // So we need to manually wrap in <div class="ccm-dashboard-page-container"> for 5.6 compatibility
 // (5.5's dashboard theme automatically wraps page content in that, but 5.6 doesn't -- so in 5.5 we'll have two redundant
 // divs with the same class -- but this doesn't effect the styling at all so it's fine).
-?>
 
-<div class="ccm-dashboard-page-container">
-	
-	<h1><span><?php  echo t('Designer Content'); ?></span></h1>
-	
-	<div class="ccm-dashboard-inner" style="margin-top: -22px;">
+echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('PasswordX Dashboard'), false, 'span12', false);
+?>
+<div class="ccm-pane-body">
 
 	<?php  if ($is_generated): ?>
 
@@ -26,14 +23,17 @@ function s2nb($text) {
 		<a href="<?php  echo View::url('/dashboard/blocks/designer_content'); ?>"><?php  echo t('Create another block type'); ?> &raquo;</a><br />
 
 	<?php  else: ?>
-
-		<div>
-			<h4 style="margin-top: 0;">
-				<?php  echo t('Create a new block type by entering some basic info and adding one or more fields.'); ?>
-				<span class="help-link">[<a href="http://www.concrete5.org/marketplace/addons/designer-content/documentation/" target="_blank"><?php  echo t('Documentation'); ?></a>]</span>
-				<span class="help-link">[<a href="http://www.concrete5.org/marketplace/addons/designer-content/forums/" target="_blank"><?php  echo t('Help Forum'); ?></a>]</span>
-			</h4>
+	
+		<div class="row-fluid">
+		 <div class="span9">
+		 <p>This is the PasswordX design center. You can create your own custom blocks for. If you need help, please take a look at the user guide.</p>
+		
+		 </div>
+		 <div class="span3">
+		  <a href="<?php echo $this->controller->guide_url; ?>" target="_blank" class="btn primary pull-right"><span class="icon-file icon-white"></span> User Guide</a>
+		 </div>
 		</div>
+
 
 		<?php  if (!$can_write): ?>
 		<div id="write_permissions_warning">
@@ -309,5 +309,5 @@ function s2nb($text) {
 
 	<?php  endif; ?>
 	
-	</div><!-- .ccm-dashboard-inner -->
-</div><!-- .ccm-dashboard-page-container -->
+</div><!--pane body -->
+<?php  echo Loader::helper('concrete/dashboard')->getDashboardPaneFooterWrapper(false);?>
