@@ -21,7 +21,17 @@ class EncryptedVhostBlockController extends BlockController {
 	protected $btCacheBlockOutputForRegisteredUsers = false;
 	protected $btCacheBlockOutputLifetime = CACHE_LIFETIME;
 	
-	protected $encrypted_fields = array('field_3_textbox_text','field_5_textbox_text','field_7_textbox_text');
+	protected $encrypted_fields = array(
+		'field_1_textbox_text', //title
+		'field_2_textbox_text', //user ftp
+		'field_3_textbox_text', //ftp password
+		'field_4_textbox_text', //user ssh
+		'field_5_textbox_text', //ssh password
+		'field_6_textbox_text', //db_user
+		'field_7_textbox_text', //password db
+		'field_8_textbox_text', //db names
+		'field_9_textarea_text', //notes
+	);
 	
 	public function getSearchableContent() {
 		$content = array();
