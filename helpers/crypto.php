@@ -108,7 +108,7 @@ class CryptoHelper {
 	/**
 	 * Return Mater Encryption key
 	 */
-	public function decrypt( $encrypted_text, $key ) {
+	public function decrypt( $encrypted_text, $key, $raise_hell = true ) {
 		
 		//First, verify the HMAC and that the key is actually correct
 		list( $ciphertext_base64, $hmac  ) = explode(':',$encrypted_text);
@@ -116,7 +116,13 @@ class CryptoHelper {
 		$thisHmac = hash_hmac($this->hmac_algo, $ciphertext_base64, $key);
 	
 		if( $thisHmac != $hmac ) {
-			return false;
+			
+			if( $raise_hell ) {
+				throw new Exception(t('Invalid decryption key!'));	
+			} else {
+				return false;
+			}
+			
 		}
 
 		//now that we insured that we are using the correct key, decrypt the text
