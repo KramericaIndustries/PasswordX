@@ -183,9 +183,20 @@ class LoginController extends Concrete5_Controller_Login {
             }
 
             //No error, no problem
-            //record the login, login the user and let c5 set up all the cookies
+            //record the login, login the user 
             $u->saveConfig('SEEN_LAST_LOGIN',0);
             User::loginByUserID($u->getUserID());
+			
+			//Do a verbose log
+			$nsa = Loader::helper("nsa");
+			
+			$geoIp = $nsa->geoLocateIP( $_SERVER["REMOTE_ADDR"] );
+			$location = $_SERVER["REMOTE_ADDR"] . ' (' . (is_object( $geoIp ) ? sprintf( "%s, %s, %s", $geoIp->city, $geoIp->region_name, $geoIp->country_name ) : "unknown location") . ')';
+			
+			$log_str = "Succesful login from " . $location; 
+			Log::addEntry($log_str,'successful_auth');
+			
+			//and let c5 set up all the cookies
             $loginData = $this->finishLogin($loginData);
 
         } catch(Exception $e) {
