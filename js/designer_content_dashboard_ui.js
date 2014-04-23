@@ -1,3 +1,29 @@
+/*
+ * My code
+ */
+$(function() {
+	
+	//autocomplete the handle name
+	$("#name").keyup(function(){
+		
+		handle_name = $(this).val();
+		
+		//to lowercase
+		handle_name = handle_name.toLowerCase();
+		
+		//remove special chars and replace spaces with _
+		handle_name = handle_name.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '_');
+		
+		
+		$("#handle").val( handle_name );
+	});
+	
+});
+	
+
+/*
+ * Original Code
+ */
 $(document).ready(function() {
 	update_addfield_links();
 	

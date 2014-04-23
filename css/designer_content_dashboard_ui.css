@@ -27,6 +27,10 @@ input#name {
 	font-style: italic;
 }
 
+#description {
+	width: 250px;
+}
+
 .designer-content-field {
 	float: left;
 	width: 100%;

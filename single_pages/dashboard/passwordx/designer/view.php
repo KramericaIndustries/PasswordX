@@ -14,17 +14,27 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 ?>
 <div class="ccm-pane-body">
 
-	<?php  if ($is_generated): ?>
-
-		<?php  echo t('Success!'); ?><br />
-		<br />
-		<?php  echo t('%s has been installed, and will now be available in the "Add Blocks" list when pages are edited.', "<b>{$generated_name}</b>"); ?><br />
-		<br />
-		<a href="<?php  echo View::url('/dashboard/blocks/designer_content'); ?>"><?php  echo t('Create another block type'); ?> &raquo;</a><br />
-
-	<?php  else: ?>
+	<?php 
+	//Success message display
+	 if ($is_generated) { ?>
+		<div class="alert alert-success">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<?php  echo t('<strong>Success:</strong> The blocks has been installed, and will now be available in the "Add Blocks" list when pages are edited.'); ?>
+		</div>
+	<?php } ?>
 	
+	<?php  
+	//Error display in case the directory is not writable 
+	if (!$can_write) { ?>
+			<div class="alert alert-danger">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<?php  echo t('<strong>Warning:</strong> The blocks directory is not writeable. Blocks cannot be created from this page until permissions are changed on your server.'); ?>
+			</div>
+	<?php  } ?>
+	
+		<!-- Small intro text and user guide link -->
 		<div class="row-fluid">
+			
 		 <div class="span9">
 		 <p>This is the PasswordX design center. You can create your own custom blocks for. If you need help, please take a look at the user guide.</p>
 		
@@ -32,46 +42,37 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 		 <div class="span3">
 		  <a href="<?php echo $this->controller->guide_url; ?>" target="_blank" class="btn primary pull-right"><span class="icon-file icon-white"></span> User Guide</a>
 		 </div>
-		</div>
+		</div><!-- //row fluid -->
 
+		<form method="post" action="<?php  echo $this->action('generate_block'); ?>" id="designer-content-form" class="form-horizontal">
 
-		<?php  if (!$can_write): ?>
-		<div id="write_permissions_warning">
-			<?php  echo t('Warning: The blocks directory is not writeable. Blocks cannot be created from this page until permissions are changed on your server.'); ?>
-		</div>
-		<?php  endif; ?>
+		<!-- Main info about the block -->
+		
+			<!-- Block Name -->
+			<div class="control-group">
+		    <label class="control-label" for="name"><?php echo t('Block Name')?></label>
+		    <div class="controls">
+		      <input type="text" id="name" name="name" placeholder="<?php echo t('Block Name')?>">
+		    </div>
+		  </div>
+		  
+		  <!-- Block handle -->
+		  <div class="control-group">
+		    <label class="control-label" for="handle"><?php echo t('Block Handle')?></label>
+		    <div class="controls">
+		      <input type="text" id="handle" name="handle" placeholder="<?php echo t('Block Handle')?>" readonly>
+		    </div>
+		  </div>
+		  
+		  <!-- Block Description -->
+		  <div class="control-group">
+		    <label class="control-label" for="inputPassword"><?php echo t('Block Handle')?></label>
+		    <div class="controls">
+		      <textarea rows="3" name="description" id="description" placeholder="<?php  echo t('Block Description (optional)'); ?>"></textarea>
+		    </div>
+		  </div>
 
-
-		<hr />
-
-		<form method="post" action="<?php  echo $this->action('generate_block'); ?>" id="designer-content-form">
-
-			<table border="0" cellpadding="3" cellspacing="0">
-				<tr>
-					<td align="right"><h2><label for="handle"><?php  echo t('Block Handle'); ?>:</label></h2></td>
-					<td align="left">
-						<?php  echo $form->text('handle', $handle, array('maxlength' => '32')); ?>
-						<i><?php  echo t('lowercase letters and underscores only'); ?></i>
-					</td>
-				</tr>
-				<tr>
-					<td align="right"><h2><label for="name"><?php  echo t('Block Name'); ?>:</label></h2></td>
-					<td align="left">
-						<?php  echo $form->text('name', $name); ?>
-						<i><?php  echo t('human-readable name (appears in the "Add Block" list)'); ?></i>
-					</td>
-				</tr>
-				<tr>
-					<td align="right" valign="top">
-						<h2 style="margin: 0 0 4px 0;"><label for="description"><?php  echo t('Block Description'); ?>:</label></h2>
-						<span id="description-sublabel"><?php  echo t('(optional)'); ?></span>
-					</td>
-					<td align="left" valign="top">
-						<?php  echo $form->textarea('description', $description, array('rows' => '3', 'cols' => '50')); ?>
-						<span id="description-note"><?php  echo t('for dashboard "Add Functionality" list'); ?></span>
-					</td>
-				</tr>
-			</table>
+	<!-- //Main info about the block -->
 
 			<hr />
 
@@ -254,22 +255,20 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 
 			<hr />
 
-			<?php  if ($can_write): ?>
-			<div id="designer-content-submit-wrapper">
-				<div id="designer-content-submit" class="button white">
-					<?php  echo t('Make The Block!'); ?>
+			<?php  if ($can_write) { ?>
+				<div id="designer-content-submit-wrapper">
+					<div id="designer-content-submit">
+						<button class="btn btn-primary">
+							<i class="icon-wrench icon-white"></i> <?php  echo t('Create The Block'); ?>
+						</button>
+					</div>
+					<div id="designer-content-submit-loading" style="display: none;">
+						<button class="btn btn-primary active">
+							<i class="icon-wrench icon-white"></i> <?php  echo t('Processing...'); ?>
+						</button>
+					</div>
 				</div>
-				<div id="designer-content-submit-loading" class="button white" style="display: none;">
-					<?php  echo t('Processing...'); ?>
-				</div>
-			</div>
-			<?php  endif; ?>
-
-			<div id="designer-content-credits">
-				<?php  echo t('code + ui'); ?>: <a href="http://www.concrete5.org/profile/-/view/9756/" target="_blank">Jordan Lev</a>
-				<br />
-				<?php  echo t('icon design'); ?>: <a href="http://kirkrobertsdesign.com/" target="_blank">Kirk Roberts</a>
-			</div>
+			<?php } ?>
 
 			<div style="clear: both;"></div>
 
@@ -307,7 +306,5 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 		};
 		</script>
 
-	<?php  endif; ?>
-	
 </div><!--pane body -->
 <?php  echo Loader::helper('concrete/dashboard')->getDashboardPaneFooterWrapper(false);?>
