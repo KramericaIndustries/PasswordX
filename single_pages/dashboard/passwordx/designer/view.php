@@ -75,6 +75,10 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 	<!-- //Main info about the block -->
 
 			<div id="designer-content-fields">
+				
+				<label for="fieldDefaultContents[]"><?php  echo t('Default HTML Content'); ?></label><br />
+				<textarea rows="4" name="fieldDefaultContents[]" id="fieldDefaultContents[]"></textarea>
+				
 			</div>
 
 			
@@ -94,50 +98,21 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 	              </div>
 				
 				<!-- Submit Buttons -->
-				<div class="btn-group">
-					<button class="btn btn-primary" id="designer-content-submit">
-						<i class="icon-wrench icon-white"></i> <?php  echo t('Create The Block'); ?>
-					</button>
-					
-					<button class="btn btn-primary active" id="designer-content-submit-loading" style="display: none;">
-						<i class="icon-wrench icon-white"></i> <?php  echo t('Processing...'); ?>
-					</button>
-				</div>
-				<!-- //Submit Buttons -->
-				
-			</div><!-- //btn-toolbar form-actions -->
-			
-			<!--
-			<div id="fields-add-container">
-				<div class="btn-group" id="dropDownAdd">
-                <button class="btn dropdown-toggle" data-toggle="dropdown"><?php echo t('Add another field'); ?> <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#"><?php echo t('Text field'); ?></a></li>
-                  <li><a href="#"><?php echo t('Password field'); ?></a></li>
-                  <li><a href="#"><?php echo t('Textarea field'); ?></a></li>
-                  <li class="divider"></li>
-                  <li><a href="#"><?php echo t('WYSIWYG'); ?></a></li>
-                </ul>
-              </div>
-           </div>
-
-			<?php  if ($can_write) { ?>
-				<div id="designer-content-submit-wrapper">
-					<div id="designer-content-submit">
-						<button class="btn btn-primary">
+				<?php  if ($can_write) { ?>
+					<div class="btn-group">
+						<button class="btn btn-primary" id="designer-content-submit">
 							<i class="icon-wrench icon-white"></i> <?php  echo t('Create The Block'); ?>
 						</button>
-					</div>
-					<div id="designer-content-submit-loading" style="display: none;">
-						<button class="btn btn-primary active">
+						
+						<button class="btn btn-primary active" id="designer-content-submit-loading" style="display: none;">
 							<i class="icon-wrench icon-white"></i> <?php  echo t('Processing...'); ?>
 						</button>
 					</div>
-				</div>
-			<?php } ?>
+				<?php } ?>
+				<!-- //Submit Buttons -->
+				
+			</div><!-- //btn-toolbar form-actions -->
 
-			<div style="clear: both;"></div>
--->
 		</form>
 
 		<script type="text/javascript">
