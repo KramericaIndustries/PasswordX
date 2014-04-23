@@ -10,7 +10,7 @@ function s2nb($text) {
 // (5.5's dashboard theme automatically wraps page content in that, but 5.6 doesn't -- so in 5.5 we'll have two redundant
 // divs with the same class -- but this doesn't effect the styling at all so it's fine).
 
-echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('PasswordX Dashboard'), false, 'span12', false);
+echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('PasswordX Designer'), false, 'span12', false);
 ?>
 <div class="ccm-pane-body">
 

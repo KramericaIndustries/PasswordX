@@ -97,6 +97,10 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 		
 		//google auth config
 
+		
+		//Install ID for us to have a rought idea how many 
+		//installs are out there in the wild
+		Config::save('PRISM_INSTALL_ID', md5( time() . microtime() ));
 	}
 	
 	/**

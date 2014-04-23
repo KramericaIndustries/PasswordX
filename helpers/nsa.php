@@ -80,21 +80,25 @@ class NsaHelper {
 	 */
 	private function getLatestVersionInfo() {
 		
-		// Get cURL resource
-		$curl = curl_init();
-
-		curl_setopt_array($curl, array(
-			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_URL => 'http://www.passwordx.io/version.php'
-		));
+		Loader::library("3rdparty/resty");
 		
-		// grab data
-		$resp = curl_exec($curl);
+		$resty = new Resty();
+		$resty->setBaseURL( 'http://www.passwordx.io/');
 		
-		// Close request to clear up some resources
-		curl_close($curl);
+		$install_id = Config::get('PRISM_INSTALL_ID');
+		if( empty($install_id) ) {
+			$install_id = md5( time() . microtime() );
+			Config::save('PRISM_INSTALL_ID',$install_id);
+		}
 		
-		return json_decode( $resp );
+		$params = array(
+			"PRISM_INSTALL_ID" 	=> 	$install_id,
+			"VERSION"			=>	APP_VERSION
+		);
+		
+		$resp = $resty->post( 'version.php', $params );
+		
+		return json_decode( $resp["body"] );
 	}
 	
 	/**
