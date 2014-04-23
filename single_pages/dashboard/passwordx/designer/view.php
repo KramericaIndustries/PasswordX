@@ -129,15 +129,6 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 						{{/if}}
 						
 					</div>
-		
-					<div class="designer-content-field-html">
-						<label for="fieldPrefixes[${id}]"><?php  echo t('Wrapper HTML Open'); ?> <i>(&lt;div class="abc"&gt;)</i></label><br />
-						<textarea rows="3" name="fieldPrefixes[${id}]" id="fieldPrefixes[${id}]"></textarea>
-					</div>
-					<div class="designer-content-field-html">
-						<label for="fieldSuffixes[${id}]"><?php  echo t('Wrapper HTML Close'); ?> <i>(&lt;/div&gt;)</i></label><br />
-						<textarea rows="3" name="fieldSuffixes[${id}]" id="fieldSuffixes[${id}]"></textarea>
-					</div>
 
 		        </div>
 			    </script>
