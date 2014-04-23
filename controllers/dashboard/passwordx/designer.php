@@ -15,6 +15,8 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 		$html = Loader::helper('html');
 		$this->addHeaderItem($html->javascript('jquery.tmpl.min.js', 'designer_content'));
 		$this->addHeaderItem($html->javascript('designer_content_dashboard_ui.js', 'designer_content'));
+		$this->addHeaderItem($html->javascript('bootstrap-dropdown.js'));
+		
 		$this->addHeaderItem($html->css('designer_content_dashboard_ui.css', 'designer_content'));
 		
 		$th = Loader::helper('concrete/urls'); 

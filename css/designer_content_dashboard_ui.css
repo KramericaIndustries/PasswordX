@@ -2,6 +2,14 @@
 	margin-left: 10px;
 }
 
+.btn-toolbar {
+	margin-left: -20px;
+	margin-right: -20px;
+	height: 60px;
+	margin-bottom: -40px!important;
+	margin-top: 40px!important;
+}
+
 #write_permissions_warning {
 	color: red;
 	font-weight: bold;

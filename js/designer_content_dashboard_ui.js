@@ -18,6 +18,14 @@ $(function() {
 		$("#handle").val( handle_name );
 	});
 	
+	/*
+	$("#dropDownAdd").dropdown();
+	
+	$("#dropDownAdd").click(function(){
+		$(this).dropdown('toggle');
+	});
+	*/
+	
 });
 	
 
