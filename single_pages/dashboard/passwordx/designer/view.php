@@ -75,13 +75,75 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 	<!-- //Main info about the block -->
 
 			<div id="designer-content-fields">
-				
-				<label for="fieldDefaultContents[]"><?php  echo t('Default HTML Content'); ?></label><br />
-				<textarea rows="4" name="fieldDefaultContents[]" id="fieldDefaultContents[]"></textarea>
-				
+				<script id="field-template" type="text/x-jQuery-tmpl">
+		        <div class="designer-content-field" data-id="${id}" data-type="${type}">
+					<input type="hidden" name="fieldIds[]" value="${id}" />
+					<input type="hidden" name="fieldTypes[${id}]" value="${type}" />
+
+					<div class="designer-content-field-header">
+						<div class="designer-content-field-title">
+							<b>${label}</b>
+							&nbsp;
+							[<a href="#" class="designer-content-field-delete" data-id="${id}"><?php  echo t('delete'); ?></a><span class="designer-content-field-delete-confirm" data-id="${id}" style="display: none;">Are you sure? <a href="#" class="designer-content-field-delete-yes" data-id="${id}"><?php  echo t('Yes'); ?></a> / <a href="#" class="designer-content-field-delete-no" data-id="${id}"><?php  echo t('No'); ?></a></span>]
+						</div>
+						<div class="designer-content-field-move" data-id="${id}">
+							<span class="designer-content-field-move-up" data-id="${id}">
+							[<a href="#" data-id="${id}"><?php  echo t('Move Up'); ?> &uarr;</a>]
+							</span>
+
+							&nbsp;&nbsp;
+
+							<span class="designer-content-field-move-down" data-id="${id}">
+							[<a href="#" data-id="${id}"><?php  echo t('Move Down'); ?> &darr;</a>]
+							</span>
+						</div>
+					</div>
+
+					<div class="designer-content-field-options">
+						<label for="fieldLabels[${id}]"><?php  echo t('Editor Label'); ?></label><br />
+						<input type="text" class="designer-content-field-editorlabel" name="fieldLabels[${id}]" id="fieldLabels[${id}]" />
+		
+						{{if type == 'wysiwyg'}}
+							<label for="fieldDefaultContents[${id}]"><?php  echo t('Default HTML Content'); ?></label><br />
+							<textarea rows="4" name="fieldDefaultContents[${id}]" id="fieldDefaultContents[${id}]"></textarea>
+						{{else}}
+							<br />
+							<input type="checkbox" name="fieldsRequired[${id}]" id="fieldsRequired[${id}]" />
+							<label for="fieldsRequired[${id}]"><?php  echo t('Required?'); ?></label>
+						{{/if}}
+			
+						{{if type == 'textbox'}}
+							<br />
+
+							<label for="fieldTextboxMaxlengths[${id}]"><?php  echo t('Maximum Number Of Characters'); ?>:</label>
+							<input type="text" name="fieldTextboxMaxlengths[${id}]" id="fieldTextboxMaxlengths[${id}]" size="3" maxlength="5" />
+
+						{{/if}}
+						
+						{{if type == 'password'}}
+							<br />
+
+							<label for="fieldTextboxMaxlengths[${id}]"><?php  echo t('Maximum Number Of Characters'); ?>:</label>
+							<input type="password" name="fieldTextboxMaxlengths[${id}]" id="fieldTextboxMaxlengths[${id}]" size="3" maxlength="5" />
+
+						{{/if}}
+						
+					</div>
+		
+					<div class="designer-content-field-html">
+						<label for="fieldPrefixes[${id}]"><?php  echo t('Wrapper HTML Open'); ?> <i>(&lt;div class="abc"&gt;)</i></label><br />
+						<textarea rows="3" name="fieldPrefixes[${id}]" id="fieldPrefixes[${id}]"></textarea>
+					</div>
+					<div class="designer-content-field-html">
+						<label for="fieldSuffixes[${id}]"><?php  echo t('Wrapper HTML Close'); ?> <i>(&lt;/div&gt;)</i></label><br />
+						<textarea rows="3" name="fieldSuffixes[${id}]" id="fieldSuffixes[${id}]"></textarea>
+					</div>
+
+		        </div>
+			    </script>
 			</div>
 
-			
+			<div class="clearfix" style="padding-bottom: 0px;"></div>
 			
 			<div class="btn-toolbar form-actions">
 
@@ -89,11 +151,11 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 				<div class="btn-group">
 	                <button class="btn dropdown-toggle" data-toggle="dropdown"><?php echo t('Add another field'); ?> <span class="caret"></span></button>
 	                <ul class="dropdown-menu">
-	                  <li><a href="#"><?php echo t('Text field'); ?></a></li>
-	                  <li><a href="#"><?php echo t('Password field'); ?></a></li>
-	                  <li><a href="#"><?php echo t('Textarea field'); ?></a></li>
+	                  <li><a href="#" class="add-field-type" data-type="textbox"><?php echo t('Text field'); ?></a></li>
+	                  <li><a href="#" class="add-field-type" data-type="password"><?php echo t('Password field'); ?></a></li>
+	                  <li><a href="#" class="add-field-type" data-type="textarea"><?php echo t('Textarea field'); ?></a></li>
 	                  <li class="divider"></li>
-	                  <li><a href="#"><?php echo t('WYSIWYG'); ?></a></li>
+	                  <li><a href="#" class="add-field-type" data-type="wysiwyg"><?php echo t('WYSIWYG'); ?></a></li>
 	                </ul>
 	              </div>
 				
@@ -113,6 +175,8 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 				
 			</div><!-- //btn-toolbar form-actions -->
 
+			<div class="clearfix"></div>
+
 		</form>
 
 		<script type="text/javascript">
@@ -120,16 +184,10 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 
 		//For translations (generated by php t() function):
 		var FIELDTYPE_LABELS = {
-			'static': '<?php  echo t("Static HTML"); ?>',
 			'textbox': '<?php  echo t("Textbox Field"); ?>',
 			'textarea': '<?php  echo t("Text Area Field"); ?>',
-			'image': '<?php  echo t("Image Field"); ?>',
-			'file': '<?php  echo t("File Download Field"); ?>',
-			'link': '<?php  echo t("Page Link Field"); ?>',
-			'url': '<?php  echo t("External URL Field"); ?>',
-			'date': '<?php  echo t("Date Picker Field"); ?>',
-			'select': '<?php  echo t("Dropdown List"); ?>',
-			'wysiwyg': '<?php  echo t("WYSIWYG Editor"); ?>'
+			'wysiwyg': '<?php  echo t("WYSIWYG Editor"); ?>',
+			'password': '<?php  echo t("Password Field"); ?>'
 		};
 		var ERROR_MESSAGES = {
 			'name_required': '<?php  echo t("Block Name is required."); ?>',
