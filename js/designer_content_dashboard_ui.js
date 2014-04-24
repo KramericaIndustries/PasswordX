@@ -32,9 +32,12 @@ $(document).ready(function() {
 	$('.designer-content-field-move-up a').live('click', move_field_up);
 	$('.designer-content-field-move-down a').live('click', move_field_down);
 	
-	$('a.designer-content-field-delete').live('click', toggle_delete_confirmation);
+	/*$('a.designer-content-field-delete').live('click', toggle_delete_confirmation);
 	$('a.designer-content-field-delete-no').live('click', toggle_delete_confirmation);
-	$('a.designer-content-field-delete-yes').live('click', delete_field);
+	$('a.designer-content-field-delete-yes').live('click', delete_field);*/
+	
+	//we will do a good old fashion promt for confirmation
+	$('.designer-content-field-delete').live('click', delete_field);
 	
 	$('.designer-content-field-image-sizing-dropdown').live('change', toggle_field_image_sizing);
 	$('.designer-content-field-image-link-dropdown').live('change', toggle_field_image_link);
@@ -153,13 +156,21 @@ function toggle_delete_confirmation() {
 }
 
 function delete_field() {
-	var id = $(this).attr('data-id');
-	$('.designer-content-field[data-id='+id+']').slideUp('fast', function() {
-		$(this).remove();
-		update_addfield_links();
-		update_move_links();
-	});
 	
+	var confirm_action = confirm("Are you sure you want to delete this field?");
+
+	if (confirm_action) {
+		
+		var id = $(this).attr('data-id');
+		
+		$('.designer-content-field[data-id='+id+']').slideUp('fast', function() {
+			$(this).remove();
+			update_addfield_links();
+			update_move_links();
+		});
+		
+	}
+
 	return false;
 }
 
