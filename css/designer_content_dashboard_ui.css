@@ -40,27 +40,28 @@ input#name {
 }
 
 .designer-content-field {
-	/*float: left;
 	width: 100%;
-	margin: 5px 0;
-	border: 1px solid #333;*/
-	float: left;
-	width: 100%;
-	/*margin: 5px 0;*/
 	border-top: 1px solid #c3c3c3;
-	/*border-bottom: 1px solid #c3c3c3;*/
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 5px;
 	position: relative;
 }
 
-.designer-content-field:last-of-type  {
+#designer-content-fields li:nth-child(odd) {
+	background-color: #efefef;
+}
+
+#designer-content-fields li:last-child{
 	border-bottom: 1px solid #c3c3c3;
 }
 
-.designer-content-field:nth-child(odd) {
-	background-color: #efefef;
+#designer-content-fields  {
+	margin-left: 0!important;
+}
+
+#designer-content-fields li {
+	list-style: none!important;
 }
 
 .special-label {

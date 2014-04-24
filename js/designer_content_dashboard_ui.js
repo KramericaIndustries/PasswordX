@@ -25,16 +25,16 @@ $(function() {
  * Original Code
  */
 $(document).ready(function() {
+	
+	//make the added field movable
+	$("#designer-content-fields").sortable({ handle: ".icon-move" })
+	
 	update_addfield_links();
 	
 	$('a.add-field-type').live('click', add_new_field);
 	
 	$('.designer-content-field-move-up a').live('click', move_field_up);
 	$('.designer-content-field-move-down a').live('click', move_field_down);
-	
-	/*$('a.designer-content-field-delete').live('click', toggle_delete_confirmation);
-	$('a.designer-content-field-delete-no').live('click', toggle_delete_confirmation);
-	$('a.designer-content-field-delete-yes').live('click', delete_field);*/
 	
 	//we will do a good old fashion promt for confirmation
 	$('.designer-content-field-delete').live('click', delete_field);
