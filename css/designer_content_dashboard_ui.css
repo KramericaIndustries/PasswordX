@@ -69,6 +69,10 @@ input#name {
 	margin-right: 10px!important;
 }
 
+.label-name {
+	margin-top: 5px;
+}
+
 .designer-input-control {
 	position: absolute;
 	right: 20px;

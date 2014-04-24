@@ -47,16 +47,19 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 		    <label class="control-label" for="name"><?php echo t('Block Name')?></label>
 		    <div class="controls">
 		      <input type="text" id="name" name="name" placeholder="<?php echo t('Block Name')?>">
-		    </div>
-		  </div>
-		  
-		  <!-- Block handle -->
-		  <div class="control-group">
-		    <label class="control-label" for="handle"><?php echo t('Block Handle')?></label>
-		    <div class="controls">
 		      <input type="text" id="handle" name="handle" placeholder="<?php echo t('Block Handle')?>" readonly>
 		    </div>
 		  </div>
+		  
+		  <!-- Block handle 
+		  <div class="control-group">
+		    <label class="control-label" for="handle"><?php echo t('Block Handle')?></label>
+		    <div class="controls">
+		      
+		    </div>
+		  </div>
+		  -->
+		  
 		  
 		  <!-- Block Description -->
 		  <div class="control-group">
@@ -84,15 +87,8 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 
 						<div class="row">
 						
-							<div class="btn-group span2">
-				                <button class="btn dropdown-toggle" data-toggle="dropdown">${label} <span class="caret"></span></button>
-				                <ul class="dropdown-menu">
-				                  <li><a href="#" class="add-field-type" data-type="textbox">Text field</a></li>
-				                  <li><a href="#" class="add-field-type" data-type="password">Password field</a></li>
-				                  <li><a href="#" class="add-field-type" data-type="textarea">Textarea field</a></li>
-				                  <li class="divider"></li>
-				                  <li><a href="#" class="add-field-type" data-type="wysiwyg">WYSIWYG</a></li>
-				                </ul>
+							<div class="span2 label-name">
+								<strong>${label}</strong>
 				            </div>	
 						
 							<div class="span4">
