@@ -4,12 +4,6 @@ function s2nb($text) {
 	return str_replace(' ', '&nbsp;', $text);
 }
 
-// Dashboard Style Note: We are **not** using Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper() etc...
-// because that changes all the styling for the inner elements as well (and I don't feel like updating all that now).
-// So we need to manually wrap in <div class="ccm-dashboard-page-container"> for 5.6 compatibility
-// (5.5's dashboard theme automatically wraps page content in that, but 5.6 doesn't -- so in 5.5 we'll have two redundant
-// divs with the same class -- but this doesn't effect the styling at all so it's fine).
-
 echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('PasswordX Designer'), false, 'span12', false);
 ?>
 <div class="ccm-pane-body">
@@ -75,63 +69,113 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 	<!-- //Main info about the block -->
 
 			<div id="designer-content-fields">
+				
 				<script id="field-template" type="text/x-jQuery-tmpl">
-		        <div class="designer-content-field" data-id="${id}" data-type="${type}">
-					<input type="hidden" name="fieldIds[]" value="${id}" />
-					<input type="hidden" name="fieldTypes[${id}]" value="${type}" />
-
-					<div class="designer-content-field-header">
-						<div class="designer-content-field-title">
-							<b>${label}</b>
-							&nbsp;
-							[<a href="#" class="designer-content-field-delete" data-id="${id}"><?php  echo t('delete'); ?></a><span class="designer-content-field-delete-confirm" data-id="${id}" style="display: none;">Are you sure? <a href="#" class="designer-content-field-delete-yes" data-id="${id}"><?php  echo t('Yes'); ?></a> / <a href="#" class="designer-content-field-delete-no" data-id="${id}"><?php  echo t('No'); ?></a></span>]
+			        
+			        <div class="designer-content-field" data-id="${id}" data-type="${type}">
+						
+						<input type="hidden" name="fieldIds[]" value="${id}" />
+						<input type="hidden" name="fieldTypes[${id}]" value="${type}" />
+	
+						<div class="designer-input-control">
+							<i class="icon-move"></i>
+							<i class="icon-trash designer-content-field-delete" data-id="${id}"></i>
 						</div>
-						<div class="designer-content-field-move" data-id="${id}">
-							<span class="designer-content-field-move-up" data-id="${id}">
-							[<a href="#" data-id="${id}"><?php  echo t('Move Up'); ?> &uarr;</a>]
-							</span>
 
-							&nbsp;&nbsp;
+						<div class="row">
+						
+							<div class="btn-group span2">
+				                <button class="btn dropdown-toggle" data-toggle="dropdown">${label} <span class="caret"></span></button>
+				                <ul class="dropdown-menu">
+				                  <li><a href="#" class="add-field-type" data-type="textbox">Text field</a></li>
+				                  <li><a href="#" class="add-field-type" data-type="password">Password field</a></li>
+				                  <li><a href="#" class="add-field-type" data-type="textarea">Textarea field</a></li>
+				                  <li class="divider"></li>
+				                  <li><a href="#" class="add-field-type" data-type="wysiwyg">WYSIWYG</a></li>
+				                </ul>
+				            </div>	
+						
+							<div class="span4">
+								<label for="" class="special-label">Input Label:</label><input type="text" placeholder="Label">
+							</div>
+							
+							<div class="span5">
+								<label for="" class="special-label">Input Handle:</label><input type="text" placeholder="Handle" readonly>
+							</div>
+							
+						</div> <!-- //row with text -->
 
-							<span class="designer-content-field-move-down" data-id="${id}">
-							[<a href="#" data-id="${id}"><?php  echo t('Move Down'); ?> &darr;</a>]
-							</span>
+						<div class="row">
+						<div class="span11">
+							<label class="checkbox inline">
+  								<input type="checkbox" id="inlineCheckbox1" value="option1" checked> Encrypted
+							</label>
+							<label class="checkbox inline">
+  								<input type="checkbox" id="inlineCheckbox2" value="option2" checked> Searchable
+							</label>
+							<label class="checkbox inline">
+  								<input type="checkbox" id="inlineCheckbox3" value="option3" checked> Exportable
+							</label>
 						</div>
-					</div>
-
-					<div class="designer-content-field-options">
-						<label for="fieldLabels[${id}]"><?php  echo t('Editor Label'); ?></label><br />
-						<input type="text" class="designer-content-field-editorlabel" name="fieldLabels[${id}]" id="fieldLabels[${id}]" />
-		
-						{{if type == 'wysiwyg'}}
-							<label for="fieldDefaultContents[${id}]"><?php  echo t('Default HTML Content'); ?></label><br />
-							<textarea rows="4" name="fieldDefaultContents[${id}]" id="fieldDefaultContents[${id}]"></textarea>
-						{{else}}
-							<br />
-							<input type="checkbox" name="fieldsRequired[${id}]" id="fieldsRequired[${id}]" />
-							<label for="fieldsRequired[${id}]"><?php  echo t('Required?'); ?></label>
-						{{/if}}
+						</div><!--//row with labels -->
+	
+						
+	
+						<!--
+						<div class="designer-content-field-header">
+							<div class="designer-content-field-title">
+								<b>${label}</b>
+								&nbsp;
+								[<a href="#" class="designer-content-field-delete" data-id="${id}"><?php  echo t('delete'); ?></a><span class="designer-content-field-delete-confirm" data-id="${id}" style="display: none;">Are you sure? <a href="#" class="designer-content-field-delete-yes" data-id="${id}"><?php  echo t('Yes'); ?></a> / <a href="#" class="designer-content-field-delete-no" data-id="${id}"><?php  echo t('No'); ?></a></span>]
+							</div>
+							<div class="designer-content-field-move" data-id="${id}">
+								<span class="designer-content-field-move-up" data-id="${id}">
+								[<a href="#" data-id="${id}"><?php  echo t('Move Up'); ?> &uarr;</a>]
+								</span>
+	
+								&nbsp;&nbsp;
+	
+								<span class="designer-content-field-move-down" data-id="${id}">
+								[<a href="#" data-id="${id}"><?php  echo t('Move Down'); ?> &darr;</a>]
+								</span>
+							</div>
+						</div>
+	
+						<div class="designer-content-field-options">
+							<label for="fieldLabels[${id}]"><?php  echo t('Editor Label'); ?></label><br />
+							<input type="text" class="designer-content-field-editorlabel" name="fieldLabels[${id}]" id="fieldLabels[${id}]" />
 			
-						{{if type == 'textbox'}}
-							<br />
-
-							<label for="fieldTextboxMaxlengths[${id}]"><?php  echo t('Maximum Number Of Characters'); ?>:</label>
-							<input type="text" name="fieldTextboxMaxlengths[${id}]" id="fieldTextboxMaxlengths[${id}]" size="3" maxlength="5" />
-
-						{{/if}}
-						
-						{{if type == 'password'}}
-							<br />
-
-							<label for="fieldTextboxMaxlengths[${id}]"><?php  echo t('Maximum Number Of Characters'); ?>:</label>
-							<input type="password" name="fieldTextboxMaxlengths[${id}]" id="fieldTextboxMaxlengths[${id}]" size="3" maxlength="5" />
-
-						{{/if}}
-						
-					</div>
-
-		        </div>
+							{{if type == 'wysiwyg'}}
+								<label for="fieldDefaultContents[${id}]"><?php  echo t('Default HTML Content'); ?></label><br />
+								<textarea rows="4" name="fieldDefaultContents[${id}]" id="fieldDefaultContents[${id}]"></textarea>
+							{{else}}
+								<br />
+								<input type="checkbox" name="fieldsRequired[${id}]" id="fieldsRequired[${id}]" />
+								<label for="fieldsRequired[${id}]"><?php  echo t('Required?'); ?></label>
+							{{/if}}
+				
+							{{if type == 'textbox'}}
+								<br />
+	
+								<label for="fieldTextboxMaxlengths[${id}]"><?php  echo t('Maximum Number Of Characters'); ?>:</label>
+								<input type="text" name="fieldTextboxMaxlengths[${id}]" id="fieldTextboxMaxlengths[${id}]" size="3" maxlength="5" />
+	
+							{{/if}}
+							
+							{{if type == 'password'}}
+								<br />
+	
+								<label for="fieldTextboxMaxlengths[${id}]"><?php  echo t('Maximum Number Of Characters'); ?>:</label>
+								<input type="password" name="fieldTextboxMaxlengths[${id}]" id="fieldTextboxMaxlengths[${id}]" size="3" maxlength="5" />
+	
+							{{/if}}
+							
+						</div>
+						-->
+			        </div>
 			    </script>
+			    
+			    
 			</div>
 
 			<div class="clearfix" style="padding-bottom: 0px;"></div>

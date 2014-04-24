@@ -40,17 +40,53 @@ input#name {
 }
 
 .designer-content-field {
-	float: left;
+	/*float: left;
 	width: 100%;
 	margin: 5px 0;
-	border: 1px solid #333;
+	border: 1px solid #333;*/
+	float: left;
+	width: 100%;
+	/*margin: 5px 0;*/
+	border-top: 1px solid #c3c3c3;
+	/*border-bottom: 1px solid #c3c3c3;*/
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	position: relative;
+}
+
+.designer-content-field:last-of-type  {
+	border-bottom: 1px solid #c3c3c3;
+}
+
+.designer-content-field:nth-child(odd) {
+	background-color: #efefef;
+}
+
+.special-label {
+	display: inline-block!important;
+	margin-right: 10px!important;
+}
+
+.designer-input-control {
+	position: absolute;
+	right: 20px;
+	top: 17px;
+}
+
+.designer-input-control  .icon-move {
+	margin-right: 10px;
+}
+
+.designer-input-control .icon-move, .icon-trash {
+	cursor: pointer;
 }
 
 .designer-content-field-header {
 	float: left;
 	width: 99%;
 	padding: 5px;
-	border-bottom: 1px solid #999;
+	/*border-bottom: 1px solid #999;*/
 }
 
 .designer-content-field-title {
