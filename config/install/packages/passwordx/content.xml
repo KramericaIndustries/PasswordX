@@ -47,7 +47,7 @@
 <div> </div>
 <p> </p>
 <p> </p>
-<p class="small" style="text-align: center;"><strong>Tip: You can remove this welcome message or replace it with your own content by editing this page.</strong></p>]]></content>
+<p class="small" style="text-align: center;"><strong><span class="label label-info">Tip</span> You can remove this welcome message or replace it with your own content by editing this page.</strong></p>]]></content>
 						</record>
 					</data>
 				</block>

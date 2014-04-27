@@ -13,6 +13,6 @@
 
 $v = View::getInstance();
 
-$v->setThemeByPath('/login', "passwordx_desktop");
-$v->setThemeByPath('/page_forbidden', "passwordx_desktop");
-//$v->setThemeByPath('/page_not_found', "passwordx_desktop");
+$v->setThemeByPath('/login', "passwordx_responsive");
+$v->setThemeByPath('/page_forbidden', "passwordx_responsive");
+//$v->setThemeByPath('/page_not_found', "passwordx_responsive");

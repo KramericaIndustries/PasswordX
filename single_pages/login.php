@@ -83,7 +83,7 @@
 	
 	<?php
 	 //Check for SSL Encrypted
-	 if (($nsa->connectionUnsecured()) && (!SUPPRESS_SSL_WARNING)) { //Connection is insecure
+	 if ((!$nsa->connectionSecure()) && (!SUPPRESS_SSL_WARNING)) { //Connection is insecure
 	 ?>
 
   <div class="panel panel-danger">

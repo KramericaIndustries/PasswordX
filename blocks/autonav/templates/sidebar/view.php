@@ -119,7 +119,7 @@ foreach ($navItems as $ni) {
 
 		if( $page->getCollectionTypeHandle() == "container" && !$ni->isHome ) {
 			echo '<ul class="'. ($ni->isCurrent ? "nav-path-selected" : "") .' nav-dropdown">';
-			echo '<li><a class="add-item" data-parent-cid="' . $ni->cID . '" href="javascript:void(0);"><span class="glyphicon glyphicon-plus-sign"></span> Add new item</a></li>';
+			echo '<li><a class="add-item" data-parent-cid="' . $ni->cID . '" href="javascript:void(0);"><span class="glyphicon glyphicon-plus-sign"></span> Add new page</a></li>';
 			echo '</ul>';
 		}
 	
@@ -127,7 +127,7 @@ foreach ($navItems as $ni) {
 		$depth = $ni->subDepth;
 		while( $depth ) {
 			$parent_category = array_pop($last_cid);
-			echo '<li class="new-item"><a class="add-item" data-parent-cid="' . $parent_category . '" href="javascript:void(0);"><span class="glyphicon glyphicon-plus-sign"></span> Add new item</a></li>';
+			echo '<li class="new-item"><a class="add-item" data-parent-cid="' . $parent_category . '" href="javascript:void(0);"><span class="glyphicon glyphicon-plus-sign"></span> Add new page</a></li>';
 			echo '</ul></li>';
 			$depth--;
 		}
@@ -138,7 +138,7 @@ foreach ($navItems as $ni) {
 
 /* Add to top level link */
 ?>
-<li class="new-item"><a class="add-item" data-parent-cid="1" href="javascript:void(0)"><span class="glyphicon glyphicon-plus-sign"></span> Add new item</a></li>
+<li class="new-item"><a class="add-item" data-parent-cid="1" href="javascript:void(0)"><span class="glyphicon glyphicon-plus-sign"></span> Add new page</a></li>
 <?php
 echo '</ul>'; //closes the top-level menu
 ?>

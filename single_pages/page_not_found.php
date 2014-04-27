@@ -5,11 +5,16 @@
  * Apache v2 License
  */
 
-//This results in a 302 status code 
-//- we need to have the system return the same code when hitting a valid page path in order to disguise real pages
+//If user not logged in, we want the system to behave the same as when valid page paths are hit in order to disguise that they exist.
  global $u;
  if (!$u->isLoggedIn()) {
-  header("Location: /index.php/login");
+  header("HTTP/1.1 200 OK");
+  
+  $v = new View;
+  $login_page = Page::getByPath("/login");
+  $v->setCollectionObject( $login_page );
+  $v->render($login_page);
+  die();
  }
 
 ?>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <concrete5-cif version="1.0">
     <themes>
-    	<theme handle="passwordx_desktop" package="" activated="1"/>
+    	<theme handle="passwordx_responsive" package="" activated="1"/>
     	<!--
     		<theme handle="passwordx_mobile" package="" activated="0"/>
     	-->
