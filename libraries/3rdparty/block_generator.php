@@ -85,8 +85,8 @@ class DesignerContentBlockGenerator {
 		$this->name = $name;
 		$this->description = $description;
 		$this->outpath = DIR_FILES_BLOCK_TYPES . "/{$handle}/";
-		$this->tplpath = DIR_BASE . '/' . DIRNAME_PACKAGES . '/designer_content/generator_templates/';
-
+		$this->tplpath = DIR_BASE . '/config/generator_templates/';
+		
 		$this->create_block_directory();
 		$this->generate_controller_php();
 		$this->generate_view_php();
@@ -437,11 +437,56 @@ class DesignerContentBlockGenerator {
 		$include_date_time = false;
 		$include_editor_config = false;
 		$code = '';
+		
 		foreach ($this->fields as $field) {
+			
+			$label_code = '';
+			$input_code = '';
+			
+			switch( $field['type'] ) {
+				
+				case 'textbox':
+					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
+					$input_code .= "\t\t\t<?php  echo \$form->text('field_{$field['num']}_textbox_text', \$field_{$field['num']}_textbox_text, array('style' => '', 'placeholder' => '{$field['label']}...', 'class'=>'form-control', 'autocomplete' => 'off')); ?>\n";
+					break;
+				
+				/*
+				case 'textarea':
+					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
+					$input_code .= "\t<textarea id=\"field_{$field['num']}_textarea_text\" name=\"field_{$field['num']}_textarea_text\" rows=\"5\" style=\"width: 95%;\"><?php  echo \$field_{$field['num']}_textarea_text; ?></textarea>\n";
+					break;
+									
+				case 'password':
+					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
+					$input_code .= "\t\t\t<?php  echo \$form->text('field_{$field['num']}_textbox_text', \$field_{$field['num']}_textbox_text, array('style' => 'width: 95%;'" . ($field['maxlength'] > 0 ? ", 'maxlength' => '{$field['maxlength']}'" : '') . ")); ?>\n";
+					break;
+					
+				case 'wysiwyg':
+					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
+					$include_editor_config = true; 
+					$input_code .= "\t<?php  Loader::element('editor_controls'); ?>\n";
+					$input_code .= "\t<textarea id=\"field_{$field['num']}_wysiwyg_content\" name=\"field_{$field['num']}_wysiwyg_content\" class=\"ccm-advanced-editor\"><?php  echo \$field_{$field['num']}_wysiwyg_content; ?></textarea>\n";
+					break;
+				*/				
+			}
+			
+			//prefix wrapper
+			$code .= "<div class=\"form-group\">\n";
+			$code .= $label_code;
+			$code .= "\t\t<div class=\"col-lg-10\">\n";
+    		
+			$code .= $input_code;
+			
+			//suffix wrapper
+    		$code .= "\t\t</div>\n";
+			$code .= "\t</div>\n";
+			
+			
+			/*
 			if ($field['type'] == 'textbox') {
 				$code .= "<div class=\"ccm-block-field-group\">\n";
 				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$code .= "\t<?php  echo \$form->text('field_{$field['num']}_textbox_text', \$field_{$field['num']}_textbox_text, array('style' => 'width: 95%;'" . ($field['maxlength'] > 0 ? ", 'maxlength' => '{$field['maxlength']}'" : '') . ")); ?>\n";
+				
 				$code .= "</div>\n\n";
 			}
 
@@ -452,117 +497,6 @@ class DesignerContentBlockGenerator {
 				$code .= "</div>\n\n";
 			}
 			
-			if ($field['type'] == 'image') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$translated_label = $this->addslashes_single( t('Choose Image') );
-				$code .= "\t<?php  echo \$al->image('field_{$field['num']}_image_fID', 'field_{$field['num']}_image_fID', '{$translated_label}', \$field_{$field['num']}_image); ?>\n";
-				$include_asset_library = true;
-				if ($field['link'] > 0 || $field['alt']) {
-					$code .= "\n";
-					$code .= "\t<table border=\"0\" cellspacing=\"3\" cellpadding=\"0\" style=\"width: 95%;" . (($field['link'] != 1) ? ' margin-top: 5px;' : '') . "\">\n";
-					if ($field['link'] == 1) {
-						$translated_label = t('Link to Page');
-						$code .= "\t\t<tr>\n";
-						$code .= "\t\t\t<td align=\"right\" nowrap=\"nowrap\"><label for=\"field_{$field['num']}_image_internalLinkCID\">{$translated_label}:</label>&nbsp;</td>\n";
-						$code .= "\t\t\t<td align=\"left\" style=\"width: 100%;\"><?php  echo \$ps->selectPage('field_{$field['num']}_image_internalLinkCID', \$field_{$field['num']}_image_internalLinkCID); ?></td>\n";
-						$code .= "\t\t</tr>\n";
-						$include_page_selector = true;
-					}
-					if ($field['link'] == 2) {
-						$translated_label = t('Link to URL');
-						$code .= "\t\t<tr>\n";
-						$code .= "\t\t\t<td align=\"right\" nowrap=\"nowrap\"><label for=\"field_{$field['num']}_image_externalLinkURL\">{$translated_label}:</label>&nbsp;</td>\n";
-						$code .= "\t\t\t<td align=\"left\" style=\"width: 100%;\"><?php  echo \$form->text('field_{$field['num']}_image_externalLinkURL', \$field_{$field['num']}_image_externalLinkURL, array('style' => 'width: 100%;')); ?></td>\n";
-						$code .= "\t\t</tr>\n";
-					}
-					if ($field['alt']) {
-						$translated_label = t('Alt Text');
-						$code .= "\t\t<tr>\n";
-						$code .= "\t\t\t<td align=\"right\" nowrap=\"nowrap\"><label for=\"field_{$field['num']}_image_altText\">{$translated_label}:</label>&nbsp;</td>\n";
-						$code .= "\t\t\t<td align=\"left\" style=\"width: 100%;\"><?php  echo \$form->text('field_{$field['num']}_image_altText', \$field_{$field['num']}_image_altText, array('style' => 'width: 100%;')); ?></td>\n";
-						$code .= "\t\t</tr>\n";
-					}
-					$code .= "\t</table>\n";
-				}
-				$code .= "</div>\n\n";
-			}
-			
-			if ($field['type'] == 'file') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$translated_label = $this->addslashes_single( t('Choose File') );
-				$code .= "\t<?php  echo \$al->file('field_{$field['num']}_file_fID', 'field_{$field['num']}_file_fID', '{$translated_label}', \$field_{$field['num']}_file); ?>\n";
-				$include_asset_library = true;
-				$code .= "\t<table border=\"0\" cellspacing=\"3\" cellpadding=\"0\" style=\"width: 95%; margin-top: 5px;\">\n";
-				$code .= "\t\t<tr>\n";
-				$translated_label = t('Link Text (or leave blank to use file name)');
-				$code .= "\t\t\t<td align=\"right\" nowrap=\"nowrap\"><label for=\"field_{$field['num']}_file_linkText\">{$translated_label}:</label>&nbsp;</td>\n";
-				$code .= "\t\t\t<td align=\"left\" style=\"width: 100%;\"><?php  echo \$form->text('field_{$field['num']}_file_linkText', \$field_{$field['num']}_file_linkText, array('style' => 'width: 100%;')); ?></td>\n";
-				$code .= "\t\t</tr>\n";
-				$code .= "\t</table>\n";
-				$code .= "</div>\n\n";
-			}
-			
-			if ($field['type'] == 'link') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$code .= "\t<?php  echo \$ps->selectPage('field_{$field['num']}_link_cID', \$field_{$field['num']}_link_cID); ?>\n";
-				$include_page_selector = true;
-				$code .= "\t<table border=\"0\" cellspacing=\"3\" cellpadding=\"0\" style=\"width: 95%;\">\n";
-				$code .= "\t\t<tr>\n";
-				$translated_label = t('Link Text');
-				$code .= "\t\t\t<td align=\"right\" nowrap=\"nowrap\"><label for=\"field_{$field['num']}_link_text\">{$translated_label}:</label>&nbsp;</td>\n";
-				$code .= "\t\t\t<td align=\"left\" style=\"width: 100%;\"><?php  echo \$form->text('field_{$field['num']}_link_text', \$field_{$field['num']}_link_text, array('style' => 'width: 100%;')); ?></td>\n";
-				$code .= "\t\t</tr>\n";
-				$code .= "\t</table>\n";
-				$code .= "</div>\n\n";
-			}
-			
-			if ($field['type'] == 'url') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$code .= "\t<table border=\"0\" cellspacing=\"3\" cellpadding=\"0\" style=\"width: 95%;\">\n";
-				$code .= "\t\t<tr>\n";
-				$translated_label = t('Link to URL');
-				$code .= "\t\t\t<td align=\"right\" nowrap=\"nowrap\"><label for=\"field_{$field['num']}_link_url\">{$translated_label}:</label>&nbsp;</td>\n";
-				$code .= "\t\t\t<td align=\"left\" style=\"width: 100%;\"><?php  echo \$form->text('field_{$field['num']}_link_url', \$field_{$field['num']}_link_url, array('style' => 'width: 100%;')); ?></td>\n";
-				$code .= "\t\t</tr>\n";
-				$code .= "\t\t<tr>\n";
-				$translated_label = t('Link Text');
-				$code .= "\t\t\t<td align=\"right\" nowrap=\"nowrap\"><label for=\"field_{$field['num']}_link_text\">{$translated_label}:</label>&nbsp;</td>\n";
-				$code .= "\t\t\t<td align=\"left\" style=\"width: 100%;\"><?php  echo \$form->text('field_{$field['num']}_link_text', \$field_{$field['num']}_link_text, array('style' => 'width: 100%;')); ?></td>\n";
-				$code .= "\t\t</tr>\n";
-				$code .= "\t</table>\n";
-				$code .= "</div>\n\n";
-			}
-			
-			if ($field['type'] == 'date') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$code .= "\t<?php  echo \$dt->date('field_{$field['num']}_date_value', \$field_{$field['num']}_date_value); ?>\n";
-				$code .= "</div>\n\n";
-				$include_date_time = true;
-			}
-			
-			if ($field['type'] == 'select') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$code .= "\t<?php \n";
-				$code .= "\t\$options = array(\n";
-				if ($field['showheader']) {
-					$code .= "\t\t'0' => '" . $this->addslashes_single(htmlentities($field['headertext'], ENT_QUOTES, APP_CHARSET)) . "',\n";
-				}
-				$i = 1;
-				foreach ($field['options'] as $option) {
-					$code .= "\t\t'{$i}' => '" . $this->addslashes_single(htmlentities($option, ENT_QUOTES, APP_CHARSET)) . "',\n";
-					$i++;
-				}
-				$code .= "\t);\n";
-				$code .= "\techo \$form->select('field_{$field['num']}_select_value', \$options, \$field_{$field['num']}_select_value);\n";
-				$code .= "\t?>\n";
-				$code .= "</div>\n\n";
-			}
 			
 			if ($field['type'] == 'wysiwyg') {
 				$code .= "<div class=\"ccm-block-field-group\">\n";
@@ -572,6 +506,7 @@ class DesignerContentBlockGenerator {
 				$code .= "</div>\n\n";
 				$include_editor_config = true;
 			}
+			 */
 		}
 		
 		$token = '[[[GENERATOR_REPLACE_FIELDS]]]';

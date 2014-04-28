@@ -142,20 +142,18 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 		echo "<pre>";
 		print_r($block);
 		
-		die("stepper");
-		
 		//Make+install block
 		$block->generate($handle, $name, $description);
 		$this->drop_existing_table($handle);
 		BlockType::installBlockType($handle);
 		
 		//Redirect back to view page so browser refresh doesn't trigger a re-generation
-		header('Location: ' . View::url("/dashboard/blocks/designer_content/?generated={$handle}"));
+		header('Location: ' . View::url("/dashboard/passwordx/designer/?generated={$handle}"));
 		exit;
 	}
 	
 	private function drop_existing_table($handle) {
-		Loader::library('block_generator', 'designer_content');
+		Loader::library('3rdparty/block_generator');
 		$table_name = DesignerContentBlockGenerator::tablename($handle);
 		Loader::db()->Execute("DROP TABLE IF EXISTS {$table_name}"); //cannot use parameterized query here (it surrounds the table name in quotes which is a MySQL error)
 	}
