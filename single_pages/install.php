@@ -380,7 +380,6 @@ $(function() {
 	</div>
 	
 	<div id="google_config_options" class="2fa_config_options" style="display: none;">
-		<a href="#">Click here to see how to setup Google Authenticator</a><br/><br/>
 		<img src="<?php echo $qr_url ?>" />
 		<h4><?php echo $ga_secret ?></h4>
 		<?php echo $form->hidden('GA_SECRET',$ga_secret); ?>
@@ -405,8 +404,8 @@ $(function() {
 	  <img src="/images/googleauth_logo.jpg" />
 	 </div>
 	 <ul style="margin-top: 10px;">
+	  <li>Download the official <a href="http://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS</a> or <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">Android</a> app and scan the QR code on the left.</li>
 	  <li>Completely free and <a href="https://code.google.com/p/google-authenticator/" target="_blank">Open Source</a>.</li>
-	  <li>A bit harder to set up for you and your users.</li>
 	  <li>Less awesome smartphone apps.</li>
 	  <li>No SMS or phonecall token support.</li>
 	 </ul>
