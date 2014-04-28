@@ -44,7 +44,9 @@ $(document).ready(function() {
 	
 	$('.designer-content-field-select-header').live('change', toggle_field_select_header);
 	
-	$('#designer-content-submit').click(function() {
+	$('#designer-content-submit').click(function(e) {
+		e.stopPropagation();
+		e.preventDefault();
 		$('#designer-content-form').submit(); //We use a div instead of a submit button because we don't want the "enter" key triggering the form
 	});
 	$('#designer-content-form').submit(function() {
@@ -147,13 +149,6 @@ function swapNodes(a, b) { /* from http://stackoverflow.com/questions/698301/#69
     aParent.insertBefore(b, aSibling);
 }
 
-function toggle_delete_confirmation() {
-	var id = $(this).attr('data-id');
-	$('.designer-content-field-delete-confirm[data-id='+id+']').toggle();
-	$('.designer-content-field-delete[data-id='+id+']').toggle();
-	
-	return false;
-}
 
 function delete_field() {
 	

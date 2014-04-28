@@ -20,7 +20,7 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 		$this->addHeaderItem($html->css('designer_content_dashboard_ui.css', 'designer_content'));
 		
 		$th = Loader::helper('concrete/urls'); 
-		$this->set('validate_handle_url', $th->getToolsURL('validate_handle', 'designer_content'));
+		$this->set('validate_handle_url', $th->getToolsURL('validate_handle'));
 		
 		$generated_handle = $this->get('generated');
 		$generated_name = $this->block_name_for_handle($generated_handle);
@@ -55,6 +55,8 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 		} else if (!$this->validate_unique_handle($handle)) {
 			die(t("Error: Block Handle is already in use by another package or block type (or block files already exist in the \"blocks\" directory of your site)!"));
 		}
+		
+		die("stepper");
 		
 		//Gather all field data
 		$field_ids = $this->post('fieldIds'); //The order of id's in this array reflects the user's chosen output order of the fields.
@@ -138,7 +140,7 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 	}
 	
 	public function validate_unique_tablename_for_handle($handle) {
-		Loader::library('block_generator', 'designer_content');
+		Loader::library('3rdparty/block_generator');
 		$tables = Loader::db()->MetaTables('TABLES');
 		$table_name = DesignerContentBlockGenerator::tablename($handle);
 		$table_exists = in_array($table_name, $tables);
