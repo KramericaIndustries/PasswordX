@@ -44,11 +44,6 @@ $(document).ready(function() {
 	
 	$('.designer-content-field-select-header').live('change', toggle_field_select_header);
 	
-	$('#designer-content-submit').click(function(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		$('#designer-content-form').submit(); //We use a div instead of a submit button because we don't want the "enter" key triggering the form
-	});
 	$('#designer-content-form').submit(function() {
 		// //TEST MODE (posts form via ajax so you don't lose data entry):
 		// var valid = validate_form();
@@ -65,6 +60,8 @@ $(document).ready(function() {
 		// }
 		// return false;
 		// //END TEST MODE
+		
+		update_fields_order();
 		
 		$('#designer-content-submit').hide();
 		$('#designer-content-submit-loading').show();
