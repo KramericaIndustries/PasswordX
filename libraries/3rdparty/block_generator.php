@@ -23,120 +23,60 @@ class DesignerContentBlockGenerator {
 		}
 	}
 	
-	public function add_static_field($static_content) {
-		$this->fields[] = array(
-			'num' => count($this->fields) + 1,
-			'type' => 'static',
-			'static' => $static_content,
-		);
-	}
-
-	public function add_textbox_field($label, $prefix = '', $suffix = '', $required = false, $maxlength = 0) {
+	public function add_textbox_field($label, $required = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'textbox',
 			'label' => $label,
-			'prefix' => $prefix,
-			'suffix' => $suffix,
+			'prefix' => '',
+			'suffix' => '',
 			'required' => $required,
-			'maxlength' => empty($maxlength) ? 0 : $maxlength,
+			'searchable' => $searchable,
+			'editable' => $editable,
+			'maxlength' => 0
 		);
 	}
 	
-	public function add_textarea_field($label, $prefix = '', $suffix = '', $required = false) {
+	public function add_textarea_field($label, $required = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'textarea',
 			'label' => $label,
-			'prefix' => $prefix,
-			'suffix' => $suffix,
+			'prefix' => '',
+			'suffix' => '',
 			'required' => $required,
+			'searchable' => $searchable,
+			'editable' => $editable,
+			'maxlength' => 0
 		);
 	}
-	
-	public function add_image_field($label, $prefix = '', $suffix = '', $required = false, $link_type = 0, $link_target_blank = true, $show_alt_text = false, $sizing_type = 0, $width = 0, $height = 0) {
-		$this->fields[] = array(
-			'num' => count($this->fields) + 1,
-			'type' => 'image',
-			'label' => $label,
-			'prefix' => $prefix,
-			'suffix' => $suffix,
-			'required' => $required,
-			'link' => $link_type,
-			'target' => $link_target_blank,
-			'alt' => $show_alt_text,
-			'sizing' => $sizing_type,
-			'width' => $width,
-			'height' => $height,
-		);
-	}
-	
-	public function add_file_field($label, $prefix = '', $suffix = '', $required = false) {
-		$this->fields[] = array(
-			'num' => count($this->fields) + 1,
-			'type' => 'file',
-			'label' => $label,
-			'prefix' => $prefix,
-			'suffix' => $suffix,
-			'required' => $required,
-		);
-	}
-	
-	public function add_link_field($label, $prefix = '', $suffix = '', $required = false) {
-		$this->fields[] = array(
-			'num' => count($this->fields) + 1,
-			'type' => 'link',
-			'label' => $label,
-			'prefix' => $prefix,
-			'suffix' => $suffix,
-			'required' => $required,
-		);
-	}
-	
-	public function add_url_field($label, $prefix = '', $suffix = '', $required = false, $target_blank = true) {
-		$this->fields[] = array(
-			'num' => count($this->fields) + 1,
-			'type' => 'url',
-			'label' => $label,
-			'prefix' => $prefix,
-			'suffix' => $suffix,
-			'required' => $required,
-			'target' => $target_blank,
-		);
-	}
-	
-	public function add_date_field($label, $prefix = '', $suffix = '', $required = false, $format = '') {
-		$this->fields[] = array(
-			'num' => count($this->fields) + 1,
-			'type' => 'date',
-			'label' => $label,
-			'prefix' => $prefix,
-			'suffix' => $suffix,
-			'required' => $required,
-			'format' => empty($format) ? 'Y-m-d' : $format,
-		);
-	}
-	
-	public function add_select_field($label, $options, $required, $show_header = false, $header_text = '') {
-		$this->fields[] = array(
-			'num' => count($this->fields) + 1,
-			'type' => 'select',
-			'label' => $label,
-			'options' => explode("\n", str_replace("\r", '', trim($options))),
-			'required' => $required,
-			'showheader' => $show_header,
-			'headertext' => $header_text,
-		);
-	}
-	
-	public function add_wysiwyg_field($label, $prefix = '', $suffix = '', $default = '') {
+
+	public function add_wysiwyg_field($label, $required = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'wysiwyg',
 			'label' => $label,
-			'prefix' => $prefix,
-			'suffix' => $suffix,
-			'default' => $default,
+			'prefix' => '',
+			'suffix' => '',
+			'required' => $required,
+			'searchable' => $searchable,
+			'editable' => $editable,
+			'maxlength' => 0,
+			'default'	=> ''
+		);
+	}
+	
+	public function add_password_field($label, $required = false, $searchable = false, $editable = false) {
+		$this->fields[] = array(
+			'num' => count($this->fields) + 1,
+			'type' => 'password',
+			'label' => $label,
+			'prefix' => '',
+			'suffix' => '',
+			'required' => $required,
+			'searchable' => $searchable,
+			'editable' => $editable,
+			'maxlength' => 0
 		);
 	}
 
