@@ -450,12 +450,13 @@ class DesignerContentBlockGenerator {
 					$input_code .= "\t\t\t<?php  echo \$form->text('field_{$field['num']}_textbox_text', \$field_{$field['num']}_textbox_text, array('style' => '', 'placeholder' => '{$field['label']}...', 'class'=>'form-control', 'autocomplete' => 'off')); ?>\n";
 					break;
 				
-				/*
+				
 				case 'textarea':
-					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
-					$input_code .= "\t<textarea id=\"field_{$field['num']}_textarea_text\" name=\"field_{$field['num']}_textarea_text\" rows=\"5\" style=\"width: 95%;\"><?php  echo \$field_{$field['num']}_textarea_text; ?></textarea>\n";
+					$label_code = "\t<label for=\"field_{$field['num']}_textarea_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
+					$input_code .= "\t<textarea class=\"form-control\" placeholder=\"{$field['label']}...\" id=\"field_{$field['num']}_textarea_text\" name=\"field_{$field['num']}_textarea_text\" rows=\"5\"><?php  echo \$field_{$field['num']}_textarea_text; ?></textarea>\n";
 					break;
-									
+				
+				/*				
 				case 'password':
 					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
 					$input_code .= "\t\t\t<?php  echo \$form->text('field_{$field['num']}_textbox_text', \$field_{$field['num']}_textbox_text, array('style' => 'width: 95%;'" . ($field['maxlength'] > 0 ? ", 'maxlength' => '{$field['maxlength']}'" : '') . ")); ?>\n";
