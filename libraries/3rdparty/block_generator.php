@@ -132,64 +132,24 @@ class DesignerContentBlockGenerator {
 			}
 			
 			/*
-			if ($field['type'] == 'textbox' && $field['required']) {
+			//we are not doing required for now
+			if ( $field['type'] == 'textbox' && $field['required']) {
 				$code .= "\tif (\$('#field_{$field['num']}_textbox_text').val() == '') {\n";
 				$translated_error = $this->addslashes_single( t('Missing required text') );
 				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
 				$code .= "\t}\n\n";
 			}
 			
+			if ( $field['type'] == 'password' && $field['required']) {
+				$code .= "\tif (\$('#field_{$field['num']}_textbox_text').val() == '') {\n";
+				$translated_error = $this->addslashes_single( t('Missing required text') );
+				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
+				$code .= "\t}\n\n";
+			}
+				
 			if ($field['type'] == 'textarea' && $field['required']) {
 				$code .= "\tif (\$('#field_{$field['num']}_textarea_text').val() == '') {\n";
 				$translated_error = $this->addslashes_single( t('Missing required text') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'image' && $field['required']) {
-				$code .= "\tif (\$('#field_{$field['num']}_image_fID-fm-value').val() == '' || \$('#field_{$field['num']}_image_fID-fm-value').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required image') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'file' && $field['required']) {
-				$code .= "\tif (\$('#field_{$field['num']}_file_fID-fm-value').val() == '' || \$('#field_{$field['num']}_file_fID-fm-value').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required file') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'link' && $field['required']) {
-				$code .= "\tif (\$('input[name=field_{$field['num']}_link_cID]').val() == '' || \$('input[name=field_{$field['num']}_link_cID]').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required link') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'url' && $field['required']) {
-				$code .= "\tif (\$('input[name=field_{$field['num']}_link_url]').val() == '') {\n";
-				$translated_error = $this->addslashes_single( t('Missing required URL') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'date' && $field['required']) {
-				$code .= "\tif (\$('input[name=field_{$field['num']}_date_value]').val() == '' || \$('input[name=field_{$field['num']}_date_value]').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required date') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'select' && $field['required']) {
-				$code .= "\tif (\$('select[name=field_{$field['num']}_select_value]').val() == '' || \$('select[name=field_{$field['num']}_select_value]').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required selection') );
 				$label = $this->addslashes_single($field['label']);
 				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
 				$code .= "\t}\n\n";
@@ -506,33 +466,7 @@ class DesignerContentBlockGenerator {
 			//suffix wrapper
     		$code .= "\t\t</div>\n";
 			$code .= "</div>\n";
-			
-			
-			/*
-			if ($field['type'] == 'textbox') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				
-				$code .= "</div>\n\n";
-			}
 
-			if ($field['type'] == 'textarea') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$code .= "\t<textarea id=\"field_{$field['num']}_textarea_text\" name=\"field_{$field['num']}_textarea_text\" rows=\"5\" style=\"width: 95%;\"><?php  echo \$field_{$field['num']}_textarea_text; ?></textarea>\n";
-				$code .= "</div>\n\n";
-			}
-			
-			
-			if ($field['type'] == 'wysiwyg') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$code .= "\t<?php  Loader::element('editor_controls'); ?>\n";
-				$code .= "\t<textarea id=\"field_{$field['num']}_wysiwyg_content\" name=\"field_{$field['num']}_wysiwyg_content\" class=\"ccm-advanced-editor\"><?php  echo \$field_{$field['num']}_wysiwyg_content; ?></textarea>\n";
-				$code .= "</div>\n\n";
-				$include_editor_config = true;
-			}
-			 */
 		}
 		
 		$token = '[[[GENERATOR_REPLACE_FIELDS]]]';
@@ -540,9 +474,6 @@ class DesignerContentBlockGenerator {
 	
 		//Replace helpers (if needed)
 		$code = '';
-		$code .= $include_asset_library ? "\$al = Loader::helper('concrete/asset_library');\n" : '';
-		$code .= $include_page_selector ? "\$ps = Loader::helper('form/page_selector');\n" : '';
-		$code .= $include_date_time ? "\$dt = Loader::helper('form/date_time');\n" : '';
 		$code .= $include_editor_config ? "Loader::element('editor_config');\n" : '';
 		$token = '[[[GENERATOR_REPLACE_HELPERLOADERS]]]';
 		$template = str_replace($token, $code, $template);
