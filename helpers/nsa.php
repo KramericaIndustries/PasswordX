@@ -113,14 +113,14 @@ class NsaHelper {
 	 * Checks if the transmission is secure (HTTPS)
 	 * @return bool
 	 */
-	public function connectionUnsecured() {
+	public function connectionSecure() {
 		if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
-			return false; //connection is secured
+			return true; //connection is secured
 		} else {
 			if( (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ) {
-				return false; //connection is secured, via CloudFlare
+				return true; //connection is secured, via CloudFlare
 			} else {
-				return true; //connection is UNSECURED
+				return false; //connection is UNSECURED
 			}
 		}
 	}

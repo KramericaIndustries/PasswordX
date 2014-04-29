@@ -160,8 +160,11 @@
 .sign-icon:hover {
  color: #428bca;
 }
-.actions-icon {
+
+@media (min-width: 1200px) {
+ .actions-icon {
 	display: none;
+ }
 }
 .sidebar-item:hover > .actions-icon {
  display: inline-block;

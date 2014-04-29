@@ -15,16 +15,11 @@
       </div>
       <div class="modal-body">
 
-	 <div class="alert alert-info">
-	  <div><strong>A Secrets page</strong> is a page where you can add your passwords and other content.</div>
-	  <div><strong>A Category page</strong> is a container (folder, if you will) which is used to organize your Secrets pages by, for example, client or type.</div>
-	 </div>
-	 
 	 <div class="form-group">
 	  <label for="select-type">Type: </label>
 	  &nbsp;<select id="select-type" class="form-control select-picker">
-			<option value="secret">Secrets page</option>
-			<option value="category">Category/Container page</option>
+			<option value="secret">Secrets</option>
+			<option value="category">Category/Container</option>
 		</select>
 	 </div>	
 	 
@@ -50,7 +45,7 @@
         <h4 class="modal-title">Delete &quot;<span id="page-name-delete"></span>&quot;</h4>
       </div>
       <div class="modal-body">
-		 <p>All subpages will also be deleted. This is permanent and cannot be undone.</p>
+		 <p>Any subpages will also be deleted. This is permanent and cannot be undone.</p>
 		
 		  <div id="warn_mustconfirm" class="alert alert-danger">
 		   <i class="glyphicon glyphicon-warning-sign"></i> Please enter the word &quot;DELETE&quot; exactly as displayed to confirm deletion.
