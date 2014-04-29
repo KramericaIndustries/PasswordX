@@ -23,42 +23,42 @@ class DesignerContentBlockGenerator {
 		}
 	}
 	
-	public function add_textbox_field($label, $required = false, $searchable = false, $editable = false) {
+	public function add_textbox_field($label, $encrypted = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'textbox',
 			'label' => $label,
 			'prefix' => '',
 			'suffix' => '',
-			'required' => $required,
+			'encrypted' => $encrypted,
 			'searchable' => $searchable,
 			'editable' => $editable,
 			'maxlength' => 0
 		);
 	}
 	
-	public function add_textarea_field($label, $required = false, $searchable = false, $editable = false) {
+	public function add_textarea_field($label, $encrypted = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'textarea',
 			'label' => $label,
 			'prefix' => '',
 			'suffix' => '',
-			'required' => $required,
+			'encrypted' => $encrypted,
 			'searchable' => $searchable,
 			'editable' => $editable,
 			'maxlength' => 0
 		);
 	}
 
-	public function add_wysiwyg_field($label, $required = false, $searchable = false, $editable = false) {
+	public function add_wysiwyg_field($label, $encrypted = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'wysiwyg',
 			'label' => $label,
 			'prefix' => '',
 			'suffix' => '',
-			'required' => $required,
+			'encrypted' => $encrypted,
 			'searchable' => $searchable,
 			'editable' => $editable,
 			'maxlength' => 0,
@@ -66,14 +66,14 @@ class DesignerContentBlockGenerator {
 		);
 	}
 	
-	public function add_password_field($label, $required = false, $searchable = false, $editable = false) {
+	public function add_password_field($label, $encrypted = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'password',
 			'label' => $label,
 			'prefix' => '',
 			'suffix' => '',
-			'required' => $required,
+			'encrypted' => $encrypted,
 			'searchable' => $searchable,
 			'editable' => $editable,
 			'maxlength' => 0
@@ -179,43 +179,8 @@ class DesignerContentBlockGenerator {
 		//Load template
 		$template = file_get_contents($this->tplpath.$filename);
 		
-		//Replace sub-templates (do this first so tokens inside the subtemplates get replaced properly later on)
-			//Image helper function
-			$include_helper = false;
-			foreach ($this->fields as $field) {
-				if ($field['type'] == 'image') {
-					$include_helper = true;
-					break;
-				}
-			}
-			$code = $include_helper ? file_get_contents($this->tplpath.'controller_image_helper.php') : '';
-			$token = '[[[GENERATOR_REPLACE_IMAGEHELPER]]]';
-			$template = str_replace($token, $code, $template);
-
-			//URL helper function
-			$include_helper = false;
-			foreach ($this->fields as $field) {
-				if ($field['type'] == 'url' || ($field['type'] == 'image' && $field['link'] == 2)) {
-					$include_helper = true;
-					break;
-				}
-			}
-			$code = $include_helper ? file_get_contents($this->tplpath.'controller_url_helper.php') : '';
-			$token = '[[[GENERATOR_REPLACE_URLHELPER]]]';
-			$template = str_replace($token, $code, $template);
-		
-			//WYSIWYG content helper
-			$include_helper = false;
-			foreach ($this->fields as $field) {
-				if ($field['type'] == 'wysiwyg') {
-					$include_helper = true;
-					break;
-				}
-			}
-			$code = $include_helper ? file_get_contents($this->tplpath.'controller_content_helper.php') : '';
-			$token = '[[[GENERATOR_REPLACE_CONTENTHELPER]]]';
-			$template = str_replace($token, $code, $template);
-		//END sub-template replacement
+		//this mambo jumbo approach does not make it for me
+		//lets rewrite it, in a more elegant way
 		
 		//Replace class properties
 		$template = str_replace('[[[GENERATOR_REPLACE_CLASSNAME]]]', $this->controllername($this->handle), $template);
@@ -223,129 +188,83 @@ class DesignerContentBlockGenerator {
 		$template = str_replace('[[[GENERATOR_REPLACE_NAME]]]', $this->addslashes_single($this->name), $template);
 		$template = str_replace('[[[GENERATOR_REPLACE_DESCRIPTION]]]', $this->addslashes_single($this->description), $template);
 		
-		//Replace getSearchableContent() function
-		$code = '';
-		$fieldcount = 0;
+		$include_helper = array(
+			'wysiwyg'	=> false
+		);
+		
+		$name_suffix = array(
+			'textbox' => 'textbox_text',
+			'password' => 'textbox_text',
+			'textarea' => 'textarea_text',
+			'wysiwyg' => 'wysiwyg_content',
+		);
+		
+		$encr_fields = array();
+		$all_fields = array();
+		
+		$searchable_code = '';
+		$searchable_fields = 0;
+		
 		foreach ($this->fields as $field) {
-			if ($field['type'] == 'textbox') {
-				$code .= "\t\t\$content[] = \$this->field_{$field['num']}_textbox_text;\n";
-				$fieldcount++;
-			}
-			if ($field['type'] == 'textarea') {
-				$code .= "\t\t\$content[] = \$this->field_{$field['num']}_textarea_text;\n";
-				$fieldcount++;
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t\$content[] = \$this->field_{$field['num']}_file_linkText;\n";
-				$fieldcount++;
-			}
-			if ($field['type'] == 'date') {
-				$code .= "\t\t\$content[] = date('{$field['format']}', \$this->field_{$field['num']}_date_value);\n";
-				$fieldcount++;
-			}
+			
+			$thisSufix = $name_suffix[ $field['type'] ];
+			
 			if ($field['type'] == 'wysiwyg') {
-				$code .= "\t\t\$content[] = \$this->field_{$field['num']}_wysiwyg_content;\n";
-				$fieldcount++;
+				$include_helper['wysiwyg'] = true;
 			}
-			//Intentionally leaving out image alt text and link text (doesn't make sense for those to come up in search results)
+			
+			//push it to the all fields list
+			$all_fields[] = "'field_{$field['num']}_{$thisSufix}'";
+			
+			//should this field be encrypted
+			if($field['encrypted']) {
+				$encr_fields[] = "'field_{$field['num']}_{$thisSufix}'";
+			}
+			
+			//is the field searchable?
+			if($field['searchable']) {
+				$searchable_code .= "\t\t\$content[] = \$this->field_{$field['num']}_{$thisSufix};\n";
+				$searchable_fields++;
+			}
 		}
-		if ($fieldcount == 1) {
-			$code = str_replace('$content[] =', 'return', $code);
+		
+		//now that we gathered all the needed data, lets build the controller
+		
+		//subtemplates
+		$code = $include_helper['wysiwyg']  ? file_get_contents($this->tplpath.'controller_content_helper.php') : '';
+		$token = '[[[GENERATOR_REPLACE_CONTENTHELPER]]]';
+		$template = str_replace($token, $code, $template);
+		
+		//all fields
+		$code = "\tprotected \$all_fields = array(";
+		$code .= implode(',',$all_fields);
+		$code .= ");\n";
+		
+		$token = '[[[GENERATOR_REPLACE_ALL_FIELDS]]]';
+		$template = str_replace($token, $code, $template);
+		
+		//encrypted fields
+		$code = "\tprotected \$encrypted_fields = array(";
+		if( !empty($encr_fields) ) {
+			 $code .= implode(',',$encr_fields);
+		}
+		$code .= ");\n";
+		
+		$token = '[[[GENERATOR_REPLACE_ENCRYPTED_FIELDS]]]';
+		$template = str_replace($token, $code, $template);
+		
+		//searchable fields
+		$code = '';
+		if ($searchable_fields == 1) {
+			$code = str_replace('$content[] =', 'return', $searchable_code);
 			$code = "\tpublic function getSearchableContent() {\n" . $code . "\t}\n";
-		} else if ($fieldcount > 1) {
-			$code = "\t\t\$content = array();\n" . $code . "\t\treturn implode(' - ', \$content);\n";
+		} else if ($searchable_fields > 1) {
+			$code = "\t\t\$content = array();\n" . $searchable_code . "\t\treturn implode(' - ', \$content);\n";
 			$code = "\tpublic function getSearchableContent() {\n" . $code . "\t}\n";
 		}
 		$token = '[[[GENERATOR_REPLACE_GETSEARCHABLECONTENT]]]';
 		$template = str_replace($token, $code, $template);
-		
-		//Replace view() function
-		$code = '';
-		$include_image_helper = false;
-		foreach ($this->fields as $field) {
-			if ($field['type'] == 'image') {
-				$width = ($field['sizing'] > 0 && !empty($field['width'])) ? $field['width'] : 0;
-				$height = ($field['sizing'] > 0 && !empty($field['height'])) ? $field['height'] : 0;
-				$crop = ($field['sizing'] == 2) ? 'true' : 'false';
-				$code .= "\t\t\$this->set('field_{$field['num']}_image', (empty(\$this->field_{$field['num']}_image_fID) ? null : \$this->get_image_object(\$this->field_{$field['num']}_image_fID, {$width}, {$height}, {$crop})));\n";
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_file', (empty(\$this->field_{$field['num']}_file_fID) ? null : File::getByID(\$this->field_{$field['num']}_file_fID)));\n";
-			}
-			if ($field['type'] == 'wysiwyg') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_wysiwyg_content', \$this->translateFrom(\$this->field_{$field['num']}_wysiwyg_content));\n";
-			}
-		}
-		if (!empty($code)) {
-			$code = "\tpublic function view() {\n" . $code . "\t}\n";
-		}
-		$token = '[[[GENERATOR_REPLACE_VIEW]]]';
-		$template = str_replace($token, $code, $template);
-		
-		//Replace add() function
-		$code = '';
-		foreach ($this->fields as $field) {
-			if ($field['type'] == 'date') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_date_value', date('Y-m-d'));\n";
-			}
-			if ($field['type'] == 'wysiwyg') {
-				if (!empty($field['default'])) {
-					$code .= "\t\t\$field_{$field['num']}_default_content = '" . $this->addslashes_single($field['default']) . "';\n";
-					$code .= "\t\t\$this->set('field_{$field['num']}_wysiwyg_content', \$field_{$field['num']}_default_content);\n";
-				}
-			}
-		}
-		if (!empty($code)) {
-			$code = "\tpublic function add() {\n\t\t//Set default values for new blocks\n" . $code . "\t}\n";
-		}
-		$token = '[[[GENERATOR_REPLACE_ADD]]]';
-		$template = str_replace($token, $code, $template);
-		
-		//Replace edit() function
-		$code = '';
-		foreach ($this->fields as $field) {
-			if ($field['type'] == 'image') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_image', (empty(\$this->field_{$field['num']}_image_fID) ? null : File::getByID(\$this->field_{$field['num']}_image_fID)));\n";
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_file', (empty(\$this->field_{$field['num']}_file_fID) ? null : File::getByID(\$this->field_{$field['num']}_file_fID)));\n";
-			}
-			if ($field['type'] == 'wysiwyg') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_wysiwyg_content', \$this->translateFromEditMode(\$this->field_{$field['num']}_wysiwyg_content));\n";
-			}
-		}
-		if (!empty($code)) {
-			$code = "\tpublic function edit() {\n" . $code . "\t}\n";
-		}
-		$token = '[[[GENERATOR_REPLACE_EDIT]]]';
-		$template = str_replace($token, $code, $template);
-		
-		//Replace save() function
-		$code = '';
-		foreach ($this->fields as $field) {
-			if ($field['type'] == 'image') {
-				$code .= "\t\t\$args['field_{$field['num']}_image_fID'] = empty(\$args['field_{$field['num']}_image_fID']) ? 0 : \$args['field_{$field['num']}_image_fID'];\n";
-				$code .= ($field['link'] == 1) ? "\t\t\$args['field_{$field['num']}_image_internalLinkCID'] = empty(\$args['field_{$field['num']}_image_internalLinkCID']) ? 0 : \$args['field_{$field['num']}_image_internalLinkCID'];\n" : '';
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t\$args['field_{$field['num']}_file_fID'] = empty(\$args['field_{$field['num']}_file_fID']) ? 0 : \$args['field_{$field['num']}_file_fID'];\n";
-			}
-			if ($field['type'] == 'link') {
-				$code .= "\t\t\$args['field_{$field['num']}_link_cID'] = empty(\$args['field_{$field['num']}_link_cID']) ? 0 : \$args['field_{$field['num']}_link_cID'];\n";
-			}
-			if ($field['type'] == 'date') {
-				$code .= "\t\t\$args['field_{$field['num']}_date_value'] = empty(\$args['field_{$field['num']}_date_value']) ? null : Loader::helper('form/date_time')->translate('field_{$field['num']}_date_value', \$args);\n";
-			}
-			if ($field['type'] == 'wysiwyg') {
-				$code .= "\t\t\$args['field_{$field['num']}_wysiwyg_content'] = \$this->translateTo(\$args['field_{$field['num']}_wysiwyg_content']);\n";
-			}
-		}
-		if (!empty($code)) {
-			$code = "\tpublic function save(\$args) {\n" . $code . "\t\tparent::save(\$args);\n\t}\n";
-		}
-		$token = '[[[GENERATOR_REPLACE_SAVE]]]';
-		$template = str_replace($token, $code, $template);
-		
+
 		//Output file
 		$this->output_file($this->outpath.$filename, $template);
 	}
