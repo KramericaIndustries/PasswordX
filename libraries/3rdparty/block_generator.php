@@ -411,6 +411,23 @@ class DesignerContentBlockGenerator {
 				$code .= "<?php } ?>\n\n";
 
 			}
+			
+			if ($field['type'] == 'password') {
+				$code .= "<?php  if (!empty(\$field_{$field['num']}_textbox_text)){ ?>\n";
+			
+				$code .= "<div class=\"credentials-fields\">\n";
+				$code .= "<label for=\"pass-block-password\" class=\"control-label\">Password:</label>\n";
+				$code .= "<span class=\"password_super_block\">\n";
+				$code .= "<span class=\"password_block_hash\">. </span>\n";
+				$code .= "<span class=\"password_block\">\n";
+				$code .= "<input name=\"pass-block-password\" type=\"text\" class=\"password_textbox\" value=\"<?php  echo htmlentities(\$field_{$field['num']}_textbox_text, ENT_QUOTES, APP_CHARSET); ?>\" readonly>\n";
+				$code .= "</span>\n";
+				$code .= "</span>\n";
+				$code .= "</div>\n";
+			
+				$code .= "<?php } ?>\n\n";
+			
+			}
 
 			if ($field['type'] == 'textarea') {
 				$code .= "<?php  if (!empty(\$field_{$field['num']}_textarea_text)){ ?>\n";
@@ -426,11 +443,16 @@ class DesignerContentBlockGenerator {
 
 
 			if ($field['type'] == 'wysiwyg') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_wysiwyg_content)): ?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$code .= "\t<?php  echo \$field_{$field['num']}_wysiwyg_content; ?>\n";
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
+				
+				$code .= "<?php  if (!empty(\$field_{$field['num']}_wysiwyg_content)){ ?>\n";
+				
+				$code .= "<div>\n";
+				$code .= "<span class=\"username-label\">{$field['label']}:</span><br/>\n";
+				$code .= "<span class=\"notes\"><?php  echo \$field_{$field['num']}_wysiwyg_content; ?></span>\n";
+				$code .= "</div>\n";
+				
+				$code .= "<?php  } ?>\n\n";
+
 			}
 			
 		}
