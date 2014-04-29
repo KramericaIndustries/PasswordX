@@ -401,108 +401,29 @@ class DesignerContentBlockGenerator {
 			}
 
 			if ($field['type'] == 'textbox') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_textbox_text)): ?>\n";
-				$code .= "\t";
-				$code .= empty($field['prefix']) ? '' : $field['prefix'];
-				$code .= "<?php  echo htmlentities(\$field_{$field['num']}_textbox_text, ENT_QUOTES, APP_CHARSET); ?>";
-				$code .= empty($field['suffix']) ? '' : $field['suffix'];
-				$code .= "\n";
-				$code .= "<?php  endif; ?>\n\n";
+				$code .= "<?php  if (!empty(\$field_{$field['num']}_textbox_text)){ ?>\n";
+				
+				$code .= "<div class=\"credentials-fields\">\n";
+				$code .= "<label for=\"pass-block-username\" class=\"control-label\">{$field['label']}:</label>\n";
+				$code .= "<input name=\"pass-block-username\" type=\"text\" class=\"pass-block-username\" value=\"<?php  echo htmlentities(\$field_{$field['num']}_textbox_text, ENT_QUOTES, APP_CHARSET); ?>\" readonly>\n";
+				$code .= "</div>";
+				
+				$code .= "<?php } ?>\n\n";
+
 			}
 
 			if ($field['type'] == 'textarea') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_textarea_text)): ?>\n";
-				$code .= "\t";
-				$code .= empty($field['prefix']) ? '' : $field['prefix'];
-				$code .= "<?php  echo nl2br(htmlentities(\$field_{$field['num']}_textarea_text, ENT_QUOTES, APP_CHARSET)); ?>";
-				$code .= empty($field['suffix']) ? '' : $field['suffix'];
-				$code .= "\n";
-				$code .= "<?php  endif; ?>\n\n";
+				$code .= "<?php  if (!empty(\$field_{$field['num']}_textarea_text)){ ?>\n";
+				
+				$code .= "<div>\n";
+				$code .= "<span class=\"username-label\">{$field['label']}:</span><br/>\n";
+				$code .= "<span class=\"notes\"><?php  echo nl2br(htmlentities(\$field_{$field['num']}_textarea_text, ENT_QUOTES, APP_CHARSET)); ?></span>\n";
+				$code .= "</div>\n"; 
+				
+				$code .= "<?php  } ?>\n\n";
+			
 			}
 
-			if ($field['type'] == 'image') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_image)): ?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$tmp_img_tag = "<img src=\"<?php  echo \$field_{$field['num']}_image->src; ?>\" width=\"<?php  echo \$field_{$field['num']}_image->width; ?>\" height=\"<?php  echo \$field_{$field['num']}_image->height; ?>\" alt=\"" . ($field['alt'] ? "<?php  echo \$field_{$field['num']}_image_altText; ?>" : '') . "\" />";
-				switch ($field['link']) {
-					case 1:
-						$code .= "\t";
-						$code .= "<?php  if (!empty(\$field_{$field['num']}_image_internalLinkCID)) { ?><a href=\"<?php  echo \$nh->getLinkToCollection(Page::getByID(\$field_{$field['num']}_image_internalLinkCID), true); ?>\"><?php  } ?>";
-						$include_navigation_helper = true;
-						$code .= $tmp_img_tag;
-						$code .= "<?php  if (!empty(\$field_{$field['num']}_image_internalLinkCID)) { ?></a><?php  } ?>";
-						$code .= "\n";
-						break;
-					case 2:
-						$code .= "\t";
-						$code .= "<?php  if (!empty(\$field_{$field['num']}_image_externalLinkURL)) { ?><a href=\"<?php  echo \$this->controller->valid_url(\$field_{$field['num']}_image_externalLinkURL); ?>\"" . ($field['target'] ? ' target="_blank"' : '') . "><?php  } ?>";
-						$code .= $tmp_img_tag;
-						$code .= "<?php  if (!empty(\$field_{$field['num']}_image_externalLinkURL)) { ?></a><?php  } ?>";
-						$code .= "\n";
-						break;
-					default:
-						$code .= "\t{$tmp_img_tag}\n";
-						break;
-				}
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'file') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_file)):\n";
-				$code .= "\t\$link_url = View::url('/download_file', \$field_{$field['num']}_file_fID, Page::getCurrentPage()->getCollectionID());\n";
-				$code .= "\t\$link_class = 'file-'.\$field_{$field['num']}_file->getExtension();\n";
-				$code .= "\t\$link_text = empty(\$field_{$field['num']}_file_linkText) ? \$field_{$field['num']}_file->getFileName() : htmlentities(\$field_{$field['num']}_file_linkText, ENT_QUOTES, APP_CHARSET);\n";
-				$code .= "\t?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$code .= "\t<a href=\"<?php  echo \$link_url; ?>\" class=\"<?php  echo \$link_class; ?>\"><?php  echo \$link_text; ?></a>\n";
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'link') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_link_cID)):\n";
-				$code .= "\t\$link_url = \$nh->getLinkToCollection(Page::getByID(\$field_{$field['num']}_link_cID), true);\n";
-				$include_navigation_helper = true;
-				$code .= "\t\$link_text = empty(\$field_{$field['num']}_link_text) ? \$link_url : htmlentities(\$field_{$field['num']}_link_text, ENT_QUOTES, APP_CHARSET);\n";
-				$code .= "\t?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$code .= "\t<a href=\"<?php  echo \$link_url; ?>\"><?php  echo \$link_text; ?></a>\n";
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'url') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_link_url)):\n";
-				$code .= "\t\$link_url = \$this->controller->valid_url(\$field_{$field['num']}_link_url);\n";
-				$code .= "\t\$link_text = empty(\$field_{$field['num']}_link_text) ? \$field_{$field['num']}_link_url : htmlentities(\$field_{$field['num']}_link_text, ENT_QUOTES, APP_CHARSET);\n";
-				$code .= "\t?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$code .= "\t<a href=\"<?php  echo \$link_url; ?>\"" . ($field['target'] ? ' target="_blank"' : '') . "><?php  echo \$link_text; ?></a>\n";
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'date') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_date_value)): ?>\n";
-				$code .= "\t";
-				$code .= empty($field['prefix']) ? '' : $field['prefix'];
-				$code .= "<?php  echo date('{$field['format']}', strtotime(\$field_{$field['num']}_date_value)); ?>";
-				$code .= empty($field['suffix']) ? '' : $field['suffix'];
-				$code .= "\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'select') {
-				$i = 1;
-				foreach ($field['options'] as $option) {
-					$code .= "<?php  if (\$field_{$field['num']}_select_value == {$i}): ?>\n";
-					$translated_comment = t('ENTER MARKUP HERE FOR FIELD "%s" : CHOICE "%s"', $field['label'], $option);
-					$code .= "\t<!-- {$translated_comment} -->\n";
-					$code .= "<?php  endif; ?>\n\n";
-					$i++;
-				}
-			}
 
 			if ($field['type'] == 'wysiwyg') {
 				$code .= "<?php  if (!empty(\$field_{$field['num']}_wysiwyg_content)): ?>\n";
