@@ -365,33 +365,11 @@ class DesignerContentBlockGenerator {
 			if ($field['type'] == 'textbox') {
 				$code .= "\t\t<field name=\"field_{$field['num']}_textbox_text\" type=\"X\"></field>\n\n";
 			}
+			if ($field['type'] == 'password') {
+				$code .= "\t\t<field name=\"field_{$field['num']}_textbox_text\" type=\"X\"></field>\n\n";
+			}
 			if ($field['type'] == 'textarea') {
 				$code .= "\t\t<field name=\"field_{$field['num']}_textarea_text\" type=\"X\"></field>\n\n";
-			}
-			if ($field['type'] == 'image') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_image_fID\" type=\"I\"></field>\n";
-				$code .= ($field['link'] == 1) ? "\t\t<field name=\"field_{$field['num']}_image_internalLinkCID\" type=\"I\"></field>\n" : '';
-				$code .= ($field['link'] == 2) ? "\t\t<field name=\"field_{$field['num']}_image_externalLinkURL\" type=\"C\" size=\"255\"></field>\n" : '';
-				$code .= $field['alt'] ? "\t\t<field name=\"field_{$field['num']}_image_altText\" type=\"C\" size=\"255\"></field>\n" : '';
-				$code .= "\n";
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_file_fID\" type=\"I\"></field>\n";
-				$code .= "\t\t<field name=\"field_{$field['num']}_file_linkText\" type=\"C\" size=\"255\"></field>\n\n";
-			}
-			if ($field['type'] == 'link') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_link_cID\" type=\"I\"></field>\n";
-				$code .= "\t\t<field name=\"field_{$field['num']}_link_text\" type=\"C\" size=\"255\"></field>\n\n";
-			}
-			if ($field['type'] == 'url') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_link_url\" type=\"C\" size=\"255\"></field>\n";
-				$code .= "\t\t<field name=\"field_{$field['num']}_link_text\" type=\"C\" size=\"255\"></field>\n\n";
-			}
-			if ($field['type'] == 'date') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_date_value\" type=\"D\"></field>\n\n";
-			}
-			if ($field['type'] == 'select') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_select_value\" type=\"I\"><default value=\"0\" /></field>\n\n";
 			}
 			if ($field['type'] == 'wysiwyg') {
 				$code .= "\t\t<field name=\"field_{$field['num']}_wysiwyg_content\" type=\"X2\"></field>\n\n";
