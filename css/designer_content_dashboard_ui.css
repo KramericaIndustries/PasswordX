@@ -186,6 +186,14 @@ input#name {
 }
 #designer-content-submit {
 	text-align: center;
+	
+	border-bottom-right-radius: 4px!important;
+	-webkit-bottom-right-radius: 4px!important;
+	-moz-bottom-right-radius: 4px!important;
+	
+	border-top-right-radius: 4px!important;
+	-webkit-top-right-radius: 4px!important;
+	-moz-top-right-radius: 4px!important;
 }
 
 #designer-content-credits {

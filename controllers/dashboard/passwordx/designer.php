@@ -20,7 +20,7 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 		$this->addHeaderItem($html->css('designer_content_dashboard_ui.css', 'designer_content'));
 		
 		$th = Loader::helper('concrete/urls'); 
-		$this->set('validate_handle_url', $th->getToolsURL('validate_handle', 'designer_content'));
+		$this->set('validate_handle_url', $th->getToolsURL('validate_handle'));
 		
 		$generated_handle = $this->get('generated');
 		$generated_name = $this->block_name_for_handle($generated_handle);
@@ -56,14 +56,21 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 			die(t("Error: Block Handle is already in use by another package or block type (or block files already exist in the \"blocks\" directory of your site)!"));
 		}
 		
+		
+		
 		//Gather all field data
 		$field_ids = $this->post('fieldIds'); //The order of id's in this array reflects the user's chosen output order of the fields.
 		$field_types = $this->post('fieldTypes');
 		$field_labels = $this->post('fieldLabels');
+		
+		$fields_required = $this->post('fieldsRequired');
+		$fields_searchable = $this->post('fieldsSearchable');
+		$fields_exportable = $this->post('fieldsExportable');
+		
 		$field_prefixes = $this->post('fieldPrefixes');
 		$field_suffixes = $this->post('fieldSuffixes');
 		$field_static_html = $this->post('fieldStaticHtml');
-		$fields_required = $this->post('fieldsRequired');
+		
 		$fields_textbox_maxlengths = $this->post('fieldTextboxMaxlengths');
 		$field_image_links = $this->post('fieldImageLinks');
 		$field_image_link_targets = $this->post('fieldImageLinkTargets');
@@ -78,36 +85,62 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 		$field_select_header_texts = $this->post('fieldSelectHeaderTexts');
 		$field_default_contents = $this->post('fieldDefaultContents');
 		
+		
+		
 		//Set up the code generator
-		Loader::library('block_generator', 'designer_content');
+		Loader::library('3rdparty/block_generator');
 		$block = new DesignerContentBlockGenerator();
+		
 		if (defined('DESIGNER_CONTENT_FILE_CHMOD')) {
 			$block->set_chmod(DESIGNER_CONTENT_FILE_CHMOD);
 		}
+		
+		
 		foreach ($field_ids as $id) {
 			$type = $field_types[$id];
-			if ($type == 'static') {
-				$block->add_static_field($field_static_html[$id]);
-			} else if ($type == 'textbox') {
-				$block->add_textbox_field($field_labels[$id], $field_prefixes[$id], $field_suffixes[$id], !empty($fields_required[$id]), $fields_textbox_maxlengths[$id]);
-			} else if ($type == 'textarea') {
-				$block->add_textarea_field($field_labels[$id], $field_prefixes[$id], $field_suffixes[$id], !empty($fields_required[$id]));
-		    } else if ($type == 'image') {
-				$block->add_image_field($field_labels[$id], $field_prefixes[$id], $field_suffixes[$id], !empty($fields_required[$id]), $field_image_links[$id], $field_image_link_targets[$id], $field_image_show_alt_texts[$id], $field_image_sizings[$id], $field_image_widths[$id], $field_image_heights[$id]);
-			} else if ($type == 'file') {
-				$block->add_file_field($field_labels[$id], $field_prefixes[$id], $field_suffixes[$id], !empty($fields_required[$id]));
-			} else if ($type == 'link') {
-				$block->add_link_field($field_labels[$id], $field_prefixes[$id], $field_suffixes[$id], !empty($fields_required[$id]));
-			} else if ($type == 'url') {
-				$block->add_url_field($field_labels[$id], $field_prefixes[$id], $field_suffixes[$id], !empty($fields_required[$id]), $field_url_targets[$id]);
-			} else if ($type == 'date') {
-				$block->add_date_field($field_labels[$id], $field_prefixes[$id], $field_suffixes[$id], !empty($fields_required[$id]), $field_date_formats[$id]);
-			} else if ($type == 'select') {
-				$block->add_select_field($field_labels[$id], $field_select_options[$id], !empty($fields_required[$id]), $field_select_show_headers[$id], $field_select_header_texts[$id]);
-			} else if ($type == 'wysiwyg') {
-				$block->add_wysiwyg_field($field_labels[$id], $field_prefixes[$id], $field_suffixes[$id], $field_default_contents[$id]);
+			
+			switch( $type ) {
+				case 'textbox':
+					$block->add_textbox_field( 
+						$field_labels[$id], 
+						!empty($fields_required[$id]),
+						!empty($fields_searchable[$id]),
+						!empty($fields_exportable[$id])
+					);
+					break;
+				
+				case 'textarea':
+					$block->add_textarea_field( 
+						$field_labels[$id], 
+						!empty($fields_required[$id]),
+						!empty($fields_searchable[$id]),
+						!empty($fields_exportable[$id])
+					);
+					break;
+				
+				case 'password':
+					$block->add_password_field( 
+						$field_labels[$id], 
+						!empty($fields_required[$id]),
+						!empty($fields_searchable[$id]),
+						!empty($fields_exportable[$id])
+					);
+					break;
+				
+				case 'wysiwyg':
+					$block->add_wysiwyg_field( 
+						$field_labels[$id], 
+						!empty($fields_required[$id]),
+						!empty($fields_searchable[$id]),
+						!empty($fields_exportable[$id])
+					);
+					break;
 			}
+			
 		}
+		
+		echo "<pre>";
+		print_r($block);
 		
 		//Make+install block
 		$block->generate($handle, $name, $description);
@@ -115,12 +148,12 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 		BlockType::installBlockType($handle);
 		
 		//Redirect back to view page so browser refresh doesn't trigger a re-generation
-		header('Location: ' . View::url("/dashboard/blocks/designer_content/?generated={$handle}"));
+		header('Location: ' . View::url("/dashboard/passwordx/designer/?generated={$handle}"));
 		exit;
 	}
 	
 	private function drop_existing_table($handle) {
-		Loader::library('block_generator', 'designer_content');
+		Loader::library('3rdparty/block_generator');
 		$table_name = DesignerContentBlockGenerator::tablename($handle);
 		Loader::db()->Execute("DROP TABLE IF EXISTS {$table_name}"); //cannot use parameterized query here (it surrounds the table name in quotes which is a MySQL error)
 	}
@@ -138,7 +171,7 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 	}
 	
 	public function validate_unique_tablename_for_handle($handle) {
-		Loader::library('block_generator', 'designer_content');
+		Loader::library('3rdparty/block_generator');
 		$tables = Loader::db()->MetaTables('TABLES');
 		$table_name = DesignerContentBlockGenerator::tablename($handle);
 		$table_exists = in_array($table_name, $tables);
