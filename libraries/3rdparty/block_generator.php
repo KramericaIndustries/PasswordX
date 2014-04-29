@@ -120,8 +120,18 @@ class DesignerContentBlockGenerator {
 		
 		//Replace validation rules
 		$code = '';
+		
+		$needsPasswordJS = false;
+				
 		foreach ($this->fields as $field) {
+				
 			$field_label = $this->addslashes_single($field['label']);
+			
+			if ($field['type'] == 'password') {
+				$needsPasswordJS = true;
+			}
+			
+			/*
 			if ($field['type'] == 'textbox' && $field['required']) {
 				$code .= "\tif (\$('#field_{$field['num']}_textbox_text').val() == '') {\n";
 				$translated_error = $this->addslashes_single( t('Missing required text') );
@@ -184,12 +194,22 @@ class DesignerContentBlockGenerator {
 				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
 				$code .= "\t}\n\n";
 			}
+			*/
 		}
 		$token = '[[[GENERATOR_REPLACE_VALIDATIONRULES]]]';
 		$template = str_replace($token, $code, $template);
 		
+		//add js speficic to password
+		$passwd_code = '';
+		if($needsPasswordJS) {
+			$passwd_code = '$(function(){$(".sugest_pass").click(function(){$("#"+$(this).data("target")).val(sanePassword());return false});$(".clear_view").mousedown(function(){$("#miror_"+$(this).data("target")).val($("#"+$(this).data("target")).val());$("#"+$(this).data("target")).css("display","none");$("#miror_"+$(this).data("target")).css("display","inline");return false});$(".clear_view").mouseup(function(){$("#"+$(this).data("target")).css("display","inline");$("#miror_"+$(this).data("target")).css("display","none");return false});$(".clear_view").click(function(){return false})})';	
+		}
+		
+		$token = '[[[GENERATIR_PASSWORD_JS]]]';
+		$template = str_replace($token, $passwd_code, $template);
+		
 		//Output file (if we have anything to put in it)
-		if (!empty($code)) {
+		if ( !empty($code) || !empty($passwd_code) ) {
 			$this->output_file($this->outpath.$filename, $template);
 		}
 	}
@@ -456,19 +476,24 @@ class DesignerContentBlockGenerator {
 					$input_code .= "\t<textarea class=\"form-control\" placeholder=\"{$field['label']}...\" id=\"field_{$field['num']}_textarea_text\" name=\"field_{$field['num']}_textarea_text\" rows=\"5\"><?php  echo \$field_{$field['num']}_textarea_text; ?></textarea>\n";
 					break;
 				
-				/*				
+								
 				case 'password':
 					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
-					$input_code .= "\t\t\t<?php  echo \$form->text('field_{$field['num']}_textbox_text', \$field_{$field['num']}_textbox_text, array('style' => 'width: 95%;'" . ($field['maxlength'] > 0 ? ", 'maxlength' => '{$field['maxlength']}'" : '') . ")); ?>\n";
+					
+					$input_code .= "\t\t\t<?php  echo \$form->password('field_{$field['num']}_textbox_text', \$field_{$field['num']}_textbox_text, array('style' => 'width: 45%; display: inline;' , 'placeholder' => '{$field['label']}...', 'class'=>'form-control', 'autocomplete' => 'off' )); ?>\n";
+					$input_code .= "\t\t\t<input id=\"miror_field_{$field['num']}_textbox_text\" type=\"text\" class=\"form-control\" style=\"width: 45%; display: none;\" value=\"\" />\n";
+					$input_code .= "\t\t\t<button class=\"btn btn-primary sugest_pass\" data-target=\"field_{$field['num']}_textbox_text\"> Suggest a password</button>\n";
+					$input_code .= "\t\t\t<button class=\"btn btn-danger clear_view\" data-target=\"field_{$field['num']}_textbox_text\"> Clearview the password</button>\n";
 					break;
+					 
 					
 				case 'wysiwyg':
-					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
+					$label_code = "\t<label class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
 					$include_editor_config = true; 
-					$input_code .= "\t<?php  Loader::element('editor_controls'); ?>\n";
-					$input_code .= "\t<textarea id=\"field_{$field['num']}_wysiwyg_content\" name=\"field_{$field['num']}_wysiwyg_content\" class=\"ccm-advanced-editor\"><?php  echo \$field_{$field['num']}_wysiwyg_content; ?></textarea>\n";
+					$input_code .= "\t\t\t<?php  Loader::element('editor_controls'); ?>\n";
+					$input_code .= "\t\t\t<textarea id=\"field_{$field['num']}_wysiwyg_content\" name=\"field_{$field['num']}_wysiwyg_content\" class=\"ccm-advanced-editor\"><?php  echo \$field_{$field['num']}_wysiwyg_content; ?></textarea>\n";
 					break;
-				*/				
+							
 			}
 			
 			//prefix wrapper
@@ -480,7 +505,7 @@ class DesignerContentBlockGenerator {
 			
 			//suffix wrapper
     		$code .= "\t\t</div>\n";
-			$code .= "\t</div>\n";
+			$code .= "</div>\n";
 			
 			
 			/*
