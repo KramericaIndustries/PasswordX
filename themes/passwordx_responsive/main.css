@@ -318,13 +318,34 @@ ul.nav-path-selected {
 }
 
 /*
-* UPDATE 2
+* UPDATE 2 > ?
 */
 .selectedSearch {
 	font-style: italic;
 	text-decoration: underline!important;
 	color: #ccc!important;
 }
+
+/**
+* Default welcome content, just images for now
+*/
+
+#def_content_add_page {
+ background-image: url(img/def_content_add_page.jpg);
+ width: 248px;
+ height: 108px;
+}
+#def_content_add_ppage {
+ background-image: url(img/def_content_add_ppage.jpg);
+ width: 248px;
+ height: 174px;
+}
+#def_content_add_passwords {
+ background-image: url(img/def_content_add_passwords.jpg);
+ width: 248px;
+ height: 174px;
+}
+
 
 /**
 * Dashboard overrides for frontend only
@@ -403,3 +424,5 @@ div#ccm-toolbar {
  border-bottom: none;
  background: #fff;
 }
+
+

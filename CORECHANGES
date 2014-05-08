@@ -1,4 +1,8 @@
-Here I am going to details changes made to the core of the C5.
+/**
+ * List of changes to the C5 core - will be duplicated for each new official core upgrade
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
 
 1. version
 /concrete/config/version.php is modified to display the version of the Password, instead of the Concrete5

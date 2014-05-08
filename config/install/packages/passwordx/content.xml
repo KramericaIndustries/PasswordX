@@ -29,24 +29,24 @@
 						<record>
 							<content><![CDATA[<p>Welcome to PasswordX! Follow these instructions to get started:</p>
 <p> </p>
-<ul>
+<ol>
 <li>
-<p><strong>Organize your passwords by categories<br /></strong>Create container pages  by clicking</p>
+<p><strong>Organize your passwords by categories<br /></strong>Create container pages by clicking on Add new page in the sidebar</p>
+<div id="def_content_add_page" class="thumbnail"> </div>
 </li>
 <li>
 <p><strong>Add password pages below categories<br /></strong>Add a new password page below any container page</p>
+<div id="def_content_add_ppage" class="thumbnail"> </div>
 </li>
 <li>
 <p><strong>Place the page in Edit mode and add Passwords</strong></p>
+<div id="def_content_add_passwords" class="thumbnail"> </div>
 </li>
 <li>
-<p><strong><strong>Create your own password blocks<br /></strong></strong>Don't like the default password blocks? Go to the Dashboard and Design your own Password Blocks<strong><br /> </strong></p>
+<p><strong><strong>Create your own password blocks<br /></strong></strong>Don't like the default password blocks? Go to the Dashboard and <a href="/index.php/dashboard/passwordx/designer/">Design your own Password Blocks</a><strong><br /> </strong></p>
 </li>
-</ul>
-<div> </div>
-<div> </div>
-<p> </p>
-<p> </p>
+</ol>
+<div></div>
 <p class="small" style="text-align: center;"><strong><span class="label label-info">Tip</span> You can remove this welcome message or replace it with your own content by editing this page.</strong></p>]]></content>
 						</record>
 					</data>
@@ -58,13 +58,21 @@
     <!-- Single Pages -->
     <singlepages>
 
+		<page name="Design your own Password Blocks" path="/dashboard/passwordx/designer/" filename="/dashboard/passwordx/designer/view.php" pagetype="" description="" package="">
+			<attributes>
+				<attributekey handle="icon_dashboard">
+					<value><![CDATA[icon-th]]></value>
+				</attributekey>
+			</attributes>
+		</page>
+		
 		<page name="Two Factor Configuration" path="/dashboard/passwordx/two_factor_configuration" filename="/dashboard/passwordx/two_factor_configuration.php" pagetype="" description="" package="">
 			<attributes>
 				<attributekey handle="icon_dashboard">
 					<value><![CDATA[icon-cog]]></value>
 				</attributekey>
 			</attributes>
-		</page>
+		</page>		
 		
 		<page name="Administration" path="/dashboard/passwordx/administration" filename="/dashboard/passwordx/administration.php" pagetype="" description="" package="" />
 		

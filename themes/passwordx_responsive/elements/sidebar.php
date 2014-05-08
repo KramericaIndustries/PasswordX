@@ -180,6 +180,7 @@
 			
 			<a id="menu-toggle" href="javascript:void(0);" class="btn btn-default"><i class="glyphicon glyphicon-list"></i></a>
 			
+			<?php if ($c->getCollectionId() !== "1") { //cID=1 is always home, make sure this isn't. ?>
 			<div id="touch-tools" class="btn-group btn-group-sm">
 			 <button type="button" class="btn btn-default rename-item" data-name="<?php echo $c->getCollectionName(); ?>" data-cid="<?php echo $c->getCollectionId(); ?>"><i class="glyphicon glyphicon-pencil"></i> Rename</button>
 			 <button type="button" class="btn btn-default delete-item" data-name="<?php echo $c->getCollectionName(); ?>" data-cid="<?php echo $c->getCollectionId(); ?>"><i class="glyphicon glyphicon-remove"></i> Delete</button>
@@ -187,3 +188,4 @@
 			 <button type="button" class="btn btn-default add-item" data-parent-cid="<?php echo $c->getCollectionId(); ?>" ><i class="glyphicon glyphicon-plus-sign"></i> Add below</button>
 			 <?php } ?>
 			</div>
+			<?php } ?>
