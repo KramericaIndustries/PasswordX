@@ -23,42 +23,42 @@ class DesignerContentBlockGenerator {
 		}
 	}
 	
-	public function add_textbox_field($label, $required = false, $searchable = false, $editable = false) {
+	public function add_textbox_field($label, $encrypted = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'textbox',
 			'label' => $label,
 			'prefix' => '',
 			'suffix' => '',
-			'required' => $required,
+			'encrypted' => $encrypted,
 			'searchable' => $searchable,
 			'editable' => $editable,
 			'maxlength' => 0
 		);
 	}
 	
-	public function add_textarea_field($label, $required = false, $searchable = false, $editable = false) {
+	public function add_textarea_field($label, $encrypted = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'textarea',
 			'label' => $label,
 			'prefix' => '',
 			'suffix' => '',
-			'required' => $required,
+			'encrypted' => $encrypted,
 			'searchable' => $searchable,
 			'editable' => $editable,
 			'maxlength' => 0
 		);
 	}
 
-	public function add_wysiwyg_field($label, $required = false, $searchable = false, $editable = false) {
+	public function add_wysiwyg_field($label, $encrypted = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'wysiwyg',
 			'label' => $label,
 			'prefix' => '',
 			'suffix' => '',
-			'required' => $required,
+			'encrypted' => $encrypted,
 			'searchable' => $searchable,
 			'editable' => $editable,
 			'maxlength' => 0,
@@ -66,14 +66,14 @@ class DesignerContentBlockGenerator {
 		);
 	}
 	
-	public function add_password_field($label, $required = false, $searchable = false, $editable = false) {
+	public function add_password_field($label, $encrypted = false, $searchable = false, $editable = false) {
 		$this->fields[] = array(
 			'num' => count($this->fields) + 1,
 			'type' => 'password',
 			'label' => $label,
 			'prefix' => '',
 			'suffix' => '',
-			'required' => $required,
+			'encrypted' => $encrypted,
 			'searchable' => $searchable,
 			'editable' => $editable,
 			'maxlength' => 0
@@ -120,15 +120,33 @@ class DesignerContentBlockGenerator {
 		
 		//Replace validation rules
 		$code = '';
+		
+		$needsPasswordJS = false;
+				
 		foreach ($this->fields as $field) {
+				
 			$field_label = $this->addslashes_single($field['label']);
-			if ($field['type'] == 'textbox' && $field['required']) {
+			
+			if ($field['type'] == 'password') {
+				$needsPasswordJS = true;
+			}
+			
+			/*
+			//we are not doing required for now
+			if ( $field['type'] == 'textbox' && $field['required']) {
 				$code .= "\tif (\$('#field_{$field['num']}_textbox_text').val() == '') {\n";
 				$translated_error = $this->addslashes_single( t('Missing required text') );
 				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
 				$code .= "\t}\n\n";
 			}
 			
+			if ( $field['type'] == 'password' && $field['required']) {
+				$code .= "\tif (\$('#field_{$field['num']}_textbox_text').val() == '') {\n";
+				$translated_error = $this->addslashes_single( t('Missing required text') );
+				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
+				$code .= "\t}\n\n";
+			}
+				
 			if ($field['type'] == 'textarea' && $field['required']) {
 				$code .= "\tif (\$('#field_{$field['num']}_textarea_text').val() == '') {\n";
 				$translated_error = $this->addslashes_single( t('Missing required text') );
@@ -136,60 +154,22 @@ class DesignerContentBlockGenerator {
 				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
 				$code .= "\t}\n\n";
 			}
-			
-			if ($field['type'] == 'image' && $field['required']) {
-				$code .= "\tif (\$('#field_{$field['num']}_image_fID-fm-value').val() == '' || \$('#field_{$field['num']}_image_fID-fm-value').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required image') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'file' && $field['required']) {
-				$code .= "\tif (\$('#field_{$field['num']}_file_fID-fm-value').val() == '' || \$('#field_{$field['num']}_file_fID-fm-value').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required file') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'link' && $field['required']) {
-				$code .= "\tif (\$('input[name=field_{$field['num']}_link_cID]').val() == '' || \$('input[name=field_{$field['num']}_link_cID]').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required link') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'url' && $field['required']) {
-				$code .= "\tif (\$('input[name=field_{$field['num']}_link_url]').val() == '') {\n";
-				$translated_error = $this->addslashes_single( t('Missing required URL') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'date' && $field['required']) {
-				$code .= "\tif (\$('input[name=field_{$field['num']}_date_value]').val() == '' || \$('input[name=field_{$field['num']}_date_value]').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required date') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ($field['type'] == 'select' && $field['required']) {
-				$code .= "\tif (\$('select[name=field_{$field['num']}_select_value]').val() == '' || \$('select[name=field_{$field['num']}_select_value]').val() == 0) {\n";
-				$translated_error = $this->addslashes_single( t('Missing required selection') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
+			*/
 		}
 		$token = '[[[GENERATOR_REPLACE_VALIDATIONRULES]]]';
 		$template = str_replace($token, $code, $template);
 		
+		//add js speficic to password
+		$passwd_code = '';
+		if($needsPasswordJS) {
+			$passwd_code = '$(function(){$(".sugest_pass").click(function(){$("#"+$(this).data("target")).val(sanePassword());return false});$(".clear_view").mousedown(function(){$("#miror_"+$(this).data("target")).val($("#"+$(this).data("target")).val());$("#"+$(this).data("target")).css("display","none");$("#miror_"+$(this).data("target")).css("display","inline");return false});$(".clear_view").mouseup(function(){$("#"+$(this).data("target")).css("display","inline");$("#miror_"+$(this).data("target")).css("display","none");return false});$(".clear_view").click(function(){return false})})';	
+		}
+		
+		$token = '[[[GENERATIR_PASSWORD_JS]]]';
+		$template = str_replace($token, $passwd_code, $template);
+		
 		//Output file (if we have anything to put in it)
-		if (!empty($code)) {
+		if ( !empty($code) || !empty($passwd_code) ) {
 			$this->output_file($this->outpath.$filename, $template);
 		}
 	}
@@ -199,43 +179,8 @@ class DesignerContentBlockGenerator {
 		//Load template
 		$template = file_get_contents($this->tplpath.$filename);
 		
-		//Replace sub-templates (do this first so tokens inside the subtemplates get replaced properly later on)
-			//Image helper function
-			$include_helper = false;
-			foreach ($this->fields as $field) {
-				if ($field['type'] == 'image') {
-					$include_helper = true;
-					break;
-				}
-			}
-			$code = $include_helper ? file_get_contents($this->tplpath.'controller_image_helper.php') : '';
-			$token = '[[[GENERATOR_REPLACE_IMAGEHELPER]]]';
-			$template = str_replace($token, $code, $template);
-
-			//URL helper function
-			$include_helper = false;
-			foreach ($this->fields as $field) {
-				if ($field['type'] == 'url' || ($field['type'] == 'image' && $field['link'] == 2)) {
-					$include_helper = true;
-					break;
-				}
-			}
-			$code = $include_helper ? file_get_contents($this->tplpath.'controller_url_helper.php') : '';
-			$token = '[[[GENERATOR_REPLACE_URLHELPER]]]';
-			$template = str_replace($token, $code, $template);
-		
-			//WYSIWYG content helper
-			$include_helper = false;
-			foreach ($this->fields as $field) {
-				if ($field['type'] == 'wysiwyg') {
-					$include_helper = true;
-					break;
-				}
-			}
-			$code = $include_helper ? file_get_contents($this->tplpath.'controller_content_helper.php') : '';
-			$token = '[[[GENERATOR_REPLACE_CONTENTHELPER]]]';
-			$template = str_replace($token, $code, $template);
-		//END sub-template replacement
+		//this mambo jumbo approach does not make it for me
+		//lets rewrite it, in a more elegant way
 		
 		//Replace class properties
 		$template = str_replace('[[[GENERATOR_REPLACE_CLASSNAME]]]', $this->controllername($this->handle), $template);
@@ -243,129 +188,83 @@ class DesignerContentBlockGenerator {
 		$template = str_replace('[[[GENERATOR_REPLACE_NAME]]]', $this->addslashes_single($this->name), $template);
 		$template = str_replace('[[[GENERATOR_REPLACE_DESCRIPTION]]]', $this->addslashes_single($this->description), $template);
 		
-		//Replace getSearchableContent() function
-		$code = '';
-		$fieldcount = 0;
+		$include_helper = array(
+			'wysiwyg'	=> false
+		);
+		
+		$name_suffix = array(
+			'textbox' => 'textbox_text',
+			'password' => 'textbox_text',
+			'textarea' => 'textarea_text',
+			'wysiwyg' => 'wysiwyg_content',
+		);
+		
+		$encr_fields = array();
+		$all_fields = array();
+		
+		$searchable_code = '';
+		$searchable_fields = 0;
+		
 		foreach ($this->fields as $field) {
-			if ($field['type'] == 'textbox') {
-				$code .= "\t\t\$content[] = \$this->field_{$field['num']}_textbox_text;\n";
-				$fieldcount++;
-			}
-			if ($field['type'] == 'textarea') {
-				$code .= "\t\t\$content[] = \$this->field_{$field['num']}_textarea_text;\n";
-				$fieldcount++;
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t\$content[] = \$this->field_{$field['num']}_file_linkText;\n";
-				$fieldcount++;
-			}
-			if ($field['type'] == 'date') {
-				$code .= "\t\t\$content[] = date('{$field['format']}', \$this->field_{$field['num']}_date_value);\n";
-				$fieldcount++;
-			}
+			
+			$thisSufix = $name_suffix[ $field['type'] ];
+			
 			if ($field['type'] == 'wysiwyg') {
-				$code .= "\t\t\$content[] = \$this->field_{$field['num']}_wysiwyg_content;\n";
-				$fieldcount++;
+				$include_helper['wysiwyg'] = true;
 			}
-			//Intentionally leaving out image alt text and link text (doesn't make sense for those to come up in search results)
+			
+			//push it to the all fields list
+			$all_fields[] = "'field_{$field['num']}_{$thisSufix}'";
+			
+			//should this field be encrypted
+			if($field['encrypted']) {
+				$encr_fields[] = "'field_{$field['num']}_{$thisSufix}'";
+			}
+			
+			//is the field searchable?
+			if($field['searchable']) {
+				$searchable_code .= "\t\t\$content[] = \$this->field_{$field['num']}_{$thisSufix};\n";
+				$searchable_fields++;
+			}
 		}
-		if ($fieldcount == 1) {
-			$code = str_replace('$content[] =', 'return', $code);
+		
+		//now that we gathered all the needed data, lets build the controller
+		
+		//subtemplates
+		$code = $include_helper['wysiwyg']  ? file_get_contents($this->tplpath.'controller_content_helper.php') : '';
+		$token = '[[[GENERATOR_REPLACE_CONTENTHELPER]]]';
+		$template = str_replace($token, $code, $template);
+		
+		//all fields
+		$code = "\tprotected \$all_fields = array(";
+		$code .= implode(',',$all_fields);
+		$code .= ");\n";
+		
+		$token = '[[[GENERATOR_REPLACE_ALL_FIELDS]]]';
+		$template = str_replace($token, $code, $template);
+		
+		//encrypted fields
+		$code = "\tprotected \$encrypted_fields = array(";
+		if( !empty($encr_fields) ) {
+			 $code .= implode(',',$encr_fields);
+		}
+		$code .= ");\n";
+		
+		$token = '[[[GENERATOR_REPLACE_ENCRYPTED_FIELDS]]]';
+		$template = str_replace($token, $code, $template);
+		
+		//searchable fields
+		$code = '';
+		if ($searchable_fields == 1) {
+			$code = str_replace('$content[] =', 'return', $searchable_code);
 			$code = "\tpublic function getSearchableContent() {\n" . $code . "\t}\n";
-		} else if ($fieldcount > 1) {
-			$code = "\t\t\$content = array();\n" . $code . "\t\treturn implode(' - ', \$content);\n";
+		} else if ($searchable_fields > 1) {
+			$code = "\t\t\$content = array();\n" . $searchable_code . "\t\treturn implode(' - ', \$content);\n";
 			$code = "\tpublic function getSearchableContent() {\n" . $code . "\t}\n";
 		}
 		$token = '[[[GENERATOR_REPLACE_GETSEARCHABLECONTENT]]]';
 		$template = str_replace($token, $code, $template);
-		
-		//Replace view() function
-		$code = '';
-		$include_image_helper = false;
-		foreach ($this->fields as $field) {
-			if ($field['type'] == 'image') {
-				$width = ($field['sizing'] > 0 && !empty($field['width'])) ? $field['width'] : 0;
-				$height = ($field['sizing'] > 0 && !empty($field['height'])) ? $field['height'] : 0;
-				$crop = ($field['sizing'] == 2) ? 'true' : 'false';
-				$code .= "\t\t\$this->set('field_{$field['num']}_image', (empty(\$this->field_{$field['num']}_image_fID) ? null : \$this->get_image_object(\$this->field_{$field['num']}_image_fID, {$width}, {$height}, {$crop})));\n";
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_file', (empty(\$this->field_{$field['num']}_file_fID) ? null : File::getByID(\$this->field_{$field['num']}_file_fID)));\n";
-			}
-			if ($field['type'] == 'wysiwyg') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_wysiwyg_content', \$this->translateFrom(\$this->field_{$field['num']}_wysiwyg_content));\n";
-			}
-		}
-		if (!empty($code)) {
-			$code = "\tpublic function view() {\n" . $code . "\t}\n";
-		}
-		$token = '[[[GENERATOR_REPLACE_VIEW]]]';
-		$template = str_replace($token, $code, $template);
-		
-		//Replace add() function
-		$code = '';
-		foreach ($this->fields as $field) {
-			if ($field['type'] == 'date') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_date_value', date('Y-m-d'));\n";
-			}
-			if ($field['type'] == 'wysiwyg') {
-				if (!empty($field['default'])) {
-					$code .= "\t\t\$field_{$field['num']}_default_content = '" . $this->addslashes_single($field['default']) . "';\n";
-					$code .= "\t\t\$this->set('field_{$field['num']}_wysiwyg_content', \$field_{$field['num']}_default_content);\n";
-				}
-			}
-		}
-		if (!empty($code)) {
-			$code = "\tpublic function add() {\n\t\t//Set default values for new blocks\n" . $code . "\t}\n";
-		}
-		$token = '[[[GENERATOR_REPLACE_ADD]]]';
-		$template = str_replace($token, $code, $template);
-		
-		//Replace edit() function
-		$code = '';
-		foreach ($this->fields as $field) {
-			if ($field['type'] == 'image') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_image', (empty(\$this->field_{$field['num']}_image_fID) ? null : File::getByID(\$this->field_{$field['num']}_image_fID)));\n";
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_file', (empty(\$this->field_{$field['num']}_file_fID) ? null : File::getByID(\$this->field_{$field['num']}_file_fID)));\n";
-			}
-			if ($field['type'] == 'wysiwyg') {
-				$code .= "\t\t\$this->set('field_{$field['num']}_wysiwyg_content', \$this->translateFromEditMode(\$this->field_{$field['num']}_wysiwyg_content));\n";
-			}
-		}
-		if (!empty($code)) {
-			$code = "\tpublic function edit() {\n" . $code . "\t}\n";
-		}
-		$token = '[[[GENERATOR_REPLACE_EDIT]]]';
-		$template = str_replace($token, $code, $template);
-		
-		//Replace save() function
-		$code = '';
-		foreach ($this->fields as $field) {
-			if ($field['type'] == 'image') {
-				$code .= "\t\t\$args['field_{$field['num']}_image_fID'] = empty(\$args['field_{$field['num']}_image_fID']) ? 0 : \$args['field_{$field['num']}_image_fID'];\n";
-				$code .= ($field['link'] == 1) ? "\t\t\$args['field_{$field['num']}_image_internalLinkCID'] = empty(\$args['field_{$field['num']}_image_internalLinkCID']) ? 0 : \$args['field_{$field['num']}_image_internalLinkCID'];\n" : '';
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t\$args['field_{$field['num']}_file_fID'] = empty(\$args['field_{$field['num']}_file_fID']) ? 0 : \$args['field_{$field['num']}_file_fID'];\n";
-			}
-			if ($field['type'] == 'link') {
-				$code .= "\t\t\$args['field_{$field['num']}_link_cID'] = empty(\$args['field_{$field['num']}_link_cID']) ? 0 : \$args['field_{$field['num']}_link_cID'];\n";
-			}
-			if ($field['type'] == 'date') {
-				$code .= "\t\t\$args['field_{$field['num']}_date_value'] = empty(\$args['field_{$field['num']}_date_value']) ? null : Loader::helper('form/date_time')->translate('field_{$field['num']}_date_value', \$args);\n";
-			}
-			if ($field['type'] == 'wysiwyg') {
-				$code .= "\t\t\$args['field_{$field['num']}_wysiwyg_content'] = \$this->translateTo(\$args['field_{$field['num']}_wysiwyg_content']);\n";
-			}
-		}
-		if (!empty($code)) {
-			$code = "\tpublic function save(\$args) {\n" . $code . "\t\tparent::save(\$args);\n\t}\n";
-		}
-		$token = '[[[GENERATOR_REPLACE_SAVE]]]';
-		$template = str_replace($token, $code, $template);
-		
+
 		//Output file
 		$this->output_file($this->outpath.$filename, $template);
 	}
@@ -385,33 +284,11 @@ class DesignerContentBlockGenerator {
 			if ($field['type'] == 'textbox') {
 				$code .= "\t\t<field name=\"field_{$field['num']}_textbox_text\" type=\"X\"></field>\n\n";
 			}
+			if ($field['type'] == 'password') {
+				$code .= "\t\t<field name=\"field_{$field['num']}_textbox_text\" type=\"X\"></field>\n\n";
+			}
 			if ($field['type'] == 'textarea') {
 				$code .= "\t\t<field name=\"field_{$field['num']}_textarea_text\" type=\"X\"></field>\n\n";
-			}
-			if ($field['type'] == 'image') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_image_fID\" type=\"I\"></field>\n";
-				$code .= ($field['link'] == 1) ? "\t\t<field name=\"field_{$field['num']}_image_internalLinkCID\" type=\"I\"></field>\n" : '';
-				$code .= ($field['link'] == 2) ? "\t\t<field name=\"field_{$field['num']}_image_externalLinkURL\" type=\"C\" size=\"255\"></field>\n" : '';
-				$code .= $field['alt'] ? "\t\t<field name=\"field_{$field['num']}_image_altText\" type=\"C\" size=\"255\"></field>\n" : '';
-				$code .= "\n";
-			}
-			if ($field['type'] == 'file') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_file_fID\" type=\"I\"></field>\n";
-				$code .= "\t\t<field name=\"field_{$field['num']}_file_linkText\" type=\"C\" size=\"255\"></field>\n\n";
-			}
-			if ($field['type'] == 'link') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_link_cID\" type=\"I\"></field>\n";
-				$code .= "\t\t<field name=\"field_{$field['num']}_link_text\" type=\"C\" size=\"255\"></field>\n\n";
-			}
-			if ($field['type'] == 'url') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_link_url\" type=\"C\" size=\"255\"></field>\n";
-				$code .= "\t\t<field name=\"field_{$field['num']}_link_text\" type=\"C\" size=\"255\"></field>\n\n";
-			}
-			if ($field['type'] == 'date') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_date_value\" type=\"D\"></field>\n\n";
-			}
-			if ($field['type'] == 'select') {
-				$code .= "\t\t<field name=\"field_{$field['num']}_select_value\" type=\"I\"><default value=\"0\" /></field>\n\n";
 			}
 			if ($field['type'] == 'wysiwyg') {
 				$code .= "\t\t<field name=\"field_{$field['num']}_wysiwyg_content\" type=\"X2\"></field>\n\n";
@@ -456,19 +333,24 @@ class DesignerContentBlockGenerator {
 					$input_code .= "\t<textarea class=\"form-control\" placeholder=\"{$field['label']}...\" id=\"field_{$field['num']}_textarea_text\" name=\"field_{$field['num']}_textarea_text\" rows=\"5\"><?php  echo \$field_{$field['num']}_textarea_text; ?></textarea>\n";
 					break;
 				
-				/*				
+								
 				case 'password':
 					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
-					$input_code .= "\t\t\t<?php  echo \$form->text('field_{$field['num']}_textbox_text', \$field_{$field['num']}_textbox_text, array('style' => 'width: 95%;'" . ($field['maxlength'] > 0 ? ", 'maxlength' => '{$field['maxlength']}'" : '') . ")); ?>\n";
+					
+					$input_code .= "\t\t\t<?php  echo \$form->password('field_{$field['num']}_textbox_text', \$field_{$field['num']}_textbox_text, array('style' => 'width: 45%; display: inline;' , 'placeholder' => '{$field['label']}...', 'class'=>'form-control', 'autocomplete' => 'off' )); ?>\n";
+					$input_code .= "\t\t\t<input id=\"miror_field_{$field['num']}_textbox_text\" type=\"text\" class=\"form-control\" style=\"width: 45%; display: none;\" value=\"\" />\n";
+					$input_code .= "\t\t\t<button class=\"btn btn-primary sugest_pass\" data-target=\"field_{$field['num']}_textbox_text\"> Suggest a password</button>\n";
+					$input_code .= "\t\t\t<button class=\"btn btn-danger clear_view\" data-target=\"field_{$field['num']}_textbox_text\"> Clearview the password</button>\n";
 					break;
+					 
 					
 				case 'wysiwyg':
-					$label_code = "\t<label for=\"field_{$field['num']}_textbox_text\" class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
+					$label_code = "\t<label class=\"col-lg-2 control-label\">{$field['label']}</label>\n";
 					$include_editor_config = true; 
-					$input_code .= "\t<?php  Loader::element('editor_controls'); ?>\n";
-					$input_code .= "\t<textarea id=\"field_{$field['num']}_wysiwyg_content\" name=\"field_{$field['num']}_wysiwyg_content\" class=\"ccm-advanced-editor\"><?php  echo \$field_{$field['num']}_wysiwyg_content; ?></textarea>\n";
+					$input_code .= "\t\t\t<?php  Loader::element('editor_controls'); ?>\n";
+					$input_code .= "\t\t\t<textarea id=\"field_{$field['num']}_wysiwyg_content\" name=\"field_{$field['num']}_wysiwyg_content\" class=\"ccm-advanced-editor\"><?php  echo \$field_{$field['num']}_wysiwyg_content; ?></textarea>\n";
 					break;
-				*/				
+							
 			}
 			
 			//prefix wrapper
@@ -480,34 +362,8 @@ class DesignerContentBlockGenerator {
 			
 			//suffix wrapper
     		$code .= "\t\t</div>\n";
-			$code .= "\t</div>\n";
-			
-			
-			/*
-			if ($field['type'] == 'textbox') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				
-				$code .= "</div>\n\n";
-			}
+			$code .= "</div>\n";
 
-			if ($field['type'] == 'textarea') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$code .= "\t<textarea id=\"field_{$field['num']}_textarea_text\" name=\"field_{$field['num']}_textarea_text\" rows=\"5\" style=\"width: 95%;\"><?php  echo \$field_{$field['num']}_textarea_text; ?></textarea>\n";
-				$code .= "</div>\n\n";
-			}
-			
-			
-			if ($field['type'] == 'wysiwyg') {
-				$code .= "<div class=\"ccm-block-field-group\">\n";
-				$code .= "\t<h2>{$field['label']}</h2>\n";
-				$code .= "\t<?php  Loader::element('editor_controls'); ?>\n";
-				$code .= "\t<textarea id=\"field_{$field['num']}_wysiwyg_content\" name=\"field_{$field['num']}_wysiwyg_content\" class=\"ccm-advanced-editor\"><?php  echo \$field_{$field['num']}_wysiwyg_content; ?></textarea>\n";
-				$code .= "</div>\n\n";
-				$include_editor_config = true;
-			}
-			 */
 		}
 		
 		$token = '[[[GENERATOR_REPLACE_FIELDS]]]';
@@ -515,9 +371,6 @@ class DesignerContentBlockGenerator {
 	
 		//Replace helpers (if needed)
 		$code = '';
-		$code .= $include_asset_library ? "\$al = Loader::helper('concrete/asset_library');\n" : '';
-		$code .= $include_page_selector ? "\$ps = Loader::helper('form/page_selector');\n" : '';
-		$code .= $include_date_time ? "\$dt = Loader::helper('form/date_time');\n" : '';
 		$code .= $include_editor_config ? "Loader::element('editor_config');\n" : '';
 		$token = '[[[GENERATOR_REPLACE_HELPERLOADERS]]]';
 		$template = str_replace($token, $code, $template);
@@ -548,115 +401,58 @@ class DesignerContentBlockGenerator {
 			}
 
 			if ($field['type'] == 'textbox') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_textbox_text)): ?>\n";
-				$code .= "\t";
-				$code .= empty($field['prefix']) ? '' : $field['prefix'];
-				$code .= "<?php  echo htmlentities(\$field_{$field['num']}_textbox_text, ENT_QUOTES, APP_CHARSET); ?>";
-				$code .= empty($field['suffix']) ? '' : $field['suffix'];
-				$code .= "\n";
-				$code .= "<?php  endif; ?>\n\n";
+				$code .= "<?php  if (!empty(\$field_{$field['num']}_textbox_text)){ ?>\n";
+				
+				$code .= "<div class=\"credentials-fields\">\n";
+				$code .= "<label for=\"pass-block-username\" class=\"control-label\">{$field['label']}:</label>\n";
+				$code .= "<input name=\"pass-block-username\" type=\"text\" class=\"pass-block-username\" value=\"<?php  echo htmlentities(\$field_{$field['num']}_textbox_text, ENT_QUOTES, APP_CHARSET); ?>\" readonly>\n";
+				$code .= "</div>";
+				
+				$code .= "<?php } ?>\n\n";
+
+			}
+			
+			if ($field['type'] == 'password') {
+				$code .= "<?php  if (!empty(\$field_{$field['num']}_textbox_text)){ ?>\n";
+			
+				$code .= "<div class=\"credentials-fields\">\n";
+				$code .= "<label for=\"pass-block-password\" class=\"control-label\">Password:</label>\n";
+				$code .= "<span class=\"password_super_block\">\n";
+				$code .= "<span class=\"password_block_hash\">. </span>\n";
+				$code .= "<span class=\"password_block\">\n";
+				$code .= "<input name=\"pass-block-password\" type=\"text\" class=\"password_textbox\" value=\"<?php  echo htmlentities(\$field_{$field['num']}_textbox_text, ENT_QUOTES, APP_CHARSET); ?>\" readonly>\n";
+				$code .= "</span>\n";
+				$code .= "</span>\n";
+				$code .= "</div>\n";
+			
+				$code .= "<?php } ?>\n\n";
+			
 			}
 
 			if ($field['type'] == 'textarea') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_textarea_text)): ?>\n";
-				$code .= "\t";
-				$code .= empty($field['prefix']) ? '' : $field['prefix'];
-				$code .= "<?php  echo nl2br(htmlentities(\$field_{$field['num']}_textarea_text, ENT_QUOTES, APP_CHARSET)); ?>";
-				$code .= empty($field['suffix']) ? '' : $field['suffix'];
-				$code .= "\n";
-				$code .= "<?php  endif; ?>\n\n";
+				$code .= "<?php  if (!empty(\$field_{$field['num']}_textarea_text)){ ?>\n";
+				
+				$code .= "<div>\n";
+				$code .= "<span class=\"username-label\">{$field['label']}:</span><br/>\n";
+				$code .= "<span class=\"notes\"><?php  echo nl2br(htmlentities(\$field_{$field['num']}_textarea_text, ENT_QUOTES, APP_CHARSET)); ?></span>\n";
+				$code .= "</div>\n"; 
+				
+				$code .= "<?php  } ?>\n\n";
+			
 			}
 
-			if ($field['type'] == 'image') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_image)): ?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$tmp_img_tag = "<img src=\"<?php  echo \$field_{$field['num']}_image->src; ?>\" width=\"<?php  echo \$field_{$field['num']}_image->width; ?>\" height=\"<?php  echo \$field_{$field['num']}_image->height; ?>\" alt=\"" . ($field['alt'] ? "<?php  echo \$field_{$field['num']}_image_altText; ?>" : '') . "\" />";
-				switch ($field['link']) {
-					case 1:
-						$code .= "\t";
-						$code .= "<?php  if (!empty(\$field_{$field['num']}_image_internalLinkCID)) { ?><a href=\"<?php  echo \$nh->getLinkToCollection(Page::getByID(\$field_{$field['num']}_image_internalLinkCID), true); ?>\"><?php  } ?>";
-						$include_navigation_helper = true;
-						$code .= $tmp_img_tag;
-						$code .= "<?php  if (!empty(\$field_{$field['num']}_image_internalLinkCID)) { ?></a><?php  } ?>";
-						$code .= "\n";
-						break;
-					case 2:
-						$code .= "\t";
-						$code .= "<?php  if (!empty(\$field_{$field['num']}_image_externalLinkURL)) { ?><a href=\"<?php  echo \$this->controller->valid_url(\$field_{$field['num']}_image_externalLinkURL); ?>\"" . ($field['target'] ? ' target="_blank"' : '') . "><?php  } ?>";
-						$code .= $tmp_img_tag;
-						$code .= "<?php  if (!empty(\$field_{$field['num']}_image_externalLinkURL)) { ?></a><?php  } ?>";
-						$code .= "\n";
-						break;
-					default:
-						$code .= "\t{$tmp_img_tag}\n";
-						break;
-				}
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'file') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_file)):\n";
-				$code .= "\t\$link_url = View::url('/download_file', \$field_{$field['num']}_file_fID, Page::getCurrentPage()->getCollectionID());\n";
-				$code .= "\t\$link_class = 'file-'.\$field_{$field['num']}_file->getExtension();\n";
-				$code .= "\t\$link_text = empty(\$field_{$field['num']}_file_linkText) ? \$field_{$field['num']}_file->getFileName() : htmlentities(\$field_{$field['num']}_file_linkText, ENT_QUOTES, APP_CHARSET);\n";
-				$code .= "\t?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$code .= "\t<a href=\"<?php  echo \$link_url; ?>\" class=\"<?php  echo \$link_class; ?>\"><?php  echo \$link_text; ?></a>\n";
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'link') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_link_cID)):\n";
-				$code .= "\t\$link_url = \$nh->getLinkToCollection(Page::getByID(\$field_{$field['num']}_link_cID), true);\n";
-				$include_navigation_helper = true;
-				$code .= "\t\$link_text = empty(\$field_{$field['num']}_link_text) ? \$link_url : htmlentities(\$field_{$field['num']}_link_text, ENT_QUOTES, APP_CHARSET);\n";
-				$code .= "\t?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$code .= "\t<a href=\"<?php  echo \$link_url; ?>\"><?php  echo \$link_text; ?></a>\n";
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'url') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_link_url)):\n";
-				$code .= "\t\$link_url = \$this->controller->valid_url(\$field_{$field['num']}_link_url);\n";
-				$code .= "\t\$link_text = empty(\$field_{$field['num']}_link_text) ? \$field_{$field['num']}_link_url : htmlentities(\$field_{$field['num']}_link_text, ENT_QUOTES, APP_CHARSET);\n";
-				$code .= "\t?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$code .= "\t<a href=\"<?php  echo \$link_url; ?>\"" . ($field['target'] ? ' target="_blank"' : '') . "><?php  echo \$link_text; ?></a>\n";
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'date') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_date_value)): ?>\n";
-				$code .= "\t";
-				$code .= empty($field['prefix']) ? '' : $field['prefix'];
-				$code .= "<?php  echo date('{$field['format']}', strtotime(\$field_{$field['num']}_date_value)); ?>";
-				$code .= empty($field['suffix']) ? '' : $field['suffix'];
-				$code .= "\n";
-				$code .= "<?php  endif; ?>\n\n";
-			}
-			
-			if ($field['type'] == 'select') {
-				$i = 1;
-				foreach ($field['options'] as $option) {
-					$code .= "<?php  if (\$field_{$field['num']}_select_value == {$i}): ?>\n";
-					$translated_comment = t('ENTER MARKUP HERE FOR FIELD "%s" : CHOICE "%s"', $field['label'], $option);
-					$code .= "\t<!-- {$translated_comment} -->\n";
-					$code .= "<?php  endif; ?>\n\n";
-					$i++;
-				}
-			}
 
 			if ($field['type'] == 'wysiwyg') {
-				$code .= "<?php  if (!empty(\$field_{$field['num']}_wysiwyg_content)): ?>\n";
-				$code .= empty($field['prefix']) ? '' : "\t{$field['prefix']}\n";
-				$code .= "\t<?php  echo \$field_{$field['num']}_wysiwyg_content; ?>\n";
-				$code .= empty($field['suffix']) ? '' : "\t{$field['suffix']}\n";
-				$code .= "<?php  endif; ?>\n\n";
+				
+				$code .= "<?php  if (!empty(\$field_{$field['num']}_wysiwyg_content)){ ?>\n";
+				
+				$code .= "<div>\n";
+				$code .= "<span class=\"username-label\">{$field['label']}:</span><br/>\n";
+				$code .= "<span class=\"notes\"><?php  echo \$field_{$field['num']}_wysiwyg_content; ?></span>\n";
+				$code .= "</div>\n";
+				
+				$code .= "<?php  } ?>\n\n";
+
 			}
 			
 		}

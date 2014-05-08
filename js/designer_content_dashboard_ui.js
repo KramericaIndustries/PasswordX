@@ -77,6 +77,14 @@ $(document).ready(function() {
 	
 });
 
+/*
+ * If the field order has been updated, 
+ * makeit so in the 
+ */
+function update_fields_order() {
+	
+}
+
 function update_addfield_links() {
 	$("#add-field-types").html($("#add-field-types-template").tmpl());
 }
