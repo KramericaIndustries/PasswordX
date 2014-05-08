@@ -234,7 +234,7 @@ $(function(){
 	/* Handle button click in modal */
 	$('#delete_item').click(function() {
 	
-	 if ($("#confirm_delete").val() !== "DELETE") {
+	 if ($("#confirm_delete").val().toLowerCase() !== "delete") {
 	  alert("You must type the word DELETE to confirm deletion.");
 	  return false;
 	 }

@@ -26,9 +26,15 @@ $page = Page::getCurrentPage();
 				
 				<?php
 					if($a->getTotalBlocksInArea() == 0 ) {
+					if ($c->isEditMode()) {
+				?>	
+				<p><span class="label label-info">Info</span> Now you can click on the dashed area above and select Add Block from the dropdown menu. When finished click on the &quot;Editing&quot; button and then &quot;Publish My Edits&quot;.</p>	
+				<?php	
+					} else {
 				?>
 				<p><span class="label label-info">Info</span> Add new information by putting the page in Edit mode and adding one of the blocks available.</p>
 				<?php
+					}
 						
 					} else { 
 				?>

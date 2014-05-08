@@ -166,6 +166,7 @@
 				} else if( $new_version ) {
 				?>
 					<div class="alert alert-info">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="margin-top: -13px; margin-right: -7px;">&times;</button>
 					 <i class="icon-bullhorn"></i> <strong>A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>)</strong> <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
 					</div>
 				<?php 					
@@ -178,3 +179,11 @@
 			<div class="page-content inset">
 			
 			<a id="menu-toggle" href="javascript:void(0);" class="btn btn-default"><i class="glyphicon glyphicon-list"></i></a>
+			
+			<div id="touch-tools" class="btn-group btn-group-sm">
+			 <button type="button" class="btn btn-default rename-item" data-name="<?php echo $c->getCollectionName(); ?>" data-cid="<?php echo $c->getCollectionId(); ?>"><i class="glyphicon glyphicon-pencil"></i> Rename</button>
+			 <button type="button" class="btn btn-default delete-item" data-name="<?php echo $c->getCollectionName(); ?>" data-cid="<?php echo $c->getCollectionId(); ?>"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+			 <?php if ($c->getCollectionTypeHandle() == "container") { ?>
+			 <button type="button" class="btn btn-default add-item" data-parent-cid="<?php echo $c->getCollectionId(); ?>" ><i class="glyphicon glyphicon-plus-sign"></i> Add below</button>
+			 <?php } ?>
+			</div>

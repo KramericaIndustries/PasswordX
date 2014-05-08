@@ -161,15 +161,26 @@
  color: #428bca;
 }
 
-@media (min-width: 1200px) {
  .actions-icon {
 	display: none;
  }
-}
+
+@media (min-width: 1200px) {
 .sidebar-item:hover > .actions-icon {
  display: inline-block;
 } 
+}
 
+/* "backup" toolbar for touch devices */
+#touch-tools {
+ display: none;
+ float: right;
+}
+@media (max-width: 1200px) {
+#touch-tools {
+ display: block;
+}
+}
 
 ul.nav-dropdown {
 	display: none;
@@ -321,7 +332,7 @@ ul.nav-path-selected {
 
 div#ccm-edit-overlay {
  max-width: 580px !important;
- width: auto;
+ width: 90%;
   border-top: 1px solid #888;
  top: 49px;
 }
@@ -330,6 +341,45 @@ div.ccm-block-arrange, div.ccm-block {
  border: 2px dotted #009900;
 }
 
+#ccm-check-in-comments {
+ width: 100% !important; 
+}
+
+@media (max-width: 465px) {
+
+#ccm-check-in-publish {
+ float: none !important;
+ display: block;
+ margin-top: 10px;
+}
+#ccm-check-in-preview {
+ float: none !important;
+ display: block;
+ margin-top: 10px;
+}
+#ccm-check-in-discard {
+ float: none !important;
+ display: block;
+ margin-top: 10px;
+}
+div.ccm-edit-overlay-actions {
+ margin: 0 0 0 0 !important;
+ padding-bottom: 10px !important;
+}
+
+}
+
+/* Add/edit dialog stuff */
+.ui-dialog {
+ max-width: 800px !important;
+}
+
+/* Hiding items that dont work well on touch  - TODO: subclass by feature detection instead of screen dimensions!*/
+@media (max-width: 1200px) {
+.ccm-icon-move-menu {
+ display: none !important;
+}
+}
 
 /**
 * Dashboard overrides which are the same for front and backend - duplicated for backend dashboard in /css/passwordx.css
