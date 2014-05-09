@@ -44,7 +44,7 @@ We hope that our peers will contribute with their attention and time
 and that they will try to break the system to our mutual benefit.
 ```
 
-We rely in part on the integrity of the core system, Concrete5. Concrete5 has been actively open sourced for more than 6 years and has fairly well vetted security mechanisms. We have tried to harden the core wherever we knew there might be potential risks, and have taken care to try and design a solid way of handling encryption. /linkedy Read more about our approach here /linkedy
+We rely in part on the integrity of the core system, Concrete5. Concrete5 has been actively open sourced for more than 6 years and has fairly well vetted security mechanisms. We have tried to harden the core wherever we knew there might be potential risks, and have taken care to try and design a solid way of handling encryption. [[Read more about our approach here|https://github.com/KramericaIndustries/PasswordX/wiki/Passwords-&-Encryption]]
 
 
 ```
