@@ -15,7 +15,7 @@ A web accessible password manager that doesn't suck
 
 ```
 PasswordX is designed for a LAMP stack but works on Windows webservers running IIS 
-and PHP as well. Check out our System Requirements page for more detailed information.
+and PHP as well. Check out the INSTALL.md file or our GitHub Wiki for more detailed information.
 ```
 
 * Optional long lived sessions mean that you don't have to log in to the damned thing every day on your work machine
