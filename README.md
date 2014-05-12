@@ -13,8 +13,9 @@ A web accessible password manager that doesn't suck
 ## Installation Instructions
 
 1. Create a new MySQL database and a MySQL user account with the following privileges on that database: INSERT, SELECT, UPDATE, DELETE, CREATE, DROP, ALTER
-1. Visit your site in your web browser. You should see an installation screen where you can specify your settings.
-1. PasswordX 5 should be installed.
+2. Unzip files to a web accessible location
+3. Visit your site in your web browser. You should see an installation screen where you can specify your settings.
+4. PasswordX 5 should be installed.
 
 # PasswordX and security
 
