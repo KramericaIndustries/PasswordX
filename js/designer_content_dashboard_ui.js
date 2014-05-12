@@ -15,7 +15,7 @@ $(function() {
 		handle_name = handle_name.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '_');
 		
 		
-		$("#handle").val( handle_name );
+		$("#handle").val( "encrypted_"+handle_name );
 	});
 	
 });

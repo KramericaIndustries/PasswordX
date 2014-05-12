@@ -63,7 +63,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 		  
 		  <!-- Block Description -->
 		  <div class="control-group">
-		    <label class="control-label" for="inputPassword"><?php echo t('Block Handle')?></label>
+		    <label class="control-label" for="inputPassword"><?php echo t('Description')?></label>
 		    <div class="controls">
 		      <textarea rows="3" name="description" id="description" placeholder="<?php  echo t('Block Description (optional)'); ?>"></textarea>
 		    </div>

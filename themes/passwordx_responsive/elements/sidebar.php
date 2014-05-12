@@ -171,8 +171,15 @@
 					</div>
 				<?php 					
 				} else { 
+				?>
+					<div class="alert alert-info">
+					 <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="margin-top: -13px; margin-right: -7px;">&times;</button>
+				<?php
 					$nsa->easter_egg();
-				} ?> 
+				?>
+					</div>				
+				<?php } ?> 
+					
 				</small>
 			</div>
 			

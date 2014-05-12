@@ -178,12 +178,22 @@ $(function() {
 	</div>
 	
 	
+	<?php
+	 //PasswordX
+	
+	?>
+	<h3>Encrypted Blocks</h3>
+	
 	<ul id="ccm-block-type-list">
 	<?php if (count($blockTypes) > 0) { 
+	
+		$has_unencrypted = false;
 		foreach($blockTypes as $bt) { 
 			if (!$ap->canAddBlock($bt)) {
 				continue;
 			}
+			
+			 if (stristr($bt->btHandle,"encrypted") !== FALSE) {
 			$btIcon = $ci->getBlockTypeIconURL($bt);
 			?>	
 			<li class="ccm-block-type ccm-block-type-available">
@@ -197,13 +207,43 @@ $(function() {
 				<div class="ccm-block-type-description"  id="ccm-bt-help<?php echo $bt->getBlockTypeID()?>"><?php echo t($bt->getBlockTypeDescription())?></div>
 			</li>
 			<?php
+			 } else {
+			  $has_unencrypted = true;
+			 }
+			 
+			 }
+			?>
 			
-			/* ?>	
-			<div class="ccm-block-type-grid-entry">
-				<a class="dialog-launch ccm-block-type-inner" dialog-modal="false" dialog-width="<?=$bt->getBlockTypeInterfaceWidth()?>" dialog-height="<?=$bt->getBlockTypeInterfaceHeight()?>" style="background-image: url(<?=$btIcon?>)" dialog-title="<?=tc('%s is a block type name', 'Add %s', t($bt->getBlockTypeName()))?>" href="<?=REL_DIR_FILES_TOOLS_REQUIRED?>/add_block_popup.php?cID=<?=$c->getCollectionID()?>&btID=<?=$bt->getBlockTypeID()?>&arHandle=<?=$a->getAreaHandle()?>"><?=t($bt->getBlockTypeName())?></a>
-			</div> <? */ ?>
+		<?php			
+		 if ($has_unencrypted) {
+		 
+		 ?>
+		  <h3>Regular (unencrypted) Content Blocks</h3>
+		 <?php
+		foreach($blockTypes as $bt) { 
+			if (!$ap->canAddBlock($bt)) {
+				continue;
+			}
 			
-		<?php }
+			 if (stristr($bt->btHandle,"encrypted") === FALSE) {
+			$btIcon = $ci->getBlockTypeIconURL($bt);
+			?>	
+			<li class="ccm-block-type ccm-block-type-available">
+				<?php if (!$bt->hasAddTemplate()) { ?>
+					<a style="background-image: url(<?php echo $btIcon?>)" href="javascript:void(0)" onclick="ccmBlockTypeResetKeys(); jQuery.fn.dialog.showLoader(); $.get('<?php echo $bt->getBlockAddAction($a)?>&processBlock=1&add=1', function(r) { ccm_parseBlockResponse(r, false, 'add'); })" class="ccm-block-type-inner"><?php echo t($bt->getBlockTypeName())?></a>
+				<?php } else {
+					 //PasswordX: modified dialog-width here to be a fixed percentage
+				?>
+					<a onclick="ccmBlockTypeResetKeys()" dialog-on-destroy="ccmBlockTypeMapKeys()" class="dialog-launch ccm-block-type-inner" dialog-on-close="ccm_blockWindowAfterClose()" dialog-append-buttons="true" dialog-modal="false" dialog-width="85%" dialog-height="<?php echo $bt->getBlockTypeInterfaceHeight()+20?>" style="background-image: url(<?php echo $btIcon?>)" dialog-title="<?php echo tc('%s is a block type name', 'Add %s', t($bt->getBlockTypeName()))?>" href="<?php echo REL_DIR_FILES_TOOLS_REQUIRED?>/add_block_popup.php?cID=<?php echo $c->getCollectionID()?>&btID=<?php echo $bt->getBlockTypeID()?>&arHandle=<?php echo urlencode($a->getAreaHandle())?>"><?php echo t($bt->getBlockTypeName())?></a>
+				<?php } ?>
+				<div class="ccm-block-type-description"  id="ccm-bt-help<?php echo $bt->getBlockTypeID()?>"><?php echo t($bt->getBlockTypeDescription())?></div>
+			</li>
+			<?php
+			 }
+			 }
+		 }
+			
+		
 	} else { ?>
 		<p><?php echo t('No block types can be added to this area.')?></p>
 	<?php } ?>

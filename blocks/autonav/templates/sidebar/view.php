@@ -138,7 +138,7 @@ foreach ($navItems as $ni) {
 
 /* Add to top level link */
 ?>
-<li class="new-item"><a class="add-item" data-parent-cid="1" href="javascript:void(0)"><span class="glyphicon glyphicon-plus-sign"></span> Add new page</a></li>
+<li class="new-item"><a class="add-item" data-parent-cid="1" href="javascript:void(0)"><span class="glyphicon glyphicon-plus-sign"></span> Add new top-level page</a></li>
 <?php
 echo '</ul>'; //closes the top-level menu
 ?>
