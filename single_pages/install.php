@@ -191,20 +191,21 @@ $(function() {
 
 	<input type="hidden" name="locale" value="<?php echo $locale?>" />
 	
-	<!--
+	
 	<fieldset>
 		<legend style="margin-bottom: 0px"><?php echo t('Site Information')?></legend>
 		<div class="control-group">
 		<label for="SITE" class="control-label"><?php echo t('Name Your Site')?>:</label>
 		<div class="controls">
-			<?php echo $form->text('SITE', array('class' => 'xlarge', 'value'=>'PasswordX'))?>
+			<?php echo $form->text('SITE', 'PasswordX', array('class' => 'xlarge', 'placeholder'=>'Your site name'))?>
 		</div>
 		</div>
 			
 	</fieldset>
-	-->
 	
+	<!--
 	<input id="SITE" type="hidden" name="SITE" value="PasswordX" class="xlarge ccm-input-text">
+	-->
 	
 	<fieldset>
 		<legend style="margin-bottom: 0px"><?php echo t('Administrator Information')?></legend>
@@ -380,7 +381,7 @@ $(function() {
 	</div>
 	
 	<div id="google_config_options" class="2fa_config_options" style="display: none;">
-		<img src="<?php echo $qr_url ?>" />
+		<img id="qr_img_view" src="<?php echo $qr_url ?>" />
 		<h4><?php echo $ga_secret ?></h4>
 		<?php echo $form->hidden('GA_SECRET',$ga_secret); ?>
 	</div>
@@ -439,6 +440,20 @@ $(function() {
     }
  
   });
+
+
+	//update the google qr code
+	$("#SITE").change(function(){
+		
+		var new_url = "https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=otpauth%3A%2F%2Ftotp%2F";
+		
+		new_url = new_url + encodeURI( $(this).val() ) + "%3Fsecret%3D" + $("#GA_SECRET").val();
+		
+		$("#qr_img_view").attr( 'src', new_url );
+		
+		//console.log(new_url);
+		
+	});
 
 });
 
