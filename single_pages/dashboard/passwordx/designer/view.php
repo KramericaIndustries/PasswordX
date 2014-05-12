@@ -6,7 +6,7 @@ function s2nb($text) {
 
 echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('PasswordX Designer'), false, 'span12', false);
 ?>
-<div class="ccm-pane-body">
+<div class="ccm-pane-body" style="padding-bottom: 0px">
 
 	<?php 
 	//Success message display
