@@ -145,12 +145,37 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 		//Make+install block
 		$block->generate($handle, $name, $description);
 		$this->drop_existing_table($handle);
+		
 		BlockType::installBlockType($handle);
+		
+		$this->bubbleUp( $handle );
 		
 		//Redirect back to view page so browser refresh doesn't trigger a re-generation
 		header('Location: ' . View::url("/dashboard/passwordx/designer/?generated={$handle}"));
 		exit;
 	}
+
+	/**
+	 * Moves the block up in the display order, after the last encrypted block type
+	 */
+	private function bubbleUp( $handle ){
+
+		//INIT DB
+		$db = Loader::db();
+		
+		//figure out the position for the element
+		$q="SELECT btID FROM BlockTypes where btHandle LIKE 'encrypted_%'";
+		$block_position = $db->Execute($q)->RecordCount();
+		
+		//and set it up
+		$q="UPDATE BlockTypes SET btDisplayOrder=? WHERE btHandle=?";
+		$db->Execute($q, array( $block_position, $handle ));
+		
+		//finally, move the rest down
+		$q="UPDATE BlockTypes SET btDisplayOrder= btDisplayOrder + 1 WHERE btHandle NOT LIKE 'encrypted_%' AND btHandle NOT LIKE 'core_%' AND btHandle NOT LIKE 'dashboard_%'";
+		$db->Execute($q);
+		
+	} 
 	
 	private function drop_existing_table($handle) {
 		Loader::library('3rdparty/block_generator');

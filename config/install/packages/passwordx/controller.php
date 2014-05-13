@@ -289,16 +289,18 @@ class PasswordxStartingPointPackage extends StartingPointPackage {
 
 		$db = Loader::db();
 
-		//bubble up our blocks to the top
+		//Due to the way C5 isntallk block, we will need to manually order them
+		//In order to get our encrytpted blocks to the top
 		$q="UPDATE BlockTypes SET btDisplayOrder=? WHERE btHandle=?";
 		
-		//bubble_up
-		$db->Execute($q, array(1,'encrypted_generic_pass'));
-		$db->Execute($q, array(1,'encrypted_vhost'));
-		$db->Execute($q, array(1,'encrypted_content'));
+		$block_order = array( 'encrypted_generic_pass','encrypted_vhost','encrypted_content',
+				  		'content', 'file', 'form', 'html', 'image', 'search', 'video', 'youtube', 'google_map', 'autonav' );
 		
-		//push down
-		$db->Execute($q, array(2,'content'));
+		$block_order_size = count($block_order);
+		
+		for( $i=0; $i<$block_order_size; $i++ ) {
+			$db->Execute($q, array( ($i+1), $block_order[$i] ));
+		}
 		
 		parent::finish(); //let concrete finish the install
 	}
