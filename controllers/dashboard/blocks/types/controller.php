@@ -48,6 +48,11 @@ class DashboardBlocksTypesController extends Concrete5_Controller_Dashboard_Bloc
 						$this->rrmdir( $block_location );	
 					}
 				}
+				
+				//and drop the database
+				Loader::library('3rdparty/block_generator');
+				$table_name = DesignerContentBlockGenerator::tablename($handle);
+				Loader::db()->Execute("DROP TABLE IF EXISTS {$table_name}");
 						
 				$this->redirect('/dashboard/blocks/types', 'block_type_deleted');
 			
