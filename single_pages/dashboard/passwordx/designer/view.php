@@ -1,10 +1,15 @@
 <?php  defined('C5_EXECUTE') or die(_("Access Denied."));
+/**
+ * Block designer - inspired by Designer Content: http://www.concrete5.org/marketplace/addons/designer-content/
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
 
 function s2nb($text) {
 	return str_replace(' ', '&nbsp;', $text);
 }
 
-echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('PasswordX Designer'), false, 'span12', false);
+echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Design your own Password Blocks'), false, 'span12', false);
 ?>
 <div class="ccm-pane-body" style="padding-bottom: 0px">
 
@@ -13,7 +18,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 	 if ($is_generated) { ?>
 		<div class="alert alert-success">
 				<a href="#" class="close" data-dismiss="alert">&times;</a>
-				<?php  echo t('<strong>Success:</strong> The blocks has been installed, and will now be available in the "Add Blocks" list when pages are edited.'); ?>
+				<?php  echo t('<strong>Success:</strong> The block has been installed, and is now available in the "Add Blocks" list when pages are edited. You can also review it on the <a href="/index.php/dashboard/blocks/types/">Block Types</a> dashboard page, where you can organize your block list or remove it again.'); ?>
 		</div>
 	<?php } ?>
 	
@@ -22,21 +27,12 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 	if (!$can_write) { ?>
 			<div class="alert alert-danger">
 				<a href="#" class="close" data-dismiss="alert">&times;</a>
-				<?php  echo t('<strong>Warning:</strong> The blocks directory is not writeable. Blocks cannot be created from this page until permissions are changed on your server.'); ?>
+				<?php  echo t('<strong>Warning:</strong> The /blocks directory is not writeable. Blocks cannot be created until permissions are changed on your server.'); ?>
 			</div>
 	<?php  } ?>
 	
 		<!-- Small intro text and user guide link -->
-		<div class="row-fluid">
-			
-		 <div class="span9">
-		 <p>This is the PasswordX design center. You can create your own custom blocks for. If you need help, please take a look at the user guide.</p>
-		
-		 </div>
-		 <div class="span3">
-		  <a href="<?php echo $this->controller->guide_url; ?>" target="_blank" class="btn primary pull-right"><span class="icon-file icon-white"></span> User Guide</a>
-		 </div>
-		</div><!-- //row fluid -->
+		 <p class="well">This is the PasswordX block designer. Here you can create your own custom password blocks so you can save and organize passwords on your pages just the way you like it. If you've designed a generically applicable block, please contribute it back to the community as it might then be included in PasswordX by default. <strong>Please note:</strong> Once saved, custom blocks cannot be edited but have to be deleted and recreated.</p>
 
 		<form method="post" action="<?php  echo $this->action('generate_block'); ?>" id="designer-content-form" class="form-horizontal">
 
@@ -118,12 +114,8 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 			    </ul>
 			    
 			<!-- </div> -->
-
-			<div class="clearfix" style="padding-bottom: 0px;"></div>
 			
-			<div class="btn-toolbar form-actions">
-
-				<!-- Add new Item -->			  
+							<!-- Add new Item -->			  
 				<div class="btn-group">
 	                <button class="btn dropdown-toggle" data-toggle="dropdown"><?php echo t('Add another field'); ?> <span class="caret"></span></button>
 	                <ul class="dropdown-menu">
@@ -134,10 +126,15 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 	                  <li><a href="#" class="add-field-type" data-type="wysiwyg"><?php echo t('WYSIWYG'); ?></a></li>
 	                </ul>
 	              </div>
-				
+			
+
+			<div class="clearfix" style="padding-bottom: 0px;"></div>
+			
+			<div class="btn-toolbar form-actions">
+
 				<!-- Submit Buttons -->
 				<?php  if ($can_write) { ?>
-					<div class="btn-group">
+					<div class="btn-group pull-right">
 						<button class="btn btn-primary" id="designer-content-submit">
 							<i class="icon-wrench icon-white"></i> <?php  echo t('Create The Block'); ?>
 						</button>
@@ -169,7 +166,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 			'name_required': '<?php  echo t("Block Name is required."); ?>',
 			'handle_required': '<?php  echo t("Block Handle is required."); ?>',
 			'handle_length': '<?php  echo t("Block Handle cannot exceed 32 characters in length."); ?>',
-			'handle_lowercase': '<?php  echo t("Block Handle can only contain lowercase letters and underscores."); ?>',
+			'handle_lowercase': '<?php  echo t("Block Handle can only contain lower-case letters and underscores."); ?>',
 			'handle_exists': '<?php  echo t("Block Handle is already in use by another package or block type (or block files already exist in the \"blocks\" directory of your site)."); ?>',
 			'table_exists': '<?php  echo t("WARNING: A table with this Block Handle already exists in your database. If you make this block, the existing table will be overwritten and any content stored in it will be permanently deleted!"); ?>',
 			'fields_required': '<?php  echo t("You must add at least 1 field."); ?>',
