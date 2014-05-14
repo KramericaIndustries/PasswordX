@@ -96,9 +96,12 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 							</div>
 
 							<div class="span5">
+							<!--
 							<label class="checkbox inline" for="fieldsRequired[${id}]">
   								<input type="checkbox" name="fieldsRequired[${id}]" id="fieldsRequired[${id}]" value="required" checked> Encrypted
 							</label>
+							-->						
+							<input type="hidden" name="fieldsRequired[${id}]" id="fieldsRequired[${id}]" value="required" checked>
 							<label class="checkbox inline" for="fieldsSearchable[${id}]">
   								<input type="checkbox" name="fieldsSearchable[${id}]" id="fieldsRequired[${id}]" value="searchable" {{if type != 'password'}} checked {{/if}} > Searchable
 							</label>
