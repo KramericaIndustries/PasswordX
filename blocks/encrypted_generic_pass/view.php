@@ -22,8 +22,12 @@ $block_color = array('info','warning','danger');
 		<?php  if (!empty($field_2_textbox_text)): ?>
 
 		<div class="credentials-fields">
-			<label for="pass-block-username" class="control-label">Username:</label> 
-			<input name="pass-block-username" type="text" class="pass-block-username" value="<?php  echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?>" readonly>
+			<label for="pass-block-username" class="control-label">Username:</label>
+			
+			 <div class="userdata_touch_fallback"><?php  echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>
+			
+			 <input name="pass-block-username" type="text" class="pass-block-username" value="<?php  echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?>" readonly>
+			
 		</div>
 			
 		<?php  endif; ?>
@@ -31,6 +35,9 @@ $block_color = array('info','warning','danger');
 		
 		<div class="credentials-fields">
 			<label for="pass-block-password" class="control-label">Password:</label> 
+			
+			<div class="userdata_touch_fallback"><?php  echo htmlentities($field_3_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>
+			
 			<span class="password_super_block">
 				<span class="password_block_hash">. </span>
 				<span class="password_block">

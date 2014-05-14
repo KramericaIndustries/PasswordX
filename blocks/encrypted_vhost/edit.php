@@ -5,6 +5,12 @@
  * Apache v2 License
  */
 defined('C5_EXECUTE') or die("Access Denied.");
+
+
+Loader::library('3rdparty/mobile_detect');
+$md = new Mobile_Detect();
+$handheld = $md->isMobile() || $md->isTablet();
+
 ?>
 <style>
 .form-horizontal .form-group {
@@ -30,7 +36,13 @@ defined('C5_EXECUTE') or die("Access Denied.");
    <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">FTP Password</label>
     <div class="col-lg-10">
-      <?php  echo $form->password('field_3_textbox_text', $field_3_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'FTP Password...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php 
+		if ($handheld) {
+		 echo $form->text('field_3_textbox_text', $field_3_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'Password...', 'class'=>"form-control", "autocomplete" => "off"));
+		} else {
+		 echo $form->password('field_3_textbox_text', $field_3_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'Password...', 'class'=>"form-control", "autocomplete" => "off")); 
+		}
+		?>	
 		<input id="miror_field_3_textbox_text" type="text" class="form-control" style="width: 45%; display: none;" value="" />
 		<button class="btn btn-primary sugest_pass" data-target="field_3_textbox_text"> Suggest a password</button>
 		<button class="btn btn-danger clear_view" data-target="field_3_textbox_text"> Clearview the password</button>
@@ -49,7 +61,13 @@ defined('C5_EXECUTE') or die("Access Denied.");
    <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">SSH Password</label>
     <div class="col-lg-10">
-      <?php  echo $form->password('field_5_textbox_text', $field_5_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'SSH Password...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php 
+		if ($handheld) {
+		 echo $form->text('field_5_textbox_text', $field_5_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'Password...', 'class'=>"form-control", "autocomplete" => "off"));
+		} else {
+		 echo $form->password('field_5_textbox_text', $field_5_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'Password...', 'class'=>"form-control", "autocomplete" => "off")); 
+		}
+		?>	
 		<input id="miror_field_5_textbox_text" type="text" class="form-control" style="width: 45%; display: none;" value="" />
 		<button class="btn btn-primary sugest_pass" data-target="field_5_textbox_text"> Suggest a password</button>
 		<button class="btn btn-danger clear_view" data-target="field_5_textbox_text"> Clearview the password</button>
@@ -68,7 +86,13 @@ defined('C5_EXECUTE') or die("Access Denied.");
    <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">DB Password</label>
     <div class="col-lg-10">
-      <?php  echo $form->password('field_7_textbox_text', $field_7_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'DB Password...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php 
+		if ($handheld) {
+		 echo $form->text('field_7_textbox_text', $field_7_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'Password...', 'class'=>"form-control", "autocomplete" => "off"));
+		} else {
+		 echo $form->password('field_7_textbox_text', $field_7_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'Password...', 'class'=>"form-control", "autocomplete" => "off")); 
+		}
+		?>		
 		<input id="miror_field_7_textbox_text" type="text" class="form-control" style="width: 45%; display: none;" value="" />
 		<button class="btn btn-primary sugest_pass" data-target="field_7_textbox_text"> Suggest a password</button>
 		<button class="btn btn-danger clear_view" data-target="field_7_textbox_text"> Clearview the password</button>

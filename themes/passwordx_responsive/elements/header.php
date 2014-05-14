@@ -24,7 +24,5 @@
 <link rel="stylesheet" media="screen" type="text/css" href="<?php  echo $this->getStyleSheet('main.css')?>" />
 <link rel="stylesheet" media="screen" type="text/css" href="<?php  echo $this->getThemePath(); ?>/typography.css" />
 	
-<script src="<?php  echo $this->getThemePath(); ?>/frameworks/bootstrap/js/bootstrap.min.js"></script>
-	
  </head>
 <body>

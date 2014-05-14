@@ -38,10 +38,17 @@ $page = Page::getCurrentPage();
 						
 					} else { 
 				?>
-			<!-- Need check for mobile and show different tip -->
+			
 			<hr />
-			<p><span class="label label-primary">HowTo</span> Hover over the hashed area to reveal the password.</p>
-			<p><span class="label label-info">Tip</span> Use Ctrl+C to copy it to clipboard. :)</p>
+			
+			<div class="no-touch-tip">
+			 <p><span class="label label-primary">Select</span> Hover over username or password hashed area to reveal the password.</p>
+			 <p><span class="label label-info">Copy</span> Use Ctrl/&#8984;+C to copy it to clipboard. :)</p>
+			</div>
+			<div class="touch-tip">
+			 <p><span class="label label-primary">Select</span> Long press on the data you want to select.</p>
+			 <p><span class="label label-info">Copy</span> Use your touch device built-in copy to clipboard functionality. :)</p>			
+			</div>
 			
 				<?php } ?>
 		
