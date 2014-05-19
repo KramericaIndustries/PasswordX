@@ -1,10 +1,18 @@
 /* 
  * Main CSS File
  */
+ 
+ html, body, #wrapper {
+  height: 100%;
+ }
+ 
+body {
+ background-color: #444 !important;
+}
 
  #wrapper {
   padding-left: 270px;
-  transition: all 0.4s ease 0s;
+  /*transition: all 0.4s ease 0s;*/
 }
 
 #sidebar-wrapper {
@@ -12,15 +20,17 @@
   left: 270px;
   width: 270px;
   padding: 10px;
-  background: #000;
+  background: #435a6b;
   position: fixed;
   height: 100%;
   overflow-y: auto;
-  transition: all 0.4s ease 0s;
-}
+  /*transition: all 0.4s ease 0s;*/
+} 
 
 #page-content-wrapper {
   width: 100%;
+  min-height: 100%;
+  background-color: #fff;
 }
 
 #menu-toggle {
@@ -33,35 +43,108 @@
 
 @media (max-width:767px) {
 
-#wrapper {
-  padding-left: 0;
+#page-content-wrapper {
+	height: auto;
+	z-index: 99;
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+}
+
+#page-content-wrapper::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 0;
+	background: rgba(0,0,0,0.2);
+	content: '';
+	opacity: 0;
+	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+}
+
+.active #page-content-wrapper::after {
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
 }
 
 #sidebar-wrapper {
-  left: 0;
+	z-index: 100;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
 }
 
-#wrapper.active {
-  position: relative;
-  left: 270px;
+#sidebar-wrapper::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.2);
+	content: '';
+	opacity: 1;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
 }
 
-#wrapper.active #sidebar-wrapper {
-  left: 270px;
-  width: 270px;
-  transition: all 0.4s ease 0s;
+.active #sidebar-wrapper::after {
+	width: 0;
+	height: 0;
+	opacity: 0;
+	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
 }
 
+
+/* Effect */
 #menu-toggle {
   display: inline-block;
 }
 
-.inset {
-  padding: 15px;
+#wrapper {
+	padding-left: 0px;
+	-webkit-perspective: 1500px;
+	perspective: 1500px;
+}
+
+#page-content-wrapper {
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+#wrapper.active #page-content-wrapper {
+	-webkit-transform: translate3d(100px, 0, -600px) rotateY(-20deg);
+	transform: translate3d(100px, 0, -600px) rotateY(-20deg);
+}
+
+#sidebar-wrapper {
+	opacity: 1;
+	-webkit-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+}
+
+#wrapper.active #sidebar-wrapper {
+	visibility: visible;
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+#sidebar-wrapper::after {
+	display: none;
+}
+
+/*Todo: Build new Modernizr that includes this check */
+.no-csstransforms3d #wrapper, 
+.no-js #wrapper {
+ padding-left: 270px;
 }
 
 }
- 
 
 .easter-egg {
 	position: fixed;
@@ -94,7 +177,7 @@
 }
 
 .sidebar-nav a {
-  color: #ccc;
+  color: #fff;
   display: inline-block;
   padding-right: 10px;
   text-decoration: none;
@@ -113,7 +196,7 @@
 
 .sidebar-nav a.add-item {
 	font-style: italic;
-	color: #999;
+	color: #ccc;
 }
 
 .sidebar-nav a.add-item:hover{
@@ -253,7 +336,6 @@ ul.nav-path-selected {
 .password-label,
 .username-label {
 	font-weight: bold;
-	font-size: 14px;
 	color: #444;
 }
 

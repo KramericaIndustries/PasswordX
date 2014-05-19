@@ -31,6 +31,7 @@ $this->inc('elements/sidebar.php');
 	 $b->display();
 	?>
 	
+	  </div> <!-- //inset -->       	
  	 </div> <!-- //page-content-wrapper -->
     </div> <!-- //wrapper -->
 	<script type="text/javascript" src="<?php  echo $this->getThemePath(); ?>/js/main.js"></script>

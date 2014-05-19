@@ -15,9 +15,20 @@
 $(function(){
 
     $("#menu-toggle").click(function(e) {
+		e.stopPropagation();
         e.preventDefault();
-        $("#wrapper").toggleClass("active");
+		
+		setTimeout( function() {
+			$("#wrapper").addClass("active");
+		}, 25 );
+        
     });
+	
+	$("#page-content-wrapper").click(function(e) {
+	 if ($("#wrapper").hasClass("active")) {
+	  $("#wrapper").removeClass("active");
+	 }
+	});
 
 	/* Manipulate the nav to dropdown */
 	$("#sidebar-wrapper").on( "click", ".container-toggle", function(){
