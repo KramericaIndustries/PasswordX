@@ -33,9 +33,10 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Pass
 		 <p>This is the PasswordX design center. You can create your own custom blocks for. If you need help, please take a look at the user guide.</p>
 		
 		 </div>
+		 <!-- The upper right User Manual button
 		 <div class="span3">
 		  <a href="<?php echo $this->controller->guide_url; ?>" target="_blank" class="btn primary pull-right"><span class="icon-file icon-white"></span> User Guide</a>
-		 </div>
+		 </div>-->
 		</div><!-- //row fluid -->
 
 		<form method="post" action="<?php  echo $this->action('generate_block'); ?>" id="designer-content-form" class="form-horizontal">
