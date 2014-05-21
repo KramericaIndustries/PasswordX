@@ -5,6 +5,11 @@
  * Apache v2 License
  */
 defined('C5_EXECUTE') or die("Access Denied.");
+
+Loader::library('3rdparty/mobile_detect');
+$md = new Mobile_Detect();
+$handheld = $md->isMobile() || $md->isTablet();
+
 ?>
 <style>
 .form-horizontal .form-group {
@@ -30,10 +35,16 @@ defined('C5_EXECUTE') or die("Access Denied.");
    <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">Password</label>
     <div class="col-lg-10">
-      <?php  echo $form->password('field_3_textbox_text', $field_3_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'Password...', 'class'=>"form-control", "autocomplete" => "off")); ?>
+      <?php 
+		if ($handheld) {
+		 echo $form->text('field_3_textbox_text', $field_3_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'Password...', 'class'=>"form-control", "autocomplete" => "off"));
+		} else {
+		 echo $form->password('field_3_textbox_text', $field_3_textbox_text, array('style' => 'width: 45%; display: inline;','placeholder' => 'Password...', 'class'=>"form-control", "autocomplete" => "off")); 
+		}
+		?>
 		<input id="pass_mirror" type="text" class="form-control" style="width: 45%; display: none;" value="" />
 		<button class="btn btn-primary" id="sugest_pass"> Suggest a password</button>
-		<button class="btn btn-danger" id="clear_view"> Clearview the password</button>
+		<button class="btn btn-danger clear_view" id="clear_view"> Clearview the password</button>
 	</div>
 	
   </div>

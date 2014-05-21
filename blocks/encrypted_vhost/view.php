@@ -23,7 +23,10 @@
 		
 		<div class="credentials-fields">
 			<label class="username-label control-label">Username:</label> 
-			<input type="text" class="pass-block-username" value="<?php  echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?>"/>
+			
+			<div class="userdata_touch_fallback"><?php  echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>
+			
+			<input type="text" class="pass-block-username" value="<?php  echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?>" readonly>
 		</div>
 		
 		<?php  endif; ?>
@@ -31,6 +34,9 @@
 		<?php  if (!empty($field_3_textbox_text)): ?>
 		<div class="credentials-fields">
 			<label for="pass-block-password" class="control-label">Password:</label> 
+			
+			<div class="userdata_touch_fallback"><?php  echo htmlentities($field_3_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>
+			
 			<span class="password_super_block">
 				<span class="password_block_hash">. </span>
 				<span class="password_block">
@@ -48,14 +54,20 @@
 
 		<?php  if (!empty($field_4_textbox_text)): ?>
 		<div class="credentials-fields">
-			<label class="username-label control-label">Username:</label> 
-			<input type="text" class="pass-block-username" value="<?php  echo htmlentities($field_4_textbox_text, ENT_QUOTES, APP_CHARSET); ?>"/>
+			<label class="username-label control-label">Username:</label>
+			
+			<div class="userdata_touch_fallback"><?php  echo htmlentities($field_4_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>
+			
+			<input type="text" class="pass-block-username" value="<?php  echo htmlentities($field_4_textbox_text, ENT_QUOTES, APP_CHARSET); ?>" readonly>
 		</div>	
 		<?php  endif; ?>
 
 		<?php  if (!empty($field_5_textbox_text)): ?>
 		<div class="credentials-fields">
-			<label for="pass-block-password" class="control-label">Password:</label> 
+			<label for="pass-block-password" class="control-label">Password:</label>
+
+			<div class="userdata_touch_fallback"><?php  echo htmlentities($field_5_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>
+			
 			<span class="password_super_block">
 				<span class="password_block_hash">. </span>
 				<span class="password_block">
@@ -74,14 +86,20 @@
 
 		<?php  if (!empty($field_6_textbox_text)): ?>
 		<div class="credentials-fields">
-			<label class="username-label control-label">Username:</label> 
-			<input type="text" class="pass-block-username" value="<?php  echo htmlentities($field_6_textbox_text, ENT_QUOTES, APP_CHARSET); ?>"/>
+			<label class="username-label control-label">Username:</label>
+			
+			<div class="userdata_touch_fallback"><?php  echo htmlentities($field_6_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>			
+			
+			<input type="text" class="pass-block-username" value="<?php  echo htmlentities($field_6_textbox_text, ENT_QUOTES, APP_CHARSET); ?>" readonly>
 		</div>	
 		<?php  endif; ?>
 
 		<?php  if (!empty($field_7_textbox_text)): ?>
 		<div class="credentials-fields">
-			<label for="pass-block-password" class="control-label">Password:</label> 
+			<label for="pass-block-password" class="control-label">Password:</label>
+			
+			<div class="userdata_touch_fallback"><?php  echo htmlentities($field_7_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>				
+			
 			<span class="password_super_block">
 				<span class="password_block_hash">. </span>
 				<span class="password_block">
@@ -93,8 +111,11 @@
 
 		<?php  if (!empty($field_8_textbox_text)): ?>
 		<div class="credentials-fields">
-			<label class="username-label control-label">DB Names:</label> 		
-			<input type="text" value="<?php  echo htmlentities($field_8_textbox_text, ENT_QUOTES, APP_CHARSET); ?>"/>
+			<label class="username-label control-label">DB Names:</label>
+
+			<div class="userdata_touch_fallback"><?php  echo htmlentities($field_8_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>				
+			
+			<div class="pass-block-username"><?php  echo htmlentities($field_8_textbox_text, ENT_QUOTES, APP_CHARSET); ?></div>
 		</div>	
 		<?php  endif; ?>		
 

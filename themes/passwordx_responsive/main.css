@@ -165,22 +165,22 @@
 	display: none;
  }
 
-@media (min-width: 1200px) {
-.sidebar-item:hover > .actions-icon {
+
+.no-touch .sidebar-item:hover > .actions-icon {
  display: inline-block;
 } 
-}
+
 
 /* "backup" toolbar for touch devices */
 #touch-tools {
  display: none;
  float: right;
 }
-@media (max-width: 1200px) {
-#touch-tools {
+
+.touch #touch-tools {
  display: block;
 }
-}
+
 
 ul.nav-dropdown {
 	display: none;
@@ -200,7 +200,7 @@ ul.nav-path-selected {
  font-size: 12px;
 }
 
-/* Common styles for all types */
+/* Styles for password blocks */
 .bs-callout {
   margin: 20px 0;
   padding: 15px 30px 15px 15px;
@@ -222,6 +222,10 @@ ul.nav-path-selected {
 .bs-callout code,
 .bs-callout .highlight {
   background-color: #fff;
+}
+
+.touch .clear_view {
+ display: none;
 }
 
 /* Variations */
@@ -258,6 +262,10 @@ ul.nav-path-selected {
  height: 25px;
 }
 
+.touch .password_super_block {
+ display: none;
+}
+
 .password_block_hash {
 	display: inline-block;
 	width: 150px;
@@ -275,6 +283,29 @@ ul.nav-path-selected {
 	width: 150px;
 	cursor: pointer!important;
 	height: 25px;
+}
+
+.touch .pass-block-username {
+ display: none;
+}
+
+.userdata_touch_fallback {
+ display: inline-block;
+}
+
+.no-touch .userdata_touch_fallback {
+ display: none;
+}
+
+.touch-tip, .no-touch-tip {
+ display: none;
+}
+
+.no-touch  .no-touch-tip {
+ display: block;
+}
+.touch  .touch-tip {
+ display: block;
 }
 
 .modal-input {
@@ -395,12 +426,11 @@ div.ccm-edit-overlay-actions {
  max-width: 800px !important;
 }
 
-/* Hiding items that dont work well on touch  - TODO: subclass by feature detection instead of screen dimensions!*/
-@media (max-width: 1200px) {
-.ccm-icon-move-menu {
+/* Hiding items that dont work well on touch */
+.touch .ccm-icon-move-menu {
  display: none !important;
 }
-}
+
 
 /**
 * Dashboard overrides which are the same for front and backend - duplicated for backend dashboard in /css/passwordx.css

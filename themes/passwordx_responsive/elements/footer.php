@@ -8,5 +8,8 @@
  Loader::element('footer_required');
 ?>
 
+
+	<script src="<?php  echo $this->getThemePath(); ?>/frameworks/bootstrap/js/bootstrap.min.js"></script>
+	<script src="<?php  echo $this->getThemePath(); ?>/frameworks/modernizr.custom.js"></script>
    </body> <!-- //body -->
 </html>
