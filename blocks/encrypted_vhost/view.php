@@ -4,7 +4,15 @@
  * (c) 2014 PasswordX
  * Apache v2 License
  */
+ 
+$ci = Loader::helper('concrete/urls');
+$btIcon = $ci->getBlockTypeIconURL($this->getBlockObject());
+global $c;
 ?>
+
+<div class="encrypted-block-contain <?php echo ($c->isEditMode() ? "editmode" : ""); ?>">
+ <img src="<?php echo $btIcon; ?>" class="block-icon" />
+
 
 <div class="bs-callout bs-callout-info">
 	<h4> Hostname </h4>
@@ -129,3 +137,5 @@
 			<span class="notes"><?php  echo nl2br(htmlentities($field_9_textarea_text, ENT_QUOTES, APP_CHARSET)); ?></span>
 		</div>
 		<?php  endif; ?>
+
+		</div>

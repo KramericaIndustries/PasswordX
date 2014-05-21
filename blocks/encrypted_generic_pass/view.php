@@ -6,7 +6,16 @@
  */
 defined('C5_EXECUTE') or die("Access Denied.");
 $block_color = array('info','warning','danger');
+
+$ci = Loader::helper('concrete/urls');
+$btIcon = $ci->getBlockTypeIconURL($this->getBlockObject());
+global $c;
 ?>
+
+<div class="encrypted-block-contain <?php echo ($c->isEditMode() ? "editmode" : ""); ?>">
+ <img src="<?php echo $btIcon; ?>" class="block-icon" />
+
+ 
 
 <div class="bs-callout bs-callout-<?php echo $block_color[$field_5_select_value]; ?>">
 	<h4 class="block-title"> 
@@ -55,6 +64,7 @@ $block_color = array('info','warning','danger');
 			<span class="notes"><?php  echo nl2br(htmlentities($field_4_textarea_text, ENT_QUOTES, APP_CHARSET)); ?></span>
 		</div>
 		<?php  endif; ?>
-		
 
 </div>
+
+</div>		

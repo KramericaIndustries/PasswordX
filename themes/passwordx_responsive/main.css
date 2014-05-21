@@ -1,39 +1,9 @@
 /* 
  * Main CSS File
  */
+
  
- html, body, #wrapper {
-  height: 100%;
- }
- 
-body {
- background-color: #444 !important;
-}
-
- #wrapper {
-  padding-left: 270px;
-  /*transition: all 0.4s ease 0s;*/
-}
-
-#sidebar-wrapper {
-  margin-left: -270px;
-  left: 270px;
-  width: 270px;
-  padding: 10px;
-  background: #435a6b;
-  position: fixed;
-  height: 100%;
-  overflow-y: auto;
-  /*transition: all 0.4s ease 0s;*/
-} 
-
-#page-content-wrapper {
-  width: 100%;
-  min-height: 100%;
-  background-color: #fff;
-}
-
-#menu-toggle {
+ #menu-toggle {
   display: none;
 }
 
@@ -41,16 +11,105 @@ body {
   padding: 20px;
 }
 
+
+.no-touch #wrapper {
+  padding-left: 270px;
+  transition: all 0.4s ease 0s;
+}
+
+.no-touch #sidebar-wrapper {
+  z-index: 100;
+  margin-left: -270px;
+  left: 270px;
+  width: 270px;
+  padding: 10px;
+  background: #428bca;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  transition: all 0.4s ease 0s;
+}
+
+.no-touch #page-content-wrapper {
+  width: 100%;
+}
+
 @media (max-width:767px) {
 
-#page-content-wrapper {
-	height: auto;
+.no-touch #wrapper {
+  padding-left: 0;
+}
+
+.no-touch #sidebar-wrapper {
+  left: 0;
+}
+
+.no-touch #wrapper.active {
+  position: relative;
+  left: 270px;
+}
+
+.no-touch #wrapper.active #sidebar-wrapper {
+  left: 270px;
+  width: 270px;
+  transition: all 0.4s ease 0s;
+}
+
+.no-touch #menu-toggle {
+  display: inline-block;
+}
+
+.no-touch .inset {
+  padding: 15px;
+}
+
+}
+
+ 
+ /* This is all structural and mostly targeted at getting the sidebar effect working well */
+ @media (max-width:767px) {
+ 
+html.touch.csstransforms3d, .touch.csstransforms3d body, #wrapper {
+  height: 100%;
+ }
+ 
+.touch.csstransforms3d body {
+ background-color: #444 !important;
+ overflow: hidden;
+}
+
+.touch.csstransforms3d #wrapper {
+  padding-left: 270px;
+  height: 100%;
+}
+
+.touch.csstransforms3d #sidebar-wrapper {
+  margin-left: -270px;
+  left: 270px;
+  width: 270px;
+  padding: 10px;
+  background: #428bca;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+
+} 
+
+.touch.csstransforms3d #page-content-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  overflow-y: scroll;
+}
+
+
+.touch.csstransforms3d #page-content-wrapper {
 	z-index: 99;
 	-webkit-transition: -webkit-transform 0.5s;
 	transition: transform 0.5s;
 }
 
-#page-content-wrapper::after {
+.touch.csstransforms3d #page-content-wrapper::after {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -63,7 +122,7 @@ body {
 	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
 }
 
-.active #page-content-wrapper::after {
+.touch.csstransforms3d .active #page-content-wrapper::after {
 	width: 100%;
 	height: 100%;
 	opacity: 1;
@@ -71,13 +130,19 @@ body {
 	transition: opacity 0.5s;
 }
 
-#sidebar-wrapper {
+.touch.csstransforms3d .active #sidebar-wrapper {
+-webkit-box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
+-moz-box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
+box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
+}
+
+.touch.csstransforms3d #sidebar-wrapper {
 	z-index: 100;
 	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
 }
 
-#sidebar-wrapper::after {
+.touch.csstransforms3d #sidebar-wrapper::after {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -90,7 +155,7 @@ body {
 	transition: opacity 0.5s;
 }
 
-.active #sidebar-wrapper::after {
+.touch.csstransforms3d .active #sidebar-wrapper::after {
 	width: 0;
 	height: 0;
 	opacity: 0;
@@ -100,33 +165,34 @@ body {
 
 
 /* Effect */
-#menu-toggle {
+.touch.csstransforms3d #menu-toggle {
   display: inline-block;
 }
 
-#wrapper {
+.touch.csstransforms3d #wrapper {
 	padding-left: 0px;
 	-webkit-perspective: 1500px;
 	perspective: 1500px;
 }
 
-#page-content-wrapper {
+.touch.csstransforms3d #page-content-wrapper {
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 }
 
-#wrapper.active #page-content-wrapper {
+.touch.csstransforms3d #wrapper.active #page-content-wrapper {
 	-webkit-transform: translate3d(100px, 0, -600px) rotateY(-20deg);
 	transform: translate3d(100px, 0, -600px) rotateY(-20deg);
+	overflow: hidden;
 }
 
-#sidebar-wrapper {
+.touch.csstransforms3d #sidebar-wrapper {
 	opacity: 1;
 	-webkit-transform: translate3d(-100%, 0, 0);
 	transform: translate3d(-100%, 0, 0);
 }
 
-#wrapper.active #sidebar-wrapper {
+.touch.csstransforms3d #wrapper.active #sidebar-wrapper {
 	visibility: visible;
 	-webkit-transition: -webkit-transform 0.5s;
 	transition: transform 0.5s;
@@ -134,24 +200,19 @@ body {
 	transform: translate3d(0, 0, 0);
 }
 
-#sidebar-wrapper::after {
+.touch.csstransforms3d #sidebar-wrapper::after {
 	display: none;
 }
 
-/*Todo: Build new Modernizr that includes this check */
-.no-csstransforms3d #wrapper, 
-.no-js #wrapper {
- padding-left: 270px;
-}
-
-}
+} /* End breakpoint for mobile menu */
 
 .easter-egg {
 	position: fixed;
-	right: 0px;
+	right: 15px;
 	bottom: 0px;
 	width: 275px;
 	padding: 5px;
+	z-index: 999;
 }
 
 .sidebar-nav {
@@ -167,8 +228,8 @@ body {
   margin-top: 20px;
 }
 
-.sidebar-nav-edit-mode {
-	top: 100px;
+.sidebar-nav ul {
+ padding-left: 20px;
 }
 
 .sidebar-nav li {
@@ -196,7 +257,7 @@ body {
 
 .sidebar-nav a.add-item {
 	font-style: italic;
-	color: #ccc;
+	color: #B9D4EB;
 }
 
 .sidebar-nav a.add-item:hover{
@@ -231,17 +292,18 @@ body {
 }
 
 .sidebar-nav  .nav-selected  {
-	color: #fff!important;
+	color: #c3e1ff;
+	font-style: italic;
 }
 
 .sign-icon {
 	font-size: 10px;
 	top: 0px;
 	cursor: pointer;
-	color: #ccc;
+	color: #fff;
 }
 .sign-icon:hover {
- color: #428bca;
+ color: #B9D4EB;
 }
 
  .actions-icon {
@@ -284,6 +346,26 @@ ul.nav-path-selected {
 }
 
 /* Styles for password blocks */
+
+.encrypted-block-contain  {
+ padding-left: 15px;
+ padding-right: 15px;
+ border: 1px solid #ccc;
+ position: relative;
+ margin-top: 15px;
+}
+.editmode.encrypted-block-contain {
+ border: none;
+}
+.block-icon {
+ position: absolute;
+ top: -5px;
+ left: -5px;
+}
+.editmode .block-icon {
+ display: none;
+}
+
 .bs-callout {
   margin: 20px 0;
   padding: 15px 30px 15px 15px;
@@ -330,7 +412,7 @@ ul.nav-path-selected {
 }
 
 .credentials-fields label {
- min-width: 75px;
+ min-width: 80px;
 }
 
 .password-label,
@@ -364,7 +446,7 @@ ul.nav-path-selected {
 .password_textbox, .pass-block-username {
 	width: 150px;
 	cursor: pointer!important;
-	height: 25px;
+	height: 26px;
 }
 
 .touch .pass-block-username {
@@ -372,11 +454,11 @@ ul.nav-path-selected {
 }
 
 .userdata_touch_fallback {
- display: inline-block;
+ display: none;
 }
 
-.no-touch .userdata_touch_fallback {
- display: none;
+.touch .userdata_touch_fallback {
+ display: inline-block;
 }
 
 .touch-tip, .no-touch-tip {
@@ -430,9 +512,7 @@ ul.nav-path-selected {
 	
 }
 
-/*
-* UPDATE 2 > ?
-*/
+
 .selectedSearch {
 	font-style: italic;
 	text-decoration: underline!important;

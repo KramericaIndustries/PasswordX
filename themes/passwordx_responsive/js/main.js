@@ -19,7 +19,11 @@ $(function(){
         e.preventDefault();
 		
 		setTimeout( function() {
+		 if ($("#wrapper").hasClass("active")) {
+		  $("#wrapper").removeClass("active");
+		 } else {		
 			$("#wrapper").addClass("active");
+		 }
 		}, 25 );
         
     });
@@ -351,6 +355,6 @@ $(function(){
 			event.preventDefault();
 			return false;
 		}
-	});		
+	});
 	
 });
