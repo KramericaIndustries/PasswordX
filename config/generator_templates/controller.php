@@ -19,6 +19,7 @@ class [[[GENERATOR_REPLACE_CLASSNAME]]] extends BlockController {
 
 [[[GENERATOR_REPLACE_ALL_FIELDS]]]
 [[[GENERATOR_REPLACE_ENCRYPTED_FIELDS]]]
+[[[GENERATOR_REPLACE_SEARCH_FIELDS]]]
 	
 	public function on_start() {
 	
@@ -30,7 +31,28 @@ class [[[GENERATOR_REPLACE_CLASSNAME]]] extends BlockController {
 		parent::on_start();
 	}
 
-[[[GENERATOR_REPLACE_GETSEARCHABLECONTENT]]]
+	/**
+	 * Return allowed content for search, and decrypts it, if necessarry
+	 */
+	public function getSearchableContent() {
+
+		$content = array();
+		
+		$this->on_start();
+		
+		foreach( $this->searchable_fields as $thisField ) {
+			
+			if( in_array( $thisField, $this->encrypted_fields ) ) {
+				$content[] = $this->crypto->decrypt( $this->$thisField, $this->mek );
+			} else {
+				$content[] = $this->$thisField;
+			}
+			
+			
+		}
+
+		return implode(' - ', $content);
+	}
 
 	/**
 	 * Decrypt the area before sending them to view
