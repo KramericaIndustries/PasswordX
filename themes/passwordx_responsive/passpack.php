@@ -21,8 +21,6 @@ $page = Page::getCurrentPage();
 					$a->display($c);
 				?>
 
-				<div class="spacer"></div>
-				
 				
 				<?php
 					if($a->getTotalBlocksInArea() == 0 ) {
@@ -51,6 +49,8 @@ $page = Page::getCurrentPage();
 			</div>
 			
 				<?php } ?>
+				
+				<div class="spacer"></div>
 		
 	  </div> <!-- //inset -->       
  	 </div> <!-- //page-content-wrapper -->

@@ -3,6 +3,25 @@
  */
 
  
+ 
+/* Common */
+ 
+#wrapper {
+ padding-left: 270px;
+}
+
+#sidebar-wrapper {
+  z-index: 100;
+  margin-left: -270px;
+  left: 270px;
+  width: 270px;
+  padding: 10px;
+  background: #428bca;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;  
+}
+ 
  #menu-toggle {
   display: none;
 }
@@ -12,61 +31,54 @@
 }
 
 
-.no-touch #wrapper {
-  padding-left: 270px;
+/* Desktop / touch+no-css3dtransforms */
+
+.no-touch #wrapper, .no-csstransforms3d #wrapper {
   transition: all 0.4s ease 0s;
 }
 
-.no-touch #sidebar-wrapper {
-  z-index: 100;
-  margin-left: -270px;
-  left: 270px;
-  width: 270px;
-  padding: 10px;
-  background: #428bca;
-  position: fixed;
-  height: 100%;
-  overflow-y: auto;
+.no-touch #sidebar-wrapper, .no-csstransforms3d #sidebar-wrapper {
   transition: all 0.4s ease 0s;
 }
 
-.no-touch #page-content-wrapper {
+.no-touch #page-content-wrapper, .no-csstransforms3d #page-content-wrapper {
   width: 100%;
 }
 
 @media (max-width:767px) {
 
-.no-touch #wrapper {
+.no-touch #wrapper, .no-csstransforms3d #wrapper {
   padding-left: 0;
 }
 
-.no-touch #sidebar-wrapper {
+.no-touch #sidebar-wrapper, .no-csstransforms3d #sidebar-wrapper {
   left: 0;
 }
 
-.no-touch #wrapper.active {
+.no-touch #wrapper.active, .no-csstransforms3d #wrapper.active {
   position: relative;
   left: 270px;
 }
 
-.no-touch #wrapper.active #sidebar-wrapper {
+.no-touch #wrapper.active #sidebar-wrapper, .no-csstransforms3d #wrapper.active #sidebar-wrapper {
   left: 270px;
   width: 270px;
   transition: all 0.4s ease 0s;
 }
 
-.no-touch #menu-toggle {
+.no-touch #menu-toggle, .no-csstransforms3d #menu-toggle {
   display: inline-block;
 }
 
-.no-touch .inset {
+.no-touch .inset, .no-csstransforms3d .inset {
   padding: 15px;
 }
 
 }
 
  
- /* This is all structural and mostly targeted at getting the sidebar effect working well */
+ /* Touch+css3d+small screen */
+ 
  @media (max-width:767px) {
  
 html.touch.csstransforms3d, .touch.csstransforms3d body, #wrapper {
@@ -79,21 +91,9 @@ html.touch.csstransforms3d, .touch.csstransforms3d body, #wrapper {
 }
 
 .touch.csstransforms3d #wrapper {
-  padding-left: 270px;
   height: 100%;
 }
 
-.touch.csstransforms3d #sidebar-wrapper {
-  margin-left: -270px;
-  left: 270px;
-  width: 270px;
-  padding: 10px;
-  background: #428bca;
-  position: fixed;
-  height: 100%;
-  overflow-y: auto;
-
-} 
 
 .touch.csstransforms3d #page-content-wrapper {
   width: 100%;
@@ -366,6 +366,8 @@ ul.nav-path-selected {
  display: none;
 }
 
+/* Callouts as seen in the BS docs */
+
 .bs-callout {
   margin: 20px 0;
   padding: 15px 30px 15px 15px;
@@ -394,6 +396,10 @@ ul.nav-path-selected {
 }
 
 /* Variations */
+.bs-callout-success {
+  background-color: #dff0d8;
+  border-color: #b8d0a3;
+}
 .bs-callout-danger {
   background-color: #fcf2f2;
   border-color: #dFb5b4;
@@ -405,6 +411,29 @@ ul.nav-path-selected {
 .bs-callout-info {
   background-color: #f0f7fd;
   border-color: #d0e3f0;
+}
+
+.bs-callout-success h4 {
+color: #3c763d;
+}
+
+.bs-callout-danger h4 {
+color: #B94A48;
+}
+
+.bs-callout-warning h4 {
+color: #C09853;
+}
+
+.bs-callout-info h4 {
+color: #3A87AD;
+}
+
+.blockpanel .panel-body {
+ padding-left: 15px;
+ padding-right: 15px;
+ padding-top: 0px;
+ padding-bottom: 0px;
 }
 
 .credentials-fields {
@@ -524,14 +553,14 @@ ul.nav-path-selected {
 */
 
 #def_content_add_page {
- background-image: url(img/def_content_add_page.jpg);
+ background-image: url(img/def_content_add_page.png);
  width: 248px;
- height: 108px;
+ height: 104px;
 }
 #def_content_add_ppage {
- background-image: url(img/def_content_add_ppage.jpg);
+ background-image: url(img/def_content_add_ppage.png);
  width: 248px;
- height: 174px;
+ height: 178px;
 }
 #def_content_add_passwords {
  background-image: url(img/def_content_add_passwords.jpg);

@@ -10,8 +10,11 @@ $btIcon = $ci->getBlockTypeIconURL($this->getBlockObject());
 global $c;
 ?>
 
-<div class="encrypted-block-contain <?php echo ($c->isEditMode() ? "editmode" : ""); ?>">
- <img src="<?php echo $btIcon; ?>" class="block-icon" />
+<div class="panel panel-primary blockpanel <?php echo ($c->isEditMode() ? "editmode" : ""); ?>">
+      <div class="panel-heading">
+        <h3 class="panel-title"><img src="<?php echo $btIcon; ?>"/> <?php echo $this->getBlockObject()->getBlockTypeObject()->getBlockTypeName(); ?></h3>
+      </div>
+      <div class="panel-body">
 
 
 <div class="bs-callout bs-callout-info">
@@ -24,7 +27,7 @@ global $c;
 </div>
 
 <?php  if (!empty($field_2_textbox_text) || !empty($field_3_textbox_text)): ?>
-<div class="bs-callout bs-callout-danger">
+<div class="bs-callout bs-callout-success">
 	<h4> FTP </h4>
 
 		<?php  if (!empty($field_2_textbox_text)): ?>
@@ -57,7 +60,7 @@ global $c;
 <?php  endif; ?>
 
 <?php  if (!empty($field_4_textbox_text) || !empty($field_5_textbox_text)): ?>
-<div class="bs-callout bs-callout-danger">
+<div class="bs-callout bs-callout-success">
 	<h4> SSH </h4>
 
 		<?php  if (!empty($field_4_textbox_text)): ?>
@@ -89,7 +92,7 @@ global $c;
 <?php  endif; ?>
 
 <?php  if (!empty($field_6_textbox_text) || !empty($field_7_textbox_text) || !empty($field_8_textbox_text)): ?>
-<div class="bs-callout bs-callout-danger">
+<div class="bs-callout bs-callout-success">
 	<h4> Database </h4>
 
 		<?php  if (!empty($field_6_textbox_text)): ?>
@@ -138,4 +141,5 @@ global $c;
 		</div>
 		<?php  endif; ?>
 
+		</div>
 		</div>
