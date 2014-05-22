@@ -169,14 +169,10 @@
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="margin-top: -13px; margin-right: -7px;">&times;</button>
 					 <i class="icon-bullhorn"></i> <strong>A new version of PasswordX is available! (v<?php echo $new_version->latest_stable ?>)</strong> <?php echo $new_version->message->update_msg ?>. <a href="<?php echo $new_version->message->update_url ?>">Click here to see how to update</a>.
 					</div>
-				<?php 					
-				} else { 
-				?>
+				<?php } else if( $u->config('permanent_easteregg_dismissal') != 1 ) { ?>
 					<div class="alert alert-info">
-					 <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="margin-top: -13px; margin-right: -7px;">&times;</button>
-				<?php
-					$nsa->easter_egg();
-				?>
+					 <button type="button" id="easter-egg-dismissal-btn" class="close" data-dismiss="alert" aria-hidden="true" style="margin-top: -13px; margin-right: -7px;">&times;</button>
+						<?php $nsa->easter_egg(); ?>
 					</div>				
 				<?php } ?> 
 					

@@ -131,30 +131,6 @@ class DesignerContentBlockGenerator {
 				$needsPasswordJS = true;
 			}
 			
-			/*
-			//we are not doing required for now
-			if ( $field['type'] == 'textbox' && $field['required']) {
-				$code .= "\tif (\$('#field_{$field['num']}_textbox_text').val() == '') {\n";
-				$translated_error = $this->addslashes_single( t('Missing required text') );
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			
-			if ( $field['type'] == 'password' && $field['required']) {
-				$code .= "\tif (\$('#field_{$field['num']}_textbox_text').val() == '') {\n";
-				$translated_error = $this->addslashes_single( t('Missing required text') );
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-				
-			if ($field['type'] == 'textarea' && $field['required']) {
-				$code .= "\tif (\$('#field_{$field['num']}_textarea_text').val() == '') {\n";
-				$translated_error = $this->addslashes_single( t('Missing required text') );
-				$label = $this->addslashes_single($field['label']);
-				$code .= "\t\tccm_addError('{$translated_error}: {$field_label}');\n";
-				$code .= "\t}\n\n";
-			}
-			*/
 		}
 		$token = '[[[GENERATOR_REPLACE_VALIDATIONRULES]]]';
 		$template = str_replace($token, $code, $template);
@@ -201,9 +177,7 @@ class DesignerContentBlockGenerator {
 		
 		$encr_fields = array();
 		$all_fields = array();
-		
-		$searchable_code = '';
-		$searchable_fields = 0;
+		$search_fields = array();
 		
 		foreach ($this->fields as $field) {
 			
@@ -223,8 +197,7 @@ class DesignerContentBlockGenerator {
 			
 			//is the field searchable?
 			if($field['searchable']) {
-				$searchable_code .= "\t\t\$content[] = \$this->field_{$field['num']}_{$thisSufix};\n";
-				$searchable_fields++;
+				$search_fields[] = "'field_{$field['num']}_{$thisSufix}'";
 			}
 		}
 		
@@ -254,15 +227,12 @@ class DesignerContentBlockGenerator {
 		$template = str_replace($token, $code, $template);
 		
 		//searchable fields
-		$code = '';
-		if ($searchable_fields == 1) {
-			$code = str_replace('$content[] =', 'return', $searchable_code);
-			$code = "\tpublic function getSearchableContent() {\n" . $code . "\t}\n";
-		} else if ($searchable_fields > 1) {
-			$code = "\t\t\$content = array();\n" . $searchable_code . "\t\treturn implode(' - ', \$content);\n";
-			$code = "\tpublic function getSearchableContent() {\n" . $code . "\t}\n";
+		$code = "\tprotected \$searchable_fields = array(";
+		if( !empty($search_fields) ) {
+			$code .= implode(',',$search_fields);
 		}
-		$token = '[[[GENERATOR_REPLACE_GETSEARCHABLECONTENT]]]';
+		$code .= ");\n";
+		$token = '[[[GENERATOR_REPLACE_SEARCH_FIELDS]]]';
 		$template = str_replace($token, $code, $template);
 
 		//Output file

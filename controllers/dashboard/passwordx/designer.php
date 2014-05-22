@@ -67,26 +67,6 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 		$fields_searchable = $this->post('fieldsSearchable');
 		$fields_exportable = $this->post('fieldsExportable');
 		
-		$field_prefixes = $this->post('fieldPrefixes');
-		$field_suffixes = $this->post('fieldSuffixes');
-		$field_static_html = $this->post('fieldStaticHtml');
-		
-		$fields_textbox_maxlengths = $this->post('fieldTextboxMaxlengths');
-		$field_image_links = $this->post('fieldImageLinks');
-		$field_image_link_targets = $this->post('fieldImageLinkTargets');
-		$field_image_show_alt_texts = $this->post('fieldImageShowAltTexts');
-		$field_image_sizings = $this->post('fieldImageSizings');
-		$field_image_widths = $this->post('fieldImageWidths');
-		$field_image_heights = $this->post('fieldImageHeights');
-		$field_url_targets = $this->post('fieldUrlTargets');
-		$field_date_formats = $this->post('fieldDateFormats');
-		$field_select_options = $this->post('fieldSelectOptions');
-		$field_select_show_headers = $this->post('fieldSelectShowHeaders');
-		$field_select_header_texts = $this->post('fieldSelectHeaderTexts');
-		$field_default_contents = $this->post('fieldDefaultContents');
-		
-		
-		
 		//Set up the code generator
 		Loader::library('3rdparty/block_generator');
 		$block = new DesignerContentBlockGenerator();
@@ -138,9 +118,6 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 			}
 			
 		}
-		
-		echo "<pre>";
-		print_r($block);
 		
 		//Make+install block
 		$block->generate($handle, $name, $description);

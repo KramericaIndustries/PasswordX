@@ -357,4 +357,11 @@ $(function(){
 		}
 	});
 	
+	/* Permanent dismissal of the easteregg */
+	$("#easter-egg-dismissal-btn").click(function(){
+		$.get( "/tools/easteregg_dismissal", function( xhr ) {
+			 //I dont think we should care about the response
+			//if it was ok - great, if not - meh
+		});
+	});
 });
