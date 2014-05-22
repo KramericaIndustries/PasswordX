@@ -37,7 +37,7 @@
 	</li>
 	
 	<li>
-	<a href="/index.php/dashboard/passwordx/administration/"><i class="icon-download-alt"></i> (Todo) Export Passwords</a>
+	<a href="/index.php/dashboard/passwordx/export/"><i class="icon-download-alt"></i> Export Passwords</a>
 	</li>	
 	
 	</ul>
