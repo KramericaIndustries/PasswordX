@@ -22,7 +22,7 @@ class RecoveryController extends Controller {
         $this->set("masterTest", file_exists( DIR_BASE . '/config/recovery/' . $mek_filename ));
 		
         //no sidebar, please
-        $this->set("nosidebar",true);
+        $this->set("sidebar",false);
 	} 
 
 	/**

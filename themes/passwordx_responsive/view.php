@@ -6,20 +6,25 @@
  */
 
 $this->inc('elements/header.php');
- if (!$nosidebar) {
+
+ if ($sidebar) {
   $this->inc('elements/sidebar.php'); 
  }
+ 
 ?>
+ <?php if (!$sidebar) { ?>
+	<div id="page-content-wrapper">
+ <?php } ?>
 
-<?php  print $innerContent; ?>
+<?php print $innerContent; ?>
 
-<?php 
- if (!$nosidebar) {
- ?>
+ <?php if (!$sidebar) { ?>
+	</div>
+ <?php } else { ?>
 	  </div> <!-- //inset -->
   	 </div> <!-- //page-content-wrapper -->
     </div> <!-- //wrapper -->
  <?php
- }
+	   }
 
 $this->inc('elements/footer.php'); ?>

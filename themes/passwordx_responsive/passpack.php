@@ -21,8 +21,6 @@ $page = Page::getCurrentPage();
 					$a->display($c);
 				?>
 
-				<div class="spacer"></div>
-				
 				
 				<?php
 					if($a->getTotalBlocksInArea() == 0 ) {
@@ -43,14 +41,16 @@ $page = Page::getCurrentPage();
 			
 			<div class="no-touch-tip">
 			 <p><span class="label label-primary">Select</span> Hover over username or password hashed area to reveal the password.</p>
-			 <p><span class="label label-info">Copy</span> Use Ctrl/&#8984;+C to copy it to clipboard. :)</p>
+			 <p><span class="label label-info">Copy&nbsp;&nbsp;</span> &nbsp;Use Ctrl/&#8984;+C to copy it to clipboard. :)</p>
 			</div>
 			<div class="touch-tip">
-			 <p><span class="label label-primary">Select</span> Long press on the data you want to select.</p>
-			 <p><span class="label label-info">Copy</span> Use your touch device built-in copy to clipboard functionality. :)</p>			
+			 <p><span class="label label-primary">Select</span> <span class="tip-inner">Long press to select.</span></p>
+			 <p><span class="label label-info">Copy&nbsp;&nbsp;</span> &nbsp;<span class="tip-inner">Tap copy to clipboard button.</span></p>			
 			</div>
 			
 				<?php } ?>
+				
+				<div class="spacer"></div>
 		
 	  </div> <!-- //inset -->       
  	 </div> <!-- //page-content-wrapper -->

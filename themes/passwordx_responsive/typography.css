@@ -7,17 +7,20 @@
   Some base Typography CSS here duplicated from Bootstrap. Needed here in order to allow Wysiwyg to render content correctly 
   Todo: Look into making a custom build from Bootstrap source files.
  */
+ 
+ 
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+ 
  html {
   font-size: 62.5%;
-
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #333;
-  background-color: #fff;
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	background: #fff;
+	font-weight: 400;
+	font-size: 12pt;
+	color: #333;
 }
 input,
 button,

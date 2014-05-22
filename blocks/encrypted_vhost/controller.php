@@ -89,7 +89,7 @@ class EncryptedVhostBlockController extends BlockController {
 	}
 	
 	/**
-	 * Data to be editted
+	 * Data to be edited
 	 */
 	public function edit() {
 		

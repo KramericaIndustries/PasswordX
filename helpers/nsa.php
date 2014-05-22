@@ -118,7 +118,7 @@ class NsaHelper {
 			return true; //connection is secured
 		} else {
 			if( (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ) {
-				return true; //connection is secured, via CloudFlare
+				return true; //connection is semi-secured, via CloudFlare (client->Cloudflare, CF->this server is still insecure)
 			} else {
 				return false; //connection is UNSECURED
 			}

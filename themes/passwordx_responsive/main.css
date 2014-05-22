@@ -2,28 +2,27 @@
  * Main CSS File
  */
 
- #wrapper {
-  padding-left: 270px;
-  transition: all 0.4s ease 0s;
+ 
+ 
+/* Common */
+ 
+#wrapper {
+ padding-left: 270px;
 }
 
 #sidebar-wrapper {
+  z-index: 100;
   margin-left: -270px;
   left: 270px;
   width: 270px;
   padding: 10px;
-  background: #000;
+  background: #428bca;
   position: fixed;
   height: 100%;
-  overflow-y: auto;
-  transition: all 0.4s ease 0s;
+  overflow-y: auto;  
 }
-
-#page-content-wrapper {
-  width: 100%;
-}
-
-#menu-toggle {
+ 
+ #menu-toggle {
   display: none;
 }
 
@@ -31,44 +30,189 @@
   padding: 20px;
 }
 
+
+/* Desktop / touch+no-css3dtransforms */
+
+.no-touch #wrapper, .no-csstransforms3d #wrapper {
+  transition: all 0.4s ease 0s;
+}
+
+.no-touch #sidebar-wrapper, .no-csstransforms3d #sidebar-wrapper {
+  transition: all 0.4s ease 0s;
+}
+
+.no-touch #page-content-wrapper, .no-csstransforms3d #page-content-wrapper {
+  width: 100%;
+}
+
 @media (max-width:767px) {
 
-#wrapper {
+.no-touch #wrapper, .no-csstransforms3d #wrapper {
   padding-left: 0;
 }
 
-#sidebar-wrapper {
+.no-touch #sidebar-wrapper, .no-csstransforms3d #sidebar-wrapper {
   left: 0;
 }
 
-#wrapper.active {
+.no-touch #wrapper.active, .no-csstransforms3d #wrapper.active {
   position: relative;
   left: 270px;
 }
 
-#wrapper.active #sidebar-wrapper {
+.no-touch #wrapper.active #sidebar-wrapper, .no-csstransforms3d #wrapper.active #sidebar-wrapper {
   left: 270px;
   width: 270px;
   transition: all 0.4s ease 0s;
 }
 
-#menu-toggle {
+.no-touch #menu-toggle, .no-csstransforms3d #menu-toggle {
   display: inline-block;
 }
 
-.inset {
+.no-touch .inset, .no-csstransforms3d .inset {
   padding: 15px;
 }
 
 }
+
  
+ /* Touch+css3d+small screen */
+ 
+ @media (max-width:767px) {
+ 
+html.touch.csstransforms3d, .touch.csstransforms3d body, #wrapper {
+  height: 100%;
+ }
+ 
+.touch.csstransforms3d body {
+ background-color: #444 !important;
+ overflow: hidden;
+}
+
+.touch.csstransforms3d #wrapper {
+  height: 100%;
+}
+
+
+.touch.csstransforms3d #page-content-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  overflow-y: scroll;
+}
+
+
+.touch.csstransforms3d #page-content-wrapper {
+	z-index: 99;
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+}
+
+.touch.csstransforms3d #page-content-wrapper::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 0;
+	background: rgba(0,0,0,0.2);
+	content: '';
+	opacity: 0;
+	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+}
+
+.touch.csstransforms3d .active #page-content-wrapper::after {
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
+}
+
+.touch.csstransforms3d .active #sidebar-wrapper {
+-webkit-box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
+-moz-box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
+box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
+}
+
+.touch.csstransforms3d #sidebar-wrapper {
+	z-index: 100;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+.touch.csstransforms3d #sidebar-wrapper::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.2);
+	content: '';
+	opacity: 1;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
+}
+
+.touch.csstransforms3d .active #sidebar-wrapper::after {
+	width: 0;
+	height: 0;
+	opacity: 0;
+	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+}
+
+
+/* Effect */
+.touch.csstransforms3d #menu-toggle {
+  display: inline-block;
+}
+
+.touch.csstransforms3d #wrapper {
+	padding-left: 0px;
+	-webkit-perspective: 1500px;
+	perspective: 1500px;
+}
+
+.touch.csstransforms3d #page-content-wrapper {
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+.touch.csstransforms3d #wrapper.active #page-content-wrapper {
+	-webkit-transform: translate3d(100px, 0, -600px) rotateY(-20deg);
+	transform: translate3d(100px, 0, -600px) rotateY(-20deg);
+	overflow: hidden;
+}
+
+.touch.csstransforms3d #sidebar-wrapper {
+	opacity: 1;
+	-webkit-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+}
+
+.touch.csstransforms3d #wrapper.active #sidebar-wrapper {
+	visibility: visible;
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.touch.csstransforms3d #sidebar-wrapper::after {
+	display: none;
+}
+
+} /* End breakpoint for mobile menu */
 
 .easter-egg {
 	position: fixed;
-	right: 0px;
+	right: 15px;
 	bottom: 0px;
 	width: 275px;
 	padding: 5px;
+	z-index: 999;
 }
 
 .sidebar-nav {
@@ -84,8 +228,8 @@
   margin-top: 20px;
 }
 
-.sidebar-nav-edit-mode {
-	top: 100px;
+.sidebar-nav ul {
+ padding-left: 20px;
 }
 
 .sidebar-nav li {
@@ -94,7 +238,7 @@
 }
 
 .sidebar-nav a {
-  color: #ccc;
+  color: #fff;
   display: inline-block;
   padding-right: 10px;
   text-decoration: none;
@@ -113,7 +257,7 @@
 
 .sidebar-nav a.add-item {
 	font-style: italic;
-	color: #999;
+	color: #B9D4EB;
 }
 
 .sidebar-nav a.add-item:hover{
@@ -148,17 +292,18 @@
 }
 
 .sidebar-nav  .nav-selected  {
-	color: #fff!important;
+	color: #c3e1ff;
+	font-style: italic;
 }
 
 .sign-icon {
 	font-size: 10px;
 	top: 0px;
 	cursor: pointer;
-	color: #ccc;
+	color: #fff;
 }
 .sign-icon:hover {
- color: #428bca;
+ color: #B9D4EB;
 }
 
  .actions-icon {
@@ -201,6 +346,28 @@ ul.nav-path-selected {
 }
 
 /* Styles for password blocks */
+
+.encrypted-block-contain  {
+ padding-left: 15px;
+ padding-right: 15px;
+ border: 1px solid #ccc;
+ position: relative;
+ margin-top: 15px;
+}
+.editmode.encrypted-block-contain {
+ border: none;
+}
+.block-icon {
+ position: absolute;
+ top: -5px;
+ left: -5px;
+}
+.editmode .block-icon {
+ display: none;
+}
+
+/* Callouts as seen in the BS docs */
+
 .bs-callout {
   margin: 20px 0;
   padding: 15px 30px 15px 15px;
@@ -229,6 +396,10 @@ ul.nav-path-selected {
 }
 
 /* Variations */
+.bs-callout-success {
+  background-color: #dff0d8;
+  border-color: #b8d0a3;
+}
 .bs-callout-danger {
   background-color: #fcf2f2;
   border-color: #dFb5b4;
@@ -242,18 +413,40 @@ ul.nav-path-selected {
   border-color: #d0e3f0;
 }
 
+.bs-callout-success h4 {
+color: #3c763d;
+}
+
+.bs-callout-danger h4 {
+color: #B94A48;
+}
+
+.bs-callout-warning h4 {
+color: #C09853;
+}
+
+.bs-callout-info h4 {
+color: #3A87AD;
+}
+
+.blockpanel .panel-body {
+ padding-left: 15px;
+ padding-right: 15px;
+ padding-top: 0px;
+ padding-bottom: 0px;
+}
+
 .credentials-fields {
  margin-bottom: 5px;
 }
 
 .credentials-fields label {
- min-width: 75px;
+ min-width: 80px;
 }
 
 .password-label,
 .username-label {
 	font-weight: bold;
-	font-size: 14px;
 	color: #444;
 }
 
@@ -282,7 +475,7 @@ ul.nav-path-selected {
 .password_textbox, .pass-block-username {
 	width: 150px;
 	cursor: pointer!important;
-	height: 25px;
+	height: 26px;
 }
 
 .touch .pass-block-username {
@@ -290,11 +483,11 @@ ul.nav-path-selected {
 }
 
 .userdata_touch_fallback {
- display: inline-block;
+ display: none;
 }
 
-.no-touch .userdata_touch_fallback {
- display: none;
+.touch .userdata_touch_fallback {
+ display: inline-block;
 }
 
 .touch-tip, .no-touch-tip {
@@ -348,9 +541,7 @@ ul.nav-path-selected {
 	
 }
 
-/*
-* UPDATE 2 > ?
-*/
+
 .selectedSearch {
 	font-style: italic;
 	text-decoration: underline!important;
@@ -362,14 +553,14 @@ ul.nav-path-selected {
 */
 
 #def_content_add_page {
- background-image: url(img/def_content_add_page.jpg);
+ background-image: url(img/def_content_add_page.png);
  width: 248px;
- height: 108px;
+ height: 104px;
 }
 #def_content_add_ppage {
- background-image: url(img/def_content_add_ppage.jpg);
+ background-image: url(img/def_content_add_ppage.png);
  width: 248px;
- height: 174px;
+ height: 178px;
 }
 #def_content_add_passwords {
  background-image: url(img/def_content_add_passwords.jpg);

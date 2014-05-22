@@ -108,7 +108,7 @@
 		<div class="input-group">
 			<input  name="query" type="text" value="" class="form-control" id="search_input" placeholder="Search...">
 		 <span class="input-group-btn">
-			<button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+			<button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 		 </span>	  
 		</div><!-- /input-group -->	
 		</form>

@@ -31,7 +31,18 @@ $this->inc('elements/sidebar.php');
 	 $b->display();
 	?>
 	
+	  </div> <!-- //inset -->       	
  	 </div> <!-- //page-content-wrapper -->
     </div> <!-- //wrapper -->
+	
+	<script type="text/javascript">
+	 /* Expand all menu items when @ homepage */
+	 $(function() {
+	  window.setTimeout(function() {
+	   $('.expandall').click();
+	  }, 200);
+	 });
+	</script>
+	
 	<script type="text/javascript" src="<?php  echo $this->getThemePath(); ?>/js/main.js"></script>
 	<?php $this->inc('elements/footer.php'); ?>

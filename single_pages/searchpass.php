@@ -12,6 +12,9 @@
 		 // Include search block programmatically to process our search
 		$bt = BlockType::getByHandle('search');
 		$bt->render('view');
+		
+		global $sidebar;
+		$sidebar = true;
 		?>
 		
 	<script type="text/javascript" src="<?php  echo $this->getThemePath(); ?>/js/main.js"></script>

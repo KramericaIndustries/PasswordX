@@ -6,9 +6,20 @@
  */
 defined('C5_EXECUTE') or die("Access Denied.");
 $block_color = array('info','warning','danger');
+
+$ci = Loader::helper('concrete/urls');
+$btIcon = $ci->getBlockTypeIconURL($this->getBlockObject());
+global $c;
 ?>
 
-<div class="bs-callout bs-callout-<?php echo $block_color[$field_5_select_value]; ?>">
+
+<div class="panel panel-primary blockpanel <?php echo ($c->isEditMode() ? "editmode" : ""); ?>">
+      <div class="panel-heading">
+        <h3 class="panel-title"><img src="<?php echo $btIcon; ?>"/> <?php echo $this->getBlockObject()->getBlockTypeObject()->getBlockTypeName(); ?></h3>
+      </div>
+      <div class="panel-body">
+
+<div class="bs-callout bs-callout-success">
 	<h4 class="block-title"> 
 		<?php  
 			if (!empty($field_1_textbox_text)){
@@ -55,6 +66,8 @@ $block_color = array('info','warning','danger');
 			<span class="notes"><?php  echo nl2br(htmlentities($field_4_textarea_text, ENT_QUOTES, APP_CHARSET)); ?></span>
 		</div>
 		<?php  endif; ?>
-		
 
 </div>
+
+      </div>
+    </div>

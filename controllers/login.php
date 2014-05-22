@@ -35,7 +35,7 @@ class LoginController extends Concrete5_Controller_Login {
         $this->set( 'otp', $this->otp );
         $this->set( 'sms', $this->sms );
         
-		$this->set("nosidebar",true);
+		$this->set("sidebar",false);
     }
 
     /**

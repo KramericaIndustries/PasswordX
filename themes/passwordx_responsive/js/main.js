@@ -15,9 +15,24 @@
 $(function(){
 
     $("#menu-toggle").click(function(e) {
+		e.stopPropagation();
         e.preventDefault();
-        $("#wrapper").toggleClass("active");
+		
+		setTimeout( function() {
+		 if ($("#wrapper").hasClass("active")) {
+		  $("#wrapper").removeClass("active");
+		 } else {		
+			$("#wrapper").addClass("active");
+		 }
+		}, 25 );
+        
     });
+	
+	$("#page-content-wrapper").click(function(e) {
+	 if ($("#wrapper").hasClass("active")) {
+	  $("#wrapper").removeClass("active");
+	 }
+	});
 
 	/* Manipulate the nav to dropdown */
 	$("#sidebar-wrapper").on( "click", ".container-toggle", function(){
@@ -340,7 +355,7 @@ $(function(){
 			event.preventDefault();
 			return false;
 		}
-	});		
+	});
 	
 	/* Permanent dismissal of the easteregg */
 	$("#easter-egg-dismissal-btn").click(function(){

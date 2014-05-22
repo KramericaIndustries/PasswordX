@@ -27,7 +27,7 @@
 				<block type="content" name="">
 					<data table="btContentLocal">
 						<record>
-							<content><![CDATA[<p>Welcome to PasswordX! Follow these instructions to get started:</p>
+							<content><![CDATA[<p>Welcome to PasswordX. Follow these instructions to get started:</p>
 <p> </p>
 <ol>
 <li>
