@@ -3,6 +3,8 @@ PasswordX
 
 A web accessible password manager that doesn't suck
 
+Website: http://passwordx.io
+ 
 * Easy to install, drop the files on the server, visit the site and follow the on screen installer
 * Gives you control over how your passwords are stored, formatted and presented
 * Decent responsive UI with helpful productivity features such as easy search and copying of passwords
