@@ -515,6 +515,7 @@ $configs = array(
 	"CONCRETE5_ORG_URL"				=>	"http://www.concrete5.org/",
 	"RECOVER_ACCESS_URL"			=>	"https://github.com/KramericaIndustries/PasswordX/wiki/Recover-Access-to-PasswordX",
 	"GITHUB_REPO_URL"				=>	"https://github.com/KramericaIndustries/PasswordX",
+	"GITHUB_WIKI_URL"				=>	"https://github.com/KramericaIndustries/PasswordX/wiki",
 	"GITHUB_ISSUES_URL"				=>	"https://github.com/KramericaIndustries/PasswordX/issues",
 	"SUPPRESS_SSL_WARNING"			=>	"false",
 	"SUPPRESS_TWOFACTOR_WARNING"	=>	"false",

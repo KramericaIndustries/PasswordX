@@ -7,7 +7,24 @@
 
 $this->inc('elements/header.php'); 
 $this->inc('elements/sidebar.php'); 
+
+$v = View::getInstance();
+$v->addFooterItem($html->javascript('jquery.backstretch.js'));
+$backgroundImage = Loader::helper('concrete/dashboard')->getDashboardBackgroundImage();
+
+//var_dump($backgroundImage);
 ?>
+
+<script type="text/javascript">
+
+	$(function() {
+		<?php if ($backgroundImage->image) { ?>
+		    $.backstretch("<?php echo $backgroundImage->image?>" <?php if (!$_SESSION['dashboardHasSeenImage']) { ?>,  {speed: 750}<?php } ?>);
+	    <?php } ?>
+
+	});
+</script>		
+
 
 	<div class="content-header">
         <h1><span id="greeting_time"></span>, <?php $u = new User(); echo ucfirst($u->getUserName()); ?>!</h1>

@@ -26,6 +26,11 @@
   display: none;
 }
 
+.page-content {
+ background-color: #fff;
+ background-color: rgba(255,255,255,0.8);
+}
+
 .inset {
   padding: 20px;
 }
@@ -237,6 +242,10 @@ box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
   text-indent: 5px;
 }
 
+.add-item {
+ text-indent: 2px;
+}
+
 .sidebar-nav a {
   color: #fff;
   display: inline-block;
@@ -435,6 +444,11 @@ color: #3A87AD;
  padding-top: 0px;
  padding-bottom: 0px;
 }
+.panel-body.padding {
+ padding-top: 15px;
+ padding-bottom: 15px; 
+}
+
 
 .credentials-fields {
  margin-bottom: 5px;

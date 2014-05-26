@@ -8,15 +8,10 @@
 <?php echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('PasswordX Dashboard'), t('This is your personal control panel for administrating PasswordX.'), false, false);?>
 <div class="ccm-pane-body"> 
 <h2>Hello <?php echo ucfirst($uobj->getUserName()); ?></h2>
-<div class="row-fluid">
- <div class="span9">
- <p>This is the main PasswordX control panel. Here you have access to the most common functions. If you need help, please take a look at the user guide.</p>
 
- </div>
- <div class="span3">
-  <a href="<?php echo $this->controller->guide_url; ?>" target="_blank" class="btn primary pull-right"><span class="icon-file icon-white"></span> User Guide</a>
- </div>
-</div>
+ <p>This is the main PasswordX control panel. Here you have access to the most common functions. If you need help, please take a look at <a href="<?php echo GITHUB_WIKI_URL; ?>" target="_blank">the wiki</a>. PasswordX is being actively developed, so if you have any suggestions or encounter any bugs, <a href="<?php echo GITHUB_ISSUES_URL; ?>" target="_blank">please report them here</a>.</p>
+
+
 
 <hr>
 <h2>Passwords &amp; Content</h2>

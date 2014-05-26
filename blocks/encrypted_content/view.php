@@ -16,7 +16,7 @@ global $c;
       <div class="panel-heading">
         <h3 class="panel-title"><img src="<?php echo $btIcon; ?>"/> <?php echo $this->getBlockObject()->getBlockTypeObject()->getBlockTypeName(); ?></h3>
       </div>
-      <div class="panel-body">
+      <div class="panel-body padding">
 
 
 
