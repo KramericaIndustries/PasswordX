@@ -160,7 +160,7 @@
 					?>
 					<div class="alert alert-info">
 					 <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="margin-top: -13px; margin-right: -7px;">&times;</button>
-					 Last login on <?php echo $timestamp ?>, from <?php echo $last_ip ?> (<?php echo $location ?>)
+					 Last login on <?php echo $timestamp ?>, from <?php echo $last_ip ?> (<?php echo $location ?>) <a href="/index.php/dashboard/reports/logs/" >View logs</a>
 					</div>
 				<?php }
 				} else if( $new_version ) {

@@ -636,6 +636,11 @@ div.ccm-edit-overlay-actions {
  display: none !important;
 }
 
+/* Float messages appended in header JS right so we're sure they're visible on-screen */
+div#ccm-page-status-bar div.alert{
+ float: right !important;
+}
+
 
 /**
 * Dashboard overrides which are the same for front and backend - duplicated for backend dashboard in /css/passwordx.css

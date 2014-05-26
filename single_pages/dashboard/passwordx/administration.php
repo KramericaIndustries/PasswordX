@@ -64,25 +64,37 @@
 	?>
 	
 	<li>
-	<a href="/index.php/login/?ctask=check-out&ccm_token=<?php echo $token; ?>"><i class="icon-picture"></i> Customize Login page</a>
+	<a href="/index.php/login/?ctask=check-out&ccm_token=<?php echo $token; ?>"><i class="icon-edit"></i> Customize Login page</a>
+	</li>
+	
+	<li>
+	 <a href="/index.php/dashboard/system/basics/interface/"><i class="icon-picture"></i> Configure background image</a>
+	</li>	
+	
+	<?php
+	 /* Page type defauls. Allow the administrator to set up standard templates for category or password pages. */
+	 $secrets = CollectionType::getByHandle("PassPack");
+	?>
+	<li>
+	<a href="<?php echo $this->url('/dashboard/pages/types?cID=' . $secrets->getMasterCollectionID() . '&task=load_master'); ?>"><i class="icon-list-alt"></i> Configure default Secrets page</a>
+	</li>
+	
+	<li>
+	<a href="/index.php/dashboard/system/mail/method/"><i class="icon-envelope"></i> Mail/SMTP Method</a>
+	</li>
+	
+	<li>
+	<a href="/index.php/dashboard/system/basics/editor/"><i class="icon-align-left"></i> Rich Text Editor</a>
+	</li>
+	
+	<li>
+	<a href="/index.php/dashboard/system/basics/multilingual/"><i class="icon-font"></i> Languages</a>
 	</li>		
 	
 	<li>
 	<a href="/index.php/dashboard/system/basics/icons/"><i class="icon-star"></i> Bookmark Icons</a>
 	</li>	
 	
-	<li>
-	<a href="/index.php/dashboard/system/basics/editor/"><i class="icon-align-left"></i> Rich Text Editor</a>
-	</li>	
-	
-	<li>
-	<a href="/index.php/dashboard/system/basics/multilingual/"><i class="icon-font"></i> Languages</a>
-	</li>	
-	
-	<li>
-	<a href="/index.php/dashboard/system/mail/method/"><i class="icon-wrench"></i> Mail/SMTP Method</a>
-	</li>
-
 	</ul>
 	</div>
 	
