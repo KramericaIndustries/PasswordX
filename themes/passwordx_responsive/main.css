@@ -263,17 +263,22 @@ box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
   text-decoration: none;
 }
 
-a.add-item {
+#sidebar-wrapper a.add-item {
 	font-style: italic;
 	color: #B9D4EB;
 }
 
-a.manage-sitemap {
+#sidebar-wrapper a.manage-sitemap {
  color: #B9D4EB;
  font-size: 10pt;
+ text-indent: 3px;
+ line-height: 23px;
+}
+#sidebar-wrapper a.manage-sitemap:hover {
+ color: #fff;
 }
 
-.sidebar-nav a.add-item:hover{
+#sidebar-wrapper a.add-item:hover {
 	font-style: italic;
 	text-decoration: none;
 	color: #fff;

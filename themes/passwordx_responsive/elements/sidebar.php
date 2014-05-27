@@ -123,7 +123,7 @@
 			$nav->render("templates/sidebar");
 		?>
 		
-		 <a class="manage-sitemap" href="/index.php/dashboard/sitemap/full/"><i class="glyphicon glyphicon-th-list"></i> Manage pages in Sitemap (move/copy)</a>
+		 <a class="manage-sitemap" href="/index.php/dashboard/sitemap/full/"><i class="glyphicon glyphicon-th-list"></i> Manage pages in Sitemap</a>
 		 <div class="spacer"></div>
 
 		</div>
