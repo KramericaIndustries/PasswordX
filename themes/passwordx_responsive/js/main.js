@@ -217,9 +217,11 @@ $(function(){
 				
 			} else {
 				//alert that something bad happend
-				alert("The server experienced an internal error while processing your request.");
+				alert("The server experienced an internal error while processing your request. Please check that you are entering a valid name. Forward slashes (/) are not allowed in page names.");
 			}
-        });
+        }).error(function() {
+			alert("The server experienced an internal error while processing your request. Please check that you are entering a valid name. Forward slashes (/) are not allowed in page names.");
+		});
 	});
 	
 	

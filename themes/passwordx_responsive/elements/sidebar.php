@@ -122,6 +122,9 @@
 			$nav->controller->displaySubPageLevels = 'all';
 			$nav->render("templates/sidebar");
 		?>
+		
+		 <a class="manage-sitemap" href="/index.php/dashboard/sitemap/full/"><i class="glyphicon glyphicon-th-list"></i> Manage pages in Sitemap (move/copy)</a>
+		 <div class="spacer"></div>
 
 		</div>
         <!-- Page content -->
