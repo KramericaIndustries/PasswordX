@@ -6,6 +6,7 @@ $(function(){
 	
 	$(".sugest_pass").click(function(){
 		$('#' + $(this).data('target')).val( sanePassword() );	
+		$('#' + $(this).data('target')).keyup();
 		return false;
 	});
 	

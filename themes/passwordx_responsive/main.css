@@ -573,6 +573,21 @@ color: #3A87AD;
 	color: #ccc!important;
 }
 
+/*
+ PW strength meter
+*/
+
+#password_input {
+ font-size: 12px;
+ margin-top: 5px;
+}
+#pwstrength_viewport_progress .progress {
+ margin-top: 5px;
+ margin-bottom: 0px;
+ height: 10px;
+}
+
+
 /**
 * Default welcome content, just images for now
 */
