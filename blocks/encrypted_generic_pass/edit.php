@@ -47,6 +47,17 @@ $handheld = $md->isMobile() || $md->isTablet();
 		<button class="btn btn-danger clear_view" id="clear_view"> Clearview the password</button>
 	</div>
 	
+		<div class="clearfix">
+		 <div class="col-lg-2 control-label"></div>
+		 <div class="col-lg-10">
+		  <div  id="password_input">
+		   <div id="pwstrength_viewport_progress" style="width: 45%;" class="pull-left" ></div><div class="pull-left">&nbsp;&nbsp;</div> 
+		   <div id="pwstrength_viewport_verdict" class="pull-left"></div> 
+		   <a href="https://tech.dropbox.com/2012/04/zxcvbn-realistic-password-strength-estimation/" target="_blank">&nbsp;Why?</a>
+		  </div>
+		 </div>
+		</div>		
+	
   </div>
   
   <div class="form-group">
@@ -70,3 +81,35 @@ $handheld = $md->isMobile() || $md->isTablet();
 		?>
     </div>
   </div>
+  
+	<!-- Password strength meter for Bootstrap 
+		https://github.com/ablanco/jquery.pwstrength.bootstrap
+		https://tech.dropbox.com/2012/04/zxcvbn-realistic-password-strength-estimation/
+	-->	
+
+<script type="text/javascript" src="/js/zxcvbn.js"></script>
+<script type="text/javascript" src="/js/pwstrength.js"></script>
+<script type="text/javascript">
+        $(function () {
+             var options = {};
+             options.ui = {
+				bootstrap2: false,
+                container: "#password_input",
+                viewports: {
+                    progress: "#pwstrength_viewport_progress",
+                    verdict: "#pwstrength_viewport_verdict"
+                }
+            };
+            options.common = {
+				minChar: 5,
+                onLoad: function () {
+				 $('.password-verdict').html("Password strength.");
+                },
+                zxcvbn: true
+            };
+
+            $('#field_3_textbox_text').val('');
+            $('#field_3_textbox_text').pwstrength(options);
+        });
+    </script>		
+  

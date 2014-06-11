@@ -8,10 +8,6 @@ defined('C5_EXECUTE') or die("Access Denied.");
 
 
 $html = Loader::helper('html');
-/* Need to load this in header for some reason or another, despite it being labeled asynch. 
-Todo: optimize all these JS blocks - might as well since we've hijacked the install view to such a high degree */
-$this->addHeaderItem($html->javascript('/js/zxcvbn-async.js'));
-
 ?> 
 
 <script type="text/javascript" src="<?php echo ASSETS_URL_JAVASCRIPT?>/bootstrap.js"></script>
@@ -249,7 +245,7 @@ $(function() {
 		https://github.com/ablanco/jquery.pwstrength.bootstrap
 		https://tech.dropbox.com/2012/04/zxcvbn-realistic-password-strength-estimation/
 	-->
-
+<script type="text/javascript" src="/js/zxcvbn.js"></script>
 <script type="text/javascript" src="/js/pwstrength.js"></script>
 <script type="text/javascript">
         $(function () {
@@ -515,6 +511,7 @@ $configs = array(
 	"CONCRETE5_ORG_URL"				=>	"http://www.concrete5.org/",
 	"RECOVER_ACCESS_URL"			=>	"https://github.com/KramericaIndustries/PasswordX/wiki/Recover-Access-to-PasswordX",
 	"GITHUB_REPO_URL"				=>	"https://github.com/KramericaIndustries/PasswordX",
+	"GITHUB_WIKI_URL"				=>	"https://github.com/KramericaIndustries/PasswordX/wiki",
 	"GITHUB_ISSUES_URL"				=>	"https://github.com/KramericaIndustries/PasswordX/issues",
 	"SUPPRESS_SSL_WARNING"			=>	"false",
 	"SUPPRESS_TWOFACTOR_WARNING"	=>	"false",

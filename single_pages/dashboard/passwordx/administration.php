@@ -8,15 +8,10 @@
 <?php echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('PasswordX Dashboard'), t('This is your personal control panel for administrating PasswordX.'), false, false);?>
 <div class="ccm-pane-body"> 
 <h2>Hello <?php echo ucfirst($uobj->getUserName()); ?></h2>
-<div class="row-fluid">
- <div class="span9">
- <p>This is the main PasswordX control panel. Here you have access to the most common functions. If you need help, please take a look at the user guide.</p>
 
- </div>
- <div class="span3">
-  <a href="<?php echo $this->controller->guide_url; ?>" target="_blank" class="btn primary pull-right"><span class="icon-file icon-white"></span> User Guide</a>
- </div>
-</div>
+ <p>This is the main PasswordX control panel. Here you have access to the most common functions. If you need help, please take a look at <a href="<?php echo GITHUB_WIKI_URL; ?>" target="_blank">the wiki</a>. PasswordX is being actively developed, so if you have any suggestions or encounter any bugs, <a href="<?php echo GITHUB_ISSUES_URL; ?>" target="_blank">please report them here</a>.</p>
+
+
 
 <hr>
 <h2>Passwords &amp; Content</h2>
@@ -37,7 +32,7 @@
 	</li>
 	
 	<li>
-	<a href="/index.php/dashboard/passwordx/administration/"><i class="icon-download-alt"></i> (Todo) Export Passwords</a>
+	<a href="/index.php/dashboard/passwordx/export/"><i class="icon-download-alt"></i> Export Passwords</a>
 	</li>	
 	
 	</ul>
@@ -69,25 +64,37 @@
 	?>
 	
 	<li>
-	<a href="/index.php/login/?ctask=check-out&ccm_token=<?php echo $token; ?>"><i class="icon-picture"></i> Customize Login page</a>
+	<a href="/index.php/login/?ctask=check-out&ccm_token=<?php echo $token; ?>"><i class="icon-edit"></i> Customize Login page</a>
+	</li>
+	
+	<li>
+	 <a href="/index.php/dashboard/system/basics/interface/"><i class="icon-picture"></i> Configure background image</a>
+	</li>	
+	
+	<?php
+	 /* Page type defauls. Allow the administrator to set up standard templates for category or password pages. */
+	 $secrets = CollectionType::getByHandle("PassPack");
+	?>
+	<li>
+	<a href="<?php echo $this->url('/dashboard/pages/types?cID=' . $secrets->getMasterCollectionID() . '&task=load_master'); ?>"><i class="icon-list-alt"></i> Configure default Secrets page</a>
+	</li>
+	
+	<li>
+	<a href="/index.php/dashboard/system/mail/method/"><i class="icon-envelope"></i> Mail/SMTP Method</a>
+	</li>
+	
+	<li>
+	<a href="/index.php/dashboard/system/basics/editor/"><i class="icon-align-left"></i> Rich Text Editor</a>
+	</li>
+	
+	<li>
+	<a href="/index.php/dashboard/system/basics/multilingual/"><i class="icon-font"></i> Languages</a>
 	</li>		
 	
 	<li>
 	<a href="/index.php/dashboard/system/basics/icons/"><i class="icon-star"></i> Bookmark Icons</a>
 	</li>	
 	
-	<li>
-	<a href="/index.php/dashboard/system/basics/editor/"><i class="icon-align-left"></i> Rich Text Editor</a>
-	</li>	
-	
-	<li>
-	<a href="/index.php/dashboard/system/basics/multilingual/"><i class="icon-font"></i> Languages</a>
-	</li>	
-	
-	<li>
-	<a href="/index.php/dashboard/system/mail/method/"><i class="icon-wrench"></i> Mail/SMTP Method</a>
-	</li>
-
 	</ul>
 	</div>
 	

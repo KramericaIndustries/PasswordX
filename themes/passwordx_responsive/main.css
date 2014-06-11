@@ -16,6 +16,7 @@
   left: 270px;
   width: 270px;
   padding: 10px;
+  padding-left: 5px;
   background: #428bca;
   position: fixed;
   height: 100%;
@@ -24,6 +25,11 @@
  
  #menu-toggle {
   display: none;
+}
+
+.page-content {
+ background-color: #fff;
+ background-color: rgba(255,255,255,0.8);
 }
 
 .inset {
@@ -216,10 +222,7 @@ box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
 }
 
 .sidebar-nav {
-  position: absolute;
   list-style-type: none;
-  /*top: 0;*/
-  top: 1;
   width: 250px;
   list-style: none;
   margin: 0;
@@ -229,18 +232,23 @@ box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
 }
 
 .sidebar-nav ul {
- padding-left: 20px;
+ padding-left: 16px;
 }
 
 .sidebar-nav li {
-  line-height: 25px;
-  text-indent: 5px;
+  line-height: 23px;
+  text-indent: 2px;
 }
 
-.sidebar-nav a {
+.add-item {
+ text-indent: 2px;
+ font-size: 10pt;
+}
+
+#sidebar-wrapper a {
   color: #fff;
   display: inline-block;
-  padding-right: 10px;
+  padding-right: 5px;
   text-decoration: none;
   -moz-transition: background-color .2s ease-in-out;
   -webkit-transition: background-color .2s ease-in-out;
@@ -249,18 +257,28 @@ box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
   transition: background-color .2s ease-in-out;
 }
 
-.sidebar-nav a:hover {
+#sidebar-wrapper a:hover {
   color: #fff;
   background: rgba(255,255,255,0.2);
   text-decoration: none;
 }
 
-.sidebar-nav a.add-item {
+#sidebar-wrapper a.add-item {
 	font-style: italic;
 	color: #B9D4EB;
 }
 
-.sidebar-nav a.add-item:hover{
+#sidebar-wrapper a.manage-sitemap {
+ color: #B9D4EB;
+ font-size: 10pt;
+ text-indent: 3px;
+ line-height: 23px;
+}
+#sidebar-wrapper a.manage-sitemap:hover {
+ color: #fff;
+}
+
+#sidebar-wrapper a.add-item:hover {
 	font-style: italic;
 	text-decoration: none;
 	color: #fff;
@@ -291,8 +309,8 @@ box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
   background: none;
 }
 
-.sidebar-nav  .nav-selected  {
-	color: #c3e1ff;
+.sidebar-nav  li.nav-selected  a {
+	color: #c3e1ff !important;
 	font-style: italic;
 }
 
@@ -308,6 +326,7 @@ box-shadow: 0px 0px 13px -2px rgba(153,153,153,0.7);
 
  .actions-icon {
 	display: none;
+	 text-indent: 5px;
  }
 
 
@@ -343,6 +362,7 @@ ul.nav-path-selected {
 
 .expandall, .contractall {
  font-size: 12px;
+ padding-right: 10px;
 }
 
 /* Styles for password blocks */
@@ -435,6 +455,11 @@ color: #3A87AD;
  padding-top: 0px;
  padding-bottom: 0px;
 }
+.panel-body.padding {
+ padding-top: 15px;
+ padding-bottom: 15px; 
+}
+
 
 .credentials-fields {
  margin-bottom: 5px;
@@ -548,6 +573,21 @@ color: #3A87AD;
 	color: #ccc!important;
 }
 
+/*
+ PW strength meter
+*/
+
+#password_input {
+ font-size: 12px;
+ margin-top: 5px;
+}
+#pwstrength_viewport_progress .progress {
+ margin-top: 5px;
+ margin-bottom: 0px;
+ height: 10px;
+}
+
+
 /**
 * Default welcome content, just images for now
 */
@@ -620,6 +660,11 @@ div.ccm-edit-overlay-actions {
 /* Hiding items that dont work well on touch */
 .touch .ccm-icon-move-menu {
  display: none !important;
+}
+
+/* Float messages appended in header JS right so we're sure they're visible on-screen */
+div#ccm-page-status-bar div.alert{
+ float: right !important;
 }
 
 

@@ -7,8 +7,20 @@
 
 $this->inc('elements/header.php'); 
 $this->inc('elements/sidebar.php'); 
-?>
 
+$v = View::getInstance();
+$v->addFooterItem($html->javascript('jquery.backstretch.js'));
+$backgroundImage = Loader::helper('concrete/dashboard')->getDashboardBackgroundImage();
+?>
+<script type="text/javascript">
+	$(function() {
+		<?php if ($backgroundImage->image) { ?>
+		    $.backstretch("<?php echo $backgroundImage->image?>" <?php if (!$_SESSION['dashboardHasSeenImage']) { ?>,  {speed: 750}<?php } ?>);
+	    <?php } ?>
+	});
+</script>		
+
+	<!-- To remove or modify the top welcome message, feel free to monkey around with this -->
 	<div class="content-header">
         <h1><span id="greeting_time"></span>, <?php $u = new User(); echo ucfirst($u->getUserName()); ?>!</h1>
 	</div>
@@ -25,18 +37,20 @@ $this->inc('elements/sidebar.php');
 	 
 	 $('#greeting_time').html(msg);
 	</script>
-    
+	
 	<?php
+	 /* This is a global area as we add content to a stack at install time. You can change the name of this area, or change it to a regular area or whatever you want. */
 	 $b = new GlobalArea("Welcome Tutorial"); 
 	 $b->display();
 	?>
+	
 	
 	  </div> <!-- //inset -->       	
  	 </div> <!-- //page-content-wrapper -->
     </div> <!-- //wrapper -->
 	
 	<script type="text/javascript">
-	 /* Expand all menu items when @ homepage */
+	 /* Expand all menu items when @ homepage /hacky/ */
 	 $(function() {
 	  window.setTimeout(function() {
 	   $('.expandall').click();

@@ -1,6 +1,13 @@
 <?php defined('C5_EXECUTE') or die("Access Denied.");
 header('Content-type: text/javascript');
 
+/**
+ * This is probably the most viciously heinous thing in all the core Concrete5 system. The author must have known, somewhere deep down, that as soon as he concatenated his 150th JS string containing a mix of HTML and PHP that he was doing something truly terrible. An evil path loomed large before him. But the poor fool couldn't stop... He was in too deep. Just. Had. To. Keep going. "Just one more addition to menuHTML and we'll be done...." He said to himself, silently crying. Years later he revisited this code and was reminded of what Oppenheimer said following the first Trinity test: "Now I am become Death, the destroyer of worlds" - AHJ
+ * 
+ * (c) 2014 PasswordX
+ * Apache v2 License
+ */
+
  global $u;
  if (!$u->isLoggedIn()) {
   die("Access Denied.");
@@ -100,7 +107,7 @@ foreach($items as $ih) {
 }
 ?>
 
-menuHTML += '<li class="hidden-xs hidden-sm"><a class="ccm-icon-edit-external-link ccm-menu-icon" target="_blank" id="ccm-nav-report" href="<?php echo GITHUB_ISSUES_URL; ?>">Suggestions / Bugs</a></li>';
+//menuHTML += '<li class="hidden-xs hidden-sm"><a class="ccm-icon-edit-external-link ccm-menu-icon" target="_blank" id="ccm-nav-report" href="<?php echo GITHUB_ISSUES_URL; ?>">Suggestions / Bugs</a></li>';
 
 <?php if ($dh->canRead()) { ?>
 	menuHTML += '<li><a class="ccm-icon-dashboard ccm-menu-icon" id="ccm-nav-dashboard<?php if ($md->isMobile()) { ?>-mobile<?php } ?>" href="<?php echo View::url('/dashboard/passwordx/administration')?>">' + <?php echo $jh->encode(t('Dashboard'))?> + '</a></li>';

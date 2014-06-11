@@ -5,7 +5,8 @@ ccmValidateBlockForm = function() {
 $(function(){
 	
 	$("#sugest_pass").click(function(){
-		$('#field_3_textbox_text').val( sanePassword() );	
+		$('#field_3_textbox_text').val( sanePassword() );
+		$('#field_3_textbox_text').keyup();
 		return false;
 	});
 	
