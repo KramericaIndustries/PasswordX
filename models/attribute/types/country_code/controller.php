@@ -8,13 +8,25 @@ class CountryCodeAttributeTypeController extends AttributeTypeController  {
 	 * @param array/CountryCodeAttributeTypeValue $data
 	 */
 	public function saveForm($data) {
+		$this->saveValue($data);
+	}
+	
+	/**
+	 * Saves a value
+	 * @param array/CountryCodeAttributeTypeValue $data
+	 */
+	public function saveValue($data) {
 		$db = Loader::db();
 		
 		if ($data instanceof CountryCodeAttributeTypeValue) {
 			$data = (array) $data;
 		}
 		
-		extract($data);
+		if( is_string($data) ) {
+			$countryCode = $data;
+		} else {
+			extract($data);
+		}
 		
 		$db->Replace('atCountryCode', array('avID' => $this->getAttributeValueID(),
 				'code' => $countryCode
