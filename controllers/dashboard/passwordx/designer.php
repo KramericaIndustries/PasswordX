@@ -115,6 +115,10 @@ class DashboardPasswordxDesignerController extends DashboardBaseController {
 						!empty($fields_exportable[$id])
 					);
 					break;
+					
+				case 'group':
+					$block->add_group_delimiter( $field_labels[$id] );
+					break;
 			}
 			
 		}

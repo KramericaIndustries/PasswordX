@@ -79,6 +79,20 @@ class DesignerContentBlockGenerator {
 			'maxlength' => 0
 		);
 	}
+	
+	public function add_group_delimiter( $group_name ) {
+		$this->fields[] = array(
+				'num' => count($this->fields) + 1,
+				'type' => 'group',
+				'label' => $group_name,
+				'prefix' => '',
+				'suffix' => '',
+				'encrypted' => false,
+				'searchable' => false,
+				'editable' => false,
+				'maxlength' => 0
+		);
+	}
 
 	public function generate($handle, $name, $description = '') {
 		$this->handle = $handle;

@@ -88,9 +88,14 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Desi
 				            </div>	
 						
 							<div class="span4">
-								<label for="" class="special-label">Input Label:</label><input type="text" class="designer-content-field-editorlabel" name="fieldLabels[${id}]" id="fieldLabels[${id}]" placeholder="Label">
+								{{if type == 'group'}}
+									<label for="" class="special-label">Name</label><input type="text" class="designer-content-field-editorlabel-grp" name="fieldLabels[${id}]" id="fieldLabels[${id}]" placeholder="Group Name">
+								{{else}}
+									<label for="" class="special-label">Input Label:</label><input type="text" class="designer-content-field-editorlabel" name="fieldLabels[${id}]" id="fieldLabels[${id}]" placeholder="Label">
+								{{/if}}
 							</div>
 
+							{{if type != 'group'}}
 							<div class="span5">
 							<!--
 							<label class="checkbox inline" for="fieldsRequired[${id}]">
@@ -105,7 +110,7 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Desi
   								<input type="checkbox" name="fieldsExportable[${id}]" id="fieldsRequired[${id}]" value="exportable" checked> Exportable
 							</label>
 							</div>
-
+							{{/if}}
 						</div> <!-- //row with text -->
 
 			        </div>
@@ -124,6 +129,8 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Desi
 	                  <li><a href="#" class="add-field-type" data-type="textarea"><?php echo t('Textarea field'); ?></a></li>
 	                  <li class="divider"></li>
 	                  <li><a href="#" class="add-field-type" data-type="wysiwyg"><?php echo t('WYSIWYG'); ?></a></li>
+	                  <li class="divider"></li>
+	                  <li><a href="#" class="add-field-type" data-type="group"><?php echo t('Group Separator'); ?></a></li>
 	                </ul>
 	              </div>
 			
@@ -160,7 +167,8 @@ echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Desi
 			'textbox': '<?php  echo t("Textbox Field"); ?>',
 			'textarea': '<?php  echo t("Text Area Field"); ?>',
 			'wysiwyg': '<?php  echo t("WYSIWYG Editor"); ?>',
-			'password': '<?php  echo t("Password Field"); ?>'
+			'password': '<?php  echo t("Password Field"); ?>',
+			'group': '<?php  echo t("Group separator"); ?>'
 		};
 		var ERROR_MESSAGES = {
 			'name_required': '<?php  echo t("Block Name is required."); ?>',
