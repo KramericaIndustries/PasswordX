@@ -666,6 +666,12 @@ $(function() {
 	</td>
 	<td><?php if (!$hashTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('hash functions are required.')?>" /><?php } ?></td>
 </tr>
+<tr>
+    <td><?php if ($mod_rewriteTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/success.png" /><?php } else { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/error.png" /><?php } ?></td>
+    <td width="100%"><?php echo t('Mod_rewrite enabled')?>
+    </td>
+    <td><?php if (!$mod_rewriteTest) { ?><img src="<?php echo ASSETS_URL_IMAGES?>/icons/tooltip.png" class="launch-tooltip" title="<?php echo t('Apache mod_rewrite is required.')?>" /><?php } ?></td>
+</tr>
 </table>
 </div>
 <div class="span5">

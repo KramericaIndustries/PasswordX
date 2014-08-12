@@ -11,6 +11,12 @@ class InstallController extends Concrete5_Controller_Install {
 	public function on_start() {
 		parent::on_start();
 		$this->setRequiredItemsExtended();
+
+        //avoid circle loop
+        if( substr( Request::get()->getRequestPath(), 0, 22 ) != 'install/-/testrewrite/' ) {
+            $this->setRequiredModRewrite();
+        }
+
 	}
 	
 	/**
@@ -103,8 +109,84 @@ class InstallController extends Concrete5_Controller_Install {
 		$this->set('hashTest', function_exists('hash'));
 		$this->set('mcryptTest', function_exists('mcrypt_module_self_test'));
 		$this->set('opensslTest', function_exists('openssl_random_pseudo_bytes'));
+
+
 	}
-	
+
+    /**
+     * Check for mode rewrite
+     */
+    protected function setRequiredModRewrite() {
+
+        //Test for ModRewrite to be Enbaled
+        $this->set('mod_rewriteTest', $this->hasModRewrite());
+
+    }
+
+    /**
+     * Required conditions to start the install
+     * @return bool
+     */
+    public function passedRequiredItems() {
+        if (
+            $this->get('imageTest') &&
+            $this->get('mysqlTest') &&
+            $this->get('fileWriteTest') &&
+            $this->get('xmlTest') &&
+            $this->get('mod_rewriteTest') &&
+            $this->get('phpVtest')
+        ) {
+            return true;
+        }
+    }
+
+    /**
+     * Checks if mod rewrite is enabled
+     * @return bool
+     */
+    private function hasModRewrite() {
+
+        if (function_exists('apache_get_modules')) {
+            /*
+             * If using mod-apache, we have access to the list of modules enables inAapache
+             */
+            $modules = apache_get_modules();
+            $mod_rewrite = in_array('mod_rewrite', $modules);
+
+        } else {
+
+            /*
+             * If using fcgi, we will get a task from the controller, using a rewritten URL
+             * and check if we got the expected response
+             * Note: we use expected response as sum of 2 random numbers in order to avoid cache
+             */
+
+            $a = rand(1,10);
+            $b = rand(1,10);
+
+            Loader::library('3rdparty/resty');
+
+            $resty = new Resty();
+            $resty->setBaseURL( 'http://' . $_SERVER['SERVER_NAME'] );
+            $resp = $resty->get('/install/-/testrewrite/' . $a . '/' . $b . '/');
+
+            $mod_rewrite = (intval($resp["body"]) == $a+$b);
+
+        }
+
+        return $mod_rewrite;
+    }
+
+    /**
+     * Returns the sum of 2 numbers
+     * @param $a
+     * @param $b
+     */
+    public function testrewrite( $a, $b ) {
+        echo (intval($a) + intval($b));
+        exit();
+    }
+
 	/**
 	 * validate the authy api key provided
 	 * @param $e
