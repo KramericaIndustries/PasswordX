@@ -1,7 +1,7 @@
 PasswordX
 =========
 
-A web accessible password manager that doesn't suck
+## YOU SHOULD PROBABLY NOT BE USING THIS. PasswordX is no longer maintained and only supports php5.6.
 
 Website: http://passwordx.io
  
